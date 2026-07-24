@@ -1,0 +1,4 @@
+spec,key,coef,t,N
+"(A) within-Affirm: CR vs other, log count",cr:post,-0.3027364504483634,-3.63135589220776,108
+"(B) cross-firm: Affirm vs peers, log CR count",treat:post,-0.33050548897383975,-0.7600400434906731,245
+(C) (B) excl. Klarna (tiny base),treat:post,-0.07899849728625244,-0.16493201596733922,196

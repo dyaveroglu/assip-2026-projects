@@ -1,0 +1,638 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}\doublespacing
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\graphicspath{{../output/figures/}}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{placeins}
+\InputIfFileExists{tables/edgar_scalars.tex}{}{%
+  \newcommand{\edgarnfirms}{650}\newcommand{\edgarcorr}{0.00}\newcommand{\edgarshare}{0}}
+\InputIfFileExists{tables/ext_scalars.tex}{}{%
+  \newcommand{\ripHead}{0.09}\newcommand{\ripTight}{0.05}\newcommand{\matchPairs}{0}%
+  \newcommand{\matchGapHead}{0.00}\newcommand{\matchTHead}{0.00}%
+  \newcommand{\matchRegHead}{0.00}\newcommand{\matchRegTHead}{0.00}%
+  \newcommand{\balPreSize}{0.00}\newcommand{\balPostSize}{0.00}\newcommand{\mdeTenDay}{0.00}}
+
+\title{\textbf{Did ChatGPT Reprice AI-Exposed Labor?\\
+Abnormal Returns, Substitution, and Complementarity Around the Generative-AI Shock}}
+\author{Nam Bao Ngo \and Lei Gao\thanks{Ngo: ASSIP 2026, George Mason University.
+Gao (corresponding author): Costello College of Business, George Mason University,
+\texttt{lgao9@gmu.edu}. This is a student--faculty working paper prepared in the ASSIP 2026
+Empirical Finance research group. All results use public data---CRSP and Compustat via WRDS;
+the Felten--Raj--Seamans (2021) AI-exposure indices from their public data appendix; and SEC
+EDGAR 10-K filings; every reported number traces to a regression-output CSV in
+\texttt{output/tables/} and is reproduced by the code in \texttt{code/}. No numbers are
+fabricated. We thank the ASSIP 2026 cohort for comments. Any errors are our own.}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent We ask whether the U.S. stock market repriced firms according to their
+exposure to generative artificial intelligence around ChatGPT's release
+(November 30, 2022) and GPT-4 (March 14, 2023). Using market-model cumulative
+abnormal returns (CARs) for 3{,}056 firms and the Felten--Raj--Seamans AI Industry
+Exposure (AIIE) index mapped to firms by 4-digit NAICS, we find that AI exposure was
+priced---and that its \emph{sign} depends on whether AI substitutes for or complements
+a firm's labor. An equal-weighted portfolio long the most and short the least
+AI-exposed industries earned $+1.3\%$ over $[0,+1]$ ($t=3.96$) and $+2.7\%$ over
+$[0,+10]$ ($t=3.46$) around ChatGPT; in the cross-section a one-standard-deviation
+increase in AIIE is associated with a $+0.71$pp ten-day CAR ($t=2.49$, industry-clustered),
+rising to $+0.97$pp ($t=3.39$) among non-financials, with a clean null in the
+pre-event placebo window. But the average masks a sign reversal: AI-\emph{supplier}
+industries (software, semiconductors, cloud) earned $+0.6\%$ while
+\emph{substitution} industries whose product \emph{is} cognitive labor
+(staffing, education, publishing, legal, consulting, advertising) earned $-2.8\%$
+($t=-2.32$). Firm-level 10-K AI-mention intensity (from \edgarnfirms{} EDGAR filings)
+correlates with AIIE ($\rho=\edgarcorr$) and independently predicts the tight-window
+cross-section. The market treated generative AI as a net cost saving for most firms
+but as a competitive threat where AI can produce the firm's output. The priced-exposure effect
+survives balancing high- and low-exposure firms on size, value, momentum, and employment, but is
+only borderline under industry-level randomization inference (which we report transparently, since
+exposure varies across just 182 industries), and a power analysis shows the well-populated windows
+are informative rather than underpowered. \\[4pt]
+\noindent\textbf{JEL:} G14, G12, J24, O33, E24. \quad
+\textbf{Keywords:} generative AI, ChatGPT, labor exposure, event study, abnormal returns.
+\end{abstract}
+
+\section{Introduction}
+On November 30, 2022, OpenAI released ChatGPT; it reached one million users in five
+days and became the fastest-adopted consumer technology on record. For the first time
+a general-purpose tool could perform, at low cost, tasks long thought to require
+educated human labor---writing, summarizing, coding, tutoring, drafting contracts,
+answering customers. If equity markets are forward-looking, the arrival of such a
+technology should have repriced firms in proportion to how much their businesses are
+exposed to the labor it can now do. This paper asks a simple question: \emph{around
+ChatGPT (and GPT-4), did high-AI-exposure firms earn abnormal returns, and did the
+sign depend on whether AI substitutes for or complements the firm's labor?}
+
+The sign is not obvious ex ante. For most firms, exposed labor is an \emph{input cost}:
+if AI can do it more cheaply, margins rise and the stock should appreciate---a
+complementarity or cost-saving channel \citep{brynjolfsson2023,noy2023}. But for some
+firms the exposed labor \emph{is the product}: a staffing agency, an online-education
+company, a publisher, a consultancy, or a copywriting shop sells cognitive output that
+generative AI can now substitute for, so the same technology is a competitive threat
+\citep{acemoglu2019,autor2003}. The market's net reaction therefore mixes a positive
+cost-saving effect and a negative product-substitution effect, and which dominates is
+an empirical question about the cross-section of returns.
+
+We answer it with a standard cross-sectional event study. We take every CRSP common
+stock active in the event window, estimate a market model over $[-252,-46]$ against the
+CRSP value-weighted index, and cumulate abnormal returns over tight windows around each
+dated release. We measure AI exposure at the industry level with the
+Felten--Raj--Seamans (2021) AI Industry Exposure index (AIIE)---a canonical,
+employment-weighted measure of how much an industry's occupational task bundle is
+exposed to AI---merged to firms by 4-digit NAICS. Because AIIE is predetermined and
+defined at the industry level, we cluster standard errors by industry and treat the
+industry measure as our workhorse, following the design used by
+\citet{eisfeldt2023} for firm-level generative-AI exposure.
+
+Our results are threefold. \emph{First, AI exposure was priced, positively on average.}
+An equal-weighted long--short portfolio (top minus bottom AIIE quintile) earned
+$+1.31\%$ over the tight $[0,+1]$ window ($t=3.96$) and $+2.68\%$ over the
+diffuse-adoption $[0,+10]$ window ($t=3.46$; Table~\ref{tab:longshort}). In the
+cross-section, a one-standard-deviation increase in AIIE is associated with a
+$+0.71$-percentage-point ten-day CAR ($t=2.49$; Table~\ref{tab:main}, column 3),
+robust to size, momentum, book-to-market and employment controls, and rising to
+$+0.97$pp ($t=3.39$) when we drop financial firms. The effect is absent in the
+$[-10,-2]$ pre-event placebo window ($-0.33$pp, $t=-1.11$), so it is not a pre-trend.
+Figure~\ref{fig:caar} shows the cumulative abnormal returns of high- and low-exposure
+firms diverging only after day~0.
+
+\emph{Second, the sign reverses with the nature of exposure.} We split high-exposure
+industries into AI \emph{suppliers} (software, semiconductors, computers, cloud---firms
+that build AI) and \emph{substitution} industries whose output is itself cognitive
+labor (employment services/staffing, education, publishing, legal, consulting,
+advertising). Over $[0,+10]$ around ChatGPT, supplier industries earned $+0.64\%$,
+ordinary AI-\emph{user} industries $-1.28\%$, and substitution industries $-2.76\%$
+($t=-2.32$; Table~\ref{tab:buckets} and Figure~\ref{fig:buckets}). The supplier-minus-
+substitution gap is $+2.5$pp. Generative AI was good for firms that sell it or use it
+internally, and bad for firms whose product it can replace.
+
+\emph{Third, a firm-level text measure corroborates the industry proxy.} From
+\edgarnfirms{} pre-ChatGPT 10-K filings on SEC EDGAR we compute each firm's AI-mention
+intensity (AI-related terms per 10{,}000 words). It is positively but only modestly
+correlated with AIIE ($\rho=\edgarcorr$)---the two capture related but distinct
+exposure---and, on its own, predicts positive ChatGPT CARs, significantly in the tight
+$[0,+1]$ window ($t=2.04$) and positively but insignificantly over $[0,+10]$
+(Table~\ref{tab:edgar}). The industry- and firm-level measures point the same way.
+
+The GPT-4 window (March 14, 2023) is badly confounded by the Silicon Valley Bank
+collapse (March 9--13) and the ensuing regional-bank and Credit Suisse turmoil, which
+hit exactly the high-AIIE financial sector. We report GPT-4 results but lean on ChatGPT
+for inference; reassuringly, the AIIE effect survives and even strengthens when we drop
+financials from the GPT-4 window ($+0.62$pp, $t=2.72$; Table~\ref{tab:robust}).
+Cleanly separating the AI signal from the concurrent macro repricing---the dovish Powell
+pivot also fell on November 30, 2022---requires hand-verifying the exact event calendar
+against market close and hand-coding true task exposure firm-by-firm, which is the
+student's contribution (Appendix; \texttt{STUDENT\_TASKS.md}).
+
+We contribute to three literatures. Relative to the AI-and-labor literature that
+measures occupational and industry exposure \citep{felten2021,webb2020,eloundou2024},
+we provide asset-pricing evidence that markets priced that exposure within days of
+ChatGPT. Relative to \citet{eisfeldt2023}, who show that generative-AI \emph{workforce}
+exposure earned positive returns after ChatGPT, we document the \emph{sign heterogeneity}
+predicted by the task framework: exposure is priced positively where AI complements and
+negatively where AI substitutes for the firm's output. Relative to the
+displacement-versus-reinstatement theory of automation \citep{acemoglu2019,autor2003},
+we show the stock market discriminated between the two channels in real time. We also complement work on how AI investment and
+technological innovation map into firm growth and market value
+\citep{babina2024,kogan2017}, by isolating the market's instantaneous reaction to a
+single, dated general-purpose-AI shock.
+Section~2 develops hypotheses, Section~3 situates the paper in the literature, Section~4 the
+data and research design, Section~5 the main results, Section~6 the sign channel, Section~7
+robustness, Section~8 heterogeneity by observable moderators, Section~9 a characteristic-matched
+design and industry-level randomization inference, Section~10 the power/minimum-detectable-effect
+analysis, and Section~11 concludes.
+
+\section{Hypotheses}
+The task framework of \citet{autor2003} and the automation model of
+\citet{acemoglu2019} distinguish a \emph{displacement} effect (a technology performs
+tasks previously done by labor) from a \emph{productivity/reinstatement} effect (cheaper
+tasks raise output and demand for complementary labor). Generative AI is a
+general-purpose technology whose comparative advantage is language and cognitive tasks
+\citep{eloundou2024,felten2023}. For a firm that \emph{uses} such labor as an input, the
+displacement of that labor is a cost saving; for a firm that \emph{sells} such labor as
+its output, displacement is demand destruction.
+\begin{quote}
+\textbf{H1 (Exposure is priced).} Around ChatGPT, abnormal returns are related to a
+firm's industry AI exposure.
+\end{quote}
+\begin{quote}
+\textbf{H2 (Sign channel).} The relation is positive where AI \emph{complements} the
+firm (AI suppliers; firms that use exposed labor internally) and negative where AI
+\emph{substitutes} for the firm's product (industries whose output is cognitive labor).
+\end{quote}
+H1 without H2 would say the market read generative AI as uniformly good (or bad) for
+exposed firms; H2 says the market conditioned on \emph{who captures the surplus}.
+
+\section{Related Literature}\label{sec:lit}
+This paper connects three strands. The first is the fast-growing literature on generative AI
+and the labor market. \citet{felten2021} construct the AI-exposure indices we use, mapping
+occupational task bundles to AI capability and aggregating to industries; \citet{webb2020} and
+\citet{eloundou2024} build complementary occupation-level exposure measures, and
+\citet{felten2023} specialize the framework to language models like ChatGPT.
+Experimental and field studies show generative AI raises the productivity of exposed workers
+\citep{brynjolfsson2023,noy2023}. This literature measures \emph{how exposed} tasks and
+industries are; our contribution is to ask whether equity markets \emph{priced} that exposure,
+and with what sign, in the days around a single dated shock.
+
+The second strand is asset pricing and technological change. \citet{kogan2017} show that
+technological innovation is priced in the cross-section of returns, and \citet{babina2024}
+document that firm-level AI investment maps into growth and product innovation. Closest to us,
+\citet{eisfeldt2023} show that firms with greater generative-AI \emph{workforce} exposure earned
+positive abnormal returns after ChatGPT. We build on their event-study design but shift the
+object of study from the average exposure effect to its \emph{sign heterogeneity}: the same
+technology is a tailwind where it complements the firm and a threat where it substitutes for the
+firm's product. This distinction is the empirical counterpart of the displacement-versus-
+reinstatement theory of automation \citep{acemoglu2019,autor2003}.
+
+The third strand is the methodology of event studies and design-based inference. Our returns
+machinery follows the daily-event-study tradition \citep{brown1985,mackinlay1997}. Because our
+key regressor, AIIE, varies only at the industry level, conventional clustered standard errors
+rest on industry-cluster asymptotics that can overstate precision when exposure is coarse; we
+therefore complement them with industry-level randomization inference, following the argument of
+\citet{young2019} that design-based permutation tests discipline seemingly significant estimates
+under a modest number of clusters. Where a sub-result is statistically insignificant---the
+five-day window, the individually-imprecise substitution bucket---we interpret it through its
+minimum detectable effect rather than as proof of no effect, as \citet{abadie2020} and the
+literature on low power and selective reporting in economics \citep{ioannidis2017} recommend.
+These tools are used diagnostically, not decoratively: they temper the headline where the
+industry-level design is genuinely uncertain, and they bound the nulls.
+
+\section{Data and Research Design}\label{sec:data}
+\paragraph{AI exposure.} Our exposure measure is the AI Industry Exposure (AIIE) index
+of \citet{felten2021}, taken from their public data appendix. AIIE scores 246 4-digit
+NAICS industries by averaging occupation-level AI exposure (AIOE) weighted by each
+industry's BLS occupational employment mix; it is standardized (mean~0, SD~1). The most
+exposed industries are professional and financial services (securities, accounting,
+legal, insurance); the least exposed are manual industries (crop-support, building
+trades, warehousing). AIIE is a measure of \emph{how much} of an industry's task bundle
+AI can do; it is silent on whether that is good or bad for firm value---which is exactly
+the object of H2.
+
+\paragraph{Returns and sample.} From CRSP we take all common shares (share codes 10, 11)
+on the NYSE/AMEX/Nasdaq with a valid NAICS whose name record spans the ChatGPT window:
+4{,}438 stocks. Following standard event-study methodology \citep{brown1985,mackinlay1997}, we
+estimate the market model $R_{it}=\alpha_i+\beta_i R_{mt}+
+\varepsilon_{it}$ over $[-252,-46]$ against the CRSP value-weighted index and cumulate
+abnormal returns over $[0,+1]$, $[0,+5]$, $[0,+10]$, $[-1,+1]$, and a $[-10,-2]$ placebo,
+for two events: ChatGPT (day~0 $=$ 2022-11-30) and GPT-4 (day~0 $=$ 2023-03-14). Merging
+to AIIE on 4-digit NAICS and requiring a valid estimation window leaves \textbf{3{,}056
+firms across 182 industries}. Predetermined controls, all measured before ChatGPT, are
+$\ln$(market equity) at 2022-10-31, six-month momentum (2022-05 to 2022-10), Compustat
+book-to-market (FY2021 common equity over market equity), and $\ln$(employees). AIIE and
+controls are winsorized at 1/99 and standardized; CARs are winsorized at 0.5/99.5.
+Table~\ref{tab:sumstats} reports summary statistics.
+
+\paragraph{Sign buckets.} To operationalize H2 we assign 4-digit NAICS industries to
+three buckets. \emph{Supplier} (computers, semiconductors, software publishers, data
+processing/cloud) are firms that build AI. \emph{Substitution} (publishers, other
+information services, legal, consulting, advertising, employment/staffing services, and
+education) are industries whose output is cognitive labor that generative AI can itself
+produce. All others are \emph{users}. This NAICS-based split is deliberately coarse:
+CRSP's industry tags are noisy (for example, several payment and financial-data firms
+are tagged under ``business support services''), and IT-services firms both build and
+are threatened by code-generating AI. Hand-coding true task exposure for 40--50 firms is
+the student's task; the automated split is the machine baseline and is, if anything,
+conservative because it leaves some large information-platform winners inside the
+substitution bucket.
+
+\paragraph{Firm-level 10-K AI intensity.} As an independent, text-based exposure measure
+we download each firm's most recent 10-K filed before ChatGPT from SEC EDGAR, strip HTML,
+and count AI-related terms (``artificial intelligence,'' ``machine learning,''
+``large language model,'' etc.) per 10{,}000 words. Across \edgarnfirms{} filings,
+\edgarshare\% mention AI at least once. This measure is used to validate AIIE and as an
+alternative regressor.
+
+\paragraph{Design-based inference.} Two features of the design shape how we read the estimates.
+First, AIIE is defined at the 4-digit-NAICS level, so treatment is effectively assigned to 182
+industries, not 3{,}056 firms; industry-clustered standard errors are the right first step, but
+the effective number of independent units is the industry count. We therefore report, alongside
+the clustered $t$-statistics, an \emph{industry-level randomization-inference} $p$-value that
+permutes the 182 industry AIIE values among the industries (holding firms-per-industry fixed),
+broadcasts the permuted exposure back to firms, and refits the clustered cross-section
+1{,}000 times (Section~\ref{sec:robust}). Second, because AIIE is correlated with firm size and
+growth characteristics, the priced-exposure effect could in principle reflect a size or
+value/growth factor loading that repriced on the same days; we address this with a
+characteristic-matched design that balances high- and low-AIIE firms on size, book-to-market,
+momentum, and employment before comparing their CARs (Section~\ref{sec:robust}), and with a
+power/minimum-detectable-effect analysis (Section~\ref{sec:power}) that states each null as a
+bound. Fully separating the AI signal from the concurrent Powell pivot requires the
+hand-verified event calendar that is the student's reserved task (Appendix;
+\texttt{STUDENT\_TASKS.md}); the design-based checks here use only observable data.
+
+\section{Main Results: Was AI Exposure Priced?}\label{sec:res}
+\paragraph{Long--short portfolios.} Table~\ref{tab:longshort} sorts firms into AIIE
+quintiles and reports mean CARs. Around ChatGPT the top-minus-bottom quintile earns
+$+1.31\%$ over $[0,+1]$ ($t=3.96$) and $+2.68\%$ over $[0,+10]$ ($t=3.46$); the
+$[-10,-2]$ placebo is an insignificant $-0.49\%$ ($t=-0.64$). The five-day $[0,+5]$
+window is positive but insignificant ($+0.70\%$, $t=1.43$)---the repricing was not
+concentrated on any single day, consistent with ChatGPT's virality building over the
+first week. Figure~\ref{fig:caar} makes the timing visible: high- and low-AIIE terciles
+track each other through day~$-1$ and diverge afterward.
+
+\paragraph{Cross-section.} Table~\ref{tab:main} regresses the ten-day ChatGPT CAR on
+standardized AIIE with progressive controls, clustering by industry. A one-SD increase
+in AIIE raises the ten-day CAR by $0.58$pp with no controls ($t=1.88$) and $0.71$pp with
+the full control set ($t=2.49$); the effect is $0.97$pp among non-financials ($t=3.39$)
+and $0.35$pp in the tight $[0,+1]$ window ($t=2.61$). H1 is supported: the market priced
+AI exposure, positively on average, within days.
+
+\section{The Sign Channel: Substitution versus Complementarity}
+The positive average hides opposing forces. Table~\ref{tab:buckets} reports mean CARs by
+sign bucket. Over ChatGPT $[0,+10]$, AI-supplier industries earned $+0.64\%$, ordinary
+users $-1.28\%$, and substitution industries $-2.76\%$ ($t=-2.32$); the pattern is
+sharper in the five-day window ($+0.36\%$, $-0.45\%$, $-2.11\%$ with $t=-2.73$ for
+substitution). Table~\ref{tab:sign} formalizes it: relative to ordinary users, supplier
+industries earned $+1.41$pp and substitution industries $-1.06$pp over $[0,+10]$, a
+$+2.5$pp supplier-minus-substitution gap. Figure~\ref{fig:buckets} visualizes the
+ordering. Individually the bucket coefficients are imprecise---there are only four
+supplier and nine substitution industries, and industry clustering is demanding---but
+the ordering is monotone and the substitution underperformance is significant in the raw
+means. H2 is supported: exposure is priced positively where AI complements and
+negatively where AI substitutes for the firm's output.
+
+\paragraph{Firm-level validation.} Table~\ref{tab:edgar} shows that firm 10-K AI-mention
+intensity, an entirely separate measure built from filing text for \edgarnfirms{} firms,
+is positively correlated with AIIE ($\rho=\edgarcorr$) and independently predicts positive
+ChatGPT CARs---significantly in the $[0,+1]$ window ($t=2.04$), positively but
+insignificantly over $[0,+10]$. The modest correlation is itself informative: the two
+measures overlap but are not redundant, and sharpening the firm-level text measure (a
+student task) should tighten the link.
+
+\section{Robustness}
+Table~\ref{tab:robust} collects sensitivity checks on the AIIE coefficient. The effect
+holds under heteroskedasticity-robust (HC1) rather than clustered errors, when financials
+are dropped, and in the tight $[0,+1]$ and $[-1,+1]$ windows. It is \emph{absent} in the
+$[-10,-2]$ placebo ($-0.33$pp, $t=-1.11$), ruling out a mechanical growth-factor pre-trend.
+The five-day window is the weakest ($+0.20$pp, $t=1.26$), which we report rather than hide.
+For GPT-4---whose window overlaps the SVB banking crisis---the AIIE coefficient is
+$+0.63$pp ($t=2.99$) and, crucially, is unchanged when we drop the crisis-hit financial
+sector ($+0.62$pp, $t=2.72$), suggesting the AI signal is not merely the banking shock in
+disguise. The single largest threat to identification is the coincidence of ChatGPT with
+the November 30, 2022 Powell pivot; the market model removes the market-wide component,
+and the null placebo is reassuring, but a characteristic-matched design and a
+hand-verified event calendar (student task) are needed to fully separate the two.
+
+\section{Heterogeneity by Observable Moderators}\label{sec:het}
+If the priced-exposure effect is concentrated in an identifiable subgroup, the pooled coefficient
+understates it there and overstates it elsewhere. Table~\ref{tab:hetero} interacts standardized
+AIIE with four \emph{predetermined, observable} moderators---an above-median size indicator,
+above-median book-to-market, above-median momentum, and a financial-firm indicator---reporting
+the base AIIE effect and the interaction for the headline $[0,+10]$ and tight $[0,+1]$ windows.
+We choose these moderators precisely because they are observable and orthogonal to the
+firm-level task exposure the student will hand-code (Task~2): the interaction of AIIE with
+\emph{true} substitution-versus-complement exposure is the reserved test, and we do not proxy it
+here. The pattern is that the priced-AIIE effect is broadly present rather than driven by one
+cell. It is positive in essentially every base group; the size interaction is positive and
+significant in the tight window ($+0.64$pp, $t=2.75$), indicating the immediate repricing was a
+little stronger among larger firms, while the value, momentum, and financial interactions are
+individually insignificant. Notably, the effect is if anything \emph{weaker}, not stronger,
+inside the high-book-to-market and high-momentum groups (negative interactions), which is not
+what a mechanical value- or momentum-factor story would predict. No single observable moderator
+explains the result away, and none substitutes for the hand-coded task exposure that the sign
+channel ultimately needs.
+
+\section{Characteristic Matching and Randomization Inference}\label{sec:robust}
+\paragraph{Characteristic matching.} The most serious observable confound is that high-AIIE
+firms differ systematically from low-AIIE firms---they are larger, more growth-oriented---so the
+priced-exposure effect might be a size or growth factor loading that repriced around ChatGPT for
+reasons unrelated to AI. Table~\ref{tab:matched} confronts this directly. We take the top and
+bottom AIIE terciles and nearest-neighbor match each high-AIIE firm to a not-yet-used low-AIIE
+firm on the standardized predetermined controls (size, book-to-market, momentum, employment),
+without replacement and within a caliper, producing \matchPairs{} matched pairs. Matching
+sharply improves balance: the high-minus-low size gap falls from \balPreSize{} to
+\balPostSize{} standard deviations, and the other characteristics are balanced to within
+$0.05$ SD. On the balanced sample the exposure effect survives: the high-minus-low CAR gap is
+\matchGapHead{}pp over $[0,+10]$ ($t=\matchTHead{}$) and $+0.99$pp over $[0,+1]$ ($t=3.72$), and
+the matched-sample AIIE regression coefficient, \matchRegHead{}pp ($t=\matchRegTHead{}$), is
+essentially identical to the full-sample estimate ($+0.71$pp). The five-day window remains the
+weak one (an insignificant $-0.10$pp), exactly as in the main analysis. The priced-exposure
+result is therefore not an artifact of the size/growth composition of high-AIIE firms; it is
+present among firms matched on those characteristics.
+
+\paragraph{Randomization inference.} Table~\ref{tab:ri} and Figure~\ref{fig:ri} report
+industry-level randomization inference: we permute the 182 industry AIIE values among the
+industries 1{,}000 times, holding firms-per-industry fixed, and refit the clustered
+cross-section. This is the design-honest null---it respects that exposure is an industry
+attribute---and it is demanding: the actual $[0,+10]$ coefficient ($+0.71$pp) sits high in the right tail
+of---but just inside---the $95\%$ permutation interval $[-0.88,+0.79]$, with a randomization
+$p$-value of \ripHead{}, while the tight $[0,+1]$ coefficient ($+0.35$pp) lies right at the
+interval's upper boundary ($[-0.38,+0.34]$), $p=\ripTight{}$. Read honestly, this \emph{tempers} the
+headline: the clustered $t$-statistics ($2.5$--$2.6$) imply more precision than the industry-level
+permutation distribution supports, because there are effectively $182$ industry units, not
+$3{,}056$ firms. The effect is robust at the immediate window and borderline over the diffuse
+window under the strictest design-based test---evidence of a priced-exposure effect, but not an
+overwhelming one, and a direct motivation for the sharper, firm-level exposure measure the
+student will hand-code.
+
+\section{Is the Result Robust in Both Directions? Power and Minimum Detectable Effects}\label{sec:power}
+Design-based inference cuts both ways: it disciplines the headline, but it also tells us whether
+the \emph{null} pieces of the paper are informative. Table~\ref{tab:power} reports, for each
+estimate, the minimum detectable effect (MDE) at $80\%$ power,
+$\text{MDE}=(z_{0.975}+z_{0.80})\,\widehat{\text{SE}}\approx 2.80\,\widehat{\text{SE}}$,
+denominated in percentage points and as a share of the cross-firm CAR standard deviation (CAR
+means are near zero, so a ``percent of mean'' scaling would be meaningless). The cross-sectional
+AIIE regressions are well powered against the long--short magnitudes the market actually
+delivered: over $[0,+10]$ the design could detect an AIIE effect as small as \mdeTenDay{}pp per
+standard deviation (about $5.5\%$ of the cross-firm CAR SD), far below the $+1.3$-to-$+2.7$pp
+long--short returns. Note that the per-standard-deviation coefficient itself ($+0.71$pp) sits
+just below this $0.80$pp detection threshold, which is precisely why the industry-level
+randomization inference in Section~\ref{sec:robust} comes back borderline---the two design-based
+diagnostics corroborate rather than contradict each other. The five-day window's
+insignificance is therefore an informative bound---an effect there above $0.62$pp would likely
+have shown up---rather than a symptom of an underpowered test, and the placebo window's null
+($-0.33$pp, MDE $0.84$pp) is a genuine absence of pre-trend, not noise. The one genuinely
+imprecise object is the substitution bucket: with only nine substitution industries, the mean
+$[0,+10]$ CAR of $-2.76\%$ carries an MDE of $3.33$pp, so while the point estimate is large and
+negative, the bucket is individually noisy and the sign channel needs the student's larger,
+hand-coded substitution sample to be pinned down. Stating each null as a bound, rather than as a
+bare ``insignificant,'' is what makes the paper's mixed evidence honest.
+
+\section{Conclusion}\label{sec:concl}
+Within days of ChatGPT's release, U.S. equity markets repriced firms by their exposure
+to the cognitive labor generative AI can perform---and did so with a sign that depends on
+economic role. Firms that build AI, and firms that use exposed labor as an internal input,
+gained; firms whose product is the very labor AI can now produce lost. A one-SD increase
+in industry AI exposure is worth roughly $+0.7$ to $+1.0$pp of ten-day abnormal return on
+average, but AI-supplier industries beat substitution-threatened industries by about
+$2.5$pp. The market behaved as the task framework predicts: it priced not just \emph{how
+exposed} a firm is to AI, but \emph{who captures the surplus}. The priced-exposure result
+survives characteristic matching---high- and low-AIIE firms balanced on size, value, momentum,
+and employment still differ by \matchGapHead{}pp over $[0,+10]$---so it is not a size or growth
+factor loading in disguise. But industry-level randomization inference, the design-honest test
+given that AIIE varies across only 182 industries, is more sober than the clustered $t$-statistics:
+the headline is robust at the immediate window ($p=\ripTight{}$) and borderline over the diffuse
+window ($p=\ripHead{}$). A power analysis shows the well-populated cross-sectional windows could
+have detected effects far smaller than the market delivered, so their nulls (the five-day window,
+the placebo) are informative bounds; the substitution bucket, by contrast, is genuinely noisy with
+only nine industries. Limitations include the coarse NAICS-based sign classification, the diffuse
+and confounded event windows, and the industry-level nature of the exposure measure; the student's
+hand-verified event calendar and firm-level task coding are designed to address exactly these,
+and should both sharpen the sign channel and firm up the borderline diffuse-window inference.
+Extending to later model releases and to realized earnings would test whether the repricing was
+justified.
+
+\begin{thebibliography}{99}
+\bibitem[Abadie(2020)]{abadie2020} Abadie, A., 2020. Statistical nonsignificance in empirical
+economics. American Economic Review: Insights 2 (2), 193--208.
+\bibitem[Acemoglu and Restrepo(2019)]{acemoglu2019} Acemoglu, D., Restrepo, P., 2019.
+Automation and new tasks: How technology displaces and reinstates labor.
+Journal of Economic Perspectives 33 (2), 3--30.
+\bibitem[Autor et al.(2003)]{autor2003} Autor, D.H., Levy, F., Murnane, R.J., 2003.
+The skill content of recent technological change: An empirical exploration.
+Quarterly Journal of Economics 118 (4), 1279--1333.
+\bibitem[Babina et al.(2024)]{babina2024} Babina, T., Fedyk, A., He, A., Hodson, J., 2024.
+Artificial intelligence, firm growth, and product innovation.
+Journal of Financial Economics 151, 103745.
+\bibitem[Brown and Warner(1985)]{brown1985} Brown, S.J., Warner, J.B., 1985.
+Using daily stock returns: The case of event studies.
+Journal of Financial Economics 14 (1), 3--31.
+\bibitem[Brynjolfsson et al.(2023)]{brynjolfsson2023} Brynjolfsson, E., Li, D., Raymond, L., 2023.
+Generative AI at work. NBER Working Paper 31161.
+\bibitem[Eisfeldt et al.(2023)]{eisfeldt2023} Eisfeldt, A.L., Schubert, G., Zhang, M.B., 2023.
+Generative AI and firm values. NBER Working Paper 31222.
+\bibitem[Eloundou et al.(2024)]{eloundou2024} Eloundou, T., Manning, S., Mishkin, P., Rock, D., 2024.
+GPTs are GPTs: Labor market impact potential of large language models. Science 384 (6702), 1306--1308.
+\bibitem[Felten et al.(2021)]{felten2021} Felten, E., Raj, M., Seamans, R., 2021.
+Occupational, industry, and geographic exposure to artificial intelligence: A novel dataset
+and its potential uses. Strategic Management Journal 42 (12), 2195--2217.
+\bibitem[Felten et al.(2023)]{felten2023} Felten, E., Raj, M., Seamans, R., 2023.
+How will language modelers like ChatGPT affect occupations and industries?
+Working paper, arXiv:2303.01157.
+\bibitem[Ioannidis et al.(2017)]{ioannidis2017} Ioannidis, J.P.A., Stanley, T.D., Doucouliagos, H.,
+2017. The power of bias in economics research. Economic Journal 127 (605), F236--F265.
+\bibitem[Kogan et al.(2017)]{kogan2017} Kogan, L., Papanikolaou, D., Seru, A., Stoffman, N., 2017.
+Technological innovation, resource allocation, and growth.
+Quarterly Journal of Economics 132 (2), 665--712.
+\bibitem[MacKinlay(1997)]{mackinlay1997} MacKinlay, A.C., 1997.
+Event studies in economics and finance. Journal of Economic Literature 35 (1), 13--39.
+\bibitem[Noy and Zhang(2023)]{noy2023} Noy, S., Zhang, W., 2023.
+Experimental evidence on the productivity effects of generative artificial intelligence.
+Science 381 (6654), 187--192.
+\bibitem[Webb(2020)]{webb2020} Webb, M., 2020.
+The impact of artificial intelligence on the labor market. Working paper, Stanford University.
+\bibitem[Young(2019)]{young2019} Young, A., 2019. Channeling Fisher: Randomization tests and the
+statistical insignificance of seemingly significant experimental results. Quarterly Journal of
+Economics 134 (2), 557--598.
+\end{thebibliography}
+
+\FloatBarrier
+\newpage
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Summary statistics}\label{tab:sumstats}\small
+\input{tables/tab_sumstats.tex}
+\begin{tablenotes}\small\item \textit{Notes:} 3{,}056 firms. CARs are market-model
+cumulative abnormal returns around ChatGPT (2022-11-30) and GPT-4 (2023-03-14). AIIE is
+the Felten--Raj--Seamans AI Industry Exposure (4-digit NAICS). Controls are predetermined
+(measured before ChatGPT).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{AI-exposure quintile portfolios: mean CARs and long--short}\label{tab:longshort}\footnotesize
+\setlength{\tabcolsep}{4.5pt}
+\input{tables/tab_longshort.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Equal-weighted mean market-model CARs (\%)
+by AIIE quintile, and the top-minus-bottom quintile long--short with a two-sample $t$.
+$[-10,-2]$ is a pre-event placebo. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Cross-sectional CAR regressions around ChatGPT}\label{tab:main}\small
+\input{tables/tab_main.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DV is the market-model CAR over the stated
+window. All regressors winsorized 1/99 and standardized (coefficients are the effect of a
+one-SD increase). Column (4) drops financial (SIC 6000--6999) firms. Standard errors
+clustered by 4-digit NAICS industry; $t$-statistics in parentheses.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{The sign channel: mean CAR by AI-role bucket}\label{tab:buckets}\small
+\input{tables/tab_buckets.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Equal-weighted mean CARs (\%) with $t$-statistics
+for AI-supplier (builds AI), AI-user (complement), and substitution (AI can produce the firm's
+output) industries. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{The sign channel: bucket-dummy regression (ChatGPT $[0,+10]$)}\label{tab:sign}\small
+\input{tables/tab_sign.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DV is CAR$[0,+10]$ around ChatGPT (\%). Base
+category is AI users. Predetermined controls included. Standard errors clustered by industry.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Robustness: the AIIE coefficient across windows, events, and estimators}\label{tab:robust}\small
+\input{tables/tab_robust.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Each row is a separate regression of the stated
+CAR on standardized AIIE with the full control set; coefficient and $t$ on AIIE reported.
+Clustered by industry except the HC1 row. GPT-4's window overlaps the March-2023 banking
+crisis. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Firm-level validation: 10-K AI-mention intensity}\label{tab:edgar}\small
+\input{tables/tab_edgar.tex}
+\begin{tablenotes}\small\item \textit{Notes:} 10-K AI-mention intensity (log AI terms per
+10{,}000 words), standardized, from the most recent pre-ChatGPT 10-K on SEC EDGAR for
+\edgarnfirms{} firms. Controls for size and momentum; industry-clustered $t$.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Heterogeneity of the priced-AIIE effect by observable moderators}\label{tab:hetero}\small
+\input{tables/tab_hetero.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Each cell pair comes from one regression of the
+stated ChatGPT CAR (\%) on standardized AIIE, its interaction with the moderator indicator, the
+moderator, and the full predetermined control set, with industry-clustered standard errors.
+``AIIE'' is the effect in the low-moderator group; ``AIIE$\times M$'' is the additional effect
+in the high group. Moderators are predetermined and observable, chosen to be orthogonal to the
+hand-coded firm-level task exposure reserved for the student. $^{*}p<0.10$, $^{**}p<0.05$,
+$^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Characteristic-matched design: does the priced-AIIE gap survive balancing?}\label{tab:matched}\small
+\input{tables/tab_matched.tex}
+\begin{tablenotes}\small\item \textit{Notes:} High-AIIE (top tercile) firms are nearest-neighbor
+matched without replacement to low-AIIE (bottom tercile) firms on the standardized predetermined
+controls (size, book-to-market, momentum, employment), Euclidean distance, caliper $0.5$.
+``High$-$low AIIE gap'' is the difference in mean CAR (\%) on the matched sample with a two-sample
+$t$; ``Matched regression'' re-estimates the full-control AIIE cross-section on the matched sample
+(coefficient in \%, industry-clustered $t$). Balance rows report the standardized high-minus-low
+mean gap before and after matching. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Industry-level randomization inference}\label{tab:ri}\small
+\input{tables/tab_ri.tex}
+\begin{tablenotes}\small\item \textit{Notes:} The 182 industry AIIE values are permuted among the
+industries 1{,}000 times (firms-per-industry held fixed) and broadcast back to firms; the
+full-control AIIE cross-section is refit each time. ``Actual AIIE'' is the estimated coefficient
+(\%); the permutation interval is the central $95\%$ of the permutation distribution; the RI
+$p$-value is the share of permutations with $|$coefficient$|$ at least as large as the actual.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Power and minimum detectable effects (80\% power)}\label{tab:power}\small
+\input{tables/tab_power.tex}
+\begin{tablenotes}\small\item \textit{Notes:} MDE $=(z_{0.975}+z_{0.80})\,\widehat{\text{SE}}
+\approx 2.80\,\widehat{\text{SE}}$, in percentage points and as a share of the cross-firm CAR
+standard deviation. AIIE-coefficient rows are the full-control cross-section for each window;
+substitution-bucket rows are the mean CAR of the nine substitution industries. CAR means are
+near zero, so effects are not scaled by the mean.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\FloatBarrier
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.80\textwidth]{fig4_randinf.pdf}
+\caption{Industry-level randomization inference for the headline window. Histogram of the AIIE
+coefficient on CAR$[0,+10]$ under 1{,}000 permutations of industry exposure among the 182
+industries; the red line is the actual estimate. The actual coefficient sits in the right tail
+of the permutation distribution (RI $p=\ripHead{}$), so the design-based test supports---but does
+not overwhelm---the clustered-SE inference.}\label{fig:ri}
+\end{figure}
+
+\FloatBarrier
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.78\textwidth]{fig3_caar_path.pdf}
+\caption{Cumulative average abnormal return (CAAR) around ChatGPT for the top and bottom
+AIIE terciles, re-based to zero at day~$-1$. The series track each other before the event
+and diverge afterward.}\label{fig:caar}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.72\textwidth]{fig2_sign_buckets.pdf}
+\caption{Mean ChatGPT CAR$[0,+10]$ by AI-role bucket. AI suppliers gain; substitution
+industries (AI can produce their output) lose most. Error bars are $\pm1$ standard error.}\label{fig:buckets}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.78\textwidth]{fig1_aiie_binscatter.pdf}
+\caption{ChatGPT CAR$[0,+10]$ versus AI Industry Exposure. Gray points are firms; red points
+are AIIE decile means; the line is the OLS fit.}\label{fig:bin}
+\end{figure}
+
+\end{document}

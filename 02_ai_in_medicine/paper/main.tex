@@ -1,0 +1,563 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}\doublespacing
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\graphicspath{{../output/figures/}}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{placeins}
+
+\title{\textbf{The Diffusion of AI into Medicine:\\
+Patents, Firms, and Firm Value}}
+\author{Michael Yucheng Zhou \and Lei Gao\thanks{Zhou: ASSIP 2026, George Mason
+University. Gao (corresponding author): Costello College of Business, George Mason University,
+\texttt{lgao9@gmu.edu}. This is a student--faculty working paper prepared in the ASSIP 2026
+Empirical Finance research group. Patent data are from the USPTO Artificial Intelligence Patent
+Dataset (AI flags, through 2023) and PatentsView (CPC subclass A61 $=$ medical); firm links and
+market-based patent values are from the \citet{kpss2017} patent$\to$CRSP crosswalk; firm
+fundamentals are from WRDS Compustat. Every number in the paper traces to a CSV in
+\texttt{output/tables/} and is reproduced by the code in \texttt{code/}. We thank the ASSIP 2026
+cohort for comments. Any errors are our own.}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent Artificial intelligence is moving into medicine---diagnostic imaging, drug discovery,
+clinical prediction. We measure that diffusion with patents and ask who is capturing it and
+whether the market values it. Intersecting the USPTO AI Patent Dataset with medical patents
+(CPC subclass A61) and linking to public firms via the \citet{kpss2017} crosswalk, we build a
+firm-year panel of 7{,}087 firms and 83{,}976 firm-years (1995--2024). Firm-matched medical-AI
+patents roughly \emph{doubled} between 2013 and 2020 (from about 920 to 1{,}800 per year). The
+frontier is \emph{owned} mostly by \emph{incumbent} health firms, which hold 47\% of firm-matched
+medical-AI patents (482 firms), versus 19\% for \emph{entrant} technology firms (135 firms). In
+two-way (firm $+$ year) fixed-effects panels, a firm's cumulative medical-AI patent stock is
+associated with a higher Tobin's Q (coef.\ $0.48$, $t=5.0$) and market capitalization (coef.\
+$0.13$, $t=5.3$). We then stress this association. It is \emph{stable}: it survives
+industry$\times$year fixed effects ($0.41$, $t=4.1$), a predetermined one-year-lagged stock
+($0.32$, $t=3.3$), an adopter-matched sample that pairs medical-AI firms to observably similar
+non-adopters ($0.50$, $t=3.2$), dropping mega-caps, and two-way clustering. A \emph{lead
+falsification}---future medical-AI patenting flow does \emph{not} predict current Q once the
+current stock is controlled ($+0.06$, $t=0.8$)---weighs against a simple reverse-causality story.
+\emph{Randomization inference} (500 permutations of the medical-AI-holder label) places the
+AI-era value gain of holders far outside its permutation distribution ($p<0.002$), so the result
+is not an artifact of clustered-standard-error asymptotics. We are careful \emph{not} to overclaim
+one thing: although incumbents \emph{own} most medical-AI patents, we cannot show the market's
+per-patent \emph{value premium} is larger for incumbents than entrants (entrant interaction
+$-0.25$, $t=-1.6$; the incumbent split is likewise flat, $-0.03$); a power analysis shows our
+design could only detect an incumbent--entrant gap larger
+than about 80\% of the base premium, so ownership concentration and premium concentration are
+distinct claims and we assert only the first. The premium is, if anything, larger for
+AI-specialized firms ($+0.20$, $t=2.2$). These remain within-firm conditional associations;
+classifying each medical-AI patent by clinical application is the paper's key manual input.\\[4pt]
+\noindent\textbf{JEL:} O33, I10, G30, O31. \quad
+\textbf{Keywords:} artificial intelligence, medicine, patents, healthcare, firm value, innovation,
+randomization inference.
+\end{abstract}
+
+\newpage
+\section{Introduction}\label{sec:intro}
+Medicine is one of AI's most consequential frontiers: machine learning now reads scans at
+dermatologist level \citep{esteva2017}, predicts clinical events from electronic health records
+\citep{rajkomar2019}, and reshapes how care is allocated \citep{obermeyer2019,topol2019}. Behind
+each of these clinical advances is a firm deciding to build a capability that fuses two very
+different kinds of expertise---knowing medicine and knowing AI. Who is winning that race, the
+pharmaceutical and device incumbents who know medicine, or the technology entrants who know AI?
+And does the capital market reward the firms that are building it? We answer both questions with
+patents, the paper trail of applied innovation, and with the market values the
+\citet{kpss2017} methodology attaches to them.
+
+We identify medical-AI patents as those flagged AI by the USPTO Artificial Intelligence Patent
+Dataset (AIPD) \emph{and} classified in CPC subclass A61 (medical or veterinary science). The
+\citet{kpss2017} crosswalk links each patent to a CRSP firm and a market-based value; merging to
+Compustat yields a firm-year panel of 7{,}087 firms over 1995--2024. Three descriptive facts
+motivate the analysis. First, firm-matched medical-AI patenting roughly doubled over 2013--2020
+(Figure~\ref{fig:trend}), tracking the broader vision-AI wave. Second, ownership of the frontier
+is concentrated in \emph{incumbent} health firms, which hold 47\% of firm-matched medical-AI
+patents, against 19\% for technology entrants (Table~\ref{tab:sector}). Third, and the focus of
+the paper's inferential work, a firm's cumulative medical-AI patent stock is positively
+associated with its value: within firm and year, a higher stock predicts higher Tobin's Q
+($t=5.0$) and market capitalization ($t=5.3$) (Table~\ref{tab:value}).
+
+The natural objection to the value result is reverse causality and omitted heterogeneity: valuable
+firms have the resources to patent more, and unobserved quality could drive both. We cannot run a
+randomized experiment on which firms invent medical AI, so rather than assert causality we do the
+next best thing---we subject the association to a battery of design-based and falsification tests
+and report exactly what each can and cannot establish. The association is remarkably
+\emph{stable}. Adding industry$\times$year fixed effects, which absorb any time-varying shock
+common to a firm's two-digit-SIC peers, barely moves it ($0.48\to0.41$, $t=4.1$). Using a
+one-year-\emph{lagged} (predetermined) stock, so that the regressor is dated before the outcome,
+leaves it positive and significant ($0.32$, $t=3.3$). Restricting to an adopter-matched sample
+that pairs each medical-AI firm to an observably similar non-adopter on pre-period size, R\&D,
+and sector reproduces it ($0.50$, $t=3.2$). It is not a story about a handful of trillion-dollar
+firms (dropping the top 1\% of market cap leaves $0.49$), nor a clustered-standard-error
+illusion (two-way clustering by firm and year leaves $t=3.9$) (Table~\ref{tab:altid}).
+
+We push on causality with two sharper tests. First, a \emph{lead falsification}: if the
+association ran from value to patenting rather than the reverse, a firm's \emph{future} medical-AI
+patenting should predict its \emph{current} Q even after conditioning on the current stock. It
+does not (future medical-AI flow $+0.06$, $t=0.8$, while the current stock retains its
+coefficient), which is what we would expect if the stock--value link is not merely valuable firms
+racing ahead into patenting (Table~\ref{tab:altid}, row 7). Second, we subject the design to
+\emph{randomization inference}: we permute the firm-level medical-AI-holder label 500 times under
+a common AI-era post window and re-estimate the holder value gain each time
+(Table~\ref{tab:ri}, Figure~\ref{fig:ri}). The actual AI-era gain for holders ($+0.66$) lies far
+outside the permutation distribution ($p<0.002$; permutation 95\% interval $[-0.25,+0.30]$), so
+the result does not rest on asymptotic inference with a particular clustering choice.
+
+We are equally careful about what we \emph{cannot} show, because the temptation to read
+ownership concentration as value concentration is exactly the overclaim an honest reading must
+avoid. Incumbents \emph{own} most medical-AI patents; that is a fact about counts
+(Table~\ref{tab:sector}). But when we ask whether the market's \emph{per-unit} value premium is
+larger for incumbents than for entrants, the entrant interaction is economically small and
+statistically insignificant ($-0.25$, $t=-1.6$; Table~\ref{tab:value}), as is the incumbent split
+($-0.03$, $t=-0.3$; Table~\ref{tab:hetero}). A minimum-detectable-effect
+calculation (Table~\ref{tab:power}) shows why we decline to make the stronger claim: at 80\% power
+our design could only have detected an incumbent--entrant premium gap larger than about 80\% of the
+base premium itself, so a moderate difference would be invisible to us. We therefore assert only
+that incumbents own the frontier, not that the market rewards their patents more per unit. Where
+the heterogeneity \emph{is} informative, it points elsewhere: the premium is larger for
+AI-specialized firms---those with an above-median share of AI in their patent portfolio ($+0.20$,
+$t=2.2$)---consistent with the market pricing genuine AI capability rather than an A61 label.
+
+We make three contributions. First, we characterize the ownership and valuation of one
+high-stakes AI application---medicine---adding a sharply focused case to the economics-of-AI
+literature \citep{cockburn2018,agrawal2019,babina2024,eisfeldt2023,webb2020,bianchini2022} and to
+the innovation-value literature that prices patents \citep{kpss2017,hall2005,hirshleifer2013,
+peters2017}. Second, we show that AI's move into medicine over this period was, in ownership terms,
+an \emph{incumbents'} phenomenon rather than the ``big-tech-disrupts-healthcare'' story, while
+being explicit that ownership concentration does not by itself imply the market rewards incumbents
+more. Third, we treat a positive, non-experimental association with the discipline usually reserved
+for nulls: matching, predetermined regressors, a lead falsification, randomization inference, and a
+stated minimum detectable effect for the one sub-claim we cannot support. Section~\ref{sec:bg}
+gives background and hypotheses, Section~\ref{sec:lit} places the paper in the literature,
+Section~\ref{sec:data} describes the data and design, Section~\ref{sec:res} reports the main
+results, Section~\ref{sec:het} the heterogeneity, Section~\ref{sec:robust} the
+alternative-identification and randomization-inference evidence, Section~\ref{sec:power} the power
+analysis, and Section~\ref{sec:concl} concludes with the hand-coding of clinical application that
+would sharpen the measure.
+
+\section{Background and Hypotheses}\label{sec:bg}
+\paragraph{Why medicine is a distinctive AI application.} General-purpose AI methods---computer
+vision, natural-language processing, deep learning---diffuse across the economy, but medicine is a
+setting where the complementary assets are unusually specific and unusually valuable. Turning a
+classifier into a product requires clinical validation, regulatory clearance, integration into
+care delivery, and access to protected health data \citep{topol2019,rajkomar2019}. These are
+exactly the assets that pharmaceutical, device, and health-services incumbents already own. A
+technology entrant with a superior model still faces the clinical, regulatory, and distribution
+frontier; an incumbent with a mediocre model already sits behind it. This asset-complementarity
+logic predicts that, at least in the diffusion phase, incumbents capture a disproportionate share
+of medical-AI innovation---not because they are better at AI, but because medical AI is worth more
+in their hands.
+
+\paragraph{Why the market might value medical-AI patents.} A large literature shows that patents,
+especially high-quality ones, carry information about future cash flows and are priced by the
+market \citep{hall2005,kpss2017,hirshleifer2013}. Medical-AI patents plausibly sit at the
+high-value end: they combine a general-purpose method with a large, regulated, high-margin end
+market. This motivates our first hypothesis.
+\begin{quote}
+\textbf{H1 (Value).} Within firm and year, a larger cumulative medical-AI patent stock is
+associated with higher firm value (Tobin's Q, market capitalization): the coefficient on the
+stock is positive.
+\end{quote}
+
+\paragraph{Who captures the frontier, and does the premium differ?} The asset-complementarity
+argument suggests two related but distinct claims that are easy to conflate. One is about
+\emph{ownership}: incumbents should \emph{hold} more medical-AI patents. The other is about the
+\emph{price} the market puts on a medical-AI patent: if complementary assets make each patent more
+valuable in incumbent hands, the per-unit value premium should be \emph{larger} for incumbents.
+The data speak clearly to the first and, as we will show, are underpowered on the second.
+\begin{quote}
+\textbf{H2 (Ownership).} Incumbent health firms hold a disproportionate share of firm-matched
+medical-AI patents relative to technology entrants.\\[2pt]
+\textbf{H3 (Premium heterogeneity).} The value premium per unit of medical-AI stock is larger for
+incumbents than for entrants (the entrant interaction is negative).
+\end{quote}
+We find strong support for H1 and H2 and only weak, statistically insignificant evidence for H3;
+Section~\ref{sec:power} quantifies exactly how much of H3 the design can rule in or out.
+
+\paragraph{Why the clinical-application coding is pivotal (the student's task).} CPC subclass A61
+spans everything from bandages and syringes to MRI reconstruction algorithms. ``AI $\cap$ A61'' is
+therefore a coarse proxy: it certainly captures medical AI, but it also captures generic sensors
+and mechanical devices that happen to carry an AI flag. Whether a patent is \emph{genuinely}
+diagnostic imaging, drug discovery, clinical prediction, surgical robotics, or genomics can only
+be established by a human reading the patent. That hand-coding---validating the medical-AI flag and
+labeling each confirmed patent's clinical application and AI modality---is the companion student
+task and is deliberately \emph{not} attempted here; every extension in this paper uses only
+observable firm characteristics (size, R\&D intensity, SIC-based sector, AI patent share). Once the
+clinical labels exist, the value regressions can be re-run by application area, which is the
+sharpening the design is built to receive.
+
+\section{Related Literature}\label{sec:lit}
+This paper connects three strands. The first is the \emph{economics of artificial intelligence}.
+AI is widely modeled as a general-purpose technology and a ``method of invention'' that lowers the
+cost of prediction and reshapes the innovation process itself \citep{cockburn2018,agrawal2019,
+bianchini2022}. Empirically, AI investment is associated with firm growth and product innovation
+\citep{babina2024}, exposure to AI reallocates value across firms \citep{eisfeldt2023}, and AI's
+task footprint reaches high-skill occupations including medicine \citep{webb2020}. We contribute a
+sharply focused case study: rather than treating AI as a single firm-level exposure, we isolate
+one application---medicine---measure its diffusion in patents, and characterize who owns it and how
+it is priced.
+
+The second strand is the \emph{innovation-value} literature. \citet{hall2005} show patent citations
+predict market value; \citet{kpss2017} construct market-based patent values from stock-price
+reactions to grants and use them to study growth and asset prices; \citet{hirshleifer2013} link
+innovative efficiency to returns; and \citet{peters2017} show intangible capital reshapes the
+investment--$q$ relation. Our medical-AI stock is, in effect, a technology$\times$sector
+intersection of this capital, and we ask what the market pays for it, using the same
+firm-value framework and the \citet{kpss2017} crosswalk directly.
+
+The third strand is \emph{design-based inference and the honest interpretation of non-experimental
+associations}. Because our value regression is observational, we lean on tools developed to
+discipline such estimates: randomization/permutation inference for settings with a moderate number
+of clusters \citep{young2019}, the cautious reading of pre-trend and falsification tests
+\citep{roth2022}, and the principle that a statistically insignificant estimate should be
+interpreted through its power and confidence interval rather than treated as proof of no effect
+\citep{abadie2020}. We use these not decoratively but to draw the line between what our data can and
+cannot support---in particular, to separate the well-identified ownership fact from the
+underpowered premium-heterogeneity claim.
+
+\section{Data and Research Design}\label{sec:data}
+\paragraph{Sources and sample.} We build on the shared patent--firm panel assembled for the ASSIP
+2026 innovation projects. Its inputs are: the USPTO Artificial Intelligence Patent Dataset (AIPD),
+which flags each granted patent's use of AI component technologies through 2023; PatentsView, for
+CPC classifications (we use subclass A61 to mark medical/veterinary patents); the \citet{kpss2017}
+patent$\to$permno crosswalk with market-based patent values; and WRDS Compustat annual
+fundamentals. The unit of observation is a firm (CRSP \texttt{permno}) $\times$ fiscal year. The
+panel spans 1995--2024 and contains 7{,}087 firms and 83{,}976 firm-years. Because the AIPD AI
+flags end in 2023, all AI-based series (including medical-AI) are zero after 2023 by construction;
+we retain 2024 for the non-AI variables but no inference relies on it.
+
+\paragraph{Key variables.} A patent is \emph{medical-AI} if AIPD marks it AI \emph{and} it carries
+a CPC A61 subclass. For each firm-year we cumulate patent counts into stocks and take
+$\ln(1+\text{stock})$: \texttt{ln\_aimed} (medical-AI), \texttt{ln\_ai} (all AI), and
+\texttt{ln\_med} (all medical). The outcomes are Tobin's Q and market capitalization (from
+Compustat/CRSP). Controls are firm size $=\ln(\text{assets})$ and, to ensure the medical-AI stock
+is not merely proxying for a firm's general AI or general medical patenting, the AI and medical
+stocks themselves. We classify firms by historical SIC into \emph{Incumbent (health)} (drugs
+2833--2836; medical instruments 3826, 3841--3845; health services 8000--8099), \emph{Entrant
+(tech)} (software 7370--7379; computers 3570--3579; semiconductors and communications equipment),
+and \emph{Other}. Table~\ref{tab:sumstats} reports summary statistics for the full sample and
+separately for firms that ever hold a medical-AI patent (``holders'') versus those that never do.
+Holders are larger, higher-Q, more R\&D-intensive, and---mechanically---hold far larger AI and
+medical patent stocks, which is exactly why the value regressions condition on those stocks and on
+firm and year fixed effects.
+
+\paragraph{Specification.} For outcome $y_{it}$ (Tobin's Q or $\ln$ market cap) we estimate
+\begin{equation}
+y_{it} = \beta\,\texttt{ln\_aimed}_{it} + \gamma'X_{it} + \alpha_i + \delta_t + \varepsilon_{it},
+\label{eq:main}
+\end{equation}
+where $X_{it}=(\texttt{ln\_ai}_{it},\texttt{ln\_med}_{it},\text{size}_{it})$, $\alpha_i$ and
+$\delta_t$ are firm and year fixed effects, and standard errors are clustered by firm. The
+coefficient $\beta$ is a \emph{within-firm} association: it compares a firm to itself as its
+medical-AI stock grows, net of aggregate year shocks and its overall AI and medical patenting.
+The heterogeneity specifications add an interaction $\texttt{ln\_aimed}_{it}\times M_i$ for an
+observable moderator $M$ (large firm, R\&D-intensive, incumbent, AI-specialized); the
+alternative-identification specifications replace $\delta_t$ with industry$\times$year effects,
+lag the regressor, restrict to the matched sample, or change the standard-error construction.
+
+\paragraph{Three design-based checks.} Because equation~\eqref{eq:main} is observational, we add
+three checks that do not rely on its parametric assumptions and that we describe in
+Section~\ref{sec:robust}. (1) \emph{Adopter matching}: each ever-holder is nearest-neighbor matched
+to a never-holder on pre-period (2012) size, R\&D intensity, and sector, and \eqref{eq:main} is
+re-estimated on the balanced sample. (2) \emph{Randomization inference}: the firm-level holder
+label is permuted 500 times under a common AI-era post window and the holder value gain is
+recomputed, yielding a design-based $p$-value. (3) \emph{Power}: for the one insignificant
+sub-claim (the incumbent--entrant premium gap) we report the minimum effect detectable at 80\%
+power. Together these convert ``a significant coefficient'' into a set of falsifiable,
+design-based statements, and mark the boundary of what the design supports.
+
+\section{Main Results}\label{sec:res}
+\paragraph{Diffusion and ownership.} Figure~\ref{fig:trend} shows firm-matched medical-AI patents
+rising from about 920 in 2013 to 1{,}800 in 2020, roughly doubling and closely tracking the
+broader vision-AI wave. Table~\ref{tab:sector} shows the frontier is owned mostly inside incumbent
+medicine: incumbent health firms hold 47\% of firm-matched medical-AI patents (482 firms), against
+19\% for technology entrants (135 firms), with the remainder in diversified ``other'' firms. This
+supports H2: over this period, AI's move into medicine was, in ownership terms, captured by firms
+that already knew medicine, not by technology entrants disrupting it.
+
+\paragraph{The value association.} Table~\ref{tab:value} reports equation~\eqref{eq:main}. A
+larger medical-AI stock is associated with higher value: the Tobin's Q coefficient is $0.48$
+($t=5.0$) and the $\ln$ market-cap coefficient is $0.13$ ($t=5.3$), both conditioning on the
+firm's overall AI and medical patenting and on firm and year fixed effects. This supports H1: the
+market attaches value specifically to the medical-AI intersection, not merely to AI or to medicine
+separately. The column that interacts the stock with an entrant indicator returns a negative but
+insignificant interaction ($-0.25$, $t=-1.6$)---the raw material for H3, which we scrutinize in
+Sections~\ref{sec:het} and \ref{sec:power} and ultimately decline to claim.
+
+\section{Heterogeneity: Who Earns the Premium?}\label{sec:het}
+If the value premium is a real capability being priced, it should vary with observable firm
+characteristics in interpretable ways---and if it is concentrated in incumbents, as the
+asset-complementarity story (H3) predicts, an incumbent interaction should be positive and
+significant. Table~\ref{tab:hetero} interacts the medical-AI stock with four pre-specified,
+\emph{observable} moderators. Three results stand out. First, the premium does \emph{not} differ
+significantly by firm size (interaction $+0.20$, $t=0.8$) or by R\&D intensity ($+0.02$, $t=0.3$):
+it is not simply a large-firm or a research-firm phenomenon. Second, and central to H3, the
+incumbent interaction is economically tiny and statistically indistinguishable from zero
+($-0.03$, $t=-0.3$). The base premium for entrants and diversified firms is itself large and
+significant ($+0.50$, $t=5.8$); incumbents do not earn a detectably \emph{larger} per-unit
+premium. Ownership concentration (H2) and premium concentration (H3) are therefore distinct, and
+the data support only the former. Third, the premium \emph{is} significantly larger for
+AI-specialized firms---those whose patent portfolio is above-median in AI share ($+0.20$,
+$t=2.2$, on a base of $+0.29$)---which is the pattern one would expect if the market prices genuine
+AI capability rather than the coarse A61 label, and which motivates the clinical-application
+refinement reserved for the student.
+
+We emphasize that \emph{provision of clinical meaning}---coding whether a medical-AI patent is
+diagnostic imaging, drug discovery, or surgical robotics, and by which AI modality---is not among
+these moderators. That dimension is unobservable in our data and is the student's hand-coded
+contribution; the moderators above are chosen precisely because they are observable and orthogonal
+to that reserved test.
+
+\section{Alternative Identification and Randomization Inference}\label{sec:robust}
+The central threat to a value regression like \eqref{eq:main} is that valuable firms have the
+slack to patent more, so the association could run from value to patenting or reflect unobserved
+firm quality. We cannot rerandomize invention, but we can show the association is robust to the
+leading alternatives and survives a falsification test and design-based inference.
+
+\paragraph{Robustness ladder.} Table~\ref{tab:altid} re-estimates the Tobin's Q coefficient under
+six alternatives. Replacing year fixed effects with \emph{industry$\times$year} fixed effects,
+which absorb any shock common to a firm's two-digit-SIC peers in a given year (e.g., a
+biotech-sector re-rating), leaves the coefficient at $0.41$ ($t=4.1$). Using a
+one-year-\emph{lagged}, and therefore predetermined, medical-AI stock---so the regressor is dated
+before the outcome it predicts---gives $0.32$ ($t=3.3$). Restricting to the \emph{adopter-matched}
+sample (393 ever-holder/never-holder pairs matched on pre-period size, R\&D, and sector) yields
+$0.50$ ($t=3.2$), so the premium is present even when medical-AI firms are compared to observably
+similar firms that never patent medical AI. Dropping the top 1\% of firms by market capitalization
+leaves $0.49$ ($t=4.9$), so a few mega-caps do not drive it, and two-way clustering by firm and
+year leaves $t=3.9$. Across the ladder the coefficient stays in a tight $0.32$--$0.50$ band and
+always significant at 1\%.
+
+\paragraph{Lead falsification.} Row 7 of Table~\ref{tab:altid} runs the test that most directly
+addresses reverse causality. If high value \emph{caused} future patenting rather than the reverse,
+a firm's \emph{next-year} medical-AI patenting \emph{flow} should predict its \emph{current} Q even
+after conditioning on the current stock. We use the flow, not the mechanically-rising cumulative
+stock, precisely because a lead of the stock would be nearly collinear with its level and would
+mislead. The future flow enters with a small, insignificant coefficient ($+0.06$, $t=0.8$) while
+the contemporaneous stock retains essentially its full coefficient. A firm's value today does not
+forecast its medical-AI patenting tomorrow once today's stock is held fixed---the signature of a
+reverse-causality channel is absent. This is not proof of causality, but it removes the most
+mechanical version of the objection.
+
+\paragraph{Randomization inference.} Finally, Table~\ref{tab:ri} and Figure~\ref{fig:ri} report a
+design-based test that does not depend on the clustered-SE asymptotics. We define a firm-level
+\emph{holder} indicator (ever holds a medical-AI patent) and a common AI-era post window
+($\text{year}\geq2013$), and estimate the holder value gain
+$y_{it}=\beta\,(\text{Post}_t\times\text{Holder}_i)+\gamma'X_{it}+\alpha_i+\delta_t+\varepsilon_{it}$.
+The actual AI-era gain for holders is $+0.66$ ($t=4.3$). We then permute the holder label across
+firms 500 times---randomly reassigning which firms are ``holders'' while preserving the number of
+holders and the panel structure---and recompute the gain each time. The permutation distribution is
+centered near zero with a 95\% interval of $[-0.25,+0.30]$; the actual estimate lies far outside it
+($p<0.002$). Because the permutation test makes no distributional assumption and does not rely on
+having many clusters, it corroborates that the holder value gain is a systematic feature of which
+firms actually patent medical AI, not an artifact of the inference method.
+
+\section{Is the Premium-Heterogeneity Null Informative? Power and Precision}\label{sec:power}
+The one claim we \emph{decline} to make---that the value premium is concentrated in incumbents
+(H3)---rests on an insignificant interaction, and an insignificant estimate is only informative if
+the design could have detected a real difference. Table~\ref{tab:power} reports, for the
+incumbent-versus-entrant premium gap, the minimum detectable effect (MDE) at 80\% power,
+$\text{MDE}=(z_{0.975}+z_{0.80})\,\widehat{\text{SE}}\approx2.80\,\widehat{\text{SE}}$, expressed
+as a share of the base premium. For Tobin's Q the base premium is $+0.54$ and the entrant
+interaction is $-0.25$ with a standard error of $0.15$, giving an MDE of $0.43$---about 80\% of the
+base premium. For $\ln$ market cap the MDE is 91\% of the base. In words: our design could only have
+reliably detected an incumbent--entrant premium gap larger than roughly four-fifths of the premium
+itself; a moderate difference in how the market prices incumbent versus entrant medical-AI patents
+would be invisible to us. This is why we report ownership concentration (H2, sharply identified in
+counts) but treat premium concentration (H3) as unresolved rather than as a finding. It is also a
+concrete motivation for the clinical-application coding: a sharper treatment variable would tighten
+these standard errors and let a future draft actually test H3 rather than bound it.
+
+\section{Conclusion}\label{sec:concl}
+AI's diffusion into medicine is real and, over 2013--2020, accelerating. In ownership terms it was
+an incumbents' phenomenon: incumbent health firms hold nearly half of firm-matched medical-AI
+patents, roughly two and a half times the entrant share. The market values medical-AI patenting: a
+larger medical-AI patent stock predicts higher Tobin's Q and market capitalization within firm and
+year, and---unusually for a non-experimental association---the result survives industry$\times$year
+fixed effects, a predetermined lagged regressor, adopter matching, a mega-cap drop, two-way
+clustering, a lead falsification that finds no reverse-causality signature, and randomization
+inference that places it far outside its permutation distribution. We are deliberate about the
+boundary of the claim: although incumbents own the frontier, we cannot show the market pays a
+larger per-patent premium for their medical AI than for entrants', and a power analysis shows the
+design could only detect an incumbent--entrant gap larger than about 80\% of the base premium, so we
+assert ownership concentration and not premium concentration.
+
+The binding limitation is measurement. ``AI $\cap$ CPC A61'' certainly captures medical AI, but A61
+also contains bandages, syringes, and mechanical devices, so the treatment variable is coarse: it
+mixes MRI-reconstruction algorithms with generic sensors that happen to carry an AI flag. The
+companion student task hand-reads a sample of these patents to validate the flag and then codes,
+for each confirmed medical-AI patent, its clinical application (diagnostic imaging, drug discovery,
+clinical prediction, surgical robotics, genomics) and AI modality. With those labels the value
+regressions can be re-estimated by application area---does the market value diagnostic-imaging AI
+differently from drug-discovery AI?---and the underpowered incumbent-versus-entrant question can be
+revisited with a sharper treatment. That refinement, not another robustness check on the coarse
+proxy, is the natural next step, and it is the contribution the design has been built to receive.
+
+\begin{thebibliography}{99}
+\bibitem[Abadie(2020)]{abadie2020} Abadie, A., 2020. Statistical nonsignificance in empirical
+economics. American Economic Review: Insights 2, 193--208.
+\bibitem[Agrawal et al.(2019)]{agrawal2019} Agrawal, A., Gans, J., Goldfarb, A., 2019. The economics
+of artificial intelligence: an agenda. University of Chicago Press.
+\bibitem[Babina et al.(2024)]{babina2024} Babina, T., Fedyk, A., He, A., Hodson, J., 2024.
+Artificial intelligence, firm growth, and product innovation. Journal of Financial Economics 151,
+103745.
+\bibitem[Bianchini et al.(2022)]{bianchini2022} Bianchini, S., M\"uller, M., Pelletier, P., 2022.
+Artificial intelligence in science: An emerging general method of invention. Research Policy 51,
+104604.
+\bibitem[Cockburn et al.(2018)]{cockburn2018} Cockburn, I., Henderson, R., Stern, S., 2018. The
+impact of artificial intelligence on innovation. NBER Working Paper 24449.
+\bibitem[Eisfeldt et al.(2023)]{eisfeldt2023} Eisfeldt, A.L., Schubert, G., Zhang, M.B., 2023.
+Generative AI and firm values. NBER Working Paper 31222.
+\bibitem[Esteva et al.(2017)]{esteva2017} Esteva, A., Kuprel, B., Novoa, R.A., Ko, J., Swetter, S.M.,
+Blau, H.M., Thrun, S., 2017. Dermatologist-level classification of skin cancer with deep neural
+networks. Nature 542, 115--118.
+\bibitem[Hall et al.(2005)]{hall2005} Hall, B.H., Jaffe, A., Trajtenberg, M., 2005. Market value and
+patent citations. RAND Journal of Economics 36, 16--38.
+\bibitem[Hirshleifer et al.(2013)]{hirshleifer2013} Hirshleifer, D., Hsu, P.H., Li, D., 2013.
+Innovative efficiency and stock returns. Journal of Financial Economics 107, 632--654.
+\bibitem[Kogan et al.(2017)]{kpss2017} Kogan, L., Papanikolaou, D., Seru, A., Stoffman, N., 2017.
+Technological innovation, resource allocation, and growth. Quarterly Journal of Economics 132,
+665--712.
+\bibitem[Obermeyer et al.(2019)]{obermeyer2019} Obermeyer, Z., Powers, B., Vogeli, C., Mullainathan,
+S., 2019. Dissecting racial bias in an algorithm used to manage the health of populations. Science
+366, 447--453.
+\bibitem[Peters and Taylor(2017)]{peters2017} Peters, R.H., Taylor, L.A., 2017. Intangible capital
+and the investment-$q$ relation. Journal of Financial Economics 123, 251--272.
+\bibitem[Rajkomar et al.(2019)]{rajkomar2019} Rajkomar, A., Dean, J., Kohane, I., 2019. Machine
+learning in medicine. New England Journal of Medicine 380, 1347--1358.
+\bibitem[Roth(2022)]{roth2022} Roth, J., 2022. Pretest with caution: Event-study estimates after
+testing for parallel trends. American Economic Review: Insights 4, 305--322.
+\bibitem[Topol(2019)]{topol2019} Topol, E.J., 2019. High-performance medicine: the convergence of
+human and artificial intelligence. Nature Medicine 25, 44--56.
+\bibitem[Webb(2020)]{webb2020} Webb, M., 2020. The impact of artificial intelligence on the labor
+market. Working paper, Stanford University.
+\bibitem[Young(2019)]{young2019} Young, A., 2019. Channeling Fisher: Randomization tests and the
+statistical insignificance of seemingly significant experimental results. Quarterly Journal of
+Economics 134, 557--598.
+\end{thebibliography}
+
+\FloatBarrier
+\newpage
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.8\textwidth]{fig1_medai_trend.pdf}
+\caption{Firm-matched medical-AI patents (AI $\cap$ CPC A61) by grant year, 2005--2023. The series
+roughly doubles between 2013 and 2020 and tracks the broader vision-AI wave. AIPD AI flags end in
+2023.}\label{fig:trend}
+\end{figure}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Summary statistics: analytical sample and medical-AI holders vs.\ non-holders}
+\label{tab:sumstats}\footnotesize
+\input{tables/tab_sumstats.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Firm-year panel, 7{,}087 firms and 83{,}976
+firm-years, 1995--2024. ``Holder'' $=$ firm ever holds $\geq1$ firm-matched medical-AI patent (845
+firms); ``Non-holder'' otherwise. Patent stocks are cumulative firm-matched counts. Tobin's Q and
+market cap from Compustat/CRSP.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Who holds medical-AI patents?}\label{tab:sector}\small
+\input{tables/tab_sector.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Firms with $\geq1$ firm-matched medical-AI patent, by
+SIC-based sector. Incumbent (health) $=$ drugs, medical instruments, and health services; Entrant
+(tech) $=$ software, computers, semiconductors, communications equipment; Other $=$ all else.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Medical-AI patent stock and firm value (two-way FE)}\label{tab:value}\small
+\input{tables/tab_value.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Firm-year panel; firm and year FE; $t$-statistics
+(clustered by firm) in parentheses. Medical-AI stock $=\ln(1+$cumulative AI$\cap$A61 patents$)$;
+all specifications control for the firm's overall AI stock, medical stock, and size. The entrant
+interaction column adds $\texttt{ln\_aimed}\times$Entrant. $^{*}p<0.10$, $^{**}p<0.05$,
+$^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Heterogeneity of the value premium by observable moderators (DV $=$ Tobin's Q)}
+\label{tab:hetero}\small
+\input{tables/tab_hetero.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Each row adds an interaction
+$\texttt{ln\_aimed}\times M$ to equation~\eqref{eq:main}, where $M$ is an observable moderator:
+above-median assets, above-median R\&D/assets (within year), incumbent-health sector, and
+above-median AI patent share (within year). ``Base slope'' is the medical-AI premium for the
+low-$M$ group; ``$\times M$'' is the additional slope for high-$M$ firms. Firm and year FE,
+SE clustered by firm. The incumbent interaction is insignificant (H3 not supported); the
+AI-specialized interaction is positive and significant. Clinical application/modality is
+deliberately \emph{not} used as a moderator (it is the student's hand-collected variable).
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Alternative identification and robustness (DV $=$ Tobin's Q)}\label{tab:altid}\small
+\input{tables/tab_altid.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Each row re-estimates the medical-AI stock coefficient
+from equation~\eqref{eq:main}. (2) replaces year FE with two-digit-SIC$\times$year FE. (3) uses the
+one-year-lagged (predetermined) stock. (4) restricts to 393 ever-holder/never-holder pairs matched
+on pre-period (2012) size, R\&D, and sector within a 0.25-SD size caliper. (5) drops the top 1\% of
+firms by market cap. (6) clusters by firm and year. (7) is a lead falsification: it adds the
+\emph{next-year} medical-AI patenting \emph{flow} ($\ln(1+$patents$)$) alongside the current stock;
+the reported coefficient is on the future flow, which is insignificant, indicating no
+reverse-causality signature. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Randomization inference: AI-era value gain of medical-AI holders}\label{tab:ri}\small
+\input{tables/tab_ri.tex}
+\begin{tablenotes}\small\item \textit{Notes:} The firm-level medical-AI-holder label is permuted
+across firms 500 times under a common AI-era post window ($\text{year}\geq2013$);
+$y_{it}=\beta(\text{Post}_t\times\text{Holder}_i)+\gamma'X_{it}+\alpha_i+\delta_t+\varepsilon_{it}$
+is re-estimated each time. ``Perm.\ 95\% interval'' is the 2.5--97.5 percentile of the permutation
+distribution; the RI $p$-value is the share of permutations with
+$|\text{coefficient}|\geq|\text{actual}|$. The actual gain lies far outside the permutation
+distribution. See Figure~\ref{fig:ri}. $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Power: minimum detectable incumbent--entrant premium gap (80\% power)}
+\label{tab:power}\small
+\input{tables/tab_power.tex}
+\begin{tablenotes}\small\item \textit{Notes:} For the entrant interaction in
+Table~\ref{tab:value}, MDE(80\%) $=(z_{0.975}+z_{0.80})\times$SE $\approx2.80\times$SE, expressed as
+a share of the base premium. The large MDE/base ratios show the design is underpowered to detect a
+moderate incumbent--entrant premium gap; we therefore report ownership concentration (H2) but not
+premium concentration (H3).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\FloatBarrier
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.72\textwidth]{fig2_randinf.pdf}
+\caption{Randomization inference for the AI-era value gain of medical-AI holders (Tobin's Q).
+Histogram: the distribution of the holder value gain under 500 random permutations of the holder
+label. The actual estimate (red line) lies far in the right tail (RI $p<0.002$), so the result is
+not an artifact of clustered-standard-error asymptotics.}\label{fig:ri}
+\end{figure}
+
+\end{document}

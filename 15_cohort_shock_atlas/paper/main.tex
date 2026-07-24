@@ -1,0 +1,730 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}\doublespacing
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\graphicspath{{../output/figures/}}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{placeins}
+
+\title{\textbf{Not All Policy Shocks Are Alike:\\
+A Cohort Event-Study Atlas of the 2022--2025 U.S. Shock Wave}}
+\author{Lei Gao \and The ASSIP 2026 Cohort\thanks{Gao (corresponding author):
+Costello College of Business, George Mason University, \texttt{lgao9@gmu.edu}. This is a
+student--faculty working paper prepared in the ASSIP 2026 Empirical Finance research group.
+The ASSIP 2026 Cohort comprises Michael Philipov, Michael Yucheng Zhou, Aiden Shanyu Chen,
+Christopher Abhi Dadoo, Deniz Yaveroglu, Mateo Eduardo Stine, Rakshana Damodaran, Lasya
+Yellamagari, Nam Bao Ngo, Aaron Lu Zhang, Alexander Li Tang, Kushal Borra, Dildora
+Jo\'rabekova, and Andy Pham; each of the ten dated shocks is ``owned'' by the student whose
+individual paper studies it (see STUDENT\_TASKS). All data are from WRDS (CRSP daily returns,
+including \texttt{dsf\_v2} for 2025, and Fama-French factors) and shared Compustat firm
+characteristics; every number in the paper traces to a CSV in \texttt{output/tables/} and is
+reproduced by the code in \texttt{code/}. Any errors are our own.}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent The years 2022--2025 delivered an unusually dense sequence of \emph{dated} U.S. policy
+and technology shocks---from the CHIPS Act and ChatGPT to Silicon Valley Bank, the 2025
+reciprocal tariffs, and the Reg-NMS half-cent tick. We assemble them into a single, uniformly
+measured event-study atlas across about 2{,}000 large firms and ask how the shocks differ along
+three axes: how much the market \emph{moves}, how much it \emph{differentiates} firms, and how it
+\emph{propagates}. Three findings survive formal testing. First, cross-sectional differentiation
+is \emph{real}: for the tariff shock, the Reg-NMS tick, and the SVB collapse, the event-window
+dispersion of firm CARs exceeds a placebo distribution of pseudo-event dispersions (ratios
+$1.5$--$1.9$, empirical $p<0.05$), and shock rankings by dispersion are stable across windows and
+dispersion measures (Spearman $0.72$--$0.83$). Second, this differentiation is overwhelmingly
+\emph{idiosyncratic}: market beta explains at most $14\%$ of the cross-sectional CAR variance and
+usually far less, so the dispersion is firm-specific repricing---exactly what a firm-level
+exposure measure should capture. A pooled firm$\times$shock regression on observable traits (size,
+beta, idiosyncratic volatility) explains $21\%$ of $|\text{CAR}|$; the rest is the space reserved
+for the cohort's hand-collected exposure test. Third, we are honest about what the small
+cross-section of shocks cannot support: the widely quoted claim that differentiation ``scales with
+shock size'' rests on a correlation of $0.69$ whose bootstrap $95\%$ interval is $[-0.04,0.97]$
+and which falls to $0.26$ when the tariff shock is dropped---with $n=10$ shocks the design can
+only reliably detect correlations above $0.78$, so we report this as suggestive, not established.
+Propagation is heterogeneous ($I^2=99\%$ across shocks; SVB the negative-drift outlier), but a
+high-powered pooled test detects modest post-event \emph{continuation} (within-shock, firm-clustered
+top-minus-bottom announcement-quintile drift $+0.73\%$, $t=4.0$). The atlas is a reusable scaffold; its completion
+is each student's exposure measure.\\[4pt]
+\noindent\textbf{JEL:} G14, G18, E44. \quad
+\textbf{Keywords:} event study, market efficiency, policy shocks, cross-sectional dispersion,
+randomization inference, meta-analysis.
+\end{abstract}
+
+\newpage
+\section{Introduction}
+Empirical finance studies shocks one at a time. Yet 2022--2025 handed markets a whole
+\emph{sequence} of clean, dated shocks, and studying them together---on identical footing---asks a
+question no single event study can: \emph{how do policy shocks differ}? This cohort capstone builds
+that comparison. Using the shared market-model machinery behind the individual papers in this
+program \citep{fama1970,mackinlay1997,brown1985,campbell1997}, we compute cumulative abnormal
+returns (CARs) for a common sample of about 2{,}000 large firms around ten dated shocks
+(Table~\ref{tab:atlas}) and characterize each along three axes: the aggregate \emph{level} move,
+the cross-sectional \emph{differentiation} of firms, and the \emph{propagation} of the reaction
+over the following days.
+
+The first axis is the level move---how much the market index shifted. These range from a $+3.1\%$
+pop on ChatGPT to a $-11.0\%$ two-day crash on the April-2025 reciprocal tariffs. The second, and
+the heart of the paper, is \emph{differentiation}: how much firms diverged, measured by the
+cross-sectional standard deviation (SD) of announcement CARs. Because a market-wide shock is
+absorbed by the benchmark, the mean abnormal return is near zero by construction; the informative
+object is the \emph{dispersion}, which measures how sharply a shock sorted winners from losers
+\citep{roll1988,morck2000}. The third axis is \emph{propagation}: does the reaction complete
+quickly, drift, or reverse \citep{bernard1989,debondt1985}?
+
+A descriptive atlas is only a starting point; the contribution of this draft is to subject each
+axis to a formal, design-based test, and to be candid about which claims the ten-shock
+cross-section can and cannot bear. We add ten tests to the original three-table draft.
+
+\textbf{Differentiation is real, and it is idiosyncratic.} A shock that genuinely sorts firms
+should produce cross-sectional dispersion larger than what the same firms show on ordinary days.
+We build a placebo engine: one market model per firm over the full sample, then the cross-sectional
+SD of two-day CARs at the true event date compared against a distribution of pseudo-event dates
+drawn away from all ten shocks. For the tariff shock, the Reg-NMS half-cent tick, and the SVB
+collapse, the event dispersion is $1.5$--$1.9$ times the placebo mean and lands in the top few
+percent of the placebo distribution ($p<0.05$; Table~\ref{tab:diff}, Figure~\ref{fig:placebo}).
+The ranking of shocks by dispersion is not an artifact of the window or the statistic: it is stable
+across the $[0,+1]$, $[0,+5]$, and $[-5,+10]$ windows and across SD, interquartile range, and
+median absolute deviation (Spearman $0.72$--$0.83$, all $p<0.02$; Table~\ref{tab:rankcorr}).
+Crucially, the differentiation is not a beta story: a firm-by-firm regression of announcement CARs
+on market beta explains at most $14\%$ of the cross-sectional variance (for the tariff) and
+essentially nothing for most shocks, leaving $92$--$100\%$ of the dispersion idiosyncratic
+(Table~\ref{tab:beta}). This is the empirical signature that firm-specific \emph{exposure}, not
+systematic risk, drives the sorting---which is precisely the variable the cohort reserves for
+hand-collection.
+
+\textbf{Observable traits explain part of it; exposure is the reserved next step.} Pooling all
+$19{,}256$ firm$\times$shock observations, we regress $|\text{CAR}[0,+1]|$ on observable firm
+characteristics---log market capitalization, market beta, and idiosyncratic volatility---with shock
+and industry fixed effects and standard errors clustered by firm (Table~\ref{tab:pooled}). All three
+enter positively and idiosyncratic volatility dominates ($t=11.3$); together with the fixed effects
+they explain $21\%$ of the variation in reaction magnitude. The remaining variation is the space the
+design deliberately leaves open: whether each shock's \emph{specific} firm-level exposure (import-input
+intensity for tariffs, uninsured-deposit ratios for SVB, AI-exposure for the language-model shocks)
+explains the residual dispersion, and whether that exposure was priced \emph{before} the
+announcement. That test requires the exposure crosswalk the cohort is assembling, and we do not
+attempt it with the generic observables here.
+
+\textbf{We are honest about the small cross-section.} The draft's headline was that differentiation
+``scales with shock size,'' summarized by a $0.69$ correlation between the absolute market move and
+the cross-sectional dispersion. With only ten shocks this is fragile. A bootstrap gives a $95\%$
+interval of $[-0.04,0.97]$; leave-one-shock-out drops the correlation to $0.26$ when the tariff
+shock is removed (Table~\ref{tab:boot}, Figure~\ref{fig:bootstrap}); and a power calculation shows
+that with $n=10$ the design can only reliably detect correlations above $0.78$
+(Table~\ref{tab:power}). The Reg-NMS tick makes the point vivid: it differentiates firms as sharply
+as the tariff (dispersion $5.1\%$) despite a tiny $-1.1\%$ market move. We therefore \emph{retract
+the strong scaling claim} and report it as suggestive. What is robust is that differentiation is
+real, idiosyncratic, and largest for the tariff, the tick, and SVB.
+
+\textbf{Propagation is heterogeneous but shows modest continuation.} Post-event drift differs
+enormously across shocks: a random-effects meta-analysis \citep{dersimonian1986,higgins2002} of
+the mean drift returns a pooled estimate indistinguishable from zero but with $I^2=99\%$
+(Table~\ref{tab:metare}, Figure~\ref{fig:forest})---these are genuinely different events, and SVB is
+the negative-drift ($-3.5\%$) contagion outlier. Yet pooling firms and sorting by announcement CAR,
+the highest-power test we run, reveals a monotone pattern: firms that fell most on impact keep
+falling and firms that rose keep rising, a top-minus-bottom quintile drift of $+0.73\%$ ($t=3.9$;
+Table~\ref{tab:overreact})---modest \emph{under-reaction}, not the over-reaction a contrarian would
+predict.
+
+We make four contributions. First, we provide a \emph{comparative} event-study lens on a dense
+natural sequence of policy shocks, measured on strictly common footing. Second, we show how to make
+a cross-shock atlas rigorous with design-based tools---placebo/permutation dispersion tests,
+rank-stability checks, pooled clustered regressions, random-effects meta-analysis, bootstrap, and
+minimum-detectable-effect calculations---rather than leaning on a handful of fragile cross-shock
+correlations. Third, we correct an over-strong claim in the original draft and quantify exactly why
+$n=10$ cannot support it. Fourth, we locate the differentiation in idiosyncratic, firm-specific
+repricing, setting up the cohort's reserved exposure test as the natural completion. Section~2
+describes the shock wave and hypotheses, Section~3 the literature, Section~4 the data and design,
+Section~5 tests whether the differentiation is real, Section~6 decomposes it into systematic and
+idiosyncratic parts, Section~7 confronts the fragility of the size-scaling claim, Section~8 studies
+propagation, Section~9 reports power, and Section~10 concludes with the reserved exposure test.
+
+\section{The Shock Wave and Hypotheses}\label{sec:bg}
+\paragraph{Ten dated shocks.} We study ten dated events spanning industrial policy, tax, technology,
+banking, disclosure, trade, crypto regulation, and market microstructure (Table~\ref{tab:atlas}):
+the CHIPS Act signing (Aug 2022), the IRA buyback excise tax (Aug 2022), the ChatGPT release (Nov
+2022) and GPT-4 release (Mar 2023), the Silicon Valley Bank collapse (Mar 2023), the SEC five-day
+13D rule (Feb 2024), the April-2025 reciprocal tariff shock and the tariff pause days later, the
+GENIUS Act (Jul 2025), and the Reg-NMS half-cent tick pilot (Nov 2025). Each is ``owned'' by the
+cohort member whose individual project studies it; the ownership is what makes the reserved
+exposure test feasible. We use a single calendar date per shock and are explicit
+(Section~\ref{sec:concl}) that the exact intraday timing---announcement versus effective, pre-
+versus post-close---is part of the reserved hand-collection and is not resolved here.
+
+\paragraph{Three axes and hypotheses.} The atlas measures each shock on three axes. The
+\emph{level} is the raw market move over $[0,+1]$. \emph{Differentiation} is the cross-sectional SD
+of firm CARs over $[0,+1]$: a large, uniform shock moves every firm the same way (low dispersion),
+while a shock that reallocates value across firms produces high dispersion. \emph{Propagation} is
+captured by the mean drift over $[+2,+10]$ and by the cross-firm correlation between the
+announcement CAR and the subsequent drift (positive $=$ continuation, negative $=$ reversal). These
+motivate three hypotheses:
+\begin{quote}
+\textbf{H1 (Real differentiation).} Large policy shocks produce cross-sectional CAR dispersion
+above the level firms exhibit on ordinary days.\\
+\textbf{H2 (Idiosyncratic differentiation).} The dispersion is firm-specific, not a repricing of
+systematic (beta) risk.\\
+\textbf{H3 (Efficient propagation).} Post-event drift is small and mean-reverting, consistent with
+prompt price discovery, absent a contagion mechanism.
+\end{quote}
+Our evidence supports H1 for the three largest shocks, supports H2 broadly, and gives a nuanced
+verdict on H3: propagation is efficient on average but with a systematic component of modest
+under-reaction and one clear contagion outlier (SVB).
+
+\paragraph{The ten shocks, one by one.} Because each shock is owned by a cohort member, it is worth
+walking the atlas across its three axes (all figures from Table~\ref{tab:atlas}). The \emph{CHIPS Act}
+signing (owned by A.\ Tang) moved the market $+1.7\%$ with modest dispersion ($2.9\%$) and a small
+negative drift. The \emph{IRA buyback excise tax} was nearly a non-event in aggregate ($-0.7\%$) with
+the lowest dispersion of all ($2.5\%$). The two language-model shocks bracket the technology story:
+\emph{ChatGPT} (N.\ Ngo) produced a $+3.1\%$ pop and $3.1\%$ dispersion, while \emph{GPT-4} moved the
+index only $+1.0\%$ yet still dispersed firms ($3.2\%$). The \emph{SVB collapse} (A.\ Zhang) is the
+propagation outlier: a $-3.7\%$ move, $4.2\%$ dispersion, and a large $-3.5\%$ drift with a positive
+reversal correlation ($+0.42$)---firms that fell most kept falling, the contagion signature. The
+\emph{SEC five-day 13D rule} was procedurally invisible ($-0.1\%$, $2.8\%$ dispersion). The
+\emph{April-2025 reciprocal tariff} (D.\ Yaveroglu) is the largest shock on every axis: $-11.0\%$
+market move and $5.8\%$ dispersion, its $+6.2\%$ \emph{pause} days later partly reversing it with a
+strong positive drift ($+2.6\%$). The \emph{GENIUS Act} (D.\ Jo\'rabekova) barely moved the broad
+index ($+0.1\%$) as a targeted crypto-regulatory event. Finally, the \emph{Reg-NMS half-cent tick}
+pilot (K.\ Borra) is the atlas's most instructive case: a tiny $-1.1\%$ aggregate move but the
+second-highest dispersion ($5.2\%$)---a microstructure rule that reshuffled firms without moving the
+market, the sharpest counterexample to ``differentiation scales with size.''
+
+\section{Related Literature}\label{sec:lit}
+This paper connects four strands. The first is \emph{event-study methodology}. The market-model
+CAR and its inference are standard \citep{brown1985,mackinlay1997,campbell1997}, but short-horizon
+tests are vulnerable to event-induced variance and to cross-sectional correlation of abnormal
+returns \citep{boehmer1991,kolari2010}. A market-wide policy shock is the extreme case: abnormal
+returns are strongly cross-sectionally correlated and the event mechanically inflates variance.
+This is exactly why we do not test mean CARs (which are near zero by construction here) but instead
+test the \emph{dispersion} against a placebo distribution and pool firm$\times$shock reactions with
+firm-clustered standard errors---design-based analogues of the corrections these papers propose.
+
+The second strand is the \emph{cross-sectional dispersion of returns} as information. \citet{roll1988}
+showed that firm-specific return variation is large and largely unexplained by systematic factors,
+and \citet{morck2000} linked cross-firm return synchronicity to how much firm-specific information
+is capitalized. Our differentiation axis is a policy-shock version of this idea: a shock that
+capitalizes firm-specific information produces idiosyncratic dispersion, which is what
+Table~\ref{tab:beta} finds. The reserved exposure test asks whether a \emph{named} exposure
+accounts for that idiosyncratic dispersion.
+
+The third strand is \emph{post-event drift and over/under-reaction}. \citet{bernard1989} document
+post-earnings-announcement drift (under-reaction); \citet{debondt1985} document long-horizon
+over-reaction and reversal. Our pooled quintile test (Table~\ref{tab:overreact}) is a short-horizon
+policy-shock version: the modest continuation we find sits on the under-reaction side, consistent
+with information diffusing over several days---most dramatically for the banking-contagion shock.
+
+The fourth strand is \emph{evidence synthesis and design-based inference}. Aggregating estimates
+across heterogeneous events is a meta-analysis problem; we use the DerSimonian--Laird random-effects
+estimator \citep{dersimonian1986} and the $I^2$ heterogeneity statistic \citep{higgins2002} to
+characterize---not to average away---the enormous cross-shock heterogeneity. For the small
+cross-section of shocks we lean on resampling and randomization ideas \citep{efron1979,young2019}
+and on the discipline of reporting a null through its power and confidence interval
+\citep{abadie2020}, so that ``differentiation scales with size'' is stated as a bounded, falsifiable
+claim rather than a single fragile correlation. The policy-shock setting itself is motivated by the
+economic-policy-uncertainty literature \citep{baker2016}, which treats dated policy events as
+first-order drivers of asset prices.
+
+Methodologically, the paper's stance is that a \emph{comparative} atlas of shocks is worth building
+only if it is held to the same inferential standard as a single event study---and that meeting that
+standard requires importing tools finance rarely uses side by side. Placebo/permutation tests of
+dispersion, rank-stability checks across estimators, random-effects synthesis with explicit
+heterogeneity accounting, and minimum-detectable-effect reporting are each standard in some
+discipline; combining them lets a ten-shock cross-section make honest claims without pretending to a
+sample size it does not have. The alternative---reading a handful of cross-shock correlations as
+facts---is precisely the practice this draft corrects. In that sense the paper is as much about
+\emph{how} to compare shocks as about the shocks themselves.
+
+\section{Data and Research Design}\label{sec:data}
+\paragraph{Sample.} We take the daily returns of the roughly 2{,}000 largest U.S. firms by 2022
+market capitalization from 2021-06 through 2025-12 (CRSP \texttt{dsf} and, for 2025,
+\texttt{dsf\_v2}), benchmarked to the Fama-French market return (which extends through the 2025
+events). Firm characteristics---market capitalization (for size), SIC industry, and market
+beta---are observable and standard; we add each firm's idiosyncratic volatility, computed as the
+standard deviation of its market-model residual over the full sample. None of these is a
+shock-specific exposure measure. Table~\ref{tab:sumstats} summarizes the observable
+characteristics: the sample averages a market beta near one and a log market capitalization of
+about $9.3$, and the number of firms with a clean market model is stable at roughly $1{,}900$--$2{,}000$
+across shocks, so the atlas compares the same broad universe at each event.
+
+\paragraph{Firm-level CARs.} For each shock we estimate a market model
+$R_{it}=\alpha_i+\beta_i R_{mt}+\varepsilon_{it}$ over the window $[-252,-46]$ trading days
+relative to the event and cumulate abnormal returns over a pre-window $[-5,-1]$, an announcement
+window $[0,+1]$, a week $[0,+5]$, a wide window $[-5,+10]$, and a drift window $[+2,+10]$. For each
+shock we report the raw market move, the mean and cross-sectional SD of announcement CARs, the
+pre-window and drift means, and the cross-firm reversal correlation between the announcement and
+drift windows (Table~\ref{tab:atlas}). Because a market-wide shock is absorbed by the benchmark,
+mean abnormal returns are near zero by construction; the informative statistics are the
+cross-sectional \emph{dispersion} and the \emph{propagation} measures.
+
+\paragraph{The placebo engine.} To test whether a shock's dispersion is genuinely elevated
+(H1), we estimate one market model per firm over the full sample, form daily abnormal returns, and
+compute the cross-sectional SD of two-day CARs at the true event date and at $600$ pseudo-event
+dates drawn from the trading calendar but excluded from a $\pm 15$-day neighborhood of every real
+shock. The empirical $p$-value is the share of pseudo-events whose dispersion equals or exceeds the
+real one. Two caveats we state plainly: the full-sample $\alpha,\beta$ used for the placebo carry a
+mild look-ahead (they use the whole period, not only pre-event data), and because 2022--2025 is a
+dense shock window, some pseudo-event dates fall near \emph{other} shocks, which \emph{inflates} the
+placebo distribution and makes the test conservative---so a rejection is if anything understated.
+
+\paragraph{Pooled design and inference.} The atlas's ten cross-shock statistics are, by
+construction, a sample of $n=10$: any correlation computed across shocks is underpowered and we
+treat it as descriptive, guarding every such claim with a bootstrap and a minimum-detectable-effect
+calculation. The statistical power of the paper lives instead in the pooled firm$\times$shock
+tests, which use $\sim$19{,}000 observations. There, the same firm appears in up to ten shocks and
+each shock is a common cross-sectional event, so residuals are correlated within firm \emph{and}
+within shock; we absorb the shock (and industry) dimension with fixed effects and cluster standard
+errors by firm ($\sim$1{,}989 clusters), rather than clustering on the ten shocks, which are far too
+few for reliable cluster-robust inference.
+
+\paragraph{The reserved boundary.} Everything in this paper uses observable data. The cohort's
+reserved contribution---each shock's exact event time and its firm-level exposure measure, assembled
+into an \texttt{exposure\_by\_shock.csv} crosswalk---is deliberately \emph{not} constructed here. The
+central open questions (does named exposure explain the idiosyncratic dispersion? was exposure
+priced before the announcement?) are left for that crosswalk; the size/beta/volatility observables
+we use are chosen precisely because they are generic and orthogonal to the reserved measure.
+
+\section{Is the Differentiation Real?}\label{sec:diff}
+\paragraph{The atlas.} Table~\ref{tab:atlas} and Figure~\ref{fig:atlas} lay out the ten shocks. The
+market moves span $-11.0\%$ (tariff) to $+6.1\%$ (tariff pause) and $+3.1\%$ (ChatGPT); the
+cross-sectional dispersion of announcement CARs spans $2.5\%$ (IRA excise tax) to $5.8\%$ (tariff)
+and $5.2\%$ (Reg-NMS tick). Mean announcement CARs hover near zero, as expected.
+
+\paragraph{Dispersion exceeds placebo for the three largest sorters.} Table~\ref{tab:diff} and
+Figure~\ref{fig:placebo} report the placebo test. The average firm shows a two-day dispersion of
+about $2.8\%$ on ordinary days. Three shocks clear that bar decisively: the Reg-NMS half-cent tick
+(dispersion $5.1\%$, ratio $1.85$, empirical $p=0.006$), the reciprocal tariff ($5.1\%$, ratio
+$1.83$, $p=0.009$), and the SVB collapse ($4.1\%$, ratio $1.46$, $p=0.034$). The two language-model
+releases and the tariff pause sit modestly above placebo (ratios $\approx 1.15$, $p\approx 0.20$),
+and the procedural shocks (CHIPS, 13D rule, GENIUS Act, IRA excise) are indistinguishable from an
+ordinary day. Differentiation, then, is real but concentrated: only the largest real and regulatory
+reallocations sort firms beyond normal daily noise. This supports H1 for the three leading shocks
+and, notably, shows a microstructure rule (the tick) differentiating as sharply as a macro trade
+shock.
+
+\paragraph{The ranking is robust to how dispersion is measured.} A skeptic might worry the ranking
+depends on the two-day window or the SD statistic. It does not. Table~\ref{tab:rankcorr} shows that
+the shock ranking by $[0,+1]$ SD correlates $0.72$ with the $[0,+5]$ ranking, $0.79$ with the
+$[-5,+10]$ ranking, $0.81$ with the interquartile-range ranking, and $0.83$ with the median-absolute
+-deviation ranking (all $p<0.02$). The differentiation ordering is a property of the shocks, not of
+the measurement choice.
+
+\section{Systematic versus Idiosyncratic Differentiation}\label{sec:beta}
+\paragraph{Beta explains almost none of it.} If a shock simply re-priced systematic risk, firms
+would sort by market beta and the dispersion would be a beta phenomenon. Table~\ref{tab:beta}
+regresses each shock's firm CARs on market beta. Even for the tariff---where high-beta firms did
+fall more (slope $+4.1$, $t=17.8$)---beta explains only $14\%$ of the cross-sectional variance;
+for most shocks the $R^2$ is below $0.01$, and the idiosyncratic share of dispersion is $92$--$100\%$.
+The differentiation is overwhelmingly firm-specific. This is the central bridge to the reserved
+test: idiosyncratic dispersion is what a \emph{named} firm-level exposure is built to explain, and
+its dominance here is why the exposure crosswalk is the natural completion of the atlas rather than
+an afterthought.
+
+\paragraph{Observable traits explain about a fifth.} Table~\ref{tab:pooled} pools all $19{,}256$
+firm$\times$shock reactions and regresses $|\text{CAR}[0,+1]|$ on log market cap, market beta, and
+idiosyncratic volatility, with shock and industry fixed effects and firm-clustered standard errors.
+All three predictors enter positively: larger firms, higher-beta firms, and---most strongly---more
+volatile firms react more (idiosyncratic volatility $t=11.3$). The model explains $21\%$ of the
+variation in reaction magnitude. That a fifth is explained by generic observables, with four-fifths
+left over, is the quantitative statement of how much room remains for the shock-specific exposure
+measures the cohort will bring.
+
+The three coefficients are also economically legible. The idiosyncratic-volatility loading
+($+1.15$ percentage points of $|\text{CAR}|$ per point of firm volatility, $t=11.3$) says that
+firms which are ordinarily more idiosyncratic move more on \emph{any} shock---a mechanical but
+important control, because it is the part of the reaction that is \emph{not} about the shock's
+content. The beta loading ($+0.18$, $t=2.5$) captures the systematic component the per-shock
+regressions in Table~\ref{tab:beta} isolate. The size loading ($+0.05$, $t=2.4$) is small but
+positive: among large caps, the very largest react slightly more, consistent with their heavier
+index and macro exposure. Critically, once these generic channels and the shock and industry fixed
+effects are absorbed, the residual is what a \emph{named} exposure should explain---and whether it
+does is a test we deliberately leave open, because building the exposure regressor is the cohort's
+reserved contribution, not ours to pre-empt with an observable proxy.
+
+\section{Does Differentiation Scale with Size? A Fragility Analysis}\label{sec:fragile}
+The original draft's headline was that differentiation scales with the aggregate move, a correlation
+of $0.69$ between $|$market move$|$ and cross-sectional dispersion. Section~\ref{sec:diff} already
+hinted at trouble---the Reg-NMS tick differentiates as much as the tariff with a tiny market
+move---and a formal fragility analysis confirms it. Table~\ref{tab:boot} bootstraps the correlation
+over the ten shocks: the point estimate is $0.686$, but the $95\%$ bootstrap interval is
+$[-0.04,0.97]$, comfortably including zero (Figure~\ref{fig:bootstrap}). Leave-one-shock-out is
+equally telling: dropping the tariff shock alone collapses the correlation to $0.26$. The claim is
+essentially one influential observation. Table~\ref{tab:power} makes the reason precise: with $n=10$
+shocks, a design has $80\%$ power only for correlations above $0.78$; a true correlation of $0.69$
+would fail to reach significance more often than not. We therefore \emph{retract the strong scaling
+claim} and restate it as a suggestive pattern awaiting more shocks.
+
+Grouping shocks into coarse families (Table~\ref{tab:typebucket}) is descriptive only---each family
+has just two members---but it tells the same story without over-reaching: the trade family
+(dispersion $4.7\%$) and the micro/disclosure family (driven by the tick, $4.0\%$) differentiate
+most, while the industrial/tax family (procedural) differentiates least ($2.7\%$). Aggregate size is
+one correlate of differentiation, but not the only one, and the ten-shock cross-section cannot
+adjudicate which dominates.
+
+\section{Propagation: Drift, Reversal, and Contagion}\label{sec:prop}
+\paragraph{Drift is heterogeneous, not zero-on-average-because-efficient.} Table~\ref{tab:metare}
+and Figure~\ref{fig:forest} report a random-effects meta-analysis of the mean $[+2,+10]$ drift
+across shocks. The pooled estimate is $-0.01\%$ with a $95\%$ interval spanning
+$[-0.93,+0.90]$---but this near-zero average masks extreme heterogeneity ($Q=947$ on 9 df, $I^2=99\%$).
+The shocks are not drawing from a common drift; they are genuinely different events, and averaging
+them is meaningless except to \emph{quantify} that heterogeneity, which is the honest use of the
+$I^2$ statistic. The forest plot shows SVB as the clear negative-drift outlier ($-3.5\%$), with the
+tariff pause on the positive side. The pre-window mean is slightly negative on average
+($-0.89\%$, $[-1.47,-0.30]$), but again with $I^2=99\%$: we do not read it as clean anticipation,
+because isolating leakage requires the reserved exposure measure.
+
+\paragraph{The pooled test detects modest continuation.} The per-shock reversal correlations in
+Table~\ref{tab:atlas} are small and mixed (mean $0.02$), which in isolation reads as roughly
+efficient pricing. But the per-shock test is underpowered; pooling firms across shocks is not.
+Table~\ref{tab:overreact} sorts all firm$\times$shock observations into announcement-CAR quintiles
+and measures the subsequent $[+2,+10]$ drift. The pattern is monotone: the bottom quintile (biggest
+losers on impact, mean CAR $-4.8\%$) drifts a further $-0.32\%$ ($t=-2.1$), the top quintile
+(biggest winners, $+3.5\%$) drifts a further $+0.42\%$. Estimating the drift on quintile dummies
+\emph{within} shock (shock fixed effects) with standard errors clustered by firm, the top-minus-bottom
+spread is $+0.73\%$ ($t=4.0$) and the per-step slope is $+0.19\%$ per quintile ($t=5.0$); the
+per-quintile $t$-statistics reported in the table are the simpler ``mean drift $\neq 0$'' tests.
+Firms that moved most on impact kept moving the same way---modest
+\emph{under-reaction}, not the over-reaction and reversal a contrarian model predicts. It is small
+in magnitude (well under one percent over eight days) but statistically clear, and it is the pooled,
+high-power counterpart to the SVB contagion signature: information from these shocks diffused over
+several days rather than being fully impounded at the announcement. This nuances H3: pricing is
+approximately efficient, but with a systematic drift in the direction of the news.
+
+\paragraph{The SVB outlier and the mechanism behind pooled continuation.} The two propagation results
+are complementary, not contradictory. The random-effects analysis says the \emph{average} shock has
+no reliable drift while the shocks differ enormously ($I^2=99\%$); the pooled quintile test says that
+\emph{within} shocks, the firms that moved most on impact tended to keep moving. The reconciliation is
+that the continuation is concentrated in the shocks with real informational content that diffuses
+slowly---most visibly SVB, where the impact and the drift reinforced each other ($+0.42$ reversal
+correlation) as the regional-bank run propagated firm by firm over the following days (a single-shock pattern we
+read descriptively, not as a formally tested cross-shock effect). This is the
+contagion reading: a banking shock is not impounded in a single announcement return because the
+identity of the next vulnerable institution is revealed gradually. Technology and trade shocks, whose
+content is closer to a one-shot repricing, contribute far less to the pooled continuation. The pooled
+test thus aggregates a genuine but shock-specific under-reaction rather than manufacturing one from
+noise; and because it is estimated on $\sim$19{,}000 observations with firm-clustered errors, it has
+the power the per-shock reversal correlations lack.
+
+\paragraph{Size subsamples.} Table~\ref{tab:sizesplit} splits firms into within-shock size
+terciles. Dispersion is largest for mid-cap firms ($4.3\%$) and smallest for large caps ($2.9\%$),
+and the continuation drift is slightly stronger in the tails than the middle; the reversal
+correlations are small in every tercile. The differentiation and continuation patterns are not
+confined to the smallest or largest firms.
+
+\section{Power: What the Atlas Can and Cannot Say}\label{sec:power}
+A comparative atlas is only as credible as its account of its own limits. Two limits matter.
+First, at the \emph{firm} level the design is very well powered: with $\sim$1{,}900 firms per shock,
+the minimum detectable mean CAR at $80\%$ power is $0.16$--$0.37$ percentage points
+(Table~\ref{tab:power}), so the near-zero mean announcement CARs are genuine, not underpowered. This
+is why we build the paper on dispersion and pooled tests rather than on mean CARs. Second, at the
+\emph{cross-shock} level the design is weak: $n=10$ gives $80\%$ power only for correlations above
+$0.78$, which is why the $0.69$ scaling correlation is reported as suggestive and why the family
+comparison (Table~\ref{tab:typebucket}) is descriptive. The atlas can make sharp firm-level and
+pooled statements; it cannot, with ten shocks, make sharp statements about how shock-level
+attributes trade off. Adding shocks---the atlas is built to accept them one column at a time---is the
+direct remedy.
+
+\section{Discussion and Threats to Validity}\label{sec:threats}
+\paragraph{Why the mean CAR is uninformative and the dispersion is not.} A recurring temptation in
+event studies of macro shocks is to report the mean abnormal return and its $t$-statistic. Here that
+statistic is close to zero \emph{by construction}: the market model subtracts the benchmark, and a
+market-wide shock is largely the benchmark. What survives the benchmark is the cross-sectional
+\emph{spread}---how differently firms loaded on the same news---and that is exactly the object the
+differentiation axis measures. The placebo test in Table~\ref{tab:diff} disciplines this reading:
+elevated spread could in principle be ordinary volatility, so we benchmark each event's spread
+against the spread the same firms exhibit on hundreds of ordinary days. That a microstructure rule
+(the tick) and a trade shock (the tariff) both clear the placebo bar, while procedural rules do not,
+tells us the atlas is picking up genuine reallocation, not calendar noise.
+
+\paragraph{Event-induced variance and cross-sectional correlation.} The two classic threats to
+short-horizon event studies \citep{boehmer1991,kolari2010} are present here in acute form: a policy
+shock mechanically raises return variance and induces strong cross-sectional correlation in abnormal
+returns. We do not fight these with parametric corrections but design around them. The event-induced
+variance is not a nuisance but our \emph{signal}---it is precisely the differentiation we measure,
+and the placebo distribution provides its correct null. The cross-sectional correlation means the
+per-shock cross-section is effectively far smaller than its $\sim$1{,}900 firms suggest, which is why
+we never rest a conclusion on a single shock's cross-sectional $t$-statistic and instead lean on the
+pooled firm$\times$shock tests with firm-clustered errors and on design-based resampling.
+
+\paragraph{What the single event date does and does not cost us.} We use one calendar date per shock.
+For the differentiation and propagation axes this is defensible: a one-day timing error attenuates
+measured dispersion and drift toward zero, so our rejections (dispersion above placebo; monotone
+drift) are conservative to date misspecification. Where timing matters most is \emph{anticipation}:
+distinguishing pre-announcement leakage from noise requires knowing whether the event was pre- or
+post-close and announcement versus effective. This is exactly the judgment the cohort reserves, and
+it is why we decline to interpret the slightly negative average pre-window CAR
+(Table~\ref{tab:metare}) as leakage.
+
+\paragraph{Raw CARs.} We report CARs without winsorizing; a handful of firm-days carry extreme
+two-day returns. Because our inferences rest on cross-sectional \emph{dispersion} benchmarked to a
+placebo, on rank statistics, and on pooled regressions with firm-clustered errors---none of which a
+few tails can drive---trimming would not change the conclusions, but readers should note the raw
+scale.
+
+\paragraph{Sample and generalizability.} The atlas covers the $\sim$2{,}000 largest U.S. firms, so it
+speaks to how large-cap value was reallocated, not to micro-caps or private markets. The ten shocks
+are a convenience sample of salient 2022--2025 events, not a random draw, so cross-shock statistics
+describe this wave rather than policy shocks in general. Both limitations point the same way: the
+atlas is a scaffold whose scientific value grows as the cohort adds shocks and firm-level exposure,
+and whose present contribution is the disciplined, honest measurement of the wave we have.
+
+\section{Conclusion}\label{sec:concl}
+Measured on strictly common footing, the 2022--2025 shocks differentiate firms to sharply different
+degrees, and where they differentiate---the tariff, the Reg-NMS tick, the SVB collapse---they do so
+through firm-specific, idiosyncratic repricing rather than a re-pricing of systematic risk. The
+market's reaction is approximately efficient but carries a systematic sliver of under-reaction,
+strongest around the banking-contagion shock. We are explicit that the ten-shock cross-section
+cannot support the strong ``differentiation scales with size'' claim of the original draft: its
+$0.69$ correlation is one influential shock away from $0.26$, its bootstrap interval includes zero,
+and the design is underpowered for cross-shock correlations below $0.78$. What survives is more
+useful because it is testable: differentiation is real and idiosyncratic, and generic observable
+traits explain only about a fifth of it.
+
+The remaining four-fifths is where the cohort's reserved contribution lives. Each of the ten shocks
+is owned by the student whose individual paper studies it, and each of those papers produces a
+\emph{named} firm-level exposure measure---import-input intensity for the tariffs, uninsured-deposit
+and held-to-maturity exposure for SVB, AI-exposure for the language-model shocks, tick-constraint
+eligibility for the Reg-NMS tick, and so on---together with the exact intraday event time. Assembling
+these into a permno$\times$shock crosswalk turns the atlas's two central open questions into direct
+tests: does named exposure explain the idiosyncratic dispersion that beta and size cannot, and was
+that exposure priced \emph{before} the announcement? Those tests---not another robustness check on
+the size proxy---are the natural next step, and the atlas has been built to receive them.
+
+\begin{thebibliography}{99}
+\bibitem[Abadie(2020)]{abadie2020} Abadie, A., 2020. Statistical nonsignificance in empirical
+economics. American Economic Review: Insights 2, 193--208.
+\bibitem[Baker et al.(2016)]{baker2016} Baker, S.R., Bloom, N., Davis, S.J., 2016. Measuring
+economic policy uncertainty. Quarterly Journal of Economics 131, 1593--1636.
+\bibitem[Bernard and Thomas(1989)]{bernard1989} Bernard, V.L., Thomas, J.K., 1989.
+Post-earnings-announcement drift: delayed price response or risk premium? Journal of Accounting
+Research 27, 1--36.
+\bibitem[Boehmer et al.(1991)]{boehmer1991} Boehmer, E., Musumeci, J., Poulsen, A.B., 1991.
+Event-study methodology under conditions of event-induced variance. Journal of Financial Economics
+30, 253--272.
+\bibitem[Brown and Warner(1985)]{brown1985} Brown, S.J., Warner, J.B., 1985. Using daily stock
+returns: the case of event studies. Journal of Financial Economics 14, 3--31.
+\bibitem[Campbell et al.(1997)]{campbell1997} Campbell, J.Y., Lo, A.W., MacKinlay, A.C., 1997. The
+Econometrics of Financial Markets. Princeton University Press, Princeton, NJ.
+\bibitem[De Bondt and Thaler(1985)]{debondt1985} De Bondt, W.F.M., Thaler, R., 1985. Does the stock
+market overreact? Journal of Finance 40, 793--805.
+\bibitem[DerSimonian and Laird(1986)]{dersimonian1986} DerSimonian, R., Laird, N., 1986.
+Meta-analysis in clinical trials. Controlled Clinical Trials 7, 177--188.
+\bibitem[Efron(1979)]{efron1979} Efron, B., 1979. Bootstrap methods: another look at the jackknife.
+Annals of Statistics 7, 1--26.
+\bibitem[Fama(1970)]{fama1970} Fama, E.F., 1970. Efficient capital markets: a review of theory and
+empirical work. Journal of Finance 25, 383--417.
+\bibitem[Higgins and Thompson(2002)]{higgins2002} Higgins, J.P.T., Thompson, S.G., 2002. Quantifying
+heterogeneity in a meta-analysis. Statistics in Medicine 21, 1539--1558.
+\bibitem[Kolari and Pynn\"onen(2010)]{kolari2010} Kolari, J.W., Pynn\"onen, S., 2010. Event study
+testing with cross-sectional correlation of abnormal returns. Review of Financial Studies 23,
+3996--4025.
+\bibitem[MacKinlay(1997)]{mackinlay1997} MacKinlay, A.C., 1997. Event studies in economics and
+finance. Journal of Economic Literature 35, 13--39.
+\bibitem[Morck et al.(2000)]{morck2000} Morck, R., Yeung, B., Yu, W., 2000. The information content
+of stock markets: why do emerging markets have synchronous stock price movements? Journal of
+Financial Economics 58, 215--260.
+\bibitem[Roll(1988)]{roll1988} Roll, R., 1988. $R^2$. Journal of Finance 43, 541--566.
+\bibitem[Young(2019)]{young2019} Young, A., 2019. Channeling Fisher: randomization tests and the
+statistical insignificance of seemingly significant experimental results. Quarterly Journal of
+Economics 134, 557--598.
+\end{thebibliography}
+
+\FloatBarrier
+\newpage
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{The 2022--2025 policy-shock atlas}\label{tab:atlas}\scriptsize
+\input{tables/tab_atlas.tex}
+\begin{tablenotes}\scriptsize\item \textit{Notes:} Market-model CARs (\%), sample of $\sim$2{,}000
+large firms. Mkt $=$ raw market return over $[0,+1]$; $\overline{CAR}$ and SD are the mean and
+cross-sectional SD of firm CAR$[0,+1]$; Pre $=$ mean CAR$[-5,-1]$; Drift $=$ mean CAR$[+2,+10]$;
+Rev.\ $=$ cross-firm corr(CAR$[0,+1]$, CAR$[+2,+10]$). Every number traces to
+\texttt{output/tables/t1\_atlas.csv}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Sample summary statistics (observable firm characteristics)}\label{tab:sumstats}\small
+\input{tables/tab_sumstats.tex}
+\begin{tablenotes}\small\item \textit{Notes:} For each shock, the number of sample firms with a clean
+market model, the mean and SD of market beta, the mean log market capitalization, and the
+cross-sectional SD of announcement CARs (\%). The final row pools all firm$\times$shock observations.
+Characteristics are generic observables; no shock-specific exposure measure is used.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Meta-statistics across the ten shocks}\label{tab:meta}\small
+\input{tables/tab_meta.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Descriptive cross-shock statistics ($n=10$). The
+correlation in the last row is subjected to a formal fragility analysis in Table~\ref{tab:boot}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Differentiation is real: event-window dispersion vs.\ a placebo distribution}
+\label{tab:diff}\small
+\input{tables/tab_diff.tex}
+\begin{tablenotes}\small\item \textit{Notes:} SD$_{\text{event}}$ is the cross-sectional SD (\%) of
+two-day CARs at the true event date, using a full-sample market model per firm. SD$_{\text{placebo}}$
+is the mean over $600$ pseudo-event dates drawn $\geq 15$ trading days from every real shock.
+Ratio $=$ SD$_{\text{event}}/$SD$_{\text{placebo}}$; Pctile is the event's rank in the placebo
+distribution; $p$ is the share of placebo dates with dispersion $\geq$ the event's. Because dense
+2022--2025 pseudo-dates sometimes fall near other shocks, the placebo is inflated and the test is
+conservative. See Figure~\ref{fig:placebo}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{The differentiation ranking is robust to window and statistic}\label{tab:rankcorr}\small
+\input{tables/tab_rankcorr.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Spearman rank correlation, across the ten shocks,
+between the ranking by cross-sectional SD of CAR$[0,+1]$ and the ranking by each alternative
+dispersion measure (wider windows; interquartile range; median absolute deviation).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Systematic vs.\ idiosyncratic differentiation (CARs on market beta, per shock)}
+\label{tab:beta}\small
+\input{tables/tab_beta.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Each row regresses firm announcement CARs (\%) on
+market beta for one shock. ``Beta slope'' is the coefficient (\% per unit beta); $R^2$ is the share
+of cross-sectional variance beta explains; SD$_{\text{tot}}$ is the total dispersion; ``Idio.\
+share'' is the residual SD as a percentage of the total. Beta explains at most $14\%$; the
+dispersion is overwhelmingly idiosyncratic. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Pooled determinants of reaction magnitude (observable traits only)}\label{tab:pooled}\small
+\input{tables/tab_pooled.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Pooled firm$\times$shock OLS of $|\text{CAR}[0,+1]|$
+(\%) on observable characteristics, with shock and industry fixed effects and standard errors
+clustered by firm. Traits are generic observables chosen to be orthogonal to the reserved,
+hand-collected exposure measure; the exposure$\to$dispersion test is deliberately left to the
+cohort. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Random-effects meta-analysis of propagation across shocks}\label{tab:metare}\small
+\input{tables/tab_meta_re.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DerSimonian--Laird random-effects pooling across the
+ten shocks, with per-shock sampling variance $\text{SD}^2/n$. $Q$ is Cochran's heterogeneity
+statistic ($df=9$), $p_Q$ its $p$-value, $I^2$ the share of variation due to between-shock
+heterogeneity, and $\tau^2$ the between-shock variance. $I^2\approx 99\%$: the pooled estimate
+characterizes heterogeneity, it does not estimate a common effect. See Figure~\ref{fig:forest}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Aggregate propagation: post-event drift by announcement-CAR quintile}\label{tab:overreact}\small
+\input{tables/tab_overreact.tex}
+\begin{tablenotes}\small\item \textit{Notes:} All firm$\times$shock observations are sorted into
+announcement-CAR quintiles within each shock; the table reports the mean subsequent drift CAR
+$[+2,+10]$ (\%). The per-quintile $t$-statistics are simple ``mean $\neq 0$'' tests; the Q5$-$Q1
+spread and its $t$ come from a regression of drift on quintile dummies with \emph{shock fixed effects}
+and standard errors \emph{clustered by firm}. The monotone pattern and positive spread indicate
+modest \emph{continuation} (under-reaction), not reversal.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Size-tercile subsamples: dispersion, drift, and reversal}\label{tab:sizesplit}\small
+\input{tables/tab_sizesplit.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Firms are split into within-shock terciles of log
+market cap and pooled across shocks. Dispersion $=$ SD of CAR$[0,+1]$ (\%); Mean drift $=$ mean CAR
+$[+2,+10]$ (\%); Reversal $=$ cross-firm corr(CAR$[0,+1]$, CAR$[+2,+10]$).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Cross-shock comparison by coarse family (descriptive)}\label{tab:typebucket}\small
+\input{tables/tab_typebucket.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Shocks grouped into coarse families (two each);
+\emph{descriptive only} given the tiny cells. $|$Mkt$|$ is the mean absolute market move; Dispersion,
+Drift, and Reversal are averaged across the family's shocks.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Fragility of the size--differentiation correlation}\label{tab:boot}\small
+\input{tables/tab_boot.tex}
+\begin{tablenotes}\small\item \textit{Notes:} The headline correlation between $|$market move$|$ and
+cross-sectional dispersion across the ten shocks, with a nonparametric bootstrap $95\%$ interval and
+a leave-one-shock-out (jackknife) range. Dropping the tariff shock alone collapses the correlation to
+$0.26$. See Figure~\ref{fig:bootstrap} and the power analysis in Table~\ref{tab:power}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Power and minimum detectable effects}\label{tab:power}\small
+\input{tables/tab_power.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Per shock, the minimum detectable mean CAR at $80\%$
+power, MDE $=(z_{0.975}+z_{0.80})\times\text{SE(mean)}\approx 2.80\times\text{SD}/\sqrt{n}$, in
+percentage points---the design is well powered at the firm level. The final row reports the
+cross-shock correlation detectable at $80\%$ power with $n=10$ (via Fisher's $z$): only correlations
+above $0.78$ are reliably detectable, so the $0.69$ scaling correlation is underpowered.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\FloatBarrier
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.9\textwidth]{fig1_atlas.pdf}
+\caption{The atlas: raw market move (red) and mean firm CAR$[0,+1]$ $\pm$ cross-sectional SD (blue)
+for each shock. Dispersion is largest for the tariff, the Reg-NMS tick, and SVB.}\label{fig:atlas}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.82\textwidth]{fig3_placebo.pdf}
+\caption{Real event-window differentiation vs.\ placebo. Histogram: cross-sectional dispersion of
+two-day CARs over $600$ pseudo-event dates. The tariff shock (red) is deep in the right tail; the
+procedural 13D rule (navy dashed) sits at the placebo mode. See Table~\ref{tab:diff}.}\label{fig:placebo}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.85\textwidth]{fig4_forest.pdf}
+\caption{Forest plot of mean post-event drift CAR$[+2,+10]$ across shocks, with $95\%$ CIs and the
+DerSimonian--Laird random-effects pooled estimate (red band). SVB is the negative-drift outlier;
+between-shock heterogeneity is extreme ($I^2=99\%$).}\label{fig:forest}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.82\textwidth]{fig5_bootstrap.pdf}
+\caption{Bootstrap distribution of the size--differentiation correlation over the ten shocks. The
+point estimate ($0.69$, red) sits inside a $95\%$ interval (navy dashed) that includes zero: with
+$n=10$ the scaling claim is fragile.}\label{fig:bootstrap}
+\end{figure}
+
+\end{document}

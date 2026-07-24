@@ -1,0 +1,618 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}\doublespacing
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\graphicspath{{../output/figures/}}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{placeins}
+
+\title{\textbf{What Cracked a Bank in March 2023?\\
+Uninsured Deposits versus Hidden Bond Losses in the SVB Window}}
+\author{Aaron Lu Zhang \and Lei Gao\thanks{Zhang: ASSIP 2026, George Mason University.
+Gao (corresponding author): Costello College of Business, George Mason University,
+\texttt{lgao9@gmu.edu}. This is a student--faculty working paper prepared in the ASSIP 2026
+Empirical Finance research group. All data are from WRDS (CRSP daily stock and index files;
+the FR Y-9C consolidated holding-company and Call Report bank-regulatory libraries); every
+number in the paper traces to a CSV in \texttt{output/tables/} and is reproduced by the code
+in \texttt{code/}. We thank the ASSIP 2026 cohort for comments. Any errors are our own.}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent When Silicon Valley Bank collapsed in March 2023, two narratives competed:
+that banks failed because of \emph{unrealized losses} on long-duration securities, and
+that they failed because \emph{uninsured depositors} ran. We separate the two in the
+cross-section of bank equity returns. Using 165 publicly-traded U.S.\ banks, we compute
+market-model cumulative abnormal returns (CARs) over the SVB window (March 8--13, 2023)
+and relate them to two predetermined 2022Q4 balance-sheet exposures built from
+bank-regulatory filings: the ratio of estimated uninsured deposits to assets, and unrealized
+securities losses scaled by equity. The average bank lost 14.1\% over the window
+($t=-13.7$). In the cross-section, a one-standard-deviation increase in the uninsured-deposit
+ratio is associated with a 4.2-percentage-point larger equity loss ($t=-3.05$), robust to
+controlling for size and to excluding the eight U.S.\ global systemically important banks.
+The run channel survives every design we throw at it: a covariate-balanced matching estimator
+($-5.4$pp, $t=-2.43$), randomization inference on 2{,}000 permutations of exposure
+($p<0.001$), and a clean pre-event placebo window in which the uninsured gradient is flat
+($t=-0.37$) even though banks were already falling together. The securities-loss (mark-to-market)
+channel is, by contrast, fragile: it is insignificant under conventional robust inference in the
+horse race ($t=-1.16$), only marginal under randomization inference ($p=0.04$), and about half
+the magnitude of the run channel. A minimum-detectable-effect analysis shows the design is
+well-powered for the run channel and can bound---though not sharply pin down---the smaller
+mark-to-market channel. The market priced run risk far more than mark-to-market risk. Three
+hand-collected refinements---correctly aggregated multi-bank uninsured deposits, a
+bank-specific-news confound screen, and realized deposit outflows as a second outcome---are
+reserved as the companion student contribution.\\[4pt]
+\noindent\textbf{JEL:} G21, G14, G01, E58. \quad
+\textbf{Keywords:} bank runs, uninsured deposits, unrealized losses, SVB, event study,
+randomization inference, statistical power.
+\end{abstract}
+
+\newpage
+\section{Introduction}\label{sec:intro}
+In the second week of March 2023, Silicon Valley Bank (SVB) went from solvent to
+FDIC receivership in roughly 48 hours, and the equity of regional banks fell sharply.
+Two explanations were offered almost immediately, and they carry different policy
+implications. The first blames \emph{interest-rate risk}: after the fastest tightening
+cycle in four decades, banks held large unrealized losses on held-to-maturity (HTM) and
+available-for-sale (AFS) securities that, if marked to market, wiped out reported capital
+\citep{jiang2024}. The second blames \emph{funding fragility}: banks financed by
+\emph{uninsured} deposits---which are not protected by the FDIC and can flee at par---were
+exposed to a classic run \citep{diamond1983,egan2017}. Because SVB was extreme on
+\emph{both} dimensions, the raw failure does not tell us which exposure the market believed
+was fatal.
+
+This paper runs the horse race directly. We ask: across publicly-traded banks, did the
+equity-price collapse in the SVB window load more on a bank's uninsured-deposit exposure
+or on its hidden securities losses, holding size fixed? We answer with a standard
+cross-sectional event study \citep{mackinlay1997}. For 165 banks we estimate market-model
+CARs over March 8--13, 2023, and regress them on two exposures measured at 2022Q4---before
+the run---so that the right-hand-side variables are predetermined and cannot be a mechanical
+response to the crash itself.
+
+Our results are clear and, we think, economically important. First, the shock was large
+and broad: the average bank lost 14.1\% over the four-trading-day window
+($t=-13.7$; Table~\ref{tab:cars}), an order of magnitude larger than the market-model
+prediction. Second, and centrally, \emph{uninsured-deposit exposure wins the horse race}.
+A one-standard-deviation increase in the uninsured-deposit ratio is associated with a
+4.0--5.0-percentage-point larger CAR loss, with $t$-statistics between $-2.6$ and $-3.1$
+across specifications (Table~\ref{tab:main}). The effect survives controlling for size and
+is, if anything, slightly stronger when we drop the eight U.S.\ global systemically
+important banks (G-SIBs). Third, \emph{the securities-loss channel does not survive the
+horse race on conventional terms}: scaled unrealized losses are statistically insignificant
+($t=-1.16$) once we condition on uninsured funding and size, whether we use total
+(HTM$+$AFS) or HTM-only losses. The market priced the run, not---or at least far less---the
+mark-to-market hole.
+
+A cross-sectional event study with 165 banks invites two natural objections, and the
+contribution of this paper beyond the basic horse race is to confront both head-on with
+design-based methods rather than dismiss them. The first objection is that abnormal returns
+are cross-sectionally correlated within a single crisis week, so heteroskedasticity-robust
+$t$-statistics may overstate significance \citep{kolari2010,young2019}. We therefore subject
+the horse race to \emph{randomization inference}: we permute each exposure across banks
+2{,}000 times, rebuild the regression, and compare the actual coefficient to the permutation
+distribution (Table~\ref{tab:ri}, Figure~\ref{fig:ri}). The uninsured coefficient sits far
+outside its permutation interval ($p<0.001$); the securities coefficient is only marginal
+($p=0.04$). The second objection is that uninsured-heavy banks differ from other banks on
+size and on their securities books, so a linear regression may be picking up those
+correlated exposures. We therefore build a \emph{matching estimator}: we compare
+high-uninsured to low-uninsured banks that have been nearest-neighbor matched on size and
+on securities losses, an approach that does not impose the linear functional form
+\citep{imbens2004}. The matched difference in CARs is $-5.4$ percentage points ($t=-2.43$),
+essentially unchanged from the raw $-5.7$pp gap, while covariate balance improves sharply
+(Table~\ref{tab:matched}). We add a \emph{pre-event placebo window}: in the quiet
+$[-6,-2]$ window, before the SVB announcement, banks were already falling together (the
+Silvergate wind-down was underway), yet the \emph{cross-sectional} uninsured gradient is
+flat ($t=-0.37$; Table~\ref{tab:placebo}). The uninsured gradient is specific to the run
+week, not a pre-existing spread.
+
+Finally, we treat the fragile securities-loss result as a quantitative object rather than a
+bare ``insignificant.'' A minimum-detectable-effect (MDE) analysis (Table~\ref{tab:power})
+shows the design is well-powered for the run channel---the MDE at 80\% power is about the
+size of the estimated run effect itself---but only moderately powered for the smaller
+mark-to-market channel, whose MDE is somewhat larger than the run effect. The honest reading
+is therefore not ``mark-to-market losses did not matter'' but ``the market priced funding
+fragility unambiguously and mark-to-market losses at most weakly, and our design can bound
+but not sharply estimate the latter.''
+
+We make four contributions. First, relative to the theory of bank runs
+\citep{diamond1983,goldstein2005}, we provide clean asset-pricing evidence that the market's
+ex-ante measure of run vulnerability is the uninsured-deposit share. Second, relative to the
+2023-fragility literature \citep{jiang2024,metrick2024,drechsler2023}, which documents that
+uninsured deposits and unrealized losses \emph{jointly} predicted deposit outflows and
+failure, we show that in the \emph{cross-section of equity returns} the two are not
+co-equal: conditional on funding structure, mark-to-market losses add little. Third, we
+demonstrate a template for making a small-sample cross-sectional event study credible
+through matching, randomization inference, a placebo window, and an explicit power analysis.
+Fourth, we are explicit about what a machine can and cannot do: three refinements that would
+sharpen the test---hand-corrected multi-bank uninsured aggregation, a bank-specific-news
+confound screen, and realized deposit outflows as a second outcome---are deliberately
+reserved as the companion student contribution and are described in Section~\ref{sec:concl}.
+Section~\ref{sec:bg} develops hypotheses, Section~\ref{sec:lit} places the paper in the
+literature, Section~\ref{sec:data} describes the data and design, Section~\ref{sec:res}
+presents the main results, Section~\ref{sec:design} the design-based inference,
+Section~\ref{sec:het} heterogeneity, Section~\ref{sec:power} the power analysis,
+Section~\ref{sec:robust} additional robustness, and Section~\ref{sec:concl} concludes.
+
+\section{Institutional Background and Hypotheses}\label{sec:bg}
+\paragraph{The episode.} On the afternoon of Wednesday, March 8, 2023, SVB announced that it
+had sold essentially its entire \$21 billion available-for-sale securities portfolio at a
+loss and would attempt a \$2.25 billion capital raise. The disclosure crystallized a simple
+arithmetic that applied, in varying degrees, to the whole industry: a bank that had funded
+long-duration securities with deposits during the zero-rate era now held those securities at
+a deep unrealized loss, and if enough depositors withdrew, the bank would be forced to
+realize the loss and could fail. Over March 9--10 SVB's uninsured depositors withdrew at
+scale; the FDIC took the bank into receivership on Friday, March 10; and contagion spread to
+Signature Bank (closed March 12) and other regional banks through Monday, March 13
+\citep{metrick2024}. We take day 0 to be March 8 (the announcement, after the close) and
+cumulate abnormal returns through March 13.
+
+\paragraph{Two exposures, two hypotheses.} A bank financed by uninsured deposits faces a
+coordination problem: because uninsured claims are not protected, depositors have an
+incentive to withdraw first if they fear others will \citep{diamond1983,goldstein2005}.
+Equity holders, anticipating fire-sale liquidation and franchise destruction, should mark
+down banks with more uninsured funding when run risk becomes salient. This motivates the
+run-channel hypothesis:
+\begin{quote}
+\textbf{H1 (Run channel).} CARs in the SVB window are decreasing in the 2022Q4
+uninsured-deposit ratio.
+\end{quote}
+Alternatively, if the market's concern is economic insolvency from interest-rate risk, then
+banks with larger unrealized securities losses---HTM losses in particular, which are not
+marked through regulatory capital---should fall most. This motivates the competing
+mark-to-market hypothesis:
+\begin{quote}
+\textbf{H2 (Mark-to-market channel).} CARs are decreasing in unrealized securities losses
+scaled by equity.
+\end{quote}
+H1 and H2 are not mutually exclusive---the theory of \citet{jiang2024} is precisely that
+they interact---but the \emph{conditional} horse race, which exposure retains explanatory
+power when both are included, discriminates between them. The central empirical question is
+which exposure the equity market treated as the binding constraint in the days when the run
+was actually happening.
+
+\paragraph{Why the distinction matters for policy.} The two hypotheses point to different
+regulatory fixes. If the mark-to-market channel dominates, the remedy is accounting and
+capital treatment of the securities book---for example, flowing AFS and HTM unrealized
+losses through regulatory capital, or restricting the reclassification of securities into
+HTM \citep{granja2023}. If the run channel dominates, the remedy is on the liability
+side---deposit-insurance design, limits on uninsured-funding concentration, and liquidity
+requirements calibrated to run-off speed \citep{drechsler2023}. Distinguishing the two in the
+cross-section of market reactions is thus directly policy-relevant, and it is the object of
+this paper.
+
+\section{Related Literature}\label{sec:lit}
+This paper connects three strands. The first is the theory and measurement of \emph{bank
+runs and uninsured funding}. \citet{diamond1983} formalized the maturity-transformation
+fragility that makes demandable deposits run-prone, and \citet{goldstein2005} sharpened the
+comparative statics of the run probability in a global-games setting. Empirically,
+\citet{egan2017} estimate a structural model of deposit competition in which uninsured
+deposits are the fragile margin, and \citet{drechsler2021} show that the deposit franchise
+insulates banks from rate risk precisely because insured, sticky deposits are rate-insensitive
+---which by contradistinction identifies uninsured deposits as the exposed liability.
+\citet{drechsler2023} return to this margin directly after 2023, arguing that uninsured
+deposits are the locus of banking-system fragility. Our contribution to this strand is to
+show that the equity market's ex-ante pricing of run vulnerability loads on exactly the
+uninsured-deposit share this literature identifies as fragile.
+
+The second strand is the fast-growing \emph{2023 banking-crisis literature}. \citet{jiang2024}
+document that the marked-to-market value of U.S.\ bank assets fell sharply during the 2022
+tightening and that banks with large unrealized losses \emph{and} large uninsured-deposit
+funding were jointly the most exposed to a run and to insolvency; \citet{metrick2024}
+provides a narrative and taxonomy of the panic; and \citet{granja2023} studies the strategic
+reclassification of securities into HTM that let banks avoid marking losses through capital.
+A parallel literature documents the mechanics of the run itself: \citet{choi2023} study
+contagion across banks, and \citet{cookson2023} show that social media accelerated the
+deposit flight. Where this literature typically treats unrealized losses and uninsured
+deposits as \emph{joint} predictors of failure and outflows, we ask the sharper
+cross-sectional question---conditional on funding structure, does the mark-to-market hole add
+explanatory power for \emph{equity returns}?---and find that it does not, or does so only
+weakly.
+
+The third strand is \emph{event-study and design-based inference methodology}.
+\citet{mackinlay1997} is the canonical reference for the market-model event study we use.
+A recurring concern in single-event studies is that abnormal returns are cross-sectionally
+correlated, which invalidates the usual independence assumptions and inflates test statistics
+\citep{kolari2010}; \citet{young2019} shows more broadly that randomization (Fisherian)
+inference frequently overturns significance that conventional standard errors report. We use
+these tools not as decoration but as the core of our identification: the run channel survives
+randomization inference and a matching estimator \citep{imbens2004}, while the mark-to-market
+channel is fragile to them. Finally, on the interpretation of the weaker channel, we follow
+\citet{abadie2020}, who argues that a statistically insignificant estimate should be read
+through its confidence interval and power rather than treated as proof of no effect; our
+minimum-detectable-effect analysis states the mark-to-market result as a bound rather than a
+bare null.
+
+\section{Data and Research Design}\label{sec:data}
+\paragraph{Sample.} We start from all common shares (CRSP share codes 10, 11) on the NYSE,
+AMEX, or Nasdaq with an SIC code in the depository/holding-bank range (6020--6079, 6712)
+active in the SVB window, yielding 246 bank stocks with computable CARs. We merge each to its
+regulatory filer and require 2022Q4 balance-sheet data and a valid estimation window, leaving
+165 banks; the uninsured-deposit ratio is available for 157 of them. The sample is
+overwhelmingly bank and thrift holding companies (142 bank holding companies, 15 thrift
+holding companies, and 8 standalone banks or non-member institutions).
+
+\paragraph{Balance-sheet exposures.} Bank fundamentals are filed at two levels, and getting
+the aggregation right is central to the exercise. Assets, equity, and securities are reported
+on the \emph{consolidated} FR Y-9C at the holding-company level; we take total assets
+(BHCK2170), equity (BHCK3210), HTM amortized cost/fair value (BHCK1754/1771), and AFS
+amortized cost/fair value (BHCK1772/1773), and compute the \emph{securities unrealized loss}
+as (amortized cost $-$ fair value), scaled by equity. Summing subsidiary Call Reports would
+double-count multi-tier holding companies---for example, aggregating subsidiaries pushes New
+York Community Bancorp to \$270B versus its true consolidated \$90.1B---so we do \emph{not}
+sum for the consolidated quantities. Estimated uninsured deposits (RCON5597) are reported
+only in bank-level Call Reports, so for the baseline we take the holding company's
+\emph{lead} (largest-asset) subsidiary bank. Correctly aggregating uninsured deposits across
+the subsidiaries of multi-bank holding companies is a hand-verification task reserved for the
+companion student contribution (Section~\ref{sec:concl}); it is deliberately not attempted
+here. The \emph{uninsured-deposit ratio} is RCON5597 divided by consolidated assets, and
+\emph{size} is $\ln(\text{assets})$.
+
+\paragraph{Event study.} Day 0 is 2023-03-08. We estimate a market model
+$R_{it}=\alpha_i+\beta_i R_{mt}+\varepsilon_{it}$ over the $[-252,-46]$ trading-day window
+against the CRSP value-weighted index, and cumulate abnormal returns
+$\text{CAR}_i=\sum_{t\in W}(R_{it}-\hat\alpha_i-\hat\beta_i R_{mt})$ over event windows $W$
+\citep{mackinlay1997}. Our primary window is $[0,+3]$ (March 8 close through March 13); we
+report $[0,+1]$, $[0,+5]$, $[-1,+3]$, and a pre-event placebo window $[-6,-2]$ as
+robustness. Predictors are winsorized at 1/99 and standardized, so a coefficient reads as
+the effect of a one-standard-deviation increase in CAR points. Standard errors are
+heteroskedasticity-robust (HC1), and Section~\ref{sec:design} supplements them with
+design-based inference.
+
+\paragraph{Specification.} The core cross-sectional regression is
+\begin{equation}
+\text{CAR}_i \;=\; \gamma_0 + \gamma_1\,\widetilde{\text{Uninsured}}_i
++ \gamma_2\,\widetilde{\text{SecLoss}}_i + \gamma_3\,\widetilde{\text{Size}}_i
++ \varepsilon_i,
+\label{eq:xsec}
+\end{equation}
+where tildes denote winsorized, standardized exposures. H1 predicts $\gamma_1<0$ and H2
+predicts $\gamma_2<0$; the horse race asks which survives when both are present.
+Table~\ref{tab:sumstats} reports summary statistics and Table~\ref{tab:corr} the correlation
+matrix. The median bank has a 32\% uninsured-deposit ratio and securities losses of about
+22\% of equity; uninsured exposure and securities losses are only modestly correlated
+($\rho=0.23$), so the horse race is not undermined by collinearity, and matching on the
+securities book while comparing on uninsured exposure has adequate common support.
+
+\section{Main Results}\label{sec:res}
+\paragraph{The shock.} Table~\ref{tab:cars} shows the window was large and negative across
+banks: a mean CAR of $-4.6\%$ over $[0,+1]$, $-14.1\%$ over $[0,+3]$, and $-15.3\%$ over
+$[-1,+3]$, all with $t<-12$. The $[-6,-2]$ placebo window is $-2.7\%$---non-trivial, because
+the Silvergate wind-down was unfolding that week---but roughly one-fifth the event-window
+loss. The industry-wide fall is the backdrop; the cross-section is where the two hypotheses
+are tested.
+
+\paragraph{The horse race.} Table~\ref{tab:main} is the core result. In column (1),
+uninsured exposure alone explains 14\% of the cross-sectional variation in CARs, with a
+one-SD effect of $-5.0$pp ($t=-2.55$). Securities losses alone (column 2) are insignificant
+($t=-1.57$, $R^2=0.06$). With both included (column 3) the uninsured coefficient
+strengthens ($-4.6$pp, $t=-2.92$) while securities losses fall to $t=-1.09$. Adding size
+(column 4) leaves uninsured at $-4.2$pp ($t=-3.05$); excluding G-SIBs (column 5) gives
+$-4.1$pp ($t=-3.09$) and the highest fit ($R^2=0.21$). H1 is supported throughout; H2 is
+not supported on conventional terms once we condition on funding and size.
+Figure~\ref{fig:bin} shows the pattern is monotone: banks in the top uninsured-exposure
+deciles fell roughly twice as far as those in the bottom, and Figure~\ref{fig:quart} shows
+the same gradient across quartiles. The point estimate on securities losses is consistently
+negative and about half the size of the uninsured coefficient; we return in
+Section~\ref{sec:power} to what the design can and cannot say about a channel of that
+magnitude.
+
+\section{Design-Based Inference: Matching and Randomization}\label{sec:design}
+A cross-sectional event study of 165 banks in a single crisis week is exactly the setting in
+which robust $t$-statistics can mislead---abnormal returns are cross-sectionally correlated
+\citep{kolari2010}, and the exposures of interest are correlated with size and with each
+other. We therefore stress the horse race with three checks that do not rely on the
+parametric standard error.
+
+\paragraph{Matching estimator.} If the uninsured effect merely reflects the fact that
+high-uninsured banks are larger or hold worse securities books, then comparing high- and
+low-uninsured banks with those covariates balanced should erase it. We split banks at the
+median uninsured ratio and nearest-neighbor match each high-uninsured bank to a low-uninsured
+bank on standardized size and securities losses (1:1, without replacement, 0.5-SD caliper),
+yielding 54 matched pairs \citep{imbens2004}. Table~\ref{tab:matched} reports the results.
+The raw high$-$low difference in CAR$[0,+3]$ is $-5.7$pp ($t=-2.74$); after matching, which
+cuts the size gap from 0.36 to 0.04 standardized units and the securities-loss gap from 0.33
+to 0.06, the difference is $-5.4$pp ($t=-2.43$). The run effect is a comparison of otherwise
+similar banks that differ in their uninsured funding, not an artifact of size or of the
+securities book. Reassuringly, the same matched pairs show \emph{no} difference in the
+pre-event placebo window ($+0.4$pp, $t=+0.97$): matched high- and low-uninsured banks moved
+together \emph{before} the run and diverged only during it.
+
+\paragraph{Randomization inference.} Table~\ref{tab:ri} and Figure~\ref{fig:ri} report
+design-based inference from 2{,}000 permutations of each exposure across banks. We permute
+the (predetermined) uninsured ratio across banks, refit equation~\eqref{eq:xsec}, and
+collect the coefficient; the randomization $p$-value is the share of permutations whose
+coefficient is at least as extreme as the actual one. For the uninsured channel the actual
+coefficient ($-0.042$) lies far outside the permutation 95\% interval
+($[-0.020,+0.020]$), giving $p<0.001$: the run result is not an artifact of cross-sectional
+correlation or of HC1 asymptotics. For the securities channel the actual coefficient
+($-0.020$) sits essentially at the edge of its permutation interval, $p=0.04$---marginal, and
+notably weaker than the run channel by any design-based reading. The securities channel is the
+one place where randomization inference is \emph{less} conservative than the robust standard
+error: its HC1 standard error ($0.018$) is $1.8$ times the permutation standard deviation
+($0.010$). This gap is not collinearity---uninsured and securities losses are only weakly
+correlated ($\rho=0.23$)---but heteroskedasticity: bank CARs are enormously dispersed (SD
+$13\%$), so HC1 inflates the standard error to absorb that dispersion while the permutation
+null assumes exchangeability and is therefore tighter. We accordingly treat HC1 as the
+conservative, preferred inference for the mark-to-market channel and read its randomization
+$p$-value as an upper bound on that channel's significance, not as evidence of an effect.
+Randomization inference thus corroborates the asymmetry the horse race reports: the run channel
+is unambiguous under both methods; the mark-to-market channel is, at best, weak.
+
+\paragraph{Placebo window.} Table~\ref{tab:placebo} runs equation~\eqref{eq:xsec} with the
+pre-event $[-6,-2]$ CAR as the dependent variable. Even though banks were already falling in
+that window (the placebo mean CAR is $-2.7\%$; the Silvergate wind-down had begun), the
+\emph{cross-sectional} uninsured gradient is flat and insignificant ($t=-0.37$), as are the
+securities-loss and size gradients. Banks fell \emph{together} before the SVB announcement,
+regardless of their uninsured funding; the uninsured gradient appears only in the run week.
+This is a clean falsification: the run channel is specific to the event, not a pre-existing
+spread that our window mechanically captures.
+
+\section{Heterogeneity}\label{sec:het}
+If the run channel is the market pricing genuine run vulnerability, it should be present
+across observable subgroups and, plausibly, sharper where the run mechanism is more
+dangerous. Table~\ref{tab:hetero} interacts both channels with four observable 2022Q4
+moderators---above-median size, above-median securities losses, above-median HTM losses, and
+a thrift-holding-company indicator---reporting the base (low-moderator) coefficient and the
+interaction for each channel. Three patterns stand out and all point the same way. First, the
+run channel is present in every subgroup: the base uninsured coefficient is negative and
+significant across the board. Second, the run channel is \emph{amplified} exactly where the
+mark-to-market hole is deepest---for banks with above-median HTM losses the uninsured
+interaction is an additional $-6.9$pp ($t=-2.40$)---consistent with the theory of
+\citet{jiang2024} that uninsured funding is most dangerous when it sits atop a large
+unrealized loss, so that a run forces the loss to be realized. Third, the effect is not a
+thrift-versus-bank artifact: the thrift interaction is essentially zero ($+0.6$pp,
+$t=+0.31$). Crucially, these moderators are all observable balance-sheet characteristics; we
+do \emph{not} interact the run channel with hand-collected variables such as
+bank-specific-news exposure or realized deposit outflows, which are reserved for the student
+contribution and are chosen precisely to be orthogonal to that reserved test.
+
+\section{Is the Mark-to-Market Null Informative? Power and Minimum Detectable Effects}\label{sec:power}
+The honest question raised by the horse race is whether the weak securities-loss result means
+``mark-to-market losses did not matter'' or merely ``our design could not detect a
+mark-to-market effect.'' Table~\ref{tab:power} answers it directly. For each predictor we
+report the minimum detectable effect at 80\% power,
+$\text{MDE}=(z_{0.975}+z_{0.80})\,\widehat{\text{SE}}\approx 2.80\,\widehat{\text{SE}}$,
+expressed in CAR points, as a share of the cross-firm CAR standard deviation, and relative to
+the estimated run effect. The design is well-powered for the run channel: its MDE is $0.038$,
+about 92\% of the estimated run effect, so an effect that size was very likely to be
+detected---and was. For the securities channel the MDE is $0.049$, about $1.18$ times the run
+effect. The implication is twofold and stated as a bound, following \citet{abadie2020}. On
+the one hand, had the market priced mark-to-market losses \emph{as strongly as} it priced
+funding fragility, our design would probably have detected it; it did not, so a mark-to-market
+channel of run-channel magnitude is ruled out. On the other hand, the design is only
+moderately powered for a \emph{smaller} securities effect, so we cannot rule out a modest
+mark-to-market contribution of roughly half the run-channel size---which is, in fact, the
+point estimate we obtain. The null is therefore informative about the \emph{relative}
+importance of the two channels, and we are careful not to overclaim that mark-to-market
+losses were priced at exactly zero.
+
+\section{Additional Robustness}\label{sec:robust}
+Table~\ref{tab:robust} collects three further specifications. First, replacing total
+securities losses with \emph{HTM-only} losses---the losses that are hidden from regulatory
+capital and thus the sharpest test of the mark-to-market story---leaves the uninsured channel
+at $-4.0$pp ($t=-3.13$) and the HTM channel insignificant ($t=-1.48$). Second and third,
+using CAR$[0,+1]$ or CAR$[-1,+3]$ as the dependent variable preserves the uninsured effect
+($t=-2.06$ and $t=-3.11$ respectively) while securities losses remain insignificant. The run
+result is not an artifact of the securities-loss definition or of the choice of event window.
+Column~(5) of Table~\ref{tab:main} already established that dropping the eight G-SIBs, if
+anything, strengthens the run channel, so the result is not driven by the largest banks.
+
+\section{Conclusion}\label{sec:concl}
+Across publicly-traded U.S.\ banks, the March 2023 equity collapse loaded on
+uninsured-deposit funding fragility far more than on hidden securities losses, once size is
+held fixed. The run channel is large ($-4.2$pp per SD), monotone, and robust to every design
+we impose: a covariate-balanced matching estimator, randomization inference on 2{,}000
+permutations, a clean pre-event placebo window, and G-SIB exclusion. The mark-to-market
+channel is, by contrast, fragile: insignificant under robust inference, only marginal under
+randomization inference, and about half the magnitude of the run channel---and a power
+analysis shows our design can rule out a mark-to-market effect as large as the run channel
+but not a modest one. The market behaved, in the crisis week, primarily as a run-risk pricer.
+The policy implication mirrors the subsequent regulatory debate: deposit-insurance design and
+uninsured-funding concentration, more than mark-to-market accounting of the securities book,
+are what the equity market treated as making some banks fragile.
+
+We are explicit about three limitations, each of which is the object of a reserved
+hand-collection task in the companion student contribution, and none of which we attempt with
+the automated data here. First, our baseline uses the \emph{lead} subsidiary bank's uninsured
+deposits; correctly aggregating RCON5597 across the subsidiaries of multi-bank holding
+companies, read by hand from each subsidiary's Call Report, would sharpen the key regressor
+and is the first reserved task. Second, some banks had \emph{bank-specific} news during
+March 8--13 (a capital raise, a downgrade, an idiosyncratic deposit-flight report) that could
+confound the market-model abnormal return; hand-building a news-flag screen and re-running with
+confounded banks excluded is the second reserved task. Third, the ultimate test of the run
+hypothesis is whether uninsured exposure predicted \emph{realized} deposit outflows, not only
+stock reactions; hand-coding actual Q1-2023 deposit runs from 10-Qs and press coverage, as a
+second outcome, is the third reserved task. Each is a genuine research contribution that turns
+this observable-data horse race into a sharper, hand-verified test, and each is deliberately
+left for the student rather than approximated here. Extending the design to the full
+2022--2023 tightening path is left to future work.
+
+\begin{thebibliography}{99}
+\bibitem[Abadie(2020)]{abadie2020} Abadie, A., 2020. Statistical nonsignificance in empirical
+economics. American Economic Review: Insights 2, 193--208.
+\bibitem[Choi et al.(2023)]{choi2023} Choi, D., Goldsmith-Pinkham, P., Yorulmazer, T., 2023.
+Contagion effects of the Silicon Valley Bank run. NBER Working Paper 31772.
+\bibitem[Cookson et al.(2023)]{cookson2023} Cookson, J.A., Fox, C., Gil-Bazo, J., Imbet, J.F.,
+Schiller, C., 2023. Social media as a bank run catalyst. Working paper.
+\bibitem[Diamond and Dybvig(1983)]{diamond1983} Diamond, D.W., Dybvig, P.H., 1983.
+Bank runs, deposit insurance, and liquidity. Journal of Political Economy 91, 401--419.
+\bibitem[Drechsler et al.(2021)]{drechsler2021} Drechsler, I., Savov, A., Schnabl, P., 2021.
+Banking on deposits: maturity transformation without interest rate risk. Journal of Finance 76, 1091--1143.
+\bibitem[Drechsler et al.(2023)]{drechsler2023} Drechsler, I., Savov, A., Schnabl, P., Wang, O., 2023.
+Banking on uninsured deposits. NBER Working Paper 31138.
+\bibitem[Egan et al.(2017)]{egan2017} Egan, M., Horta\c{c}su, A., Matvos, G., 2017.
+Deposit competition and financial fragility. American Economic Review 107, 169--216.
+\bibitem[Flannery and Sorescu(1996)]{flannery1996} Flannery, M.J., Sorescu, S.M., 1996.
+Evidence of bank market discipline in subordinated debenture yields. Journal of Finance 51, 1347--1377.
+\bibitem[Goldstein and Pauzner(2005)]{goldstein2005} Goldstein, I., Pauzner, A., 2005.
+Demand-deposit contracts and the probability of bank runs. Journal of Finance 60, 1293--1327.
+\bibitem[Granja(2023)]{granja2023} Granja, J., 2023. Bank fragility and reclassification of
+securities into held-to-maturity. Working paper, University of Chicago Booth School of Business.
+\bibitem[Imbens(2004)]{imbens2004} Imbens, G.W., 2004. Nonparametric estimation of average
+treatment effects under exogeneity: a review. Review of Economics and Statistics 86, 4--29.
+\bibitem[Jiang et al.(2024)]{jiang2024} Jiang, E.X., Matvos, G., Piskorski, T., Seru, A., 2024.
+Monetary tightening and U.S. bank fragility in 2023: mark-to-market losses and uninsured depositor runs.
+Journal of Financial Economics 159, 103899.
+\bibitem[Kolari and Pynn\"onen(2010)]{kolari2010} Kolari, J.W., Pynn\"onen, S., 2010. Event
+study testing with cross-sectional correlation of abnormal returns. Review of Financial Studies 23, 3996--4025.
+\bibitem[MacKinlay(1997)]{mackinlay1997} MacKinlay, A.C., 1997. Event studies in economics and
+finance. Journal of Economic Literature 35, 13--39.
+\bibitem[Metrick(2024)]{metrick2024} Metrick, A., 2024. The failure of Silicon Valley Bank and
+the panic of 2023. Journal of Economic Perspectives 38, 133--152.
+\bibitem[Young(2019)]{young2019} Young, A., 2019. Channeling Fisher: randomization tests and the
+statistical insignificance of seemingly significant experimental results. Quarterly Journal of
+Economics 134, 557--598.
+\end{thebibliography}
+
+\FloatBarrier
+\newpage
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Summary statistics}\label{tab:sumstats}\small
+\input{tables/tab_sumstats.tex}
+\begin{tablenotes}\small\item \textit{Notes:} 2022Q4 exposures and SVB-window CARs for 165
+banks (uninsured ratio available for 157). Ratios from FR Y-9C (consolidated assets, equity,
+securities) and Call Reports (estimated uninsured deposits RCON5597, lead subsidiary bank).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Correlation matrix}\label{tab:corr}\small
+\input{tables/tab_corr.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Pearson correlations among the primary outcome
+(CAR$[0,+3]$) and the predetermined 2022Q4 exposures. Uninsured exposure and securities losses
+are only modestly correlated ($\rho=0.23$).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Cumulative abnormal returns by window}\label{tab:cars}\small
+\input{tables/tab_cars.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Market-model CARs, day 0 $=$ 2023-03-08,
+estimation window $[-252,-46]$ against the CRSP value-weighted index. $[-6,-2]$ is a pre-event
+placebo window.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Cross-sectional horse race: what explains the collapse?}\label{tab:main}\small
+\input{tables/tab_main.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DV is CAR$[0,+3]$. Predictors winsorized 1/99
+and standardized (coefficients are the effect of a one-SD increase, in CAR points).
+Column (5) excludes the eight U.S.\ G-SIBs. HC1-robust $t$-statistics in parentheses.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Matching estimator: high- versus low-uninsured banks}\label{tab:matched}\small
+\input{tables/tab_matched.tex}
+\begin{tablenotes}\small\item \textit{Notes:} High (low) $=$ above (below) the median
+uninsured-deposit ratio. High-uninsured banks are nearest-neighbor matched 1:1 without
+replacement to low-uninsured banks on standardized size and securities losses (0.5-SD caliper),
+yielding 54 pairs. ``Diff.\ in CAR'' is the high$-$low difference in mean CAR; Welch $t$-stat in
+parentheses. Balance rows report the standardized high$-$low mean difference on the matching
+covariates, before and after matching. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Randomization inference (2{,}000 permutations of exposure)}\label{tab:ri}\small
+\input{tables/tab_ri.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Each exposure is permuted across banks 2{,}000
+times and equation~\eqref{eq:xsec} refit (DV $=$ CAR$[0,+3]$). The permutation 95\% interval is
+the 2.5th--97.5th percentile of the placebo coefficients; the RI $p$-value is the share of
+permutations with $|\text{coef}|\geq|\text{actual}|$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Placebo-window falsification (DV $=$ pre-event CAR$[-6,-2]$)}\label{tab:placebo}\small
+\input{tables/tab_placebo.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Equation~\eqref{eq:xsec} estimated on the
+pre-event placebo window. Although banks were already falling in this window (mean placebo CAR
+$-2.7\%$; the Silvergate wind-down was underway), the cross-sectional uninsured gradient is flat.
+HC1-robust $t$-statistics in parentheses. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Heterogeneity of the two channels by observable moderators}\label{tab:hetero}\small
+\input{tables/tab_hetero.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DV is CAR$[0,+3]$. Each row is a separate
+regression interacting both channels with an observable 2022Q4 moderator indicator $M$
+(above-median assets; above-median securities loss; above-median HTM loss; thrift holding
+company). ``Base'' is the channel coefficient in the low-$M$ group; ``$\times M$'' is the
+additional effect for high-$M$ banks. Size and $M$ included. HC1-robust inference;
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Minimum detectable effects (80\% power)}\label{tab:power}\small
+\input{tables/tab_power.tex}
+\begin{tablenotes}\small\item \textit{Notes:} From the preferred horse race (Table~\ref{tab:main},
+column 4 without the G-SIB exclusion). MDE $=(z_{0.975}+z_{0.80})\,\widehat{\text{SE}}\approx
+2.80\,\widehat{\text{SE}}$, expressed in CAR points, as a percentage of the cross-firm CAR
+standard deviation, and relative to the estimated run-channel (uninsured) effect.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Robustness: HTM-only losses and alternative windows}\label{tab:robust}\small
+\input{tables/tab_robust.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Predictors winsorized 1/99 and standardized.
+Column 1 replaces total securities losses with HTM-only losses; columns 2--3 change the
+dependent-variable window. HC1-robust $t$-statistics in parentheses. $^{*}p<0.10$,
+$^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\FloatBarrier
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.78\textwidth]{fig1_uninsured_binscatter.pdf}
+\caption{SVB-window CAR versus 2022Q4 uninsured-deposit exposure. Gray points are banks;
+red points are decile means; the line is the OLS fit.}\label{fig:bin}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.68\textwidth]{fig2_uninsured_quartiles.pdf}
+\caption{Mean SVB-window CAR by uninsured-deposit quartile. Higher uninsured exposure maps
+monotonically into a larger equity loss.}\label{fig:quart}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.8\textwidth]{fig3_randinf.pdf}
+\caption{Randomization inference for the run (uninsured) channel. Histogram of the placebo
+uninsured coefficient under 2{,}000 permutations of exposure across banks; the vertical line
+is the actual coefficient, which lies far outside the permutation distribution
+($p<0.001$).}\label{fig:ri}
+\end{figure}
+
+\end{document}

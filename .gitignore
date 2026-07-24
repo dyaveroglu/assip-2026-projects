@@ -1,0 +1,33 @@
+# Data is licensed (WRDS: Compustat/CRSP/Execucomp) and never published.
+# The staging build already excludes data/ contents; this is belt-and-suspenders.
+**/data/raw/
+**/data/interim/
+**/data/processed/
+**/data/*.csv
+**/data/*.parquet
+**/data/*.dta
+# keep the documentation of sources
+!**/data/README.md
+
+# Secrets / credentials
+.env
+*.env
+*.ppk
+*.pem
+id_rsa*
+
+# Python noise
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# LaTeX build intermediates
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+*.synctex.gz
+
+# OS
+.DS_Store

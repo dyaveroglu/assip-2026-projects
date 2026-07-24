@@ -1,0 +1,2 @@
+n_pairs,mean_IS_kalshi,median_IS_kalshi,wmean_IS_kalshi,mean_IS_poly,mean_GG_kalshi,pairs_kalshi_leads,pairs_poly_leads,mean_corr_level,mean_abs_gap,frac_spread_stationary
+15,0.319,0.206,0.182,0.681,0.322,4,11,0.61,0.0362,0.867

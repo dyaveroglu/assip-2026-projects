@@ -1,0 +1,588 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}\doublespacing
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\graphicspath{{../output/figures/}}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{placeins}
+
+\title{\textbf{Does Housing Re-Price Disaster Risk Only Where People Believe?\\
+Exposure Difference-in-Differences Around Hurricanes Ian and Helene}}
+\author{Mateo Eduardo Stine \and Lei Gao\thanks{Stine: ASSIP 2026, George Mason University.
+Gao (corresponding author): Costello College of Business, George Mason University,
+\texttt{lgao9@gmu.edu}. This is a student--faculty working paper prepared in the ASSIP 2026
+Empirical Finance research group. All data are public and free (Zillow ZHVI, OpenFEMA disaster
+declarations, Yale Climate Opinion Maps, FEMA National Risk Index, and 2020 county election
+returns); every number in the paper traces to a CSV in \texttt{output/tables/} and is reproduced
+by the code in \texttt{code/}. We thank the ASSIP 2026 cohort for comments. Any errors are our
+own.}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent A prominent hypothesis in climate finance holds that housing markets capitalize
+disaster risk \emph{only where residents believe} the risk is real \citep{baldauf2020}. We
+test this after two salient landfalls---Hurricane Ian (SW Florida, Sept.\ 2022) and Hurricane
+Helene (Big Bend Florida to southern Appalachia, Sept.\ 2024)---using an exposure
+difference-in-differences on monthly Zillow county home values. Treated counties are those
+FEMA designated for its Individuals \& Households Program (hard-hit); controls are
+non-designated counties in the same storm states. Across 600 counties and 32{,}085
+county-months, the average two-way fixed-effects effect of being hard-hit is a
+\emph{precise null} ($\text{Treat}\times\text{Post}=+0.001$, $t=0.34$). This masks a
+differential pre-trend: treated counties---especially high-belief Florida coastal markets hit
+by Ian---were already appreciating faster before landfall (pre-trend slope
+$+0.0007$/month, $t=3.6$). Net of a treated-specific linear trend, hard-hit values fall
+$\sim$0.5\% relative to controls ($-0.0053$, $t=-3.0$). Crucially, the belief-conditioning
+hypothesis is \emph{not} supported: a high/low belief split appears to show exposure
+\emph{raising} relative prices where belief is high ($+0.020$, $t=2.5$), but this reverses
+within Helene using continuous worry ($-0.011$, $t=-2.5$), vanishes with a 2020 GOP-vote
+proxy ($+0.002$, $t=0.5$), and disappears once pre-trends are removed ($+0.003$, $t=0.8$).
+Four additions push past a bare null. Heterogeneity by observable moderators shows the
+exposure effect loads on pre-storm price \emph{momentum} ($+0.019$, $t=2.6$), not on FEMA
+baseline hurricane or flood risk (insignificant)---it tracks housing momentum, not physical
+risk. A within-event nearest-neighbor \emph{match} on pre-storm price level and momentum
+collapses the belief interaction to $+0.003$ ($t=0.40$). \emph{Randomization inference}
+(1{,}000 within-event permutations) places the average effect squarely inside its permutation
+distribution ($p=0.76$)---a design-based null---while the belief interaction lies in the far
+tail ($p=0.02$), which, because permutation scrambles which counties are treated, locates it in
+the \emph{systematic} wealth/geography structure of treatment rather than in belief. A
+\emph{minimum-detectable-effect} analysis shows the null is informative: at 80\% power the
+design could detect belief-conditional effects above $2.2\%$ of home value---smaller than the
+$8.4$-point Ian--Helene spread. A sharp test awaits the student's hand-collected landfall
+geography.\\[4pt]
+\noindent\textbf{JEL:} G12, Q54, R31, D84, G14. \quad
+\textbf{Keywords:} climate risk, house prices, hurricanes, climate beliefs,
+difference-in-differences, randomization inference, statistical power.
+\end{abstract}
+
+\newpage
+\section{Introduction}\label{sec:intro}
+A central question in climate finance is whether asset prices reflect physical climate risk,
+and if so, \emph{whose} beliefs do the pricing. In an influential paper, \citet{baldauf2020}
+argue that otherwise-identical coastal homes sell at a discount for projected sea-level-rise
+exposure \emph{only} in neighborhoods where residents believe in climate change; where
+residents are skeptical, the same physical risk is not capitalized. \citet{bernstein2019}
+find a parallel result for sea-level-rise exposure that is concentrated among sophisticated
+and believing buyers. A natural and policy-relevant sharpening of this hypothesis is dynamic:
+when a \emph{disaster actually strikes}---making latent risk vividly salient---do home values
+adjust more in high-belief places than in skeptical ones? This paper asks exactly that using
+two of the most destructive recent U.S.\ landfalls.
+
+We study Hurricane Ian (landfall near Fort Myers, Florida, 28 September 2022) and Hurricane
+Helene (landfall in Florida's Big Bend, 26 September 2024, with catastrophic inland flooding
+across Georgia, South Carolina, and the southern Appalachians). Our outcome is the Zillow
+Home Value Index (ZHVI), a monthly, smoothed, seasonally-adjusted measure of the typical
+home value in each county, from 2000 through May 2026. We define a county as \emph{treated}
+(hard-hit) if FEMA activated its Individuals \& Households Program (IHP) there---FEMA's own,
+primary-source determination that household-level damage was severe enough to warrant direct
+aid to residents. Control counties are those in the same storm-affected states that were not
+IHP-designated. We align each county's calendar months to months-since-landfall, keep a
+symmetric $[-24,+20]$-month window, require full ZHVI coverage so the event study is
+balanced, and stack the two events (unit $=$ county $\times$ event). The estimating equation
+is a two-way fixed-effects difference-in-differences,
+\begin{equation}
+\ln \text{ZHVI}_{i,t} = \alpha_i + \delta_{e(i),\tau(t)} + \beta\,(\text{Treat}_i\times\text{Post}_t) + \varepsilon_{i,t},
+\label{eq:did}
+\end{equation}
+with county$\times$event fixed effects $\alpha_i$, event$\times$calendar-month fixed effects
+$\delta$, and standard errors clustered by county. We then interact $\text{Treat}\times\text{Post}$
+with three county moderators: Yale Climate Opinion ``worried'' estimates \citep{howe2015},
+2020 Republican vote share (an inverse-belief proxy), and the FEMA National Risk Index
+hurricane-risk score.
+
+\paragraph{Findings.} First, the average effect is a \emph{precise null}: in the preferred
+two-way FE specification $\beta=+0.0013$ ($t=0.34$; Table~\ref{tab:did}). Hard-hit counties'
+typical home values did not, on average, diverge from same-state controls after landfall.
+Second, this average hides a serious identification wrinkle and a sharp storm-level split:
+Ian's hard-hit counties (expensive SW-Florida coast) \emph{rose} $+7.3\%$ relative to
+controls ($t=7.7$), while Helene's hard-hit counties (poorer inland Appalachia) \emph{fell}
+$-1.1\%$ ($t=-2.4$). Third, the dynamic event study (Figure~\ref{fig:es}) shows that treated
+counties were on a rising relative trajectory \emph{before} landfall---the parallel-trends
+assumption is not clean in the pooled sample. The differential pre-trend is $+0.0007$/month
+($t=3.6$), and it is entirely a high-belief-group phenomenon: $+0.0012$/month ($t=3.6$) among
+high-belief counties versus a flat, insignificant $+0.0003$/month ($t=1.1$) among low-belief
+counties (Table~\ref{tab:pretrend}). Once we net out a treated-specific linear trend, the
+average effect turns modestly \emph{negative}: $-0.0053$ ($t=-3.0$)---a $\sim$0.5\% relative
+decline consistent with mild downward re-pricing.
+
+Fourth, and most important for the research question, \emph{the belief-conditioning
+hypothesis does not survive}. A naive high/low ``worried'' split yields a positive
+interaction ($+0.020$, $t=2.5$; Table~\ref{tab:belief}), which would say prices held up
+\emph{better} where belief is high---the \emph{opposite} sign to the risk-capitalization
+story, and driven by Florida's booming, high-belief Ian coast. The interaction (i) reverses
+to $-0.011$ ($t=-2.5$) when we use continuous worry within Helene alone, (ii) is an
+insignificant $+0.002$ ($t=0.5$) using the GOP-vote proxy, and (iii) collapses to $+0.003$
+($t=0.8$) once we allow belief-group-specific linear trends. The belief-split event study
+(Figure~\ref{fig:split}) makes the artifact visible: the high-belief group's pre-trend is
+steep, while the low-belief group is flat pre-storm and then declines the most. In short, in
+these two events we find \emph{no robust evidence} that housing re-prices realized disaster
+risk more where people believe; if anything, the cleanest identification points the other
+way.
+
+\paragraph{Four steps past a bare null.} We then take four additional steps, deliberately using
+only \emph{observable} county data and design-based inference, so that the paper says what its
+null does and does not rule out. (i) \emph{Heterogeneity} (Section~\ref{sec:het},
+Table~\ref{tab:hetero}): interacting the exposure DiD with pre-storm moderators shows the effect
+loads on pre-storm price \emph{momentum} ($+0.019$, $t=2.6$)---booming markets held up---and
+\emph{not} on the FEMA baseline hurricane or coastal-flood risk scores (both insignificant). The
+one direct test of the ``latent-risk salience'' channel (H3) therefore fails: exposure did not
+re-price more where physical risk was genuinely high, only where prices were already rising.
+(ii) \emph{Matching} (Section~\ref{sec:match}, Table~\ref{tab:matched}): a within-event
+nearest-neighbor match of each treated county to a control on pre-storm price level and momentum
+(201 pairs; the pre-storm level gap falls from $-0.042$ to $+0.001$ log points) collapses the
+belief interaction to an insignificant $+0.003$ ($t=0.40$). (iii) \emph{Randomization inference}
+(Section~\ref{sec:ri}, Table~\ref{tab:ri}, Figure~\ref{fig:ri}): permuting the treatment label
+1{,}000 times \emph{within} each storm places the average effect at the $63$rd percentile of its
+permutation distribution ($p=0.76$)---a genuine design-based null---while the belief interaction
+sits at the $99$th percentile ($p=0.02$). Because the permutation scrambles which counties are
+labeled hard-hit, an interaction this extreme is not sampling noise; it says the real treated set
+is \emph{systematically} the high-belief, high-price, high-momentum coast, i.e.\ the very
+geography confound that matching and detrending remove. (iv) \emph{Power}
+(Section~\ref{sec:power}, Table~\ref{tab:power}): the minimum detectable effect at 80\% power is
+$1.1\%$ of home value for the average effect and $2.2\%$ for the belief interaction---below the
+$8.4$-percentage-point Ian--Helene spread---so the failure to find a robust belief effect is an
+informative bound, not low power.
+
+\paragraph{Contribution.} We contribute to the climate-belief asset-pricing literature
+\citep{baldauf2020,bernstein2019,giglio2021} by moving from cross-sectional
+\emph{sea-level-rise} capitalization to a \emph{realized-disaster} event study with an
+explicit belief moderator, and by showing how easily a belief-conditional ``result'' can be
+manufactured by pre-trends and storm geography. We complement the disaster-and-house-prices
+literature \citep{ortega2018,bin2013,gallagher2014,hino2021}, which documents heterogeneous
+and often transitory price responses to floods and storms, by pairing two contemporaneous
+landfalls of very different socioeconomic character. Methodologically, we treat the null as a
+quantitative object---reporting matching, randomization inference, and minimum detectable
+effects---in the spirit of recent work on the fragility of pre-trend tests \citep{roth2022},
+design-based inference with clustered data \citep{young2019}, and the interpretation of
+statistical nonsignificance \citep{abadie2020}. Our honest null is a caution: the identifying
+variation in ``do believers re-price'' designs is often confounded with wealth, coastal
+amenity, and pre-existing housing-market momentum. Section~\ref{sec:bg} develops the
+hypotheses, Section~\ref{sec:lit} places the paper in the literature, Section~\ref{sec:data}
+the data and research design, Section~\ref{sec:res} the average effect and pre-trend problem,
+Section~\ref{sec:belief} the central belief test, Section~\ref{sec:het} heterogeneity,
+Section~\ref{sec:match} matching, Section~\ref{sec:ri} randomization inference,
+Section~\ref{sec:power} power, and Section~\ref{sec:concl} concludes with the hand-collection
+that would sharpen the test.
+
+\section{Background and Hypotheses}\label{sec:bg}
+Standard hedonic theory says a salient increase in perceived disaster risk should lower the
+present value of a home in the risk zone, all else equal \citep{bin2013,ortega2018}. The
+\citet{baldauf2020} refinement adds heterogeneous beliefs: capitalization requires that
+marginal buyers \emph{perceive} the risk. A major landfall is an information shock that raises
+salience \citep{gallagher2014,hino2021}. This motivates:
+\begin{quote}
+\textbf{H1 (Re-pricing).} After a major landfall, typical home values in hard-hit counties
+fall relative to unaffected same-state controls.\\[2pt]
+\textbf{H2 (Belief-conditioning).} The decline in H1 is \emph{larger} where county climate
+beliefs are stronger (higher ``worried,'' lower Republican vote share).\\[2pt]
+\textbf{H3 (Latent-risk salience).} The decline is larger where baseline hurricane risk
+(FEMA NRI) was already high, i.e.\ where the storm made a truly high-risk location salient.
+\end{quote}
+Competing forces work against H1 in the short and medium run: supply destruction, insurance
+inflows, and reconstruction demand can \emph{raise} measured prices, especially in wealthy
+coastal markets \citep{ortega2018}. Which force dominates---and whether beliefs shape
+it---is the empirical question. A fourth consideration is measurement: our treatment is a
+binary FEMA designation, an intent-to-treat proxy for a continuous, geographically graded
+shock. If the binary flag mixes severely and marginally affected counties, a true
+belief-conditional effect could be averaged toward zero. Quantifying how much that matters is
+exactly what the companion hand-collection of landfall geography is designed to resolve, and
+it is why we bound the null with power rather than reading it as a definitive zero.
+
+\section{Related Literature}\label{sec:lit}
+This paper sits at the intersection of three literatures. The first is the capitalization of
+climate and disaster risk into real-estate prices. \citet{baldauf2020} is our point of
+departure: using MLS transactions they show that projected sea-level-rise exposure is
+discounted in the price of otherwise-similar homes \emph{only} in communities that believe in
+climate change, and not in skeptical ones. \citet{bernstein2019} document a sizable
+sea-level-rise discount concentrated among sophisticated, non-owner-occupier, and believing
+buyers, and \citet{giglio2021} survey the broader climate-finance evidence that beliefs and
+attention shape how physical risk is priced. A parallel, older strand studies how \emph{realized}
+floods and storms move prices: \citet{bin2013} find flood-risk premiums that rise after events
+and decay; \citet{ortega2018} show Hurricane Sandy depressed New York values in inundated
+zones; \citet{gallagher2014} and \citet{hino2021} show that information and salience, not just
+physical exposure, drive both insurance take-up and price responses. Our contribution to this
+strand is to move the belief-conditioning test from a \emph{cross-sectional, projected-risk}
+setting to a \emph{dynamic, realized-disaster} one, and to show that in two large recent
+landfalls the belief interaction is not robust.
+
+The second literature is the econometrics of difference-in-differences and event studies, and in
+particular the credibility of parallel trends. Recent work stresses that pre-trend tests have low
+power and can license false confidence \citep{roth2022}, that conventional two-way
+fixed-effects and event-study estimands are fragile under treatment-effect heterogeneity and
+staggered timing \citep{callaway2021,goodmanbacon2021,sunabraham2021}, and that inference with a
+moderate number of clusters benefits from design-based methods such as randomization inference
+\citep{young2019}. Because our design stacks two events and rests on a parallel-trends assumption
+that the data reject in the pooled sample, we take these warnings literally: we report the
+pre-trend explicitly, add treated-specific trends, and use within-event permutation inference to
+ask whether our estimates could arise by chance under the design.
+
+The third literature concerns the interpretation of null and non-robust results. Economics has a
+documented tendency toward low power and selective reporting \citep{ioannidis2017}, and
+methodologists urge that a statistically insignificant estimate be read through its confidence
+interval and power rather than treated as proof of no effect \citep{abadie2020}. We follow that
+guidance: Section~\ref{sec:power} reports the minimum belief-conditional effect our design could
+detect at 80\% power, so the non-result is stated as a bound---smaller than the cross-storm price
+spread---rather than as a bare ``insignificant.''
+
+\section{Data and Research Design}\label{sec:data}
+\paragraph{Home values.} Zillow ZHVI (all homes, county, smoothed, seasonally adjusted),
+2000-01 through 2026-05, for the six storm states (FL, GA, NC, SC, TN, VA): 3{,}072 U.S.\
+counties in the raw file, 600 with continuous coverage in our balanced event windows.
+
+\paragraph{Exposure.} OpenFEMA \texttt{Dis\-aster\-Declarations\-Summaries} for the storms'
+major-disaster (DR) declarations---Ian: DR-4673 (FL), DR-4677 (SC); Helene: DR-4827 (NC),
+DR-4828 (FL), DR-4829 (SC), DR-4830 (GA), DR-4831 (VA), DR-4832 (TN). A county is
+\emph{treated} if any designated area within it received the Individuals \& Households
+Program (IHP). This yields 216 treated county-events (29 for Ian, 187 for Helene) and 497
+controls.
+
+\paragraph{Beliefs.} Yale Climate Opinion Maps (YCOM, model 5.0, county level) estimated
+share of adults ``worried'' about global warming; we also use ``happening.'' As an
+inverse-belief robustness proxy we use 2020 county Republican presidential vote share (MIT
+Election Lab / county returns). The median county ``worried'' in our sample is 55.4\%.
+
+\paragraph{Baseline risk.} FEMA National Risk Index (county, ArcGIS), hurricane-risk,
+coastal-flood, and overall-risk scores, used both as moderators and to validate that treated
+counties were genuinely higher-risk (Table~\ref{tab:balance}).
+
+\paragraph{Panel.} We melt ZHVI to county-month, restrict to storm states, align to
+months-since-landfall, keep $[-24,+20]$ with full coverage, define $\text{Post}=1$ for months
+after the landfall month, merge the moderators, and stack the two events. The final panel has
+32{,}085 county-months across 713 county-events. Table~\ref{tab:balance} shows treated
+counties are slightly \emph{less} worried (55.8 vs.\ 56.7), more Republican (0.642 vs.\ 0.604,
+$t=3.2$), and---reassuringly---higher baseline hurricane risk (NRI 77.8 vs.\ 72.6, $t=3.5$),
+with statistically indistinguishable home-value \emph{levels} at landfall.
+
+\paragraph{Three design-based checks.} Beyond equation~\eqref{eq:did} we run three checks that
+do not rely on the parametric null and use only observable data. (1) \emph{Matching}: we
+nearest-neighbor match each treated county-event to a not-yet-used control \emph{within the same
+storm} on pre-storm ZHVI level and pre-storm price momentum (caliper 0.5 SD on the standardized
+distance), and re-estimate \eqref{eq:did} on the balanced sample. (2) \emph{Randomization
+inference}: we permute the time-invariant treatment label \emph{within} each event 1{,}000
+times---holding the number treated per storm fixed at Ian $=29$, Helene $=187$---rebuild
+$\text{Treat}^{\text{perm}}\times\text{Post}$, re-estimate \eqref{eq:did}, and compare the actual
+coefficients to the permutation distribution. (3) \emph{Power}: we compute the minimum detectable
+effect at 80\% power from each coefficient's estimated standard error, expressed in percent of
+home value and relative to the cross-storm spread. Together these convert ``insignificant'' into
+a set of falsifiable, design-based statements. Crucially, none of these uses a graded
+distance/intensity exposure or a corrected treatment set---those are the student's hand-collected
+contribution (Section~\ref{sec:concl})---so the checks here are deliberately orthogonal to that
+reserved test.
+
+\section{Results: Average Effect and the Pre-Trend Problem}\label{sec:res}
+Table~\ref{tab:did} reports Equation~\eqref{eq:did}. The naive pooled OLS is a null
+($-0.003$, $t=-0.5$). Adding county$\times$event fixed effects alone yields a spuriously large
+$+0.056$ ($t=12.4$)---but this omits calendar time and merely captures the nationwide
+2021--24 price boom. The preferred two-way FE estimate is a \emph{precise null},
+$+0.0013$ ($t=0.34$): hard-hit and control counties moved together on average. The average,
+however, conceals opposite signs across storms: restricting to Ian gives $+0.073$ ($t=7.7$),
+restricting to Helene gives $-0.011$ ($t=-2.4$). Figure~\ref{fig:raw} shows why---Ian's
+hard-hit SW-Florida coast kept outrunning its controls, while Helene's inland hard-hit
+counties slipped below.
+
+Figure~\ref{fig:es} plots the dynamic version (treated$\times$event-time dummies, landfall
+normalized to zero). Treated counties are \emph{below} their landfall-relative position two
+years out and climb toward it by landfall---an upward pre-trend---then drift down again,
+reaching $-1.1\%$ ($t=-2.6$) twenty months post. Table~\ref{tab:pretrend} formalizes the
+pre-trend: a significant $+0.0007$/month differential slope pooled, concentrated entirely in
+the high-belief group ($+0.0012$/month, $t=3.6$) and absent in the low-belief group
+($+0.0003$/month, $t=1.1$). Because the parallel-trends assumption is not clean pooled, we add
+a treated-specific linear trend (Table~\ref{tab:did}, row 7): the level effect becomes
+$-0.0053$ ($t=-3.0$), a mild downward re-pricing consistent with H1 but economically small.
+
+\section{Belief Conditioning: The Central Test}\label{sec:belief}
+Table~\ref{tab:belief} tests H2. Row (1), a high/low ``worried'' split, gives a
+\emph{positive} interaction, $+0.020$ ($t=2.5$): exposure is associated with \emph{higher}
+relative prices where belief is high. This is the wrong sign for H2 and, as Figure~\ref{fig:split}
+shows, is a pre-trend artifact---the high-belief treated group (dominated by Florida's Ian
+coast, 86\% high-belief vs.\ 42\% for Helene) was already on a steep upward path. The
+interaction is fragile in every direction: continuous ``worried'' pooled is a null
+($+0.001$, $t=0.3$); the GOP-vote proxy is a null ($+0.002$, $t=0.5$); \emph{within Helene},
+continuous ``worried'' flips to $-0.011$ ($t=-2.5$)---the H2 sign, but confined to one storm;
+and once belief-group-specific linear trends are included (row 6) the split interaction
+collapses to $+0.003$ ($t=0.8$). We therefore cannot reject the null of \emph{no}
+belief-conditional re-pricing. The NRI hurricane-risk moderator (H3) is likewise only
+marginal ($+0.006$, $t=1.7$) and, again, of the ``wrong'' sign for a risk-capitalization
+story. The remaining sections stress-test this reading with three design-based tools before
+concluding.
+
+\section{Heterogeneity by Observable Moderators}\label{sec:het}
+If exposure re-priced disaster risk for \emph{some} counties and the pooled null merely
+averages it away, the effect should surface in observable subgroups---and if the belief story is
+right, it should surface where physical risk was genuinely high. Table~\ref{tab:hetero}
+interacts the exposure DiD with four pre-storm moderators, each split at its within-event median
+so the moderator is orthogonal to the storm dummy: pre-storm home-value level (wealth), pre-storm
+price momentum, the FEMA National Risk Index coastal-flood score, and the NRI overall-risk score.
+Each row reports the base DiD (low-moderator group) and the extra effect for the high-moderator
+group.
+
+Two facts emerge. First, the exposure effect loads on pre-storm \emph{momentum}: the
+interaction is $+0.019$ ($t=2.6$), so counties whose prices were already climbing fastest are
+exactly where hard-hit values held up or rose---precisely the booming Ian coast, and precisely
+the mechanical confound the pre-trend diagnosed. Wealth tells a related story (the high-value
+interaction is $-0.018$, $t=-2.2$, against a positive base, i.e.\ the level effect is
+concentrated in below-median-value markets rather than the most expensive ones). Second, and decisively for H3, the
+two \emph{physical-risk} moderators---coastal-flood risk and overall NRI risk---carry
+\emph{insignificant} interactions ($-0.014$, $t=-1.4$; and $+0.010$, $t=1.3$). Exposure did not
+re-price more where baseline risk was truly high; it moved with pre-existing housing momentum.
+This is the opposite of what the latent-risk-salience channel predicts and reinforces that the
+belief pattern in Table~\ref{tab:belief} is geography and momentum, not risk perception. We do
+\emph{not} interact treatment with a graded distance/intensity exposure here---that dimension is
+the student's hand-collected contribution and is deliberately excluded from the observable
+moderators above.
+
+\section{Matching}\label{sec:match}
+The treated and control groups differ on pre-existing housing dynamics, and the raw Ian result
+could simply reflect wealthy, fast-appreciating coastal markets being the ones FEMA designated.
+Table~\ref{tab:matched} re-estimates the design on a sample in which each treated county-event is
+nearest-neighbor matched, \emph{within its own storm} and without replacement, to a control on
+pre-storm ZHVI level and pre-storm price momentum (201 pairs; the treated--control pre-storm
+level gap falls from $-0.042$ to $+0.001$ log points and the momentum gap from
+$1.5\times10^{-4}$ to $3.7\times10^{-5}$ per month). On the balanced sample the average effect is
+$-0.006$ ($t=-1.3$) and the detrended effect $-0.002$ ($t=-1.2$)---both statistically
+indistinguishable from zero, so the mild negative in the full sample is not robust to balancing
+on pre-storm dynamics. Most important, the belief-split interaction---the wrong-signed $+0.020$
+that a casual reading might report as ``believers re-price less''---\emph{collapses to $+0.003$}
+($t=0.40$) once treated and control counties are matched on how expensive and how fast-rising
+they were before the storm. The belief ``effect'' is a wealth/momentum artifact, not a
+belief response.
+
+\section{Randomization Inference}\label{sec:ri}
+Table~\ref{tab:ri} and Figure~\ref{fig:ri} report design-based inference from 1{,}000
+permutations of the treatment label, drawn \emph{within} each storm so that the number of
+hard-hit counties per event (Ian $=29$, Helene $=187$) is held fixed and the two-event structure
+is preserved. For the average effect the actual coefficient ($+0.0013$) sits at the $63$rd
+percentile of the permutation distribution (95\% permutation interval $[-0.009,+0.008]$), giving
+a randomization $p$-value of $0.76$: the average null is not an artifact of clustered-SE
+asymptotics but survives a fully design-based test. The belief-split interaction is different:
+its actual value ($+0.020$) lies at the $99$th percentile, outside the permutation interval
+$[-0.018,+0.015]$, $p=0.02$. This does \emph{not} resurrect a belief reading. Because the
+permutation randomizes \emph{which} counties are labeled hard-hit, an interaction this extreme
+means the real treated set is a \emph{systematically} unusual draw---the high-belief, high-price,
+high-momentum Florida/Ian coast---rather than a random one. Randomization inference thus
+corroborates both halves of the story: the average exposure effect is a genuine null, and the
+belief interaction is systematic wealth-and-geography structure (the same structure matching and
+detrending remove), not sampling noise and not a causal response to belief.
+
+\section{Is the Null Informative? Power and Minimum Detectable Effects}\label{sec:power}
+A null is only interesting if the design could have detected a real effect. Table~\ref{tab:power}
+reports, for the average, detrended, and belief-conditional coefficients, the minimum detectable
+effect (MDE) at 80\% power, $\text{MDE}=(z_{0.975}+z_{0.80})\,\widehat{\text{SE}}\approx
+2.80\,\widehat{\text{SE}}$, expressed as a percent of home value and as a share of the cross-county
+standard deviation of the post-minus-pre change in log ZHVI ($7.2\%$). The design is well powered:
+at 80\% power we could detect an average exposure effect of $1.1\%$ of home value ($15\%$ of the
+cross-county change SD), a detrended effect of $0.5\%$ ($7\%$), and a belief-conditional
+interaction of $2.2\%$ ($30\%$). These thresholds are well below the effects the setting itself
+produces: the Ian--Helene storm spread is $8.4$ percentage points, and the raw belief split is
+$2.0\%$. In other words, a belief-conditional re-pricing even a fraction of the cross-storm
+spread would very likely have been detected; its absence once confounds are removed is therefore
+an informative upper bound on the belief mechanism in these two events, not a symptom of an
+underpowered test.
+
+\section{Conclusion}\label{sec:concl}
+Do home values re-price disaster risk only where people believe? In the two largest recent
+U.S.\ landfalls, our answer is a carefully documented \emph{no}. The average
+hard-hit-versus-control effect is a precise null; net of pre-trends it is a small negative;
+and the belief-conditional pattern that a casual split appears to show is an artifact of storm
+geography and pre-existing housing momentum---it reverses across specifications, vanishes under
+detrending, collapses under matching, and is located by randomization inference in the
+systematic wealth structure of which counties were treated rather than in belief. The
+heterogeneity evidence sharpens the point: exposure moved with pre-storm price momentum, not with
+FEMA baseline hurricane or flood risk, so even the latent-risk-salience channel finds no support.
+A power analysis establishes that the null is informative: belief-conditional effects smaller than
+the cross-storm spread would have been detected. We read this not as a refutation of
+\citet{baldauf2020}'s cross-sectional sea-level-rise result, but as a warning that
+realized-disaster event studies of belief conditioning are especially vulnerable to confounding
+by wealth, coastal amenity, and momentum.
+
+The decisive next step is human. An automated pipeline cannot know each storm's \emph{exact}
+landfall track, wind-field, and surge footprint, nor separate a county flooded by 30 inches
+of rain from a neighbor merely designated for administrative convenience. Our treatment is an
+intent-to-treat \emph{proxy}---a binary FEMA IHP flag---and every check above is deliberately
+built on observable data that is orthogonal to true exposure intensity. Hand-collecting the
+precise affected geography from NOAA and FEMA primary sources---turning the coarse IHP indicator
+into a graded distance/intensity exposure, and validating the treated set county by county---is
+what would convert this honest null into a sharp, defensible test of whether believers, and only
+believers, re-price the risk that a hurricane makes suddenly real. That test---not another
+robustness check on the binary proxy---is the natural next step, and it is the contribution the
+design has been built to receive.
+
+\begin{thebibliography}{99}
+\bibitem[Abadie(2020)]{abadie2020} Abadie, A., 2020. Statistical nonsignificance in empirical
+economics. American Economic Review: Insights 2, 193--208.
+\bibitem[Baldauf et al.(2020)]{baldauf2020} Baldauf, M., Garlappi, L., Yannelis, C., 2020.
+Does climate change affect real estate prices? Only if you believe in it. Review of Financial Studies 33, 1256--1295.
+\bibitem[Bernstein et al.(2019)]{bernstein2019} Bernstein, A., Gustafson, M.T., Lewis, R., 2019.
+Disaster on the horizon: the price effect of sea level rise. Journal of Financial Economics 134, 253--272.
+\bibitem[Bin and Landry(2013)]{bin2013} Bin, O., Landry, C.E., 2013.
+Changes in implicit flood risk premiums: empirical evidence from the housing market. Journal of Environmental Economics and Management 65, 361--376.
+\bibitem[Callaway and Sant'Anna(2021)]{callaway2021} Callaway, B., Sant'Anna, P.H.C., 2021.
+Difference-in-differences with multiple time periods. Journal of Econometrics 225, 200--230.
+\bibitem[Gallagher(2014)]{gallagher2014} Gallagher, J., 2014.
+Learning about an infrequent event: evidence from flood insurance take-up in the United States. American Economic Journal: Applied Economics 6, 206--233.
+\bibitem[Giglio et al.(2021)]{giglio2021} Giglio, S., Kelly, B., Stroebel, J., 2021.
+Climate finance. Annual Review of Financial Economics 13, 15--36.
+\bibitem[Goodman-Bacon(2021)]{goodmanbacon2021} Goodman-Bacon, A., 2021.
+Difference-in-differences with variation in treatment timing. Journal of Econometrics 225, 254--277.
+\bibitem[Hino and Burke(2021)]{hino2021} Hino, M., Burke, M., 2021.
+The effect of information about climate risk on property values. Proceedings of the National Academy of Sciences 118, e2003374118.
+\bibitem[Howe et al.(2015)]{howe2015} Howe, P.D., Mildenberger, M., Marlon, J.R., Leiserowitz, A., 2015.
+Geographic variation in opinions on climate change at state and local scales in the USA. Nature Climate Change 5, 596--603.
+\bibitem[Ioannidis et al.(2017)]{ioannidis2017} Ioannidis, J.P.A., Stanley, T.D., Doucouliagos, H.,
+2017. The power of bias in economics research. Economic Journal 127, F236--F265.
+\bibitem[Ortega and Taspinar(2018)]{ortega2018} Ortega, F., Taspinar, S., 2018.
+Rising sea levels and sinking property values: Hurricane Sandy and New York's housing market. Journal of Urban Economics 106, 81--100.
+\bibitem[Roth(2022)]{roth2022} Roth, J., 2022. Pretest with caution: Event-study estimates after
+testing for parallel trends. American Economic Review: Insights 4, 305--322.
+\bibitem[Sun and Abraham(2021)]{sunabraham2021} Sun, L., Abraham, S., 2021. Estimating dynamic
+treatment effects in event studies with heterogeneous treatment effects. Journal of Econometrics 225, 175--199.
+\bibitem[Young(2019)]{young2019} Young, A., 2019. Channeling Fisher: Randomization tests and the
+statistical insignificance of seemingly significant experimental results. Quarterly Journal of
+Economics 134, 557--598.
+\end{thebibliography}
+
+\FloatBarrier
+\newpage
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Balance: treated (hard-hit) vs.\ control counties}\label{tab:balance}\small
+\input{tables/tab_balance.tex}
+\begin{tablenotes}\small\item \textit{Notes:} County-event means. ``Treated'' $=$ FEMA IHP-designated.
+Belief/vote/NRI are time-invariant; ln ZHVI and pre-trend measured at/through landfall.
+Welch $t$. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Exposure difference-in-differences (DV $=\ln$ ZHVI)}\label{tab:did}\small
+\input{tables/tab_did.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Treated $=$ FEMA IHP county; Post $=$ months after
+landfall. County$\times$event and event$\times$calendar-month FE except where noted; SE clustered
+by county (600 clusters). Row (7) adds a treated-specific linear trend. $^{*}p<0.10$,
+$^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Belief moderation: $\text{Treat}\times\text{Post}\times$Moderator}\label{tab:belief}\small
+\input{tables/tab_belief.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Two-way FE as in Eq.~(1), plus Post$\times$Moderator.
+Moderators standardized ($z$) except the high/low split. Row (6) adds treated- and
+belief-group-specific linear trends. A positive interaction means exposure raised relative
+prices where the moderator is high. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Pre-trend diagnostic (treated$-$control ln-ZHVI slope, pre-landfall)}\label{tab:pretrend}\small
+\input{tables/tab_pretrend.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Coefficient on $\text{Treat}\times$(months-to-landfall)
+over the pre-period only, two-way FE, clustered by county. A nonzero slope violates parallel
+trends. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Heterogeneity of the exposure DiD by observable pre-storm moderators}\label{tab:hetero}\small
+\input{tables/tab_hetero.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DV $=\ln$ ZHVI. Each row adds an interaction
+$\text{DiD}\times M$ (and $\text{Post}\times M$) to Eq.~\eqref{eq:did}, where $M$ is a pre-storm
+moderator split at its within-event median: pre-storm home-value level, pre-storm price momentum,
+FEMA NRI coastal-flood risk, and FEMA NRI overall risk. ``DiD'' is the effect in the
+low-moderator group; ``DiD$\times M$'' the extra effect for the high-moderator group. The effect
+loads on price momentum, not on physical-risk moderators. A graded distance/intensity exposure is
+deliberately \emph{not} used (it is the student's hand-collected variable). $^{*}p<0.10$,
+$^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Matched difference-in-differences (within-event NN on pre-storm level and momentum)}\label{tab:matched}\small
+\input{tables/tab_matched.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Each treated county-event is 1:1 nearest-neighbor
+matched, within its own storm and without replacement, to a control on pre-storm ln-ZHVI level and
+pre-storm price momentum within a 0.5-SD (standardized Euclidean) caliper (201 pairs; the
+pre-storm level gap falls from $-0.042$ to $+0.001$ log points). Eq.~\eqref{eq:did} and its
+detrended and belief-split variants are re-estimated on the matched sample. The average and
+detrended effects are insignificant and the belief interaction collapses to $+0.003$ ($t=0.40$).
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Randomization inference (1{,}000 within-event permutations of treatment)}\label{tab:ri}\small
+\input{tables/tab_ri.tex}
+\begin{tablenotes}\small\item \textit{Notes:} The time-invariant treatment label is permuted
+\emph{within} each storm 1{,}000 times, holding the number treated per event fixed (Ian $=29$,
+Helene $=187$); Eq.~\eqref{eq:did} is re-estimated each time. ``Perm.\ 95\% interval'' is the
+2.5--97.5 percentile of the permutation distribution; ``Pctile'' locates the actual coefficient;
+the RI $p$-value is the share of permutations with $|\text{coefficient}|\geq|\text{actual}|$. The
+average effect is central (design-based null); the belief interaction is extreme because random
+assignment ignores the wealth/geography structure that drives it. See Figure~\ref{fig:ri}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Minimum detectable effects at 80\% power}\label{tab:power}\small
+\input{tables/tab_power.tex}
+\begin{tablenotes}\small\item \textit{Notes:} MDE(80\%) $=(z_{0.975}+z_{0.80})\times$SE
+$\approx 2.80\times$SE of the estimated coefficient. ``\% of price'' is the detectable effect in
+percent of home value ($100\times$ the log coefficient); ``\% of SD($\Delta$)'' expresses it
+relative to the $7.2\%$ cross-county SD of the post-minus-pre change in log ZHVI. Small ratios
+indicate an informative null: an effect of that size would have been detected at 80\% power.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\FloatBarrier
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.82\textwidth]{fig1_eventstudy.pdf}
+\caption{Dynamic DiD: treated$-$control ln ZHVI ($\times100$) by months since landfall, 95\%
+CI. Note the upward pre-trend before zero: parallel trends is not clean in the pooled
+sample.}\label{fig:es}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.82\textwidth]{fig2_belief_split.pdf}
+\caption{Belief-split event study. The high-belief group (Florida/Ian coast) has a steep
+pre-trend; the low-belief group is flat pre-storm and then declines the most---the opposite of
+the belief-conditioning hypothesis.}\label{fig:split}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.95\textwidth]{fig3_raw_by_event.pdf}
+\caption{Raw home-value index ($=100$ at landfall), hard-hit vs.\ control. Ian's hard-hit
+coast rose relative to controls; Helene's inland hard-hit counties fell.}\label{fig:raw}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.95\textwidth]{fig4_randinf.pdf}
+\caption{Randomization inference: 1{,}000 within-event permutations of treatment. Left: the
+average exposure DiD (red line) lies near the center of its permutation distribution (RI
+$p=0.76$)---a design-based null. Right: the belief-split interaction lies in the far right tail
+(RI $p=0.02$); because random assignment ignores county wealth and geography, this locates the
+belief signal in the structure of \emph{which} counties are hard-hit, not in belief.}\label{fig:ri}
+\end{figure}
+
+\end{document}

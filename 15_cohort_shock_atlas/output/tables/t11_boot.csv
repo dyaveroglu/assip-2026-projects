@@ -1,0 +1,2 @@
+stat,point,boot_lo,boot_hi,loo_min,loo_max,most_infl_drop,loo_at_min,B
+"corr(|mkt move|, dispersion)",0.6859249865052724,-0.042218217526262605,0.9734046134202766,0.26093500997147695,0.909090191739514,Reciprocal tariff shock,0.26093500997147695,5000

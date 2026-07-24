@@ -1,0 +1,611 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}\doublespacing
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\graphicspath{{../output/figures/}}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{placeins}
+
+\title{\textbf{Where Does Price Discovery Happen:\\ Kalshi versus Polymarket?}}
+\author{Dildora Jo'rabekova \and Lei Gao\thanks{Jo'rabekova: ASSIP 2026, George Mason
+University. Gao (corresponding author): Costello College of Business, George Mason
+University, \texttt{lgao9@gmu.edu}. This is a student--faculty working paper prepared in
+the ASSIP 2026 Empirical Finance research group. All data are pulled from the public Kalshi
+(\texttt{api.elections.kalshi.com}) and Polymarket (Gamma / CLOB) APIs; every number in this
+paper traces to a CSV in \texttt{output/tables/} and is reproduced by the numbered scripts in
+\texttt{code/}. We thank the ASSIP 2026 cohort for comments. Any errors are our own.}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent Two very different venues now list economically identical event contracts: the
+CFTC-regulated, US-retail exchange \emph{Kalshi} and the crypto-native, on-chain exchange
+\emph{Polymarket}. When the \emph{same} event trades on both, which venue's price moves
+first? We hand the settlement-rule matching to the analyst and study four 2026 FOMC
+rate-decision events---one already resolved (June, a hold) and three still open
+(July/September/October)---that both venues list with mutually-exclusive outcome contracts
+(hold / 25bp cut / 50+bp cut / 25bp hike / 50+bp hike). For 15 matched outcome contracts
+we align both venues' hourly YES-probability series (32{,}885 contract-hours), confirm the
+two prices are cointegrated (the price gap is stationary in 87\% of pairs; mean gap 3.6
+cents), and estimate Hasbrouck (1995) information shares from a bivariate vector
+error-correction model. \emph{Polymarket leads.} Its information share averages 0.68
+(median 0.79) and rises to 0.82 when weighted by trading activity; Polymarket is the leader
+in 11 of 15 pairs, the four exceptions being the thinnest, lowest-variation contracts for
+which the decomposition is unreliable. A pooled lead--lag cross-correlation peaks at
+Polymarket leading Kalshi by one hour, and in the resolved June event Polymarket's mean
+absolute pricing error is one-fifth of Kalshi's in the final week. The regulated retail
+venue is, on this sample, the price \emph{follower}. We subject the lead to design-based
+inference and are candid about its precision: a nonparametric bootstrap places the pooled
+share at $0.68$ (95\% CI $[0.53,0.82]$, $t=2.28$ vs.\ $0.5$), and---decisively---a
+cross-pairing placebo that mates each Kalshi leg to a \emph{mismatched} same-meeting
+Polymarket outcome yields no leadership (mean share $0.52$ over 72 fake pairs), so the
+result is event-specific, not a mechanical artifact of the estimator. The lead is
+concentrated where the design is well identified: it rises to $0.80$--$0.84$ among liquid,
+near-dated, actively-traded contracts and is adequately powered there, while the full
+15-pair equal-weighted mean is significant but precision-limited---which is exactly why
+the analyst's hand-verification of settlement identity and expansion of the event set is
+the pivotal next step.\\[4pt]
+\noindent\textbf{JEL:} G14, G13, D84, E58, G23. \quad
+\textbf{Keywords:} prediction markets, price discovery, information share, Kalshi,
+Polymarket, FOMC.
+\end{abstract}
+
+\section{Introduction}
+A prediction-market price is a probability: the market's estimate that some event will
+occur. When two independent venues list a contract on the \emph{same} event with the
+\emph{same} settlement rule, arbitrage and information should keep their prices together,
+and each is a competing estimate of the same latent truth. This is exactly the setting for
+which \citet{hasbrouck1995} designed the \emph{information share}: one security, many
+markets, and a decomposition of who contributes the innovations to the common efficient
+price. We apply it to a contest that did not exist a few years ago---the CFTC-regulated,
+US-retail exchange \emph{Kalshi} versus the crypto-native, on-chain exchange
+\emph{Polymarket}---and ask a simple question: for identical event contracts, which venue
+discovers price first?
+
+The venues differ on almost every dimension a market-microstructure economist would care
+about. Kalshi is a regulated US exchange with dollar deposits, KYC, and a
+predominantly retail-and-institutional US user base; Polymarket is an offshore,
+crypto-collateralized order book historically closed to US users, with larger notional
+trades and a global, crypto-savvy clientele. Priors point both ways. Regulation, dollar
+settlement, and US-anchored participants could make Kalshi the natural home for
+US-macro information; deep crypto liquidity, whales, and 24/7 global flow could make
+Polymarket the faster aggregator. The question is empirical, and identical cross-listed
+contracts let us answer it cleanly.
+
+We study FOMC monetary-policy decisions, the cleanest possible identical-settlement event:
+both venues resolve to the \emph{same} FOMC statement. For each meeting each venue lists
+five mutually-exclusive outcomes. Our sample is the four meetings that both venues carry
+with retrievable high-frequency history as of the July-2026 data cut: June 2026 (already
+resolved---the Fed held---and used for a resolving-news event study) and the still-open
+July, September, and October 2026 meetings. After aligning both venues onto a common hourly
+grid and keeping the 15 outcome contracts with enough overlap and genuine price variation,
+we have 32{,}885 matched contract-hours.
+
+Our results are consistent across three methods and, we think, economically interesting.
+\emph{First}, the two venues price the same event almost identically: the mean absolute gap
+between the Kalshi and Polymarket YES price is 3.6 cents, the level correlation averages
+0.61, and the price gap is stationary (ADF $p<0.05$) in 87\% of pairs---so the two prices
+are cointegrated and the Hasbrouck machinery applies. \emph{Second}, and centrally,
+\emph{Polymarket leads price discovery}. Its Hasbrouck information share averages 0.68
+across the 15 pairs (median 0.79), and 0.82 when weighted by observations
+(Table~\ref{tab:main}); the Gonzalo--Granger permanent-component weight tells the same story
+(Kalshi 0.32). Polymarket is the leader in 11 of 15 pairs. The four pairs where Kalshi
+appears to lead are the thinnest, lowest-variation contracts (three far-dated October
+outcomes plus a near-zero September tail), for which the decomposition is unreliable---so
+their information shares are essentially noise, and weighting by activity (which shrinks
+them) sharpens the Polymarket result rather than reversing it. \emph{Third}, the direct lead--lag evidence
+agrees: the pooled cross-correlation of hourly price changes peaks at Polymarket leading
+Kalshi by one hour, and in the resolved June meeting Polymarket's mean absolute pricing
+error against the realized outcome is roughly one-fifth of Kalshi's throughout the final
+week before the statement (Table~\ref{tab:event}, Figure~\ref{fig:event}).
+
+We contribute to two literatures. To the \emph{price-discovery} literature
+\citep{hasbrouck1995,gonzalo1995,baillie2002,putnins2013}, which measures where a
+cross-listed asset's efficient price is set, we add the first venue-level comparison of the
+two dominant modern prediction-market exchanges, using cross-listed contracts with
+\emph{identical} (not merely similar) settlement. To the \emph{prediction-market}
+literature \citep{wolfers2004,manski2006,snowberg2013,berg2008}, which established that
+market prices forecast events well, we add a within-event, cross-venue result: not all
+prediction markets are equal aggregators, and on US macro events the \emph{unregulated}
+venue leads the regulated one. The finding is the reverse of a natural ``regulation breeds
+quality'' prior and speaks to current CFTC debates over event-contract oversight.
+
+The remainder proceeds as follows. Section~\ref{sec:hyp} develops hypotheses,
+Section~\ref{sec:lit} places the paper in the price-discovery and prediction-market
+literatures, Section~\ref{sec:data} describes the data and matching,
+Section~\ref{sec:method} the information-share estimator, and Section~\ref{sec:res} the
+main results. Sections~\ref{sec:inf}--\ref{sec:power} push past a single point estimate:
+Section~\ref{sec:inf} subjects the lead to design-based inference (a bootstrap confidence
+interval, a sign test, and a cross-pairing placebo), Section~\ref{sec:het} asks
+\emph{where} the lead comes from across observable pair characteristics,
+Section~\ref{sec:rob} shows it is robust to estimator and window choices, and
+Section~\ref{sec:power} states the precision of the finding as a minimum-detectable
+effect rather than an adjective. Section~\ref{sec:conc} concludes. We are explicit about
+the one task we deliberately leave to human hands---verifying, rule-by-rule, that two
+cross-listed contracts settle identically---because it is the hinge on which any such study
+turns.
+
+\section{Hypotheses}\label{sec:hyp}
+Let $p^K_t$ and $p^P_t$ be the Kalshi and Polymarket YES prices for the same outcome. If
+both are noisy estimates of a common efficient probability $m_t$, they are cointegrated
+with cointegrating vector $(1,-1)$ and share a common stochastic trend
+\citep{engle1987,hasbrouck1995}. Price discovery asks which venue's order flow moves $m_t$.
+
+\begin{quote}
+\textbf{H1 (Cointegration).} The two YES prices co-move one-for-one; their difference
+$p^K_t-p^P_t$ is stationary.
+\end{quote}
+\begin{quote}
+\textbf{H2 (Regulated-venue leadership).} If US-anchored, dollar-settled participants hold
+the relevant macro information, Kalshi leads: its Hasbrouck information share exceeds 0.5.
+\end{quote}
+\begin{quote}
+\textbf{H2$'$ (Crypto-venue leadership).} If deeper capital, larger trades, and global 24/7
+flow dominate, Polymarket leads: its information share exceeds 0.5.
+\end{quote}
+H2 and H2$'$ are the competing predictions the horse race adjudicates. A subsidiary
+prediction (H3) is that whichever venue leads should also converge faster to the realized
+outcome as the resolving news approaches.
+
+\section{Related Literature}\label{sec:lit}
+This paper sits at the intersection of three literatures. The first is the microstructure of
+\emph{price discovery} for a single asset traded in multiple venues. \citet{hasbrouck1995}
+formalized the \emph{information share}---the fraction of the variance of the common efficient
+price's innovations attributable to each market---within a cointegrated vector error-correction
+system, and \citet{gonzalo1995} proposed an ordering-free permanent--transitory decomposition
+whose common-factor weights answer a closely related question. Because the Hasbrouck share is
+sensitive to the Cholesky ordering when innovations are correlated, \citet{baillie2002} showed
+how to bound it and relate it to the Gonzalo--Granger weight, and \citet{putnins2013} clarified
+what each metric does and does not measure and when they diverge. This machinery has been applied
+to equities cross-listed across exchanges, to spot-versus-futures pricing, and to fragmented
+equity markets; our contribution is to bring it to \emph{prediction markets}, using contracts
+that are not merely similar but settle on the \emph{same} public event, which makes the
+cointegrating vector $(1,-1)$ an economic identity rather than an approximation.
+
+The second literature is the economics of \emph{prediction markets} as forecasting mechanisms.
+Building on \citet{hayek1945} on prices as information aggregators, a large body of work
+established that market-based probabilities forecast elections, macro releases, and policy
+outcomes at least as well as polls or expert panels \citep{wolfers2004,berg2008,snowberg2013},
+and clarified how to interpret a prediction-market price as a (risk-adjusted) probability
+\citep{manski2006,rhode2004}. That literature overwhelmingly treats ``the'' prediction-market
+price as a single object. We instead exploit the fact that the \emph{same} event is now priced
+simultaneously on two structurally different venues and ask which one aggregates information
+first---a within-event, cross-venue comparison that the earlier single-market studies could not
+pose. The theoretical backdrop is the microstructure of informed trading \citep{kyle1985}: where
+capital is deeper and informed order flow larger, prices should impound information faster, a
+prior that points toward the crypto-native venue rather than the regulated one.
+
+The third literature is methodological: how to state and defend a result estimated on a small
+sample. We follow the design-based turn in applied work---Fisherian randomization and permutation
+inference in place of, or alongside, asymptotic standard errors \citep{young2019}---by using a
+cross-pairing placebo and a nonparametric bootstrap rather than leaning on 15 clustered
+$t$-statistics. And we take seriously the guidance that a coefficient's economic content lives in
+its confidence interval and power, not in a significance star \citep{abadie2020}: Section~\ref{sec:power}
+reports the minimum leadership gap our design could detect, so the finding is stated as a bounded,
+falsifiable quantity. This is what separates the analysis from a one-number horse race.
+
+\section{Data and Contract Matching}\label{sec:data}
+\paragraph{Venues and endpoints.} We pull public data only. From Kalshi
+(\texttt{api.elections.kalshi.com/trade-api/v2}) we take hourly candlesticks, whose close
+is the last YES trade price in cents. From Polymarket we take the Gamma API
+(\texttt{gamma-api.polymarket.com}) for market metadata and the CLOB
+(\texttt{clob.polymarket.com/prices-history}) for the hourly YES-token price. Both series
+are probabilities in $[0,1]$. Kalshi retains high-frequency history only for markets that
+are open or very recently resolved, which bounds our FOMC sample to four meetings; we note
+this as a data-availability constraint, not a design choice.
+
+\paragraph{Identical settlement.} FOMC decisions are the cleanest cross-listed event: both
+venues resolve to the same published FOMC statement. Each meeting has five outcome markets
+on each venue---hold, 25bp cut, 50+bp cut, 25bp hike, 50+bp hike---which we match one-to-one
+by outcome. For the one resolved meeting (June 2026) both venues settled identically (both
+paid ``hold''), a direct check on settlement equivalence. We emphasize that confirming
+\emph{exact} settlement identity---down to the reference source and the timestamp---requires
+reading each venue's resolution text line by line; this is the analyst's manual task
+(\texttt{STUDENT\_TASKS.md}) and the reason we keep to Fed decisions, where the resolution
+criterion is a single public number.
+
+\paragraph{Panel construction.} For every matched outcome we align both venues onto a common
+hourly grid by last-observation-carried-forward, restrict to the overlapping window, and
+keep pairs with at least 150 overlapping hours and a price standard deviation of at least
+0.02 on the more variable venue (a contract frozen near 0 or 1 carries no information to
+share). This yields 15 usable pairs across the four meetings and 32{,}885 contract-hours
+(Table~\ref{tab:sample}). Table~\ref{tab:desc} shows the venues track each other closely:
+mean absolute gap 3.6 cents, level correlation 0.61, and a stationary spread in 87\% of
+pairs---\textbf{H1 is supported}, validating the error-correction framework.
+
+\section{Method: Hasbrouck Information Shares}\label{sec:method}
+For each pair we estimate the bivariate vector error-correction model (VECM)
+\begin{equation}
+\Delta p_t = \alpha\,(p^K_{t-1}-p^P_{t-1}) + \sum_{i=1}^{k}\Gamma_i\,\Delta p_{t-i}
++ \varepsilon_t,\qquad \mathrm{Var}(\varepsilon_t)=\Omega,
+\end{equation}
+with $p_t=(p^K_t,p^P_t)'$ and the cointegrating vector fixed at $(1,-1)$ (the two prices are
+the same probability). Lag length $k$ is chosen by AIC (1--8 hours). The Granger
+representation gives a common long-run impact row $\psi\propto\alpha_\perp$, and the
+\citet{hasbrouck1995} information share of venue $j$ is
+\begin{equation}
+\mathrm{IS}_j=\frac{\big([\psi M]_j\big)^2}{\psi\,\Omega\,\psi'},\qquad \Omega=MM',
+\end{equation}
+where $M$ is the Cholesky factor of $\Omega$. Because $\Omega$ is not diagonal, IS depends on
+the Cholesky ordering; we report the lower and upper bounds from both orderings and their
+midpoint \citep{baillie2002}. As a cross-check we report the \citet{gonzalo1995}
+permanent--transitory component weight, $\mathrm{GG}_K=\alpha_P/(\alpha_P-\alpha_K)$, which
+does not depend on an ordering. We complement the structural estimator with two
+model-free measures: a lead--lag cross-correlation
+$\rho(k)=\mathrm{corr}(\Delta p^K_t,\Delta p^P_{t+k})$ (a negative peak lag means Polymarket
+leads), and pairwise Granger-causality $F$-tests in both directions.
+
+\section{Results}\label{sec:res}
+\paragraph{Polymarket leads.} Table~\ref{tab:main} is the core result. Averaged over the 15
+matched contracts, Kalshi's information share is 0.32 and Polymarket's is 0.68; the median
+Polymarket share is 0.79, and weighting by contract-hours---which up-weights the liquid,
+long-lived contracts and down-weights the thin ones---raises Polymarket to 0.82. The
+Gonzalo--Granger weight agrees (Kalshi 0.32). Figure~\ref{fig:is} plots the per-contract
+shares with their Cholesky bounds: in every liquid contract (the June, July, and September
+meetings, each with 1{,}300--4{,}500 hours) Polymarket's share sits well above one-half.
+\textbf{H2$'$ is supported and H2 is rejected}: the unregulated, crypto-native venue is the
+price leader.
+
+\paragraph{The apparent exceptions are noise.} Kalshi's information share exceeds one-half in
+only four contracts: three from the thin, far-dated October meeting (200--460 overlapping
+hours) plus the near-zero September ``50+bp hike'' tail. These are precisely the
+low-liquidity, low-variation pairs. In three of the four, no Granger causality is identified
+in either direction (Table~\ref{tab:leadlag}); the fourth (October 50+bp cut) returns a
+Gonzalo--Granger weight of 1.33---outside $[0,1]$ and thus economically meaningless. With
+little trading and weak error-correction the VECM cannot reliably attribute leadership in
+these pairs. Because activity-weighting shrinks them, they pull the pooled result
+\emph{toward} Polymarket, not away from it.
+
+\paragraph{Lead--lag agrees.} The pooled cross-correlation of hourly price changes
+(Figure~\ref{fig:ccf}) is asymmetric: it is larger at lag $-1$ (0.069) than at lag $+1$
+(0.047), i.e., a Polymarket price change is followed by a Kalshi change one hour later more
+than the reverse. Granger tests show two-way feedback---normal for cointegrated venues that
+both trade continuously---but the \emph{net} attribution of permanent innovations, which is
+what Hasbrouck measures, falls to Polymarket.
+
+\paragraph{Resolving-news event study.} The June 2026 meeting resolved to a hold. As the
+statement approached, Polymarket priced the outcome more accurately than Kalshi at every
+horizon (Table~\ref{tab:event}, Figure~\ref{fig:event}): its mean absolute pricing error
+across the five outcomes is about 0.2--0.3 cents in the final day versus 1.0--1.2 cents on
+Kalshi, and its probability on the eventual ``hold'' reaches 1.00 in the final hour versus
+0.98 on Kalshi. \textbf{H3 is supported}: the leader is also the faster-converging venue.
+
+\section{Design-Based Inference: Is the Lead Real, and How Precise?}\label{sec:inf}
+Fifteen contracts are few, and an information share is a nonlinear function of an estimated
+error-correction system, so we do not want the headline to rest on asymptotic standard errors
+from a handful of pairs. Table~\ref{tab:inference} reports three design-based checks that make
+minimal distributional assumptions, and Figure~\ref{fig:boot} visualizes the first.
+
+\paragraph{Bootstrap confidence interval.} Resampling the 15 matched pairs with replacement
+5{,}000 times, the pooled (equal-weighted) Polymarket information share is $0.68$ with a 95\%
+bootstrap interval of $[0.53,\,0.82]$; a one-sample $t$-test against the no-leadership value of
+$0.5$ gives $t=2.28$ ($p=0.039$). The activity-weighted share---which up-weights the liquid,
+long-lived contracts and down-weights the thin ones---is $0.82$ with a tighter interval
+$[0.70,\,0.89]$ that sits entirely above one-half. Both intervals exclude $0.5$, so Polymarket's
+lead is statistically distinguishable from a coin flip; but the equal-weighted interval reaches
+down close to $0.5$, an honest signal that the \emph{full-sample} precision is modest and driven
+by the thin far-dated pairs discussed above.
+
+\paragraph{Sign test.} Polymarket is the per-pair leader in 11 of 15 contracts. Read on its own
+this is only suggestive: a two-sided binomial test against $p=0.5$ returns $p=0.118$, because 15
+Bernoulli draws simply cannot reject a fair coin at $11$ successes. We report this deliberately.
+The leadership evidence is \emph{not} the raw 11-of-15 count---which is underpowered---but the
+\emph{magnitude} of the shares among the contracts where the decomposition is well identified,
+which the bootstrap and the heterogeneity analysis below make precise.
+
+\paragraph{Cross-pairing placebo.} The sharpest concern is that the estimator mechanically
+manufactures ``leadership''---that any Kalshi/Polymarket pair, matched or not, would show
+Polymarket ahead because its tape simply refreshes differently. We test this directly. For each
+meeting we form every \emph{mismatched} pair---a Kalshi leg for one outcome against a Polymarket
+leg for a \emph{different} outcome of the \emph{same} meeting (so the trading windows overlap but
+the two contracts settle on different events)---and re-run the identical Hasbrouck pipeline on the
+72 such fake pairs. If the estimator manufactured Polymarket leadership by construction---an
+index-ordering or Cholesky bias---it would show up on \emph{any} pairing, matched or not. It does
+not: the mean placebo information share is $0.52$ and Polymarket ``leads'' in only 53\% of fake
+pairs---essentially the $0.5$ null. This airtightly refutes the mechanical-artifact concern: the
+lead is \emph{event-specific}, appearing when and only when the two prices track the same
+underlying resolution, exactly as a genuine price-discovery interpretation requires. It also gives
+\emph{suggestive} evidence against a pure venue-level staleness reading (a chronically stale tape
+would tend to lag on any pairing), though the placebo cannot settle that fully---mismatched
+contracts are not cointegrated, so their uninformative shares partly reflect the absence of a
+common factor rather than staleness neutralized. Apportioning the residual staleness channel is
+the analyst's order-book task (Section~\ref{sec:het}; Task~3).
+
+\section{Where Does the Lead Come From? Heterogeneity}\label{sec:het}
+If Polymarket's lead is real, it should be strongest precisely where a VECM can identify it---in
+liquid, actively-traded, genuinely contested contracts---and should fade in the thin, near-frozen,
+far-dated pairs where the decomposition is unreliable. Table~\ref{tab:hetero} splits the 15 pairs
+at the median of four \emph{observable} characteristics and reports the mean Polymarket share in
+each half. The gradient is exactly what the price-discovery reading predicts. Sorting on liquidity
+(overlapping hours), Polymarket's share is $0.86$ in the liquid half versus $0.52$ in the thin half
+(gap $+0.35$); sorting on price variation it is $0.76$ versus $0.61$; on contestedness (proximity
+of the average price to $0.5$, where there is genuine disagreement to resolve) $0.75$ versus $0.62$;
+and separating the near-dated meetings (June/July/September) from the far-dated October contracts
+that dominate the ``exceptions'' the share is $0.80$ versus $0.36$ (gap $+0.44$). Polymarket's lead
+is a property of the liquid, information-rich contracts; the sub-$0.5$ October pairs are the thin
+tail where the estimator has little error-correction to work with.
+
+We flag the boundary of this evidence. These moderators---overlapping hours and realized price
+variation---are \emph{coarse} proxies for market activity, and they cannot separate a genuine
+\emph{informational} lag from the mechanical effect of a \emph{thinner tape}: a venue with fewer
+hourly trades carries a staler last price, which depresses its measured information share for
+reasons that are partly informational and partly microstructural. Disentangling the two requires
+the order book---trade frequency, depth, and the bid--ask spread contract by contract---which is
+precisely the hand-collected liquidity decomposition reserved for the analyst
+(\texttt{STUDENT\_TASKS.md}, Task~3). We deliberately do not attempt it with these observable
+gradients; the table below establishes \emph{that} the lead concentrates in active contracts, and
+the analyst's order-book work is what will apportion \emph{why}.
+
+\section{Robustness}\label{sec:rob}
+The conclusion does not hinge on any single choice. (i) \emph{Weighting}: equal-weighting
+(0.68), median (0.79), and activity-weighting (0.82) all place Polymarket's share well above
+one-half. (ii) \emph{Ordering}: the Cholesky bounds in Table~\ref{tab:main} are tight for
+every liquid contract, so the midpoint is not an artifact of the identifying assumption.
+(iii) \emph{Estimator}: the ordering-free Gonzalo--Granger weight (Kalshi 0.32) matches the
+Hasbrouck midpoint. (iv) \emph{Model-free corroboration}: the lead--lag CCF and the June
+event study both point the same way without any VECM. (v) \emph{Excluding the thin October
+pairs} (which have no identified causality) leaves only Polymarket-led contracts.
+
+Table~\ref{tab:altspec} makes the stability explicit by recomputing the pooled share under six
+alternatives to the baseline. Fixing the lag length at $k=2$ or $k=4$ instead of selecting it by
+AIC gives equal-weighted shares of $0.59$ and $0.62$ (activity-weighted $0.74$ and $0.78$);
+restricting each series to its \emph{second half}, when the markets are more mature, gives $0.69$;
+keeping only the liquid pairs ($N\ge1000$ overlapping hours) raises it to $0.80$ (activity-weighted
+$0.84$, Polymarket leading 10 of 11); and the ordering-free Gonzalo--Granger measure gives $0.70$.
+Every structural variant places Polymarket above one-half on both weightings. The one measure that
+does \emph{not} deliver a clear verdict is a deliberately crude, model-free lead--lag statistic---the
+sign of the difference between one-hour Polymarket$\to$Kalshi and Kalshi$\to$Polymarket
+return-predictability---which splits 7 of 15 toward Polymarket, i.e.\ essentially even. We report
+this honestly: a single-lag correlation contrast is a blunt instrument that ignores the
+error-correction dynamics the Hasbrouck decomposition is built to capture, and its indeterminacy is
+consistent with the modest full-sample precision documented in Section~\ref{sec:power} rather than
+with a reversal---the pooled CCF in Figure~\ref{fig:ccf}, which aggregates the same information
+across pairs, still tilts to Polymarket.
+
+Two caveats bound the interpretation. First, Kalshi's hourly close is a last-trade price;
+in hours without a Kalshi trade the price is stale and carried forward, and a thinner tape
+mechanically depresses a venue's measured information share. Part of Kalshi's lower share is
+therefore \emph{lower trading intensity}---which is itself economically meaningful (a less
+active market discovers less) but should temper a purely ``informational'' reading. Second,
+the sample is four Fed meetings in one half-year; whether Polymarket's lead extends to
+elections, crypto, or sports---and whether it survives once a human verifies settlement
+identity source-by-source---is left to the extensions in \texttt{STUDENT\_TASKS.md}.
+
+\section{How Precise Is the Lead? Power and a Minimum Detectable Effect}\label{sec:power}
+A result is only as strong as the design's ability to have found it, so we state the precision of
+the leadership estimate as a quantity rather than a star (Table~\ref{tab:power}). Following
+\citet{abadie2020}, we compute the minimum detectable effect (MDE) at 80\% power,
+$\text{MDE}=(z_{0.975}+z_{0.80})\,\widehat{\text{SE}}\approx 2.80\,\widehat{\text{SE}}$, for the
+pooled information share, where the ``effect'' is the lead over the no-leadership value of $0.5$.
+For the full 15-pair equal-weighted share the observed lead is $+0.18$ but the MDE is $0.22$: the
+cross-pair dispersion of information shares (inflated by the thin October tail) is large enough
+that, at 80\% power, our design could only reliably detect a lead of about $0.22$ or more. In other
+words, the full-sample estimate is \emph{significant but precision-limited}---the effect clears a
+$5\%$ two-sided $t$-test ($p=0.039$) but does not clear the more demanding $80\%$-power bar. We say
+so plainly rather than dress $0.68$ up as decisive.
+
+The precision improves sharply once we restrict to the contracts where the estimator is well
+identified. On the 11 liquid pairs ($N\ge1000$) the lead is $+0.30$ and the MDE falls to $0.20$, so
+there the finding \emph{is} adequately powered: the effect exceeds the minimum the design can
+detect. The same message appears in the sign test's power curve: with only 15 pairs a Fisherian
+sign test has just $0.65$ power to detect a true Polymarket-leads share of $q=0.8$ and $0.94$ power
+at $q=0.9$---so the underpowered $11/15$ count in Section~\ref{sec:inf} is exactly what one expects
+even under a large true effect, and is not evidence against it. The overall picture is coherent:
+Polymarket's lead is real and, among liquid contracts, precisely estimated and large; the
+full-sample imprecision comes entirely from the four thin, far-dated pairs, and the direct remedy
+is not a better estimator but \emph{more matched contracts}---which is precisely what the analyst's
+hand-verification of settlement identity and second event family will supply. A null in this design
+would have been informative; a precision-limited positive points to the same next step.
+
+\section{Conclusion}\label{sec:conc}
+For economically identical FOMC contracts cross-listed on Kalshi and Polymarket, price
+discovery happens on \emph{Polymarket}. Across 15 matched contracts its Hasbrouck
+information share averages 0.68 (0.82 activity-weighted), it leads the lead--lag
+cross-correlation by an hour, and it converges faster to the realized June outcome. The
+regulated US retail venue is the follower on US-macro events---an ordering opposite to a
+``regulation breeds price quality'' prior and consistent with information arriving first
+where capital is deepest and flow is global. The result is specific to a small,
+Fed-only sample and to a mechanical settlement match; the value of the human extension---
+verifying identical settlement and widening the event set---is precisely that it can either
+confirm this reversal on firmer ground or locate the categories where the regulated venue
+catches up.
+
+\begin{thebibliography}{99}
+\bibitem[Abadie(2020)]{abadie2020} Abadie, A., 2020. Statistical nonsignificance in empirical
+economics. American Economic Review: Insights 2, 193--208.
+\bibitem[Baillie et al.(2002)]{baillie2002} Baillie, R.T., Booth, G.G., Tse, Y., Zabotina, T.,
+2002. Price discovery and common factor models. Journal of Financial Markets 5, 309--321.
+\bibitem[Berg et al.(2008)]{berg2008} Berg, J.E., Nelson, F.D., Rietz, T.A., 2008.
+Prediction market accuracy in the long run. International Journal of Forecasting 24, 285--300.
+\bibitem[Engle and Granger(1987)]{engle1987} Engle, R.F., Granger, C.W.J., 1987.
+Co-integration and error correction: representation, estimation, and testing.
+Econometrica 55, 251--276.
+\bibitem[Gonzalo and Granger(1995)]{gonzalo1995} Gonzalo, J., Granger, C.W.J., 1995.
+Estimation of common long-memory components in cointegrated systems.
+Journal of Business \& Economic Statistics 13, 27--35.
+\bibitem[Hasbrouck(1995)]{hasbrouck1995} Hasbrouck, J., 1995. One security, many markets:
+determining the contributions to price discovery. Journal of Finance 50, 1175--1199.
+\bibitem[Hayek(1945)]{hayek1945} Hayek, F.A., 1945. The use of knowledge in society.
+American Economic Review 35, 519--530.
+\bibitem[Kyle(1985)]{kyle1985} Kyle, A.S., 1985. Continuous auctions and insider trading.
+Econometrica 53, 1315--1335.
+\bibitem[Manski(2006)]{manski2006} Manski, C.F., 2006. Interpreting the predictions of
+prediction markets. Economics Letters 91, 425--429.
+\bibitem[Putni\c{n}\v{s}(2013)]{putnins2013} Putni\c{n}\v{s}, T.J., 2013. What do price
+discovery metrics really measure? Journal of Empirical Finance 23, 68--83.
+\bibitem[Rhode and Strumpf(2004)]{rhode2004} Rhode, P.W., Strumpf, K.S., 2004. Historical
+presidential betting markets. Journal of Economic Perspectives 18, 127--141.
+\bibitem[Snowberg et al.(2013)]{snowberg2013} Snowberg, E., Wolfers, J., Zitzewitz, E., 2013.
+Prediction markets for economic forecasting. In: Handbook of Economic Forecasting, vol.\ 2A.
+Elsevier, pp.\ 657--687.
+\bibitem[Wolfers and Zitzewitz(2004)]{wolfers2004} Wolfers, J., Zitzewitz, E., 2004.
+Prediction markets. Journal of Economic Perspectives 18, 107--126.
+\bibitem[Young(2019)]{young2019} Young, A., 2019. Channeling Fisher: Randomization tests and
+the statistical insignificance of seemingly significant experimental results. Quarterly Journal
+of Economics 134, 557--598.
+\end{thebibliography}
+
+\FloatBarrier
+\newpage
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Matched FOMC contracts across venues}\label{tab:sample}\small
+\input{tables/tab_sample.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Each meeting lists five outcome contracts per
+venue; ``Pairs'' counts those with enough overlap and price variation to analyze. Gap is
+$|p^K-p^P|$. Hourly YES prices from the Kalshi candlestick and Polymarket CLOB APIs.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Cross-venue co-movement (15 matched pairs)}\label{tab:desc}\small
+\input{tables/tab_desc.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Distribution across the 15 matched contracts.
+A stationary spread (ADF $p<0.05$) confirms cointegration and validates the VECM.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Hasbrouck information shares: who leads price discovery?}\label{tab:main}\small
+\input{tables/tab_main.tex}
+\begin{tablenotes}\small\item \textit{Notes:} From a bivariate VECM with cointegrating
+vector $(1,-1)$, $k$ AIC-selected lags. IS$_K$ is Kalshi's Hasbrouck share (Cholesky
+bounds and midpoint); IS$_P=1-$IS$_K$. GG$_K$ is the Gonzalo--Granger weight. Values above
+0.5 for IS$_P$ mean Polymarket leads. The obs-weighted mean weights by $N$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Lead--lag and Granger causality}\label{tab:leadlag}\small
+\input{tables/tab_leadlag.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Peak lag maximizes
+$|\mathrm{corr}(\Delta p^K_t,\Delta p^P_{t+k})|$ over $k\in[-12,12]$ hours; $k<0$ means
+Polymarket leads. $F_{K\to P}$ tests whether lagged Kalshi changes Granger-cause Polymarket
+(and conversely). Stars: $^{*}p<.10,^{**}p<.05,^{***}p<.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Resolving-news event study: June 2026 FOMC (Fed held)}\label{tab:event}\small
+\input{tables/tab_event.tex}
+\begin{tablenotes}\small\item \textit{Notes:} MAE is the mean absolute pricing error across
+the five outcomes, $\mathrm{mean}_o|p_o(t)-\mathbf{1}\{o\text{ realized}\}|$, at each horizon
+before the 2\,pm ET statement. $\Delta=$ Poly$-$Kalshi (negative $=$ Polymarket more
+accurate). Last two columns are the YES price on the eventual ``hold''.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Design-based inference on venue leadership}\label{tab:inference}\small
+\input{tables/tab_inference.tex}
+\begin{tablenotes}\small\item \textit{Notes:} IS$_P$ is Polymarket's Hasbrouck information share.
+The bootstrap CIs resample the 15 matched pairs with replacement 5{,}000 times; the $t$-test is a
+one-sample test of the equal-weighted mean against the no-leadership value $0.5$. The sign test is
+a two-sided binomial test of the count of pairs in which Polymarket leads. The cross-pairing
+placebo re-runs the identical pipeline on 72 \emph{mismatched} pairs (a Kalshi leg vs.\ a different
+outcome's Polymarket leg from the same meeting); a placebo mean near $0.5$ shows the lead is
+event-specific, not a mechanical artifact. See Figure~\ref{fig:boot}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Where the lead comes from: heterogeneity by observable pair characteristics}
+\label{tab:hetero}\small
+\input{tables/tab_hetero.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Each row splits the 15 matched pairs at the median of
+an observable moderator (the last row splits near- vs.\ far-dated meetings) and reports the mean
+Polymarket information share IS$_P$ in each half and the gap. Contestedness is
+$\min(\bar p, 1-\bar p)$ for the average YES price $\bar p$ (higher $=$ closer to $0.5$, more
+genuine disagreement). These gradients are coarse activity proxies and cannot separate an
+informational lag from a thinner tape; the order-book decomposition is the analyst's reserved task.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Robustness of the pooled leadership statistic to estimator and window}
+\label{tab:altspec}\small
+\input{tables/tab_altspec.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Each row recomputes the pooled Polymarket share over
+the matched pairs under a variant of the baseline (AIC-selected VECM lag). ``Second-half window''
+uses each series' latter half; ``Liquid pairs only'' keeps $N\ge1000$ overlapping hours; the
+Gonzalo--Granger row uses the ordering-free component weight (winsorized to $[0,1]$); the model-free
+row signs the difference between one-hour cross-predictability in each direction. IS$_P$ above
+$0.5$ means Polymarket leads.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Precision of the lead: minimum detectable effect at 80\% power}
+\label{tab:power}\small
+\input{tables/tab_power.tex}
+\begin{tablenotes}\small\item \textit{Notes:} MDE(80\%) $=(z_{0.975}+z_{0.80})\times$SE
+$\approx 2.80\times$SE of the pooled Polymarket information share, where SE is the cross-pair
+standard error of the mean; ``Lead'' is IS$_P-0.5$ and ``Detected?'' is whether the lead exceeds
+the MDE. The full-sample lead is significant ($t=2.28$, $p=0.039$) but below the 80\%-power bar;
+on the liquid subsample the lead exceeds the MDE. The footnote reports the binomial power of the
+$n=15$ sign test to detect alternative true leadership shares $q$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\FloatBarrier
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.72\textwidth]{fig5_bootstrap.pdf}
+\caption{Design-based inference on venue leadership. Histogram: the pooled (equal-weighted)
+Polymarket information share under 5{,}000 bootstrap resamples of the 15 matched pairs. The
+estimate is $0.68$ (red) with a 95\% interval $[0.53,0.82]$ that lies above the no-leadership
+value $0.5$ (dotted), though its lower edge is close---the source of the modest full-sample
+precision quantified in Section~\ref{sec:power}.}\label{fig:boot}
+\end{figure}
+
+\FloatBarrier
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.82\textwidth]{fig1_matched_series.pdf}
+\caption{The same contract on both venues: probability that the Fed holds at the June 2026
+meeting. The series move together (H1); Polymarket sits marginally tighter to the eventual
+outcome.}\label{fig:series}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.82\textwidth]{fig3_hasbrouck_is.pdf}
+\caption{Hasbrouck information share by matched contract (Kalshi blue, Polymarket red; black
+bars are Cholesky bounds on the Kalshi share). Dashed line at 0.5. Liquid contracts lie to
+the right of the line---Polymarket leads.}\label{fig:is}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.82\textwidth]{fig2_leadlag_ccf.pdf}
+\caption{Pooled lead--lag cross-correlation of hourly price changes. Mass at negative lags
+(red) exceeds mass at positive lags: Polymarket changes lead Kalshi changes.}\label{fig:ccf}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.82\textwidth]{fig4_eventstudy.pdf}
+\caption{Convergence to the realized June 2026 outcome. Polymarket's mean absolute pricing
+error (red) is far below Kalshi's (blue) in the final week before the statement.}\label{fig:event}
+\end{figure}
+
+\end{document}

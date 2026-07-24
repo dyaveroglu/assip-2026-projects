@@ -1,0 +1,6 @@
+stat,value,lo,hi,pval,note
+Pooled IS_poly (equal-weight),0.6806000000000001,0.52686,0.8185333333333332,0.03894584992684624,bootstrap 95% CI; t-test vs 0.5
+Pooled IS_poly (activity-weight),0.8178889533109552,0.7048615184689094,0.8924335887187567,,bootstrap 95% CI
+Median IS_poly,0.794,,,,across 15 pairs
+Sign test (Poly leads 11/15),0.7333333333333333,,,0.11846923828124999,two-sided binomial vs 0.5
+Cross-pairing placebo (72 mismatched),0.5171141411034079,,,,poly-leads share 0.53; mismatched same-meeting outcomes

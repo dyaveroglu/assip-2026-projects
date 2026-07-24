@@ -1,0 +1,9 @@
+stat,value
+n_anomalies,212.0
+n_anomaly_months,173302.0
+first_year,1926.0
+last_year,2024.0
+median_months_per_anomaly,858.0
+n_risk_framed,27.0
+n_mispricing_framed,185.0
+pooled_insample_mean_pct,0.5812

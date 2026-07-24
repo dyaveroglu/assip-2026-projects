@@ -1,0 +1,574 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}\doublespacing
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\graphicspath{{../output/figures/}}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{placeins}
+
+\title{\textbf{Did Mandatory Clawbacks Curb CEO Risk-Taking?\\
+Difference-in-Differences Evidence from SEC Rule 10D-1}}
+\author{Aiden Shanyu Chen \and Lei Gao\thanks{Chen: ASSIP 2026, George Mason University.
+Gao (corresponding author): Costello College of Business, George Mason University,
+\texttt{lgao9@gmu.edu}. This is a student--faculty working paper prepared in the ASSIP 2026
+Empirical Finance research group. All data are from WRDS (Compustat, CRSP, Execucomp) and
+S\&P index-constituent files; every number in the paper traces to a CSV in
+\texttt{output/tables/} and is reproduced by the code in \texttt{code/}. We thank the ASSIP
+2026 cohort for comments. Any errors are our own.}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent Voluntary clawback provisions are associated with \emph{less} corporate
+risk-taking \citep{liu2020,babenko2023}. We ask whether the \emph{mandatory} clawback
+regime created by SEC Rule 10D-1 (adopted October 2022; listing standards effective
+October 2023) produced the same effect. Because a compliant policy was required of
+essentially every listed issuer, a clean control group needs firms for whom the mandate
+did not bind. We exploit the fact that voluntary clawbacks were already near-universal at
+large firms but rare at small ones by 2013 \citep{babenko2023}, and run a
+difference-in-differences comparing forced adopters (S\&P SmallCap 600) with already-covered
+controls (S\&P 500), using 753 firms and 8{,}222 firm-years (2015--2025) with firm and year
+fixed effects and firm-clustered standard errors. \textbf{We find no robust evidence that the
+mandate changed CEO risk-taking.} The direct investment/M\&A channels emphasized by the prior
+literature are flat: the post$\times$treated coefficient is insignificant for
+investment/assets ($+0.003$, $t=0.81$), capex ($-0.001$, $t=-1.30$), R\&D ($+0.002$,
+$t=1.33$), and acquisitions ($+0.002$, $t=0.81$), as are leverage and cash. Stock-return
+volatility \emph{does} fall for forced adopters (idiosyncratic vol.\ $-0.027$, $t=-5.01$), but
+this is not a clawback effect: parallel trends are rejected (pre-trend Wald $p<0.001$), the
+event study shows no discontinuity at 2023, size-matching the treated and control firms
+attenuates it (to $-0.021$, $t=-2.37$), and size-based placebos that carry no clawback content
+reproduce it (S\&P 400 vs.\ 500: $-0.018$, $t=-3.59$). Two additions push past the usual
+``we found nothing'' paper. First, \emph{randomization inference} (500 permutations of
+treatment) gives the investment null a design-based $p=0.43$ while confirming the volatility
+coefficient is a systematic size phenomenon, not noise. Second, a \emph{minimum-detectable-effect}
+analysis shows the null is \emph{informative}: at 80\% power we could have detected risk-taking
+changes of 5--16\% of the outcome mean---smaller than the effects the voluntary-adoption
+literature reports---so the absence of an effect is evidence, not low power. Whether a true
+effect is hidden by our index-membership proxy for ex-ante clawback status is the question our
+hand-collection of 10D-1 provision strength is designed to answer.\\[4pt]
+\noindent\textbf{JEL:} G32, G34, G38, K22, M12. \quad
+\textbf{Keywords:} clawback, executive compensation, risk-taking, SEC Rule 10D-1,
+difference-in-differences, randomization inference, statistical power.
+\end{abstract}
+
+\newpage
+\section{Introduction}
+When a firm can \emph{claw back} incentive pay after the fact, its executives bear more of the
+downside of risky bets, and standard contracting theory predicts they will take fewer of them
+\citep{coles2006}. Empirically, firms that \emph{voluntarily} adopted clawback provisions
+during 2005--2014 subsequently reduced risk-taking along investment and capital-structure
+margins \citep{liu2020}, and \citet{babenko2023} show that voluntary adoption causes measured
+firm risk to fall through more conservative investment and financial policies. In October 2022
+the SEC finalized Rule 10D-1 under Dodd-Frank Section 954, and by late 2023 the national
+exchanges required \emph{every} listed issuer to adopt a compliant clawback policy
+\citep{sec2022}. This paper asks the natural follow-on question: did the \emph{mandate}
+reproduce the risk-reduction that \emph{voluntary} adoption delivered?
+
+The central identification problem is that the mandate is close to universal, so a simple
+before/after comparison confounds the rule with everything else that happened to public firms
+in 2023--2025. We build a control group from the one dimension along which the mandate plausibly
+did \emph{not} bind: firms that already had a voluntary clawback. Direct firm-level data on
+pre-existing voluntary policies is not available on our data platform, so we use the robust
+empirical regularity that voluntary clawbacks were near-universal among large firms but rare
+among small ones by 2013 \citep{babenko2023,chen2015}. We therefore treat the S\&P SmallCap 600
+as \emph{forced adopters} (ex-ante mostly without a clawback) and the S\&P 500 as
+\emph{already-covered controls}, fix group membership at the pre-rule baseline (June 2022), and
+estimate a difference-in-differences with firm and year fixed effects. This is an
+intent-to-treat proxy; its validity, and the path to a sharper test, is the subject of the
+companion hand-collection task.
+
+\textbf{Our result is an honest null on the question that matters.} Across the risk-taking
+outcomes the prior literature emphasizes, the mandate leaves no measurable footprint. In our
+preferred specification (firm $+$ year fixed effects, controls, firm-clustered SE), the
+post$\times$treated coefficient is economically tiny and statistically insignificant for total
+investment/assets ($+0.003$, $t=0.81$), capital expenditure ($-0.001$, $t=-1.30$), R\&D
+($+0.002$, $t=1.33$), acquisitions ($+0.002$, $t=0.81$), book leverage ($+0.003$, $t=0.40$),
+and cash holdings ($+0.008$, $t=1.49$) (Table~\ref{tab:main}). The one outcome that moves is
+stock-return volatility: idiosyncratic volatility falls by $0.027$ for forced adopters
+($t=-5.01$), and total volatility by $0.015$ ($t=-2.60$).
+
+We then show that this volatility result is \emph{not} a clawback effect, and we take the space
+to do so because the temptation to report it as one is exactly the kind of false positive this
+literature must guard against. First, parallel trends are decisively rejected: a joint test of
+the pre-2022 dynamic-DiD coefficients gives Wald $p<0.001$, and every pre-period coefficient is
+\emph{positive} (Table~\ref{tab:main}, Figure~\ref{fig:es})---forced adopters were structurally
+\emph{more} volatile before the rule, not on a parallel path. Second, the event study shows no
+downward break at the 2023 effective date; the negative average ``effect'' is mechanically
+produced by the unusually large treated--control volatility gap during the 2020--21 COVID period
+mean-reverting afterward. Third, when we \emph{size-match} treated and control firms on their
+pre-rule size---collapsing the treated--control size gap from $2.54$ log points to $0.23$---the
+volatility coefficient attenuates to $-0.021$ ($t=-2.37$), while the real-risk margins remain
+unsupportive of risk-reduction. Fourth, and decisively, size-based placebos that contain
+\emph{no} differential clawback treatment produce the \emph{same} coefficient: S\&P MidCap 400
+versus S\&P 500 gives $-0.018$ ($t=-3.59$), and a below-median-size split gives $-0.018$
+($t=-4.02$) (Table~\ref{tab:robust}). The volatility pattern is a small-firm $\times$ post-COVID
+phenomenon, not a response to Rule 10D-1.
+
+Two further steps distinguish this from a paper that simply reports a coefficient near zero and
+stops. First, we subject the design to \emph{randomization inference}: we permute the
+(time-invariant) treatment label across firms 500 times and rebuild the DiD each time
+(Table~\ref{tab:ri}, Figure~\ref{fig:ri}). The investment coefficient sits squarely inside the
+permutation distribution (design-based $p=0.43$), so the real-risk null does not depend on
+clustered-standard-error asymptotics with a moderate number of clusters. The volatility
+coefficient lies far outside the permutation distribution ($p<0.002$)---which, because random
+assignment ignores firm size, tells us the volatility gap is a \emph{systematic} feature of
+which firms are treated (i.e., their size), consistent with the size-artifact reading rather
+than with sampling noise. Second, we ask whether the null is \emph{informative} or merely
+underpowered. A minimum-detectable-effect (MDE) calculation (Table~\ref{tab:power}) shows that
+at 80\% power our design would have detected risk-taking changes of roughly 5--16\% of each
+outcome's mean on the investment, capex, R\&D, leverage, and cash margins---magnitudes at or
+below the effects the voluntary-clawback literature reports. The mandate's real-risk effect, if
+any, is smaller than that; the absence of a detected effect is therefore evidence of absence,
+not absence of evidence.
+
+We make four contributions. First, we provide the first difference-in-differences evidence on
+the real-side effects of the \emph{mandatory} US clawback regime, complementing the
+voluntary-adoption literature \citep{liu2020,babenko2023,chen2015} and the reporting-quality
+literature \citep{dehaan2013,chan2012,iskandar2013}. Second, we show that the risk-reduction
+found for voluntary adopters does not obviously carry over to the mandate's first two years---a
+policy-relevant null, consistent with 10D-1 being a narrow, restatement-triggered recovery rule
+rather than a broad governance upgrade. Third, we offer a cautionary methodological point: a
+size-based treatment proxy mechanically loads on any size-correlated shock (here, COVID
+volatility), so the one ``significant'' result is a placebo failure, not a finding---and we show
+how matching, placebos, and randomization inference jointly diagnose it. Fourth, we treat the
+null as a quantitative object, reporting its power and minimum detectable effect so that readers
+can see what the design can and cannot rule out. Section~\ref{sec:bg} gives institutional
+background and hypotheses, Section~\ref{sec:lit} places the paper in the literature,
+Section~\ref{sec:data} the data and research design, Section~\ref{sec:res} the main results,
+Section~\ref{sec:noncausal} the case that the volatility result is non-causal,
+Section~\ref{sec:het} heterogeneity, Section~\ref{sec:robust} matching and randomization
+inference, Section~\ref{sec:power} the power analysis, and Section~\ref{sec:concl} concludes
+with the hand-collection that would sharpen the test.
+
+\section{Institutional Background and Hypotheses}\label{sec:bg}
+\paragraph{The rule.} Section 954 of the 2010 Dodd-Frank Act directed the SEC to require
+exchanges to condition listing on issuers maintaining a policy to recover incentive
+compensation erroneously awarded on the basis of financial statements later restated. The SEC
+adopted the implementing rule, 10D-1, on October 26, 2022 \citep{sec2022}. The NYSE and Nasdaq
+listing standards took effect October 2, 2023, and issuers were required to adopt a compliant
+recovery policy by December 1, 2023. The rule is \emph{restatement-triggered} (recovery is
+mandatory upon an accounting restatement, ``big R'' or ``little r,'' regardless of fault) and
+applies a three-year look-back to incentive compensation of current and former executive
+officers. We therefore date the first (partially) treated fiscal year as 2023 and the first
+fully covered years as 2024--2025.
+
+\paragraph{Why a mandate might reduce risk-taking.} If clawbacks lengthen the effective horizon
+over which executives are held to results and expose them to the reversal of pay after bad
+realizations, risk-averse managers should tilt toward safer investment and financial policies
+\citep{coles2006,bertrand2003}. This is the mechanism \citet{babenko2023} document for voluntary
+adopters (more conservative investment, pre-emptive management of legal and operational risk) and
+\citet{liu2020} document as lower investment- and leverage-based risk. It motivates:
+\begin{quote}
+\textbf{H1 (Risk-reduction).} After Rule 10D-1 binds, forced adopters reduce CEO risk-taking
+(investment intensity, R\&D, acquisitions, leverage, and return volatility) relative to
+already-covered controls: the post$\times$treated coefficient is negative.
+\end{quote}
+
+\paragraph{Why a mandate might do nothing to real risk.} Three forces push toward a null. (i)
+10D-1 recovers pay only upon an \emph{accounting restatement}; it does not penalize risky
+investments that simply turn out badly, so its incentive bite on real risk-taking may be small
+relative to broad voluntary policies. (ii) Firms and boards can offset a clawback's incentive
+effect by re-optimizing the rest of the pay package (e.g., raising fixed or grant-date pay).
+(iii) Anticipation: the rule was proposed in 2015 and widely expected, so affected behavior may
+have adjusted before 2023. These motivate the competing prediction:
+\begin{quote}
+\textbf{H2 (Null).} Because the mandate is narrow, offset by contract re-optimization, and
+anticipated, it does not change real CEO risk-taking: the post$\times$treated coefficient is
+indistinguishable from zero.
+\end{quote}
+Our evidence favors H2 for the real-investment and financing margins, and shows that the
+apparent support for H1 in return volatility is an artifact.
+
+\paragraph{Why strength should matter (and why the student's task is pivotal).} Rule 10D-1 sets
+a floor, not a uniform policy. Firms wrote materially different recovery policies: some reach
+only formal restatements, others extend to broader misconduct; some use the statutory
+three-year look-back, others go longer; some interact the clawback with severance or
+change-in-control multiples. If stronger policies change behavior and weaker ones do not, a
+pooled test averages toward zero---exactly the null we report. Our design cannot separate strong
+from weak clawbacks, because it proxies treatment with firm size. Hand-coding provision strength
+from EDGAR exhibits (the companion student task) is the direct route to a dose-response test,
+and is deliberately \emph{not} attempted with the observable moderators we use in
+Section~\ref{sec:het}.
+
+\section{Related Literature}\label{sec:lit}
+This paper connects three strands. The first is the economics of clawbacks. Theoretically,
+recovery provisions extend the horizon over which pay is exposed to outcomes and should curb
+excessive risk-taking and earnings management \citep{coles2006}. Empirically, the
+\emph{voluntary} adoption literature finds that clawbacks improve financial-reporting quality
+\citep{dehaan2013,chan2012}, are valued by the market \citep{iskandar2013,chen2015}, and reduce
+firm risk and investment aggressiveness \citep{liu2020,babenko2023}. Our contribution is to move
+from voluntary adoption---an endogenous corporate choice---to the \emph{mandate}, where the
+policy is imposed on nearly all issuers at once, and to ask whether the behavioral response
+survives when the provision is a uniform regulatory floor rather than a chosen governance
+upgrade.
+
+The second strand is the design of difference-in-differences under near-universal treatment and
+the credibility of parallel-trends assumptions. Recent work stresses that pre-trend tests have
+low power and can license false confidence \citep{roth2022}, that conventional
+event-study/DiD estimands are fragile under treatment-effect heterogeneity
+\citep{callaway2021}, and that inference with a modest number of clusters benefits from
+design-based methods such as randomization inference \citep{young2019}. We use these tools not
+as decoration but diagnostically: the volatility ``effect'' passes a naive DiD yet fails a
+pre-trend test, a size-matched re-estimation, size placebos, and---read correctly---randomization
+inference, a convergence of evidence that identifies it as a size$\times$COVID artifact.
+
+The third strand is the interpretation of null results. Economics has a documented tendency
+toward low power and selective reporting \citep{ioannidis2017}, and methodologists urge that a
+statistically insignificant estimate be interpreted through its confidence interval and power
+rather than treated as proof of no effect \citep{abadie2020}. We follow that guidance literally:
+Section~\ref{sec:power} reports the minimum effect our design could detect at 80\% power, so the
+null is stated as a bound on the mandate's real-risk effect rather than as a bare
+``insignificant.''
+
+\section{Data and Research Design}\label{sec:data}
+\paragraph{Sample.} We start from S\&P 1500 index-constituent history (Compustat
+\texttt{idxcst\_his}) and fix each firm's group at the pre-rule baseline of June 30, 2022:
+S\&P 500 $=$ control, S\&P SmallCap 600 $=$ treated, S\&P MidCap 400 held out for a placebo.
+We merge Compustat annual fundamentals (accounting risk-taking inputs), CRSP daily returns
+(return volatility), and Execucomp (CEO pay), and keep fiscal years 2015--2025. The main
+difference-in-differences sample is the S\&P 500 versus S\&P 600 comparison: 753 firms (431
+control, 322 treated) and 8{,}222 firm-years, essentially balanced across years.
+
+\paragraph{Variables.} Risk-taking outcomes are (all scaled by total assets unless noted):
+investment $=(capx+xrd+aqc)/at$; capex $=capx/at$; R\&D $=xrd/at$; acquisitions $=aqc/at$;
+book leverage $=(dltt+dlc)/at$; cash $=che/at$. From CRSP daily returns we compute, per
+firm-year, annualized total return volatility ($\text{SD}(r)\sqrt{252}$) and idiosyncratic
+volatility (the residual from a one-factor market model, $\text{SD}(r)\sqrt{1-\rho^2}\sqrt{252}$,
+using the Fama-French market factor), requiring at least 60 trading days. From Execucomp we take
+CEO total pay ($\ln$) and the equity share of pay. Controls are size $=\ln(at)$, market-to-book,
+ROA, cash-flow/assets, and tangibility. All continuous variables are winsorized at 1/99.
+Table~\ref{tab:sumstats} reports summary statistics; consistent with the design, treated
+(small) firms are smaller, higher-volatility, lower-leverage, and lower-paid than controls,
+which is exactly why parallel trends must be checked rather than assumed.
+
+\paragraph{Specification.} For outcome $y_{it}$ we estimate
+\begin{equation}
+y_{it} = \beta\,(\text{Post}_t \times \text{Treat}_i) + \gamma' X_{it} + \alpha_i + \delta_t + \varepsilon_{it},
+\label{eq:did}
+\end{equation}
+where $\text{Post}_t=\mathbf{1}[\text{fyear}\geq 2023]$, $\text{Treat}_i$ is the forced-adopter
+proxy, $\alpha_i$ and $\delta_t$ are firm and year fixed effects (which absorb the level of
+$\text{Treat}_i$ and $\text{Post}_t$), $X_{it}$ are controls, and standard errors are clustered
+by firm. $\beta$ is the difference-in-differences estimate. The dynamic version replaces
+$\text{Post}_t\times\text{Treat}_i$ with a full set of year$\times$treated interactions
+(2022 omitted) to trace the path of the treated--control gap and test parallel trends.
+
+\paragraph{Three design-based checks.} Beyond equation~\eqref{eq:did} we run three checks that
+do not rely on the parametric null. (1) \emph{Size matching}: we nearest-neighbor match each
+treated firm to a not-yet-used control on pre-rule (2022) size within a $0.25$-SD caliper, and
+re-estimate \eqref{eq:did} on the balanced sample (Section~\ref{sec:robust}). (2)
+\emph{Randomization inference}: we permute the time-invariant treatment label across firms 500
+times, rebuild $\text{did}_{it}=\text{Post}_t\times\text{Treat}^{\text{perm}}_i$, re-estimate
+\eqref{eq:did}, and compare the actual coefficient to the permutation distribution. (3)
+\emph{Power}: we compute the minimum detectable effect at 80\% power from each outcome's
+estimated standard error. Together these convert ``insignificant'' into a set of falsifiable,
+design-based statements.
+
+\section{Main Results}\label{sec:res}
+\paragraph{The real-risk channels are flat.} Table~\ref{tab:main} reports $\beta$ for every
+outcome in the preferred specification. The investment and financing margins that the prior
+literature finds respond to voluntary clawbacks show nothing here: investment/assets
+($+0.003$, $t=0.81$), capex ($-0.001$, $t=-1.30$), R\&D ($+0.002$, $t=1.33$), acquisitions
+($+0.002$, $t=0.81$), leverage ($+0.003$, $t=0.40$), and cash ($+0.008$, $t=1.49$) are all
+statistically indistinguishable from zero, with coefficients an order of magnitude smaller than
+their sample means. CEO total pay actually \emph{rises} for forced adopters ($+0.139$ log
+points, $t=5.22$)---the opposite of a binding pay-recovery constraint, and more consistent with
+the post-2021 small-cap pay catch-up than with 10D-1.
+
+\paragraph{The one moving outcome.} Return volatility is the only outcome with a significant
+post$\times$treated coefficient: idiosyncratic volatility $-0.027$ ($t=-5.01$) and total
+volatility $-0.015$ ($t=-2.60$). Table~\ref{tab:prog} shows the idiosyncratic-volatility
+estimate is stable across the specification ladder ($-0.023$ to $-0.033$), which in isolation
+looks like a real effect. Section~\ref{sec:noncausal} shows it is not.
+
+\section{The Volatility Result Is Not Causal}\label{sec:noncausal}
+We take the space to dismantle the one significant coefficient because reporting it as a
+clawback effect is precisely the false positive this literature must avoid. The event study
+(Figure~\ref{fig:es}) rejects parallel trends outright: the pre-2022 year$\times$treated
+coefficients are \emph{all positive} (ranging $+0.013$ to $+0.102$) and jointly significant
+(Wald $p<0.001$). Forced adopters were simply more volatile than controls throughout the
+pre-period, with an especially large gap in 2020--21. Because the difference-in-differences
+differences the post average against an inflated pre-period baseline, it records a spurious
+``decline.'' There is no downward break at the 2023 effective date; if anything the 2023
+coefficient ($+0.020$) is above the 2022 base. Figure~\ref{fig:means} makes the mechanism
+visible: the treated--control volatility gap balloons during COVID and reverts, while
+investment/assets moves in lockstep across groups with no rule-date break. Sections~\ref{sec:robust}
+adds two more nails---size matching and size placebos---after first checking, in
+Section~\ref{sec:het}, whether any observable subgroup shows the effect the pooled test misses.
+
+\section{Heterogeneity}\label{sec:het}
+If the mandate changed risk-taking for \emph{some} firms and the pooled null merely averages it
+away, the effect should surface in observable subgroups. Table~\ref{tab:hetero} interacts the
+DiD with four pre-rule moderators---above-median CEO equity-pay share (stronger incentive
+alignment, where a clawback should bite most), above-median book leverage, an R\&D-active
+indicator, and a financial/regulated-industry indicator---reporting the base DiD and the
+interaction for both the headline (idiosyncratic volatility) and the leading real-risk margin
+(investment/assets). The investment margin shows \emph{no} risk-reduction in any subgroup: base
+and interaction coefficients are economically small and never jointly indicate the negative
+effect H1 predicts (the one significant interaction, for high-leverage firms, is $-0.024$ but is
+offset by a \emph{positive} base of $+0.012$, and reflects mechanical scaling of investment by
+assets in levered firms rather than a clawback response). For idiosyncratic volatility the
+interactions track the size/COVID artifact rather than the mandate: the effect is strongest in
+financial/regulated firms ($+0.032$ interaction, i.e.\ \emph{attenuating} the negative base),
+consistent with heterogeneous COVID volatility exposure, not with differential clawback bite.
+Crucially, we do \emph{not} interact treatment with provision strength here---that dimension is
+unobservable to us and is the student's hand-collected contribution; the moderators above are
+observable firm characteristics chosen precisely because they are orthogonal to that reserved
+test.
+
+\section{Matching and Randomization Inference}\label{sec:robust}
+\paragraph{Size matching.} The treated and control groups differ by $2.54$ log points of assets
+at baseline; the volatility result could simply reflect that size gap interacting with COVID.
+Table~\ref{tab:matched} re-estimates \eqref{eq:did} on a sample in which each treated firm is
+nearest-neighbor matched to a control on pre-rule size (124 pairs; the size gap falls to
+$0.23$ log points). On the size-balanced sample the idiosyncratic-volatility coefficient
+attenuates from $-0.027$ to $-0.021$ and its $t$-statistic falls from $-5.01$ to $-2.37$; single
+-period matching cannot fully purge a size$\times$time shock, so some attenuation short of zero
+is expected, and it points the same direction as the placebos. The real-risk margins remain
+unsupportive of H1: capex, acquisitions, leverage, and cash are insignificant, and where a
+coefficient does turn significant it is the \emph{wrong sign} for risk-reduction (investment
+$+0.013$, $t=2.68$; R\&D $+0.003$, $t=2.23$)---forced adopters, if anything, invest slightly
+\emph{more}, not less.
+
+\paragraph{Randomization inference.} Table~\ref{tab:ri} and Figure~\ref{fig:ri} report
+design-based inference from 500 permutations of the treatment label. For investment/assets the
+actual coefficient ($+0.003$) sits near the center of the permutation distribution (95\%
+permutation interval $[-0.006,+0.006]$), giving a randomization $p$-value of $0.43$: the
+real-risk null is not an artifact of clustered-SE asymptotics with 753 clusters. For
+idiosyncratic volatility the actual coefficient ($-0.027$) lies far outside the permutation
+interval ($[-0.009,+0.010]$), $p<0.002$. This does \emph{not} resurrect a causal reading:
+because random assignment ignores firm size, a coefficient this extreme means the
+volatility gap is a \emph{systematic} function of \emph{which} firms are labeled treated---their
+size---exactly the artifact the placebos identify. Randomization inference thus corroborates
+both halves of the story: the real-risk null is genuine, and the volatility signal is
+size-driven structure, not the mandate.
+
+\section{Is the Null Informative? Power and Minimum Detectable Effects}\label{sec:power}
+A null is only interesting if the design could have detected a real effect. Table~\ref{tab:power}
+reports, for each real-risk outcome, the minimum detectable effect (MDE) at 80\% power,
+$\text{MDE}=(z_{0.975}+z_{0.80})\,\widehat{\text{SE}}\approx 2.80\,\widehat{\text{SE}}$, and
+expresses it as a share of the outcome's mean and cross-firm standard deviation. The design is
+well powered: at 80\% power we could have detected changes of $13.0\%$ of the mean for
+investment/assets, $10.4\%$ for capex, $16.1\%$ for R\&D, $6.6\%$ for leverage, and $12.2\%$ for
+cash (and $5.4\%$ for idiosyncratic volatility). These thresholds are at or below the effect
+magnitudes the voluntary-adoption literature reports \citep{liu2020,babenko2023}. In other words,
+had the mandate reproduced even a fraction of the voluntary-adoption effect on real risk-taking,
+our design would very likely have found it. The absence of a detected effect is therefore an
+informative upper bound on the mandate's first-two-year real-risk effect, not a symptom of an
+underpowered test. Only the acquisitions margin is comparatively noisy (MDE $=36\%$ of a small
+mean), so we are appropriately cautious there.
+
+\section{Conclusion}\label{sec:concl}
+Mandatory clawbacks under SEC Rule 10D-1 did not, in their first two years, reproduce the
+risk-reduction that voluntary clawback adoption delivered. The investment, R\&D, acquisition,
+leverage, and cash margins are unmoved for forced adopters relative to already-covered controls;
+the lone significant outcome---return volatility---fails every identification check
+(parallel-trends, event-study timing, size matching, and two independent size placebos), and
+randomization inference shows it to be systematic size structure rather than a treatment
+response. A power analysis establishes that the null is informative: effects the size of those
+in the voluntary-adoption literature would have been detected. The most likely reasons for the
+null are economic: 10D-1 is a narrow, restatement-triggered recovery rule, its incentive effect
+can be offset by re-optimizing the rest of the pay package (we in fact see CEO pay rise), and a
+rule proposed in 2015 was largely anticipated.
+
+We are explicit about the binding limitation. Our treatment is an intent-to-treat \emph{proxy}:
+we infer ex-ante clawback status from firm size because we could not observe, firm by firm,
+which companies already had a voluntary policy and---more importantly---\emph{how strong} each
+mandated policy is. Rule 10D-1 lets issuers write materially different recovery policies
+(restatement-only versus broader misconduct triggers; the statutory three-year look-back versus
+longer; interaction with severance multiples), and the real-behavior response should scale with
+that strength. A size proxy cannot capture it, and the observable-moderator heterogeneity in
+Section~\ref{sec:het} is deliberately orthogonal to it. The companion student task hand-codes
+10D-1 provision strength directly from EDGAR exhibits, which turns this honest, proxy-based null
+into a sharp, dose-response test of whether \emph{stronger} mandated clawbacks changed CEO
+risk-taking. That test---not another robustness check on the size proxy---is the natural next
+step, and it is the contribution the design has been built to receive.
+
+\begin{thebibliography}{99}
+\bibitem[Abadie(2020)]{abadie2020} Abadie, A., 2020. Statistical nonsignificance in empirical
+economics. American Economic Review: Insights 2, 193--208.
+\bibitem[Babenko et al.(2023)]{babenko2023} Babenko, I., Bennett, B., Bizjak, J.M., Coles, J.L.,
+Sandvik, J., 2023. Clawback provisions and firm risk. Review of Corporate Finance Studies 12,
+191--239.
+\bibitem[Bertrand and Mullainathan(2003)]{bertrand2003} Bertrand, M., Mullainathan, S., 2003.
+Enjoying the quiet life? Corporate governance and managerial preferences. Journal of Political
+Economy 111, 1043--1075.
+\bibitem[Callaway and Sant'Anna(2021)]{callaway2021} Callaway, B., Sant'Anna, P.H.C., 2021.
+Difference-in-differences with multiple time periods. Journal of Econometrics 225, 200--230.
+\bibitem[Chan et al.(2012)]{chan2012} Chan, L.H., Chen, K.C.W., Chen, T.Y., Yu, Y., 2012. The
+effects of firm-initiated clawback provisions on earnings quality and auditor behavior. Journal
+of Accounting and Economics 54, 180--196.
+\bibitem[Chen et al.(2015)]{chen2015} Chen, M.A., Greene, D.T., Owers, J.E., 2015. The costs and
+benefits of clawback provisions in CEO compensation. Review of Corporate Finance Studies 4,
+108--154.
+\bibitem[Coles et al.(2006)]{coles2006} Coles, J.L., Daniel, N.D., Naveen, L., 2006. Managerial
+incentives and risk-taking. Journal of Financial Economics 79, 431--468.
+\bibitem[deHaan et al.(2013)]{dehaan2013} deHaan, E., Hodge, F.D., Shevlin, T.J., 2013. Does
+voluntary adoption of a clawback provision improve financial reporting quality? Contemporary
+Accounting Research 30, 1027--1062.
+\bibitem[Ioannidis et al.(2017)]{ioannidis2017} Ioannidis, J.P.A., Stanley, T.D., Doucouliagos, H.,
+2017. The power of bias in economics research. Economic Journal 127, F236--F265.
+\bibitem[Iskandar-Datta and Jia(2013)]{iskandar2013} Iskandar-Datta, M., Jia, Y., 2013. Valuation
+consequences of clawback provisions. The Accounting Review 88, 171--198.
+\bibitem[Liu et al.(2020)]{liu2020} Liu, Y., Gan, H., Karim, K., 2020. Corporate risk-taking
+after adoption of compensation clawback provisions. Review of Quantitative Finance and
+Accounting 54, 617--649.
+\bibitem[Roth(2022)]{roth2022} Roth, J., 2022. Pretest with caution: Event-study estimates after
+testing for parallel trends. American Economic Review: Insights 4, 305--322.
+\bibitem[SEC(2022)]{sec2022} U.S. Securities and Exchange Commission, 2022. Listing standards for
+recovery of erroneously awarded compensation. Release Nos.\ 33-11126; 34-96159 (October 26).
+\bibitem[Young(2019)]{young2019} Young, A., 2019. Channeling Fisher: Randomization tests and the
+statistical insignificance of seemingly significant experimental results. Quarterly Journal of
+Economics 134, 557--598.
+\end{thebibliography}
+
+\FloatBarrier
+\newpage
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Summary statistics, main DiD sample (S\&P 500 vs.\ S\&P 600, 2015--2025)}
+\label{tab:sumstats}\footnotesize
+\input{tables/tab_sumstats.tex}
+\begin{tablenotes}\small\item \textit{Notes:} 753 firms, 8{,}222 firm-years. Control $=$ S\&P
+500 (ex-ante voluntary clawback near-universal); Treated $=$ S\&P SmallCap 600 (forced adopter
+proxy). Continuous variables winsorized 1/99. Volatility is annualized from CRSP daily returns;
+CEO pay from Execucomp.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Difference-in-differences across risk-taking outcomes (preferred specification)}
+\label{tab:main}\small
+\input{tables/tab_did_main.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Each row is a separate regression of the outcome
+on Post$\times$Treated with firm and year fixed effects, controls (size, market-to-book, ROA,
+cash-flow/assets, tangibility), and SE clustered by firm. Post $=\mathbf{1}[\text{fyear}\geq
+2023]$; Treated $=$ S\&P 600. The investment/financing margins are insignificant; only return
+volatility moves (shown non-causal in Table~\ref{tab:robust} and Figure~\ref{fig:es}).
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Progressive specifications, headline outcome (idiosyncratic volatility)}
+\label{tab:prog}\footnotesize
+\input{tables/tab_progressive.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DV $=$ idiosyncratic volatility. Controls as in
+Table~\ref{tab:main}. Column (4) sets Post $=\mathbf{1}[\text{fyear}\geq 2024]$; column (5)
+drops the 2020--21 COVID years. The estimate is stable in level but fails the parallel-trends
+test (Figure~\ref{fig:es}). SE clustered by firm. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Robustness and placebos: the volatility result is a size$\times$COVID artifact}
+\label{tab:robust}\small
+\input{tables/tab_robust.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DV $=$ idiosyncratic volatility. ``Two-way
+clustered'' clusters by firm and year. ``Placebo: SP400 vs SP500'' and ``Alt treat:
+below-median size'' contain weaker/zero differential clawback content yet reproduce the
+coefficient, indicating the pattern is a firm-size phenomenon rather than a Rule 10D-1 effect.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Heterogeneity of the DiD by observable pre-rule moderators}
+\label{tab:hetero}\small
+\input{tables/tab_hetero.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Each row adds an interaction
+DiD$\times M$ to equation~\eqref{eq:did}, where $M$ is a pre-rule (2022) moderator: above-median
+CEO equity-pay share, above-median book leverage, an R\&D-active indicator, and a
+financial/regulated-industry indicator. Columns report the base DiD and the DiD$\times M$
+interaction for idiosyncratic volatility and investment/assets. No subgroup shows the negative
+real-risk effect H1 predicts. Provision strength is deliberately \emph{not} used as a moderator
+(it is the student's hand-collected variable). $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Size-matched difference-in-differences (nearest-neighbor on pre-rule size)}
+\label{tab:matched}\small
+\input{tables/tab_matched.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Each treated (S\&P 600) firm is 1:1
+nearest-neighbor matched without replacement to an S\&P 500 control on pre-rule (2022) size
+within a 0.25-SD caliper (124 pairs; treated--control size gap falls from 2.54 to 0.23 log
+points). Equation~\eqref{eq:did} is re-estimated on the matched sample. The volatility
+coefficient attenuates; the real-risk margins remain unsupportive of risk-reduction (and where
+significant, are the wrong sign for H1). $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Randomization inference (500 permutations of treatment)}
+\label{tab:ri}\small
+\input{tables/tab_ri.tex}
+\begin{tablenotes}\small\item \textit{Notes:} The time-invariant treatment label is permuted
+across firms 500 times; equation~\eqref{eq:did} is re-estimated each time. ``Perm.\ 95\%
+interval'' is the 2.5--97.5 percentile of the permutation distribution; the RI $p$-value is the
+share of permutations with $|\text{coefficient}|\geq|\text{actual}|$. Investment/assets is
+central (null robust to design-based inference); idiosyncratic volatility is extreme because
+random assignment ignores the size structure that drives it. See Figure~\ref{fig:ri}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Minimum detectable effects at 80\% power}
+\label{tab:power}\small
+\input{tables/tab_power.tex}
+\begin{tablenotes}\small\item \textit{Notes:} MDE(80\%) $=(z_{0.975}+z_{0.80})\times$SE
+$\approx 2.80\times$SE of the preferred-specification DiD coefficient, expressed as a share of
+the outcome mean and cross-firm SD. Small MDE/mean ratios indicate an informative null: an
+effect of that size would have been detected at 80\% power.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\FloatBarrier
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.82\textwidth]{fig1_eventstudy.pdf}
+\caption{Dynamic difference-in-differences for idiosyncratic volatility (treated S\&P 600 vs.\
+control S\&P 500), coefficients relative to 2022 with 95\% confidence intervals. Pre-2022
+coefficients are all positive and jointly significant (Wald $p<0.001$): parallel trends are
+rejected, and there is no downward break at the October-2023 effective date.}\label{fig:es}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.95\textwidth]{fig2_groupmeans.pdf}
+\caption{Raw group means over time. Left: the treated--control idiosyncratic-volatility gap
+widens sharply during 2020--21 (COVID) and reverts---the source of the spurious DiD. Right:
+investment/assets moves in lockstep across groups with no discontinuity at the rule date
+(vertical line).}\label{fig:means}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.72\textwidth]{fig3_randinf.pdf}
+\caption{Randomization inference for the idiosyncratic-volatility DiD. Histogram: the
+distribution of the DiD coefficient under 500 random permutations of the treatment label. The
+actual estimate (red line) lies far in the left tail (RI $p<0.002$); because random assignment
+ignores firm size, this locates the volatility signal in the size structure of treatment, not in
+Rule 10D-1.}\label{fig:ri}
+\end{figure}
+
+\end{document}

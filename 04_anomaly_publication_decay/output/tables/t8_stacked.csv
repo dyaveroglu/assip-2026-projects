@@ -1,0 +1,3 @@
+spec,did,t,N,ncohorts
+(1) Cohort-anomaly FE + Post,-0.37411454494097396,-5.2086358168434685,19433,9
+(2) Cohort-anomaly FE + cohort$\times$year FE,-0.0527075445709393,-0.5972626056553204,19433,9

@@ -1,0 +1,5 @@
+moderator,n_hi,is_hi,n_lo,is_lo,gap
+Liquidity (overlapping hours),7,0.8644285714285714,8,0.51975,0.3446785714285714
+Price variation (max venue SD),7,0.7607142857142858,8,0.6105,0.15021428571428574
+"Contestedness ($\min(\bar p,1-\bar p)$)",7,0.7517142857142857,8,0.618375,0.13333928571428566
+Near-dated meeting (Jun/Jul/Sep vs Oct),11,0.7965454545454546,4,0.36175,0.43479545454545454

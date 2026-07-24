@@ -1,0 +1,8 @@
+metric,value
+"Mean |announcement CAR[0,+1]| (%)",0.4998252284320722
+"Mean cross-sectional SD of CAR[0,+1] (%)",3.599222166351681
+Mean anticipation share |pre|/(|pre|+|ann|),0.6861985622113659
+Mean completeness |ann|/(|ann|+|drift|),0.3570639195677171
+"Mean reversal corr(ann,drift)",0.015438359367778737
+Share of shocks with negative reversal corr,0.6
+"Corr(|market move|, cross-sectional SD)",0.6859249865052726

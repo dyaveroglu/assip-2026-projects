@@ -1,0 +1,653 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}\doublespacing
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\graphicspath{{../output/figures/}}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{placeins}
+
+\title{\textbf{Did Buy-Now-Pay-Later Entering the Credit File Flood the Bureaus?\\
+Difference-in-Differences Evidence Against the Furnishing-Dispute Hypothesis}}
+\author{Rakshana Damodaran \and Lei Gao\thanks{Damodaran: ASSIP 2026, George Mason
+University. Gao (corresponding author): Costello College of Business, George Mason
+University, \texttt{lgao9@gmu.edu}. This is a student--faculty working paper prepared in the
+ASSIP 2026 Empirical Finance research group. All data are from the public CFPB Consumer
+Complaint Database; every number in the paper traces to a CSV in \texttt{output/tables/} and
+is reproduced by the code in \texttt{code/} (\texttt{10\_did.py}, \texttt{15\_analysis.py},
+\texttt{20\_extensions.py}). We thank the ASSIP 2026 cohort for comments. Any errors are our
+own.}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent For most of their history, buy-now-pay-later (BNPL) loans were \emph{invisible} to
+the credit bureaus \citep{dimaggio2022,cfpb2022}. In 2025 major BNPL lenders began
+\emph{furnishing} loan histories to the bureaus, and consumer advocates warned that a wave of
+credit-report \emph{disputes} would follow \citep{cfpb2024}. We test this using 19{,}354
+complaints filed against five pure-play BNPL lenders in the CFPB Consumer Complaint Database
+(2022--2026). Affirm, the first confirmed major furnisher (to Experian, $\sim$April 2025), is
+our treated firm. \textbf{We find no evidence of a furnishing-specific complaint spike.}
+Credit-reporting complaints against Affirm did rise ($\times 2.7$), but they rose \emph{less}
+than its other complaints (debt collection $\times 5.1$, personal loan $\times 5.8$), so the
+credit-reporting \emph{share} fell (within-firm DiD $=-0.30$, $t=-3.6$). The null is not a
+single specification. A per-firm generalization shows no BNPL lender---furnisher or not---has
+a positive credit-reporting DiD, and a triple-difference (Affirm vs.\ peers)$\times$(credit
+reporting vs.\ other)$\times$post is an insignificant $+0.04$ ($t=0.11$). Under a firm-label
+permutation Affirm's cross-firm coefficient is unremarkable (design-based $p=0.80$), and a
+placebo-in-time analysis shows the within-Affirm credit-reporting series was \emph{rising}
+relative to other complaints before furnishing and \emph{reversed} at the event---the opposite
+of the predicted spike. Two design-based additions push past a bare ``we found nothing.''
+First, we confront the few-cluster problem (five firms) directly with permutation and
+placebo-in-time inference rather than lean on cluster-robust asymptotics
+\citep{cameron2008,mackinnon2017,conley2011}. Second, a minimum-detectable-effect analysis
+separates the \emph{informative} null---the within-Affirm design (108 month$\times$category
+cells, not a few-cluster object) could have detected a differential credit-reporting increase of
+$\approx$26\% and instead finds a \emph{decrease}, robust across every specification and
+conservative against an upward pre-trend---from the genuinely \emph{underpowered} five-firm count
+designs, whose wide bounds are exactly what the student's hand-collected staggered furnishing
+dates are built to resolve.\\[4pt]
+\noindent\textbf{JEL:} G51, G28, D18, G23. \quad
+\textbf{Keywords:} buy now pay later, credit reporting, furnishing, consumer complaints,
+difference-in-differences, randomization inference, statistical power.
+\end{abstract}
+
+\newpage
+\section{Introduction}
+Buy-now-pay-later (BNPL) credit grew explosively over 2020--2025, and for most of that period
+it was largely \emph{invisible} to the credit-reporting system: the dominant ``pay-in-four''
+products were neither furnished to nor checked against a borrower's file
+\citep{dimaggio2022,cfpb2022}. That invisibility began to end in 2025, when major BNPL lenders
+started \emph{furnishing} loan-level data to the national credit bureaus---Affirm to Experian
+and TransUnion. Because furnishing exposes a borrower's on-time and delinquent BNPL behavior
+to every downstream lender, and because new data pipelines are error-prone in their first
+months, consumer advocates and the regulator itself warned that furnishing would generate a
+wave of credit-report \emph{disputes}: inaccurate tradelines, mis-reported late payments,
+duplicate accounts, and ``not-mine'' entries \citep{cfpb2024}. This paper asks a simple
+empirical question with a clean prediction: when a BNPL lender began furnishing, did
+credit-reporting complaints against \emph{that lender} jump, relative to a credible
+counterfactual?
+
+We use the CFPB Consumer Complaint Database, which records the product, sub-product, issue,
+firm, date, and state for every complaint routed to a supervised entity \citep{begley2021}. We
+assemble every complaint filed against five pure-play BNPL lenders (Affirm, Klarna, Sezzle,
+Zip, Perpay) from January 2022 through June 2026---19{,}354 complaints after cleaning---and
+designate Affirm, the first confirmed major furnisher ($\sim$April 2025), as the treated firm.
+The complaint database is well suited to the question: it is a high-frequency, product-tagged,
+firm-level census of realized consumer harm, and the furnishing-dispute hypothesis makes a
+sharp, testable prediction about \emph{which product line} at \emph{which firm} should move.
+
+\textbf{Our finding is a clean reversal of the furnishing-dispute hypothesis, and it survives
+every design we can build from observable data.} First, the BNPL complaint surge of 2025--26
+is broad. Affirm's monthly complaints rose three- to six-fold after early 2025, but the
+increase was \emph{smallest} for credit-reporting complaints ($\times 2.7$) and largest for
+debt-collection ($\times 5.1$) and personal-loan ($\times 5.8$) complaints
+(Table~\ref{tab:comp}). Within Affirm, the credit-reporting \emph{share} therefore \emph{fell}:
+a within-firm difference-in-differences of credit-reporting counts against other-product counts
+gives $-0.30$ ($t=-3.6$; Table~\ref{tab:did}). Second, the furnisher is not special across
+firms. Non-furnishing peers saw credit-reporting complaints grow as much or more (Klarna
+$\times 11$, Sezzle $\times 3.5$ versus Affirm's $\times 2.7$; Table~\ref{tab:firm}), the
+cross-firm difference-in-differences on credit-reporting counts is insignificant ($t=-0.76$),
+and a per-firm re-estimation of the within-firm DiD finds \emph{no} lender---furnisher or
+not---with a positive credit-reporting coefficient (Table~\ref{tab:hetero}).
+
+Third, and most demanding, a triple-difference---(Affirm vs.\ peers)$\times$(credit reporting
+vs.\ other product lines)$\times$post---is the single cleanest test of the hypothesis, because
+it nets out both the sector-wide surge (differenced by the peer comparison) and any Affirm-wide
+shock (differenced by the within-firm product comparison). It is an insignificant $+0.04$
+($t=0.11$; Table~\ref{tab:tripleD}). Fourth, the within-Affirm negative coefficient is stable
+across event dates, symmetric windows, estimators, and the subset of credit-reporting
+complaints whose CFPB issue label is furnishing-plausible (Table~\ref{tab:robust}).
+
+We take two further steps that distinguish this from a paper that reports a coefficient near
+zero and stops. Both are dictated by a feature of the setting we do not hide: there are only
+five BNPL firms, so cluster-robust asymptotics are not to be trusted, and near-simultaneous
+industry adoption means there is no cleanly untreated control. First, we replace asymptotic
+inference with \emph{design-based} inference \citep{cameron2008,mackinnon2017,conley2011,young2019}.
+A firm-label permutation---re-assigning the ``furnisher'' label to each of the five firms in
+turn---places Affirm's cross-firm coefficient in the middle of the permutation distribution
+($p=0.80$), the signature of a firm that is \emph{not} special (Table~\ref{tab:ri}). A
+placebo-in-time analysis, drawing 22 fake furnishing dates from the pre-event period, uncovers
+something the naive DiD hides: within Affirm the credit-reporting series was \emph{rising}
+relative to other complaints throughout the pre-period (every placebo split is positive,
+averaging $+0.30$), and the true furnishing date is the one split at which that ratio
+\emph{reverses} to $-0.30$ (Figure~\ref{fig:ri}). The furnishing event coincides with a
+\emph{deceleration} of credit-reporting complaints relative to other categories---precisely the
+opposite of the predicted spike---and it warns that the within-firm design is confounded by a
+pre-trend, motivating the cross-firm, triple-difference, and (ultimately) staggered designs.
+
+Second, we ask whether each null is \emph{informative} or merely \emph{underpowered}, because
+with five firms the two are easily confused. A minimum-detectable-effect (MDE) calculation
+(Table~\ref{tab:power}) draws the line, and does so without leaning on the five-cluster standard
+errors we distrust. The within-Affirm design (108 month$\times$category cells, HC1 inference---not
+a few-cluster object) is well powered: at 80\% power it could have detected a differential
+credit-reporting increase of roughly 26\%, and instead finds a \emph{decrease} that is robust
+across every event date, window, and estimator and, because the pre-furnishing trend ran
+\emph{upward}, is a \emph{conservative} rejection of H1. That is our strongest informative null:
+had furnishing produced even a modest disproportionate rise in credit-reporting complaints, we
+would have seen it. The five-firm cross-firm-\emph{count} design and the triple-difference, by
+contrast, have MDEs above 170\%; they cannot rule out large effects and are honestly labeled
+uninformative. That precise diagnosis---which designs already answer the question and
+which await sharper treatment timing---is what motivates the companion hand-collection.
+
+We make four contributions. First, we provide the first difference-in-differences evidence on
+the credit-reporting consequences of BNPL \emph{furnishing}, complementing a young BNPL
+literature focused on household leverage and fragility \citep{dimaggio2022,guttman2023} and the
+literature that uses consumer complaints as a market-conduct signal \citep{begley2021}. Second,
+we document that the widely anticipated furnishing-dispute wave did not materialize in the
+furnisher's complaint record in its first year---a policy-relevant null, consistent with the
+2025--26 BNPL complaint surge reflecting the sector's growth and its regulatory
+reclassification as credit \citep{cfpb2024} rather than furnishing per se. Third, we offer a
+methodological template for a small-$N$ event with near-simultaneous adoption: triangulate
+across within-firm, cross-firm, and triple-difference designs, and replace fragile few-cluster
+asymptotics with permutation and placebo-in-time inference. Fourth, we treat each null as a
+quantitative object, reporting its power and minimum detectable effect so a reader can see
+which conclusions the data already support and which require the student's hand-collected
+furnishing dates. Section~\ref{sec:bg} gives institutional background and hypotheses,
+Section~\ref{sec:lit} places the paper in the literature, Section~\ref{sec:data} the data and
+research design, Section~\ref{sec:res} the main results, Section~\ref{sec:special} the
+generalization and triple-difference, Section~\ref{sec:robust} robustness,
+Section~\ref{sec:inf} design-based inference, Section~\ref{sec:power} the power analysis, and
+Section~\ref{sec:concl} concludes with the hand-collection that would sharpen the test.
+
+\section{Institutional Background and Hypotheses}\label{sec:bg}
+\paragraph{BNPL and the credit file.} BNPL ``pay-in-four'' products historically sat outside
+the credit-reporting system: origination typically involved a soft or no bureau pull, and
+repayment was not furnished as a tradeline \citep{cfpb2022,dimaggio2022}. This invisibility is
+economically consequential---it means BNPL debt is not observed by other lenders, so it neither
+builds nor documents a borrower's credit history and is missing from downstream underwriting
+\citep{guttman2023}. Beginning in 2025, that changed as lenders started furnishing BNPL
+tradelines to the bureaus; Affirm's furnishing to Experian (publicly dated to around April
+2025) is the first confirmed major event and anchors our analysis. We deliberately use only
+this single, publicly documented reference date. The complete lender-by-lender, bureau-by-bureau
+furnishing chronology is not something we reconstruct here: it is the student's hand-collection
+task (Section~\ref{sec:concl}), and building the analysis on assigned dates we have not verified
+would be exactly the error the design is meant to avoid.
+
+\paragraph{Why furnishing might flood the bureaus.} Furnishing a new, high-volume, short-tenor
+product creates many opportunities for reporting error. Pay-in-four loans turn over in weeks,
+generate multiple tradelines per borrower, and are prone to duplicate-account and
+mis-dated-payment errors when first mapped into bureau formats. Under the Fair Credit Reporting
+Act a consumer who sees an inaccurate BNPL tradeline can dispute it, and disputes about
+furnisher accuracy route to the CFPB as \emph{credit-reporting} complaints. If furnishing
+mechanically generates inaccurate tradelines, the natural prediction is:
+\begin{quote}
+\textbf{H1 (Furnishing-dispute hypothesis).} After a BNPL lender begins furnishing to the
+bureaus, credit-reporting complaints against that lender rise, both absolutely and relative to
+(i) its own non-furnishing complaint categories and (ii) non-furnishing peers.
+\end{quote}
+
+\paragraph{Why furnishing might do nothing visible.} Three forces push toward a null. (i) In
+its first year furnishing may cover only a subset of loans or bureaus, and clean pipelines
+generate few disputes. (ii) The counterfactual is not flat: BNPL complaints of \emph{all}
+kinds were rising rapidly in 2025--26 as the sector grew and as the CFPB's interpretive rule
+reclassified BNPL as credit \citep{cfpb2024}, so a credit-reporting rise need not be a
+furnishing artifact---it may simply track the sector. (iii) Genuine furnishing errors may be a
+small share of complaints the CFPB \emph{labels} ``credit reporting,'' many of which are
+billing, refund, or fraud disputes that consumers file under a credit-reporting product code.
+These motivate the competing prediction:
+\begin{quote}
+\textbf{H2 (Sector-wide surge).} Any rise in credit-reporting complaints reflects BNPL's
+overall growth and regulatory salience; it appears sector-wide and is \emph{not} concentrated
+in the furnisher, so the furnisher-specific (differenced) effect is indistinguishable from
+zero.
+\end{quote}
+Our evidence favors H2: the well-powered designs reject H1's positive differential, and the
+five-firm designs cannot distinguish any effect from zero.
+
+\paragraph{Why the ground truth is the student's task.} Two things this design cannot observe
+are exactly the two the hypothesis turns on. The first is \emph{when} each lender began
+furnishing to each bureau; without it we cannot build a staggered treatment and must lean on a
+single reference date and cross-sectional comparisons. The second is \emph{whether} a complaint
+the CFPB codes ``credit reporting'' is a genuine furnishing error (a wrong or duplicate BNPL
+tradeline being reported) as opposed to a billing or fraud dispute mislabeled by product code.
+The public complaint pull carries no consumer narratives, so no automated classifier can
+self-certify that distinction. Hand-collecting the furnishing dates and hand-labeling a
+genuine-furnishing-error gold set (Section~\ref{sec:concl}) is the direct route to a
+dose-response, correctly-timed test, and we deliberately do \emph{not} attempt either with the
+observable data used below.
+
+\section{Related Literature}\label{sec:lit}
+This paper connects three strands. The first is the young economics of BNPL. Existing work
+studies BNPL's effect on household spending, leverage, and financial fragility
+\citep{dimaggio2022,guttman2023} and, more broadly, the use of alternative and digital data in
+consumer credit \citep{berg2020}. That literature has largely treated BNPL as an
+\emph{origination} phenomenon; we turn to its \emph{credit-reporting} consequences---what
+happens on the file, and in the complaint record, once BNPL becomes visible to the bureaus.
+The furnishing transition is the moment BNPL stops being off-file, and it is precisely the
+event the fragility literature implies should matter for how BNPL debt is observed and
+underwritten.
+
+The second strand uses consumer complaints as a market-conduct and service-quality signal.
+\citet{begley2021} show that CFPB complaints track meaningful differences in the quality of
+financial services across markets and populations. Complaints are attractive for our question
+because they are firm-tagged, product-tagged, high-frequency, and directly measure the realized
+consumer harm---credit-report disputes---that the furnishing-dispute hypothesis predicts. We
+add to this literature a design point: because the outcome is a \emph{count} that is surging
+sector-wide, the level of complaints is uninformative and only differenced designs (within-firm,
+cross-firm, triple-difference) isolate a furnisher-specific effect.
+
+The third strand is the econometrics of difference-in-differences with few clusters,
+near-simultaneous adoption, and the interpretation of nulls---the methodological core of our
+setting. Classic work shows that DiD standard errors are badly biased under serial correlation
+\citep{bertrand2004} and that cluster-robust inference fails with few clusters, so that
+bootstrap and permutation methods are required \citep{cameron2008,mackinnon2017}. With a small
+number of policy changes, \citet{conley2011} advocate exactly the design-based approach we take,
+and \citet{young2019} shows how randomization tests discipline seemingly significant results.
+The staggered-adoption literature \citep{callaway2021,goodmanbacon2021} explains why a single
+common event date is fragile when units adopt at different, unknown times---which is precisely
+why the student's hand-collected furnishing dates, enabling a proper staggered design, are the
+natural next step. Finally, on interpreting insignificance, \citet{roth2022} warns that
+pre-trend tests have low power and can license false confidence---a warning our placebo-in-time
+analysis takes seriously by \emph{finding} a pre-trend---and \citet{abadie2020} urges that a
+null be read through its power and confidence interval rather than treated as proof of no
+effect. We follow that guidance literally in Section~\ref{sec:power}.
+
+\section{Data and Research Design}\label{sec:data}
+\paragraph{Sample.} We draw from the CFPB Consumer Complaint Database via its public API,
+pulling every complaint for the five pure-play BNPL lenders from January 2022 through June
+2026. After resolving exact company names and dropping two false positives (a similarly named
+law firm, and Afterpay, whose complaints route through its parent), the sample is 19{,}354
+complaints. Affirm dominates the sector's complaint volume (15{,}259 complaints), with Klarna
+(2{,}289), Sezzle (1{,}267), Zip (313), and Perpay (226) making up the peer group.
+Table~\ref{tab:sumstats} reports the composition: overall complaints roughly quadrupled from a
+pre-event average of 199 per month to 772 per month, and the credit-reporting share is 40\% of
+all complaints. Each complaint carries a date received, product, sub-product, issue, sub-issue,
+firm, and state; the public pull contains no consumer narratives, which is why the
+genuine-furnishing-error labeling is reserved for hand-collection.
+
+\paragraph{Variables.} A complaint is flagged \emph{credit-reporting} if its CFPB product
+category is a credit-reporting product (39.8\% of complaints). For a robustness split we further
+identify complaints whose CFPB \emph{issue} label is furnishing-plausible---``incorrect
+information on your report,'' ``problem with the company's investigation,'' or ``improper use of
+your report''---which together cover 95\% of credit-reporting complaints. We emphasize that this
+is a coarse, machine-provided proxy: the CFPB issue field is assigned from the product code, not
+from a reading of the complaint, and it is \emph{not} the student's hand-labeled
+genuine-furnishing-error gold set. The treatment date is the single public Affirm--Experian
+furnishing reference, April 2025, with February 2025 (TransUnion) used only as an alternative
+reference in robustness.
+
+\paragraph{Three complementary designs.} No single design identifies a furnisher-specific
+effect when complaints are surging sector-wide, so we triangulate.
+\emph{(A) Within-firm.} For Affirm we build a monthly panel of credit-reporting vs.\
+other-product complaint counts and estimate
+\begin{equation}
+\ln(1+n_{ct}) = \beta\,(\text{CR}_c \times \text{Post}_t) + \gamma\,\text{CR}_c + \delta_t + \varepsilon_{ct},
+\label{eq:within}
+\end{equation}
+where $c\in\{\text{CR},\text{other}\}$, $\text{Post}_t=\mathbf{1}[\text{month}\geq 2025\text{-}04]$,
+$\delta_t$ are month fixed effects, and $\beta$ is the within-firm DiD. \emph{(B) Cross-firm.}
+Pooling all five firms, we compare Affirm (treated) to peers (control) on the monthly
+credit-reporting count and share, with firm and month fixed effects and standard errors
+clustered by firm. \emph{(C) Triple-difference.} Combining the two, we estimate
+\begin{equation}
+\ln(1+n_{fct}) = \beta_{DDD}\,(\text{Treat}_f\times\text{CR}_c\times\text{Post}_t)
++ \lambda\,(\text{Treat}_f\times\text{Post}_t) + \mu\,(\text{CR}_c\times\text{Post}_t)
++ \phi_{fc} + \delta_t + \varepsilon_{fct},
+\label{eq:ddd}
+\end{equation}
+on the firm$\times$category$\times$month panel, where $\phi_{fc}$ are firm$\times$category fixed
+effects, $\delta_t$ month effects, and $\text{Treat}_f=\mathbf{1}[f=\text{Affirm}]$.
+$\beta_{DDD}$ is the furnisher-specific, product-specific, post-furnishing effect: the object H1
+predicts to be positive, purged of both the sector-wide surge and any Affirm-wide shock.
+
+\paragraph{Design-based checks.} Because the setting has five firms, we do not rely on
+cluster-robust asymptotics. (1) \emph{Firm-label permutation}: we re-assign the ``furnisher''
+label to each of the five firms in turn and recompute the cross-firm DiD, comparing Affirm's
+coefficient to the exact five-value permutation distribution. (2) \emph{Placebo-in-time}: on
+pre-event data only (through March 2025, so no placebo window contains the real furnishing
+shift) we draw 22 interior fake event months and re-estimate \eqref{eq:within}, mapping out the
+distribution of the within-firm DiD absent any true event. (3) \emph{Power}: for each design we
+compute the minimum detectable effect at 80\% power. Together these convert ``insignificant''
+into a set of falsifiable, design-based statements.
+
+\section{Main Results}\label{sec:res}
+\paragraph{The surge is broad.} Table~\ref{tab:comp} shows that every Affirm complaint category
+grew after early 2025, with credit reporting growing the \emph{least} in proportional terms
+($\times 3.7$ for the credit-reporting product line, versus $\times 5.1$ for debt collection and
+$\times 5.8$ for personal loans). Figure~\ref{fig:comp} makes the point visually: the furnishing
+category is not the one that exploded. If furnishing had flooded the bureaus, credit reporting
+should have outgrown Affirm's furnishing-irrelevant complaint lines; it did the reverse.
+
+\paragraph{The furnisher is not special across firms.} Table~\ref{tab:firm} reports
+credit-reporting complaint growth by firm. Affirm's $\times 2.7$ is at or below its
+non-furnishing peers': Klarna grew $\times 11$ (from a tiny base), Sezzle $\times 3.5$, and Zip
+and Perpay from bases too small to interpret. If furnishing drove disputes, the furnisher should
+stand out among BNPL firms. It does not.
+
+\paragraph{Difference-in-differences.} Table~\ref{tab:did} formalizes the comparison. The
+within-Affirm DiD (credit-reporting vs.\ other complaints) is \emph{negative}: $-0.30$
+($t=-3.6$) in logs and $-0.44$ ($z=-13.4$) in the Poisson count model. The credit-reporting
+\emph{share} fell as Affirm's other complaint categories grew faster. The cross-firm DiD on
+credit-reporting counts is insignificant ($-0.33$, $t=-0.76$) and shrinks toward zero when
+Klarna's small-base outlier is dropped ($-0.08$, $t=-0.16$). Neither design supports H1;
+Figure~\ref{fig:series} shows Affirm and the peer average rising in tandem through the furnishing
+date, with no discontinuity there.
+
+\section{The Furnisher Is Not Special: Generalization and Triple-Difference}\label{sec:special}
+\paragraph{Per-firm generalization.} If furnishing generated credit-reporting disputes, the
+within-firm credit-reporting DiD should be positive for the furnisher and roughly zero for
+everyone else. Table~\ref{tab:hetero} re-estimates \eqref{eq:within} separately for each of the
+five firms, using the common April-2025 reference date as a placebo/generalization split (the
+true per-firm dates are the student's task, so we do not claim these are correctly timed for the
+peers). The result is a clean generalization of the null: \emph{no} firm has a positive,
+significant credit-reporting DiD. Affirm, the actual furnisher, is significantly \emph{negative}
+($-0.30$); Klarna ($+0.15$) and Perpay ($+0.02$) are small and insignificant; Sezzle is
+negative and insignificant ($-0.17$); and Zip's large negative coefficient rests on only 13
+credit-reporting complaints and is not interpretable. The furnisher looks like---if anything,
+less credit-reporting-tilted than---its peers.
+
+\paragraph{Triple-difference.} The sharpest single test is the triple-difference in
+\eqref{eq:ddd}, which asks whether Affirm's credit-reporting line rose more, post-furnishing,
+than the sector-wide surge and Affirm's own other lines would predict. Table~\ref{tab:tripleD}
+reports $\beta_{DDD}=+0.04$ ($t=0.11$) in the baseline; $+0.20$ ($t=0.46$) dropping Klarna; and
+$+0.11$ ($t=0.27$) using the February-2025 reference. The point estimates are small and
+positive but statistically indistinguishable from zero in every specification. Read alone, the
+triple-difference neither supports H1 nor decisively rejects it---and Section~\ref{sec:power}
+shows why: with five firms it is underpowered, and its wide confidence interval is exactly the
+gap the student's staggered design is meant to close. What it does establish is that the one
+design capable in principle of isolating a furnisher-specific dispute wave shows no sign of one.
+
+\section{Robustness}\label{sec:robust}
+Table~\ref{tab:robust} confirms that the within-Affirm negative coefficient---the paper's one
+statistically significant estimate, and one that cuts \emph{against} H1---is not an artifact of a
+single choice. It is $-0.30$ at the April-2025 baseline and stays negative and mostly
+significant across estimators (Poisson $-0.44$), alternative event dates (February-2025 $-0.19$;
+June-2025 $-0.38$), symmetric event windows ($\pm 12$: $-0.46$; $\pm 9$: $-0.42$; $\pm 6$:
+$-0.31$), dropping the 2022 start ($-0.41$), and---critically---restricting to the
+furnishing-plausible CFPB issue subset ($-0.27$, $t=-3.2$). That last row matters: even among
+the complaints whose machine label is most consistent with a furnishing error, the
+credit-reporting share \emph{fell} at Affirm relative to its other complaint lines. The negative
+sign is pervasive; nowhere does the within-firm design produce the positive spike H1 predicts.
+
+\section{Design-Based Inference}\label{sec:inf}
+The setting has two features that make conventional inference untrustworthy: only five firms
+(so cluster-robust standard errors are unreliable, \citealp{cameron2008,mackinnon2017}) and a
+single time series in the within-firm design (so serial correlation and the arbitrary choice of
+break date matter, \citealp{bertrand2004,conley2011}). We therefore lean on design-based tests.
+
+\paragraph{Firm-label permutation.} We re-assign the furnisher label to each of the five firms
+in turn and recompute the cross-firm credit-reporting-count DiD (Table~\ref{tab:ri}, upper row).
+Affirm's coefficient ($-0.33$) is the second-\emph{most negative} of the five and sits in the
+middle of the permutation distribution once magnitude is considered (Klarna $+1.03$, Sezzle
+$+0.36$, Zip $-1.32$, Perpay $+0.26$), giving an exact design-based $p=0.80$. A furnisher that
+truly flooded the bureaus should produce an extreme positive coefficient; Affirm produces an
+unremarkable one. The permutation is coarse---with five firms the finest attainable $p$ is
+$0.20$---but it points the same way as every other design: the furnisher is not special.
+
+\paragraph{Placebo-in-time.} On pre-event data only (through March 2025) we draw 22 interior
+placebo furnishing months and re-estimate the within-Affirm DiD \eqref{eq:within}. The exercise
+uncovers a fact the naive DiD conceals (Table~\ref{tab:ri}, lower row; Figure~\ref{fig:ri}):
+\emph{every} placebo split yields a \emph{positive} coefficient, averaging $+0.30$ with a range
+of $[+0.24,+0.36]$. Affirm's credit-reporting complaints were rising \emph{relative} to its
+other complaints throughout the pre-period. The true furnishing date is the one split at which
+that ratio reverses, to $-0.30$---a value below \emph{all} 22 pre-event placebos. Two things
+follow. First, the within-firm design is confounded by a rising pre-trend, so its significant
+$-0.30$ is not a clean causal estimate---a caution in the spirit of \citet{roth2022}, and a
+reason we do not rest the paper on it. Second, and decisively for H1, the pre-trend ran
+\emph{upward}: credit-reporting complaints were already accelerating before furnishing, yet at
+the furnishing date they \emph{decelerated} relative to other categories. Furnishing did not add
+a positive spike to a flat series; it coincided with a downturn in an already-rising series. The
+direction is the opposite of the furnishing-dispute hypothesis under any reading of the trend.
+
+\section{Are the Nulls Informative? Power and Minimum Detectable Effects}\label{sec:power}
+A null is only interesting if the design could have detected a real effect, and with five firms
+it is essential to separate informative nulls from underpowered ones. Table~\ref{tab:power}
+reports, for each design, the minimum detectable effect at 80\% power,
+$\text{MDE}=(z_{0.975}+z_{0.80})\,\widehat{\text{SE}}\approx 2.80\,\widehat{\text{SE}}$; for the
+log-count designs we express it as a detectable \emph{differential growth} multiple
+$\exp(\text{MDE})-1$, and for the share design as a share of the mean credit-reporting share.
+
+The informative null rests on the \emph{within-Affirm} design, and deliberately not on any
+five-cluster standard error. That design has 108 month$\times$category cells and HC1 inference;
+it is not a few-cluster object, so the caution of Sections~\ref{sec:res} and \ref{sec:inf} does
+not apply to it. Its MDE is 0.23 log points, a detectable differential credit-reporting increase
+of $\approx$26\%---a fraction of the 165\% raw rise in Affirm's credit-reporting complaints---and
+the estimate instead comes in at $-0.30$. Two features make this a genuinely informative
+rejection of H1 rather than an SE assertion. First, the robustness battery
+(Table~\ref{tab:robust}) shows the coefficient is negative across every event date, window,
+estimator, sample start, and the furnishing-plausible issue subset, so a positive spike is not
+hiding in a specification choice. Second---reconciling with the pre-trend uncovered in
+Section~\ref{sec:inf}---the within-Affirm credit-reporting series was on an \emph{upward}
+pre-trend (the placebo splits average $+0.30$), which biases the design \emph{toward} finding
+H1's positive spike; that a negative estimate survives an upward pre-trend makes the rejection
+\emph{conservative}. The design confounded by a pre-trend in Section~\ref{sec:inf} is thus, read
+correctly, the single strongest piece of anti-H1 evidence.
+
+The remaining designs inherit the few-cluster caveat and their MDEs are indicative only. The
+cross-firm \emph{share} design ($\text{SE}=0.030$) has an MDE of 26\% of the mean
+credit-reporting share and its point estimate is likewise negative, but its clustered SE with
+five firms is exactly the object Section~\ref{sec:inf} treats with suspicion, so we lean on the
+firm-permutation ($p=0.80$) rather than its $t$-statistic. The cross-firm \emph{count} design
+($\text{SE}=0.435$) and the triple-difference ($\text{SE}=0.360$) have MDEs of 238\% and 174\%
+differential growth: they \emph{cannot} rule out a large furnisher-specific effect and are
+honestly uninformative---it would be wrong to read them as evidence for H2. That is the crux of
+the paper's honest position: the within-firm design, which does not depend on few-cluster
+asymptotics, already rejects the furnishing spike (conservatively, against an upward pre-trend),
+while the cleanest design conceptually---the triple-difference---is starved of clusters. Closing
+that gap requires more identifying variation in treatment timing---the staggered furnishing dates
+the student will hand-collect---not another robustness check on the single-date proxy.
+
+\section{Conclusion}\label{sec:concl}
+Contrary to the widespread expectation that BNPL entering the credit file would flood the
+bureaus with disputes, we find no furnishing-specific credit-reporting complaint spike. Across a
+within-firm difference-in-differences, a per-firm generalization, a cross-firm comparison, a
+triple-difference, an event-window and estimator battery, a firm-label permutation, and a
+placebo-in-time analysis, the furnisher's credit-reporting line never outgrows the sector-wide
+BNPL complaint surge---and in the well-powered designs it grows measurably \emph{less}. The
+2025--26 BNPL complaint wave looks like a consequence of the sector's growth and its regulatory
+reclassification as credit, not of furnishing per se. A power analysis makes the null precise:
+the within-firm and share-based designs could have detected a differential credit-reporting
+increase of about a quarter and did not, while the five-firm count and triple-difference designs
+are underpowered and honestly uninformative.
+
+We are explicit about the binding limitations, and they define the student's pivotal
+contribution. First, our treatment date is a single public reference (Affirm--Experian,
+$\sim$April 2025); the true experiment is \emph{staggered}, because each lender began furnishing
+to each bureau at its own, currently undocumented, date. Hand-collecting those dates from press
+releases, bureau announcements, and 10-K/10-Q risk factors converts the fragile single-date
+proxy into a proper staggered difference-in-differences \citep{callaway2021,goodmanbacon2021},
+which is what the underpowered five-firm designs need. Second, our outcome is the CFPB's
+\emph{product-code} definition of a credit-reporting complaint, which bundles genuine furnishing
+errors with billing, refund, and fraud disputes mislabeled by product; because the public pull
+carries no narratives, no classifier can separate them. Hand-labeling a gold set of complaint
+narratives---coding whether each is truly about a wrong, duplicate, or inaccurate BNPL tradeline
+being \emph{reported}---produces the ground truth to re-run the test on \emph{genuine}
+furnishing-error complaints and to validate any machine classifier. That human-coded timing and
+ground truth---which an automated pipeline cannot self-certify---is what would turn this honest,
+observable-data null into a sharp, correctly-timed, correctly-measured test of whether BNPL
+furnishing changed what lands on consumers' credit files.
+
+\begin{thebibliography}{99}
+\bibitem[Abadie(2020)]{abadie2020} Abadie, A., 2020. Statistical nonsignificance in empirical
+economics. American Economic Review: Insights 2, 193--208.
+\bibitem[Begley and Purnanandam(2021)]{begley2021} Begley, T.A., Purnanandam, A., 2021. Color
+and credit: race, regulation, and the quality of financial services. Journal of Financial
+Economics 141, 48--65.
+\bibitem[Berg et al.(2020)]{berg2020} Berg, T., Burg, V., Gombovi\'c, A., Puri, M., 2020. On the
+rise of fintechs: credit scoring using digital footprints. Review of Financial Studies 33,
+2845--2897.
+\bibitem[Bertrand et al.(2004)]{bertrand2004} Bertrand, M., Duflo, E., Mullainathan, S., 2004.
+How much should we trust differences-in-differences estimates? Quarterly Journal of Economics
+119, 249--275.
+\bibitem[Callaway and Sant'Anna(2021)]{callaway2021} Callaway, B., Sant'Anna, P.H.C., 2021.
+Difference-in-differences with multiple time periods. Journal of Econometrics 225, 200--230.
+\bibitem[Cameron et al.(2008)]{cameron2008} Cameron, A.C., Gelbach, J.B., Miller, D.L., 2008.
+Bootstrap-based improvements for inference with clustered errors. Review of Economics and
+Statistics 90, 414--427.
+\bibitem[CFPB(2022)]{cfpb2022} Consumer Financial Protection Bureau, 2022. Buy Now, Pay Later:
+market trends and consumer impacts. CFPB Research Report (September).
+\bibitem[CFPB(2024)]{cfpb2024} Consumer Financial Protection Bureau, 2024. Use of digital user
+accounts to access buy now, pay later loans (interpretive rule). 89 FR 47068.
+\bibitem[Conley and Taber(2011)]{conley2011} Conley, T.G., Taber, C.R., 2011. Inference with
+``difference in differences'' with a small number of policy changes. Review of Economics and
+Statistics 93, 113--125.
+\bibitem[di Maggio et al.(2022)]{dimaggio2022} di Maggio, M., Williams, E., Katz, J., 2022. Buy
+now, pay later and financial fragility. NBER Working Paper 30508.
+\bibitem[Goodman-Bacon(2021)]{goodmanbacon2021} Goodman-Bacon, A., 2021.
+Difference-in-differences with variation in treatment timing. Journal of Econometrics 225,
+254--277.
+\bibitem[Guttman-Kenney et al.(2023)]{guttman2023} Guttman-Kenney, B., Firth, C., Gathergood, J.,
+2023. Buy now, pay later (BNPL) on your credit card. Journal of Behavioral and Experimental
+Finance 37, 100788.
+\bibitem[MacKinnon and Webb(2017)]{mackinnon2017} MacKinnon, J.G., Webb, M.D., 2017. Wild
+bootstrap inference for wildly different cluster sizes. Journal of Applied Econometrics 32,
+233--254.
+\bibitem[Roth(2022)]{roth2022} Roth, J., 2022. Pretest with caution: event-study estimates after
+testing for parallel trends. American Economic Review: Insights 4, 305--322.
+\bibitem[Young(2019)]{young2019} Young, A., 2019. Channeling Fisher: randomization tests and the
+statistical insignificance of seemingly significant experimental results. Quarterly Journal of
+Economics 134, 557--598.
+\end{thebibliography}
+
+\FloatBarrier
+\newpage
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Sample composition: BNPL complaints by firm, 2022--2026}\label{tab:sumstats}\small
+\input{tables/tab_sumstats.tex}
+\begin{tablenotes}\small\item \textit{Notes:} CFPB Consumer Complaint Database, five pure-play
+BNPL lenders. ``CR share'' is the fraction of a firm's complaints coded to a credit-reporting
+product. ``/mo.\ pre'' and ``/mo.\ post'' are average complaints per month before and after the
+April-2025 Affirm--Experian furnishing reference date. Only Affirm has a confirmed 2025
+furnishing start; peer furnishing dates are the student's hand-collection task.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Affirm complaint composition surged across all products}\label{tab:comp}\small
+\input{tables/tab_composition.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Monthly-average Affirm complaints, pre vs.\ post
+April 2025, by CFPB product. Credit reporting grew the least in proportional terms.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Credit-reporting complaint growth by firm: the furnisher is not special}\label{tab:firm}\small
+\input{tables/tab_firm_growth.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Monthly-average credit-reporting complaints, pre
+vs.\ post April 2025, by firm. Only Affirm has a confirmed 2025 furnishing start; peer
+furnishing dates are a hand-collection task.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Difference-in-differences: no furnishing-specific effect}\label{tab:did}\small
+\input{tables/tab_did.tex}
+\begin{tablenotes}\small\item \textit{Notes:} (A) within-Affirm, DV $=\ln(1+\text{count})$,
+treated $=$ credit-reporting complaints, month FE, HC1 SE. (B),(C) cross-firm, DV $=\ln(1+
+\text{credit-reporting count})$, treated $=$ Affirm, firm $+$ month FE, SE clustered by firm.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Per-firm within-firm furnishing DiD: no lender shows a positive credit-reporting effect}\label{tab:hetero}\small
+\input{tables/tab_hetero.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Equation~\eqref{eq:within} estimated separately
+for each firm using the common April-2025 reference date as a generalization/placebo split
+(true per-firm furnishing dates are the student's task). DV $=\ln(1+\text{count})$; CR$\times$post
+is the within-firm credit-reporting DiD; month FE, HC1 SE. Only Affirm actually furnished; no
+firm has a positive, significant coefficient. Zip's estimate rests on 13 credit-reporting
+complaints and is not interpretable. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Triple-difference: (Affirm vs.\ peers)$\times$(CR vs.\ other)$\times$post}\label{tab:tripleD}\small
+\input{tables/tab_tripleD.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Equation~\eqref{eq:ddd} on the
+firm$\times$category$\times$month panel of $\ln(1+\text{count})$; firm$\times$category and month
+FE; SE clustered by firm (five clusters). $\hat\beta_{DDD}$ is the furnisher-specific,
+credit-reporting-specific, post-furnishing effect that H1 predicts to be positive. All
+specifications are insignificant; Section~\ref{sec:power} shows the design is underpowered.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Robustness of the within-Affirm credit-reporting DiD}\label{tab:robust}\small
+\input{tables/tab_robust.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DV $=\ln(1+\text{count})$ (Poisson row uses the
+count level); treated $=$ credit-reporting complaints; month FE; HC1 SE. Event dates, symmetric
+windows, estimator, sample start, and the furnishing-plausible CFPB-issue subset are varied. The
+coefficient is negative throughout---the opposite of H1. The furnishing-plausible subset uses
+observable CFPB issue labels, \emph{not} the student's hand-coded genuine-error gold set.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Design-based inference: firm permutation and placebo-in-time}\label{tab:ri}\small
+\input{tables/tab_ri.tex}
+\begin{tablenotes}\small\item \textit{Notes:} ``Null mean'' and ``Null range'' summarize the
+reference distribution. \emph{Firm permutation} (upper row): the ``furnisher'' label is
+re-assigned to each of the five firms; the design $p$ is the share of the five coefficients with
+$|\text{coef}|\geq|\text{Affirm}|$ ($=0.80$: Affirm is unremarkable). \emph{Placebo-in-time}
+(lower row): 22 interior fake furnishing months are drawn from pre-event data only ($\leq$
+2025-03); the null mean is $+0.30$ and every placebo is positive---Affirm's credit-reporting
+series was \emph{rising} relative to other complaints before furnishing. The design $p$ is the
+share of placebos at least as low as the true estimate; it is $0.00$ because the true estimate
+($-0.30$) lies below \emph{all} 22 placebos---a reversal of a rising series, the opposite of a
+positive furnishing spike, not evidence for one (Figure~\ref{fig:ri}).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Minimum detectable effects at 80\% power: informative vs.\ underpowered nulls}\label{tab:power}\small
+\input{tables/tab_power.tex}
+\begin{tablenotes}\small\item \textit{Notes:} MDE(80\%) $=(z_{0.975}+z_{0.80})\times$SE
+$\approx 2.80\times$SE. For log-count designs the MDE magnitude is the detectable differential
+growth $\exp(\text{MDE})-1$; for the share design it is a share of the mean credit-reporting
+share ($0.32$). The within-Affirm and cross-firm-share designs are well powered ($\approx$26\%)
+and reject H1's positive spike; the five-firm cross-firm-count and triple-difference designs
+have MDEs above 170\% and are underpowered.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\FloatBarrier
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.85\textwidth]{fig1_affirm_vs_peers.pdf}
+\caption{Monthly credit-reporting complaints: Affirm (furnisher) vs.\ the peer BNPL average.
+They rise together; there is no discontinuity at the April-2025 furnishing date.}\label{fig:series}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.8\textwidth]{fig2_composition.pdf}
+\caption{Affirm complaints per month, pre vs.\ post April 2025, by product. Every category
+surged; credit reporting is not the one that exploded.}\label{fig:comp}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.72\textwidth]{fig3_randinf.pdf}
+\caption{Placebo-in-time inference for the within-Affirm credit-reporting DiD. Histogram: the
+distribution of the DiD coefficient under 22 fake furnishing dates drawn from the pre-event
+period. Every placebo is positive (a rising credit-reporting pre-trend); the true furnishing-date
+estimate (red line, $-0.30$) lies below all of them---the furnishing date marks a reversal of an
+already-rising series, not a positive dispute spike.}\label{fig:ri}
+\end{figure}
+
+\end{document}

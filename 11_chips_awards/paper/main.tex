@@ -1,0 +1,668 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}\doublespacing
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\graphicspath{{../output/figures/}}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{placeins}
+
+\title{\textbf{Priced In? Stock-Market Reactions to\\
+CHIPS Act Award Announcements}}
+\author{Alexander Li Tang \and Lei Gao\thanks{Tang: ASSIP 2026, George Mason University.
+Gao (corresponding author): Costello College of Business, George Mason University,
+\texttt{lgao9@gmu.edu}. This is a student--faculty working paper prepared in the ASSIP 2026
+Empirical Finance research group. All returns use public WRDS/CRSP daily data; award dates and
+amounts are hand-collected from U.S.\ Department of Commerce and NIST CHIPS Program Office press
+releases. Every number in the paper traces to a CSV in \texttt{output/tables/} and is reproduced
+by the code in \texttt{code/}; no numbers are fabricated, and where the result is a null it is
+reported as such. We thank the ASSIP 2026 cohort for comments. Any errors are our own.}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent The 2022 CHIPS and Science Act directed tens of billions of dollars in
+manufacturing subsidies to semiconductor firms, disbursed through a sequence of
+company-specific award announcements in 2024. We ask whether these announcements moved the
+awardees' stock prices, and whether the reaction scaled with award size. Using a
+market-model event study on 15 publicly-traded U.S.\ awardees, we find \emph{no}
+statistically significant average abnormal return around the first (``preliminary terms'')
+announcement: the mean cumulative abnormal return over $[-1,+1]$ is $+2.6\%$ ($t=0.99$),
+the median is $+0.5\%$, only 8 of 15 reactions are positive, and a pre-event placebo window
+is if anything negative. The null is invariant to the abnormal-return model (market model,
+market-adjusted, mean-adjusted) and to a battery of standardized and nonparametric test
+statistics (Patell, Boehmer--Musumeci--Poulsen, generalized sign). A naive cross-sectional
+regression suggests the announcement return rises steeply with the award's size relative to
+firm market capitalization (OLS slope $t=32$, $R^2=0.80$), but this is entirely an artifact of
+a single distressed micro-cap, Wolfspeed, whose \$750M award equalled 52\% of its market value:
+dropping it collapses the slope to $t=1.0$ ($R^2=0.04$), and the outlier-robust Spearman rank
+correlation is only $0.37$ ($p=0.18$). Two additions push past the usual ``we found nothing''
+event study. First, \emph{randomization inference}---2{,}000 placebo event dates and 2{,}000
+permutations of the award-size vector---confirms both halves of the story from a design-based
+standpoint: the mean CAR sits comfortably inside the placebo distribution (design-based
+$p=0.14$), and the only statistic that flags the ``scaling'' effect is the non-robust OLS slope,
+which inherits the single Wolfspeed alignment ($p=0.02$) while the outlier-robust rank
+permutation cannot reject the null ($p=0.18$). Second, a \emph{minimum-detectable-effect}
+analysis makes the small-sample limitation precise: a full-windfall benchmark implies an average
+reaction equal to the mean award-to-market-cap ratio ($5.9\%$ across all firms, $2.6\%$ excluding
+Wolfspeed), and both lie below our 80\%-power MDE of $7.5\%$ ($3.7\%$ excluding Wolfspeed), so we
+do not claim to reject a windfall average on power alone. The evidence for ``priced in'' is instead
+the configuration of the point estimates---excluding the single distressed leverage point the mean
+reaction is $0.3\%$, and no firm but Wolfspeed shows the one-for-one pass-through a windfall
+requires. We conclude that CHIPS awards were, on the evidence, largely anticipated and priced in,
+and that a cost-share grant tied to mandatory private co-investment need not be a windfall for
+equity holders---while being explicit that 15 events cannot decisively exclude a modest windfall.\\[4pt]
+\noindent\textbf{JEL:} G14, G12, G38, H81, L52, O25. \quad
+\textbf{Keywords:} event study, CHIPS Act, industrial policy, government subsidies,
+semiconductors, market efficiency, anticipation, randomization inference, statistical power.
+\end{abstract}
+
+\newpage
+\section{Introduction}\label{sec:intro}
+Between January and December 2024 the U.S.\ Department of Commerce announced a rapid
+sequence of subsidy awards under the 2022 CHIPS and Science Act---non-binding
+``preliminary memoranda of terms'' (PMTs) committing federal grants (and, for the largest
+projects, loans) to specific semiconductor manufacturers. The headline numbers were large:
+\$8.5 billion to Intel, \$6.6 billion to TSMC's Arizona subsidiary, \$6.1 billion to
+Micron, \$1.5 billion to GlobalFoundries, and dozens of smaller awards. A natural question
+for a financial economist is whether these announcements were \emph{news} to equity
+investors. If capital markets are efficient and the awards were anticipated---the CHIPS
+program had been law since August 2022, and companies had publicly staged their U.S.\
+fab plans for years---then the announcement-day abnormal return should be small. If instead
+the awards resolved genuine uncertainty about which firms would receive how much, and how
+value-accretive the subsidies were net of the required private co-investment, then stock
+prices should jump, and by more for firms where the award is large relative to firm value.
+
+This paper runs that test. We hand-collect, from Commerce and NIST CHIPS Program Office
+press releases, the first-announcement date and dollar amount of every CHIPS award to a
+firm with a listed U.S.\ equity, and we estimate market-model cumulative abnormal returns
+(CARs) around each award's PMT date using CRSP daily data. We then ask, in the
+cross-section, whether the announcement return scales with award size---both in absolute
+terms (\$ millions) and relative to the firm's market capitalization. Because each awardee
+has its own event date, the design is a multi-event study in which the right-hand-side
+variable of the cross-sectional test (award size) is set by the government rather than by the
+stock, so the horse race between market efficiency and a priced-in transfer is unusually
+clean; what it lacks, with only 15 events, is statistical power, which we confront directly
+rather than paper over.
+
+Our findings are, we think, a clean and instructive null. First, \emph{on average, CHIPS
+award announcements did not move awardee stocks.} The mean CAR over the three-day window
+$[-1,+1]$ is $+2.6\%$ with a $t$-statistic of $0.99$; the median is $+0.5\%$; only 8 of 15
+awardees had a positive reaction (a sign test cannot reject a coin flip); and the result is
+statistically indistinguishable from zero in every window we examine
+(Table~\ref{tab:cars}). A pre-announcement placebo window $[-10,-3]$ is $-1.4\%$, so the
+event window is not obviously contaminated by a run-up. The null is not an artifact of a
+particular benchmark or test: it survives the market-adjusted and mean-adjusted models, two
+alternative estimation windows, and the standardized Patell and Boehmer--Musumeci--Poulsen
+(BMP) tests as well as the nonparametric generalized-sign test (Table~\ref{tab:altmodels}).
+This is the pattern one expects when awards are anticipated and priced in well before the
+government's formal announcement.
+
+Second, \emph{the apparent ``scaling with size'' relationship is a single-observation
+artifact.} A cross-sectional OLS of CAR$[-1,+1]$ on the award-to-market-cap ratio produces
+a spectacular-looking slope ($t=32$, $R^2=0.80$; Table~\ref{tab:crosssec}, column 2). But
+the fit is driven entirely by one point: Wolfspeed, a financially distressed
+silicon-carbide maker whose \$750M award equalled 52\% of its \$1.4B market
+capitalization and whose stock rose 36\% around the announcement. Dropping Wolfspeed
+collapses the slope from $0.0071$ to $0.0046$ and the $t$-statistic from 32 to
+\emph{one}, with $R^2$ falling from 0.80 to 0.04 (column 4). The outlier-robust Spearman
+rank correlation between CAR$[-1,+1]$ and the award-to-market-cap ratio is only $0.37$
+($p=0.18$) across all 15 firms and $0.22$ ($p=0.45$) once Wolfspeed is removed
+(Table~\ref{tab:robust}). Absolute award size---ln(award \$)---is unrelated to the reaction
+($t=-0.22$), because the largest awards went to the largest firms, for whom even a
+multi-billion-dollar subsidy is a few percent of market value. We therefore find \emph{no
+robust evidence} that announcement returns scale with award size.
+
+We then do two things a paper that simply reports a coefficient near zero and stops would
+not. First, we subject both hypotheses to \emph{design-based (randomization) inference}, which
+does not lean on the small-sample $t$ asymptotics that a 15-firm cross-section strains
+(Section~\ref{sec:randinf}, Table~\ref{tab:randinf}, Figure~\ref{fig:randinf}). We reassign
+each firm 2{,}000 placebo event dates---drawn so that the full estimation and event windows
+still fit the CRSP calendar and avoid the true event---and rebuild the mean CAR each time; the
+actual $+2.6\%$ sits comfortably inside the placebo distribution (design-based $p=0.14$), so the
+average-effect null is not an artifact of the parametric test. We also permute the award-size
+vector 2{,}000 times while holding the CARs fixed. The result is itself a lesson in why we
+distrust the naive regression: the only statistic that registers ``scaling'' is the OLS slope,
+which by construction is inflated by the single Wolfspeed alignment and so returns a marginal
+$p=0.02$, whereas the appropriate outlier-robust statistic---the rank permutation---cannot reject
+the null ($p=0.18$). A design-based test applied to a non-robust statistic inherits the very
+leverage problem it was meant to guard against; the rank-based version is the honest one.
+
+Second, we ask what our null can and cannot rule out
+(Section~\ref{sec:power}, Table~\ref{tab:power}). A minimum-detectable-effect (MDE) calculation
+shows that at 80\% power our design could have detected a three-day announcement reaction of
+about $7.5\%$---and, once Wolfspeed's return variance is excluded, $3.7\%$. This is an honest
+limitation, not a triumph: a CHIPS award treated as a pure equity windfall would capitalize the
+grant into firm value one-for-one, implying an \emph{average} reaction equal to the mean
+award-to-market-cap ratio of $5.9\%$ ($2.6\%$ excluding Wolfspeed)---both \emph{below} our MDE, so
+the mean test is underpowered to reject a full-windfall average on statistical power alone. What
+the data do support is a pattern in the point estimates: excluding the single distressed leverage
+point the mean reaction is $0.3\%$, far from the $2.6\%$ a windfall implies, and no firm but
+Wolfspeed shows anything near the one-for-one pass-through of award size that a windfall requires.
+The ``priced in'' reading rests on that configuration, and we state plainly that 15 events cannot
+decisively exclude a modest windfall.
+
+Two economic forces plausibly explain the null. Anticipation is the first: the CHIPS
+program's beneficiaries and rough allocations were widely reported before the formal PMTs,
+so the announcements carried little surprise. The second is that a CHIPS grant is not a pure
+windfall---it is a cost-share that \emph{requires} large private capital expenditure and is
+tied to build-out and workforce conditions, so the net present value to equity holders of
+``winning'' can be close to zero even for a multi-billion-dollar headline. Both forces push
+announcement returns toward zero, and both are consistent with what we observe. Separating
+them---and, in particular, quantifying the required private co-investment behind each
+award---is reserved for the companion hand-collection task and is deliberately \emph{not}
+attempted with the observable data used here.
+
+We make four contributions. First, we provide a clean, transparent event-study application to
+a salient recent industrial-policy episode, and an object lesson in how a single leverage point
+can manufacture apparent significance---which is why we lean on nonparametric rank tests
+\citep{corrado1989,cowan1992} and drop-one robustness. Second, relative to the literature on the
+market value of government policy and political connections
+\citep{schwert1981,binder1985,goldman2009,cooper2010,belo2013}, we add the CHIPS Act as a case in
+which large, targeted federal transfers were substantially \emph{priced in} before their formal
+announcement. Third, relative to the revived economics of industrial policy
+\citep{criscuolo2019,slattery2020,juhasz2024}, we show that the stock market's ex-ante assessment
+of the CHIPS subsidies' incremental value to recipients was, on average, muted. Fourth, we treat
+a small-sample null as a quantitative object: we buttress it with design-based inference
+\citep{young2019} and report its minimum detectable effect \citep{abadie2020}, so readers can see
+what a 15-event study can and cannot rule out. Section~\ref{sec:bg} gives institutional background
+and hypotheses; Section~\ref{sec:lit} places the paper in the literature; Section~\ref{sec:data}
+describes the data, variables, and design-based tools; Section~\ref{sec:res} presents the main
+results; Section~\ref{sec:het} examines observable heterogeneity; Section~\ref{sec:robust} reports
+robustness to model and test choice; Section~\ref{sec:randinf} the randomization inference;
+Section~\ref{sec:power} the power analysis; and Section~\ref{sec:concl} concludes.
+
+\section{Institutional Background and Hypotheses}\label{sec:bg}
+\paragraph{The program.} The CHIPS and Science Act, signed in August 2022, appropriated
+\$52.7 billion for domestic semiconductor research and manufacturing, of which roughly
+\$39 billion was earmarked for manufacturing incentives administered by the Department of
+Commerce through the NIST CHIPS Program Office. Commerce solicited applications and, through
+2024, negotiated project-specific awards. The first public, company-specific commitment for a
+project is the \emph{Preliminary Memorandum of Terms} (PMT): a non-binding term sheet stating a
+proposed direct-funding amount (and, for the largest capital projects, a proposed loan). A PMT is
+later converted into a binding ``CHIPS Incentives Award'' once due diligence and milestones are
+settled. We take the PMT as the event because it is the first moment at which the market learns
+\emph{which} firm will receive \emph{how much}; the later finalized award is more anticipated
+still, and dating it is one of the hand-collection tasks reserved for the student.
+
+\paragraph{Why an award might move the stock.} A federal grant is a transfer of resources to the
+firm. Under the simplest view it raises the net present value of the recipient's U.S.\ fab
+investment and should be capitalized into the equity price on the day the transfer becomes known,
+by more when the transfer is large relative to firm value. This motivates a deliberately nullable
+hypothesis.
+\begin{quote}
+\textbf{H1 (Announcement effect).} Awardee stocks earn a positive abnormal return around the
+first CHIPS award announcement.
+\end{quote}
+A subsidy is more likely to be material---and less likely to have been fully anticipated in the
+price---when it is large relative to the firm. A \$16M award to a \$400M company is a different
+event from a \$32M award to a \$41B company. If the market prices the incremental transfer, the
+reaction should rise with the award-to-market-cap ratio.
+\begin{quote}
+\textbf{H2 (Scaling with relative size).} The announcement CAR is increasing in the ratio of
+award dollars to firm market capitalization.
+\end{quote}
+
+\paragraph{Why an award might do nothing.} Two forces push toward a null. First, under
+semi-strong-form market efficiency \citep{fama1970,fama1969} prices already reflect public
+information, and a subsidy announcement moves the stock only to the extent it is a surprise. The
+CHIPS awards were preceded by years of public fab announcements and by the statutory allocation of
+\$39 billion in manufacturing incentives, so the surprise component of any individual PMT may be
+small. Second, a CHIPS grant is a \emph{cost-share}: the direct funding is tied to a much larger
+mandatory private capital expenditure and to build-out, sourcing, and workforce conditions, and it
+arrives in tranches contingent on milestones. ``Winning'' therefore need not raise equity value
+even when the headline runs to billions, because the grant offsets spending the firm was often
+already committed to. Under this view both H1 and H2 fail.
+\begin{quote}
+\textbf{H2$'$ (Priced-in cost-share).} Because awards are anticipated and are cost-shares rather
+than windfalls, neither the average CAR nor its cross-sectional relation to award size is
+distinguishable from zero.
+\end{quote}
+Our evidence favors H2$'$. Quantifying the co-investment channel directly---collecting, for each
+award, the required private capital expenditure from the recipient's own 8-K---is the sharpest way
+to test the cost-share mechanism, and it is precisely the hand-collection reserved for the student;
+we do not attempt it with the observable data here, and the heterogeneity we do report
+(Section~\ref{sec:het}) is deliberately built from firm characteristics orthogonal to it.
+
+\section{Related Literature}\label{sec:lit}
+This paper sits at the intersection of three literatures. The first is the event-study method
+itself. \citet{fama1969} introduced the abnormal-return event study; \citet{brown1985} established
+the daily market-model design and its sampling properties; and \citet{mackinlay1997} synthesized
+the framework we use. A long methodological strand warns that the cross-sectional $t$-test is
+fragile when abnormal returns are non-normal, when event-induced variance inflates the
+denominator, or when a few observations dominate---exactly our situation with $N=15$ and two
+distressed micro-caps. \citet{patell1976} proposed standardizing each abnormal return by its
+estimation-period forecast error; \citet{boehmer1991} showed how to make the cross-sectional test
+robust to event-induced variance; \citet{corrado1989} and \citet{cowan1992} developed
+nonparametric rank and generalized-sign tests that are insensitive to outliers; and
+\citet{kolari2010} address cross-sectional dependence when events cluster in calendar time. We use
+this toolkit not decoratively but diagnostically: the null must survive every reasonable
+benchmark and test statistic, and it does.
+
+The second strand is the market valuation of government policy. Early work used stock prices to
+measure the effects of regulation \citep{schwert1981,binder1985}. A subsequent literature prices
+political connections and government dependence: \citet{goldman2009} show politically connected
+boards raise firm value, \citet{cooper2010} link corporate political contributions to returns, and
+\citet{belo2013} document that firms exposed to government spending earn different returns across
+the political cycle. Direct subsidies are the sharpest case of a government transfer to an
+identified firm, yet the equity-market response to a large, targeted industrial subsidy is
+comparatively under-studied. We add the CHIPS Act as an episode in which such transfers were, on
+average, already in the price.
+
+The third strand is the revived economics of industrial policy. \citet{criscuolo2019} estimate the
+causal employment effects of a place-based investment subsidy; \citet{slattery2020} document the
+scale and incidence of U.S.\ business tax incentives; and \citet{juhasz2024} survey the modern
+theory and evidence. This literature asks whether targeted subsidies work; we ask a narrower,
+market-based question---what did investors think the CHIPS subsidies were worth to recipients at
+the moment of announcement---and answer: on average, little, consistent with anticipation and with
+the cost-share structure of the grants.
+
+Finally, methodologically, we draw on the literature on inference and interpretation in small
+samples. \citet{young2019} argues that design-based randomization tests discipline apparently
+significant results, a caution we take to heart: our own OLS-slope permutation flags the very
+artifact it is applied to. And \citet{abadie2020} urges that a statistically insignificant estimate
+be read through its confidence interval and power rather than treated as proof of no effect; we
+follow that guidance by reporting the minimum effect our design could detect.
+
+\section{Data and Research Design}\label{sec:data}
+\paragraph{Award sample.} We hand-collect every CHIPS award whose recipient (or its listed
+parent) has a U.S.-traded common stock or ADR, from Commerce/NIST press releases, recording
+the first-announcement (PMT) date and the proposed direct-funding amount. This yields 17
+awards announced between January 2024 and January 2025. Two (Analog Devices and MACOM,
+announced in January 2025) fall past the end of the current CRSP daily file (2024-12-31) and
+are held out for the next data update, leaving \textbf{15 events} for analysis. We
+deliberately exclude awards to firms without a liquid U.S.\ listing (Samsung, SK Hynix,
+GlobalWafers, Polar Semiconductor, and privately held recipients such as Bosch and Hemlock).
+Resolving each awarded entity to its correct listed ticker, verifying each announcement date
+against the primary press release, building a firm-level news/confound timeline beyond the one
+confound we already flag (Amkor), and transcribing the required private co-investment behind each
+award, are the student's hand-validation tasks (see \texttt{STUDENT\_TASKS.md}); none of them is
+used in the analysis below, which relies on observable CRSP and award-file data only.
+
+\paragraph{Abnormal returns.} For each awardee we estimate a market model
+$R_{it}=\alpha_i+\beta_i R_{mt}+\varepsilon_{it}$ over the $[-252,-46]$ trading-day window
+ending before the announcement, benchmarked to the CRSP value-weighted index, and cumulate
+abnormal returns over event windows $[-1,+1]$, $[0,+1]$, $[0,+3]$, $[-1,+5]$, and
+$[-5,+5]$, plus a pre-event placebo window $[-10,-3]$. Day 0 is the first trading day on or
+after the announcement. All 15 firms have the full 207-day estimation sample. The
+cumulative abnormal return for firm $i$ over window $[\tau_1,\tau_2]$ is
+$\text{CAR}_i=\sum_{\tau=\tau_1}^{\tau_2}\big(R_{i\tau}-\hat\alpha_i-\hat\beta_i R_{m\tau}\big)$,
+and the average-effect test is a cross-sectional $t$-test of $\overline{\text{CAR}}=0$.
+
+\paragraph{Award-size measures.} \emph{Award/Market cap} is the announced dollar award
+divided by the firm's CRSP market capitalization (price $\times$ shares outstanding) on the
+last trading day before the event, in percent. \emph{ln(Award)} is the natural log of the
+award in \$millions. Table~\ref{tab:sumstats} shows the enormous spread: awards range from
+\$16M (SkyWater) to \$8.5B (Intel), market caps from \$0.4B (SkyWater) to \$184B (Texas
+Instruments), and the award-to-market-cap ratio from 0.08\% (Corning) to 52\% (Wolfspeed).
+This dispersion is what powers the cross-sectional test---and, as it turns out, what makes a
+single firm pivotal.
+
+\paragraph{Three design-based tools.} A 15-event study strains the asymptotics behind the
+cross-sectional $t$-test, so beyond it we deploy three checks that do not rely on the parametric
+null. (1) \emph{Model and test robustness}: we recompute the mean CAR under the market-adjusted
+($\beta=1$) and mean-adjusted models and under two alternative estimation windows, and we compute
+the standardized Patell and BMP tests and the nonparametric generalized-sign test, all directly
+from the daily CRSP record (Section~\ref{sec:robust}). (2) \emph{Randomization inference}: we
+assign 2{,}000 placebo event dates to test the average-effect null and permute the award-size
+vector 2{,}000 times to test the scaling null, comparing each actual statistic to its permutation
+distribution (Section~\ref{sec:randinf}). (3) \emph{Power}: we compute the minimum detectable
+effect at 80\% power for the mean CAR in each window (Section~\ref{sec:power}). Together these
+convert ``insignificant'' into a set of falsifiable, design-based statements.
+
+\section{Results}\label{sec:res}
+\paragraph{No average announcement effect (H1).} Table~\ref{tab:cars} reports mean and
+median CARs by window with $t$-tests and exact sign tests. The mean CAR$[-1,+1]$ is
+$+2.6\%$ ($t=0.99$) and the mean CAR$[0,+1]$ is $+3.0\%$ ($t=1.11$); neither approaches
+conventional significance. Medians are essentially zero ($+0.5\%$ and $0.0\%$), and the
+number of positive reactions (7--9 of 15) is what a coin flip would give. The placebo
+window $[-10,-3]$ is $-1.4\%$, so the small positive point estimates are not the tail of a
+pre-announcement drift. Figure~\ref{fig:windows} shows every window's 95\% confidence
+interval comfortably spanning zero. H1 is not supported: on average, the market did not
+react to CHIPS award announcements.
+
+\paragraph{The scaling ``result'' is one data point (H2).} Table~\ref{tab:crosssec} regresses
+CAR$[-1,+1]$ on award-size measures with HC1-robust standard errors. Column 1 shows absolute
+award size is irrelevant (ln(Award) $t=-0.22$, $R^2=0.001$): big awards do not earn big
+reactions, because they accrue to big firms. Column 2 regresses on the award-to-market-cap
+ratio and appears to be a knockout---slope $0.0071$, $t=32$, $R^2=0.80$---but this is the
+textbook signature of a high-leverage outlier, not a robust relationship. Wolfspeed sits at
+(52\%, $+36\%$) in the top-right corner of Figure~\ref{fig:scatter}, anchoring the fit;
+the remaining 14 firms cluster near the origin with no visible slope. Column 4 re-estimates
+column 2 dropping Wolfspeed: the slope falls to $0.0046$ with $t=1.00$ and $R^2=0.04$.
+Adding ln(market cap) (column 3) or dropping the one ADR, TSMC (column 5), does not change
+the picture. The relationship is not robust.
+
+\paragraph{Rank-based tests confirm the null.} Because $N=15$ and two firms (Wolfspeed and
+SkyWater) are extreme, we lean on the outlier-robust Spearman rank correlation
+(Table~\ref{tab:robust}). Between CAR$[-1,+1]$ and the award-to-market-cap ratio it is
+$\rho=0.37$ ($p=0.18$) for all firms, $\rho=0.22$ ($p=0.45$) excluding Wolfspeed, and
+$\rho=0.44$ ($p=0.11$) excluding the one event (Amkor) whose window is contaminated by a
+same-week earnings release---never significant at conventional levels. For absolute award
+size the rank correlation is if anything \emph{negative}. We cannot reject the hypothesis
+that announcement returns are unrelated to award size.
+
+\section{Heterogeneity by Observable Characteristics}\label{sec:het}
+If the market reacted to \emph{some} awards and the pooled null merely averages the reaction
+away, an effect should surface when we split the sample on observable, pre-determined firm
+characteristics. Table~\ref{tab:hetero} reports the mean CAR$[-1,+1]$ within and across five such
+splits, with a difference-in-means test. We use only observable dimensions---the grant-versus-
+grant-plus-loan structure recorded in the award file, firm market capitalization, the
+award-to-market-cap ratio, a core-semiconductor (SIC 3674) indicator, and the market beta---and we
+deliberately do \emph{not} split on the required private co-investment, which is the student's
+reserved hand-collected variable and the sharpest test of the cost-share mechanism.
+
+No split yields a significant difference: the largest $t$-statistic in absolute value is $1.25$
+(the below-median-size firms react more, consistent with the two small distressed names driving
+the tail). The grant-plus-loan awards show a higher mean reaction ($+6.9\%$ vs.\ $+0.5\%$), but
+this is not a financing-structure effect: Wolfspeed is a grant-plus-loan award, and it alone
+accounts for the gap; the difference is statistically indistinguishable from zero ($t=0.86$).
+Likewise, core-semiconductor firms and high-beta firms show larger point estimates, but every
+difference reflects the same handful of volatile small-caps rather than a systematic pattern, and
+none is significant. The heterogeneity evidence, like the pooled evidence, is a null: we find no
+observable subgroup for which CHIPS awards moved stock prices.
+
+\section{Robustness: Alternative Models and Test Statistics}\label{sec:robust}
+The average-effect null could in principle be an artifact of the market-model benchmark or of the
+plain cross-sectional $t$-test. Table~\ref{tab:altmodels} shows it is neither. Panel A recomputes
+the mean CAR$[-1,+1]$ under the market-adjusted ($\beta=1$) and mean-adjusted models, and under
+estimation windows of $[-252,-11]$ and $[-120,-11]$ in place of the baseline $[-252,-46]$. The
+mean CAR is stable across all five specifications ($+2.6\%$ to $+2.9\%$) and the $t$-statistic never
+exceeds $1.1$: the null does not depend on how expected returns are modeled or on the length of the
+estimation window. Panel B reports, for the market-model CARs in the $[-1,+1]$ and $[0,+3]$ windows,
+four alternative test statistics: the standardized \citet{patell1976} $Z$, the event-induced-variance-
+robust \citet{boehmer1991} (BMP) $Z$, and the nonparametric \citet{cowan1992} generalized-sign $Z$,
+alongside the cross-sectional $t$. Every statistic is far from significance (all $|Z|<1$ for
+CAR$[-1,+1]$), and the standardized tests, which down-weight the high-variance outliers, if anything
+push the evidence \emph{further} from significance than the plain $t$. Three additional checks in
+Table~\ref{tab:events} and the discussion above reinforce the null: the earnings-confounded Amkor
+event, if excluded, only \emph{raises} the (still-insignificant) rank correlation; dropping the one
+ADR (TSMC) leaves the cross-section unchanged; and the point estimates are positive only because of
+Wolfspeed and SkyWater, with the median firm's reaction negative in the $[0,+3]$ window.
+
+\section{Design-Based Inference}\label{sec:randinf}
+With only 15 events, the cross-sectional $t$-test and the HC1-robust regression lean on
+asymptotics that do not obviously hold. Randomization inference sidesteps them by building the null
+distribution of each statistic directly from the data \citep{young2019}. Table~\ref{tab:randinf}
+and Figure~\ref{fig:randinf} report two exercises, each with 2{,}000 draws.
+
+\paragraph{Placebo event dates (H1).} We reassign every firm a common pseudo-announcement timing,
+drawn so that its full $[-252,-46]$ estimation window and $[-1,+1]$ event window still fit inside
+the CRSP file and stay at least five trading days away from the true event, and we recompute the
+15-firm mean CAR; each of the 2{,}000 draws yields all 15 firms. The actual mean CAR of $+2.6\%$
+sits comfortably inside the placebo distribution (95\% interval $[-3.7\%,+3.3\%]$), giving a
+design-based $p=0.14$ (Figure~\ref{fig:randinf}a). The average-effect null therefore does not
+depend on the small-sample $t$ asymptotics: a $+2.6\%$ average is roughly what randomly-timed
+three-day windows produce for these 15 volatile stocks.
+
+\paragraph{Permuted award size (H2).} We permute the award-to-market-cap vector across firms,
+holding the CARs fixed, and recompute both the OLS slope and the Spearman rank correlation. The
+result is a clean demonstration of why the naive regression misleads. The OLS slope's permutation
+$p$ is a marginal $0.02$ (Figure~\ref{fig:randinf}b)---but this is not evidence of scaling. The OLS
+slope is precisely the non-robust statistic that the single Wolfspeed alignment inflates; the
+permutation inherits that sensitivity, so the ``significant'' $p$ merely records that one firm
+happened to have both the largest relative award and the largest return, not a relationship across
+the sample. The appropriate design-based test, given two leverage points and $N=15$, is the
+rank-based permutation, and it cannot reject the null (Spearman $\rho=0.37$, permutation $p=0.18$).
+Applying randomization inference to a non-robust statistic reproduces the very artifact it was meant
+to police; the outlier-robust version is the honest one, and it confirms the null. Both halves of
+the paper thus survive design-based scrutiny: the average effect is indistinguishable from randomly
+timed windows, and the ``scaling'' is one aligned data point.
+
+\section{What the Null Can and Cannot Rule Out: Power and Minimum Detectable Effects}\label{sec:power}
+A null is only interesting once we know what the design could have detected. Table~\ref{tab:power}
+reports, for the mean CAR in each window, the minimum detectable effect at 80\% power,
+$\text{MDE}=(z_{0.975}+z_{0.80})\,\widehat{\text{SE}}\approx 2.80\times\text{SE}(\overline{\text{CAR}})$.
+For the three-day window the standard error of the mean CAR is $2.66\%$, so the MDE is $7.5\%$;
+because that standard error is itself inflated by Wolfspeed's $+36\%$ return, we also report the MDE
+excluding Wolfspeed, which falls to $3.7\%$.
+
+We resist the temptation to read these as a triumphant ``informative null,'' because the arithmetic
+does not support it. The natural benchmark for the alternative is a pure equity windfall, under
+which the grant capitalizes into firm value one-for-one and the announcement reaction equals the
+award-to-market-cap ratio. The \emph{average} reaction such a windfall implies is therefore the mean
+award-to-market-cap ratio: $5.9\%$ across all 15 firms, and $2.6\%$ excluding Wolfspeed. Both figures
+lie \emph{below} the corresponding MDE ($7.5\%$ and $3.7\%$), so on statistical power alone our
+mean-CAR test cannot reject a full-windfall average---15 events simply do not deliver the precision
+to separate ``priced in'' from ``modest windfall'' on the average effect. We say so plainly.
+
+What the data \emph{do} support is a pattern in the point estimates rather than a powered rejection.
+Excluding the single distressed leverage point, the mean reaction is $0.3\%$---an order of magnitude
+below the $2.6\%$ a windfall would produce for the same firms---and the per-firm pass-through of the
+award ratio into the return is scattered (from strongly negative to strongly positive) with no
+central tendency near the one-for-one value a windfall requires; only Wolfspeed exhibits the roughly
+$0.7$ pass-through of a firm for which the grant was genuine, material news. The ``priced in'' reading
+rests on that configuration of point estimates, and on the anticipation and cost-share economics that
+rationalize it, not on a claim to have statistically excluded every windfall. This is the honest
+statement a 15-event study can make, and it is the one we make: the evidence favors anticipation and
+a priced-in cost-share, while a modest windfall lies within our confidence bounds.
+
+\section{Conclusion}\label{sec:concl}
+Across 15 publicly-traded U.S.\ recipients, CHIPS Act award announcements produced no
+statistically significant average stock-price reaction, and no robust evidence that the
+reaction scaled with award size. The average-effect null is invariant to the abnormal-return
+model, the estimation window, and a battery of standardized and nonparametric test statistics; it
+survives design-based inference across 2{,}000 placebo event dates; and a power analysis makes its
+limits precise---with 15 events the mean test cannot statistically exclude a modest windfall, so the
+priced-in reading rests on the configuration of the point estimates (a $0.3\%$ mean reaction once
+the single distressed name is removed) rather than on a powered rejection. The apparent ``scaling with
+size'' is a single-observation artifact: only the non-robust OLS slope registers it, in the
+parametric regression and in its own permutation test alike, while every outlier-robust statistic---
+drop-one regression, Spearman correlation, and the rank permutation---returns a clean null. The one
+firm that reacted strongly, Wolfspeed, is the exception that illustrates the rule: its award was
+uniquely large relative to a distressed balance sheet, and it alone manufactures the apparent
+``size'' effect. The most defensible interpretation is that the subsidies were substantially
+anticipated, and that a cost-share grant tied to mandatory private co-investment need not be a
+windfall for equity holders even when the headline runs to billions.
+
+The limitations are real and point directly to the next steps. Fifteen events is a small
+cross-section with limited power; the lead-firm ticker resolution and exact announcement dates
+await primary-source hand-verification; a firm-level news/confound timeline beyond the single Amkor
+flag would sharpen the event windows; and the January-2025 awards fall past the current CRSP file.
+Most importantly, the cost-share mechanism we invoke to explain the null is testable directly: the
+required private co-investment behind each award, transcribed from recipients' own 8-Ks, would let a
+future draft ask whether the awards with the \emph{smallest} mandatory co-investment---the closest
+to a true windfall---are the ones that moved. That hand-collection, together with extending the
+sample to the finalized ``funding agreement'' events and to intraday returns, is the natural
+continuation, and it is the contribution the design has been built to receive.
+
+\begin{thebibliography}{99}
+\bibitem[Abadie(2020)]{abadie2020} Abadie, A., 2020. Statistical nonsignificance in empirical
+economics. American Economic Review: Insights 2, 193--208.
+\bibitem[Belo et al.(2013)]{belo2013} Belo, F., Gala, V.D., Li, J., 2013.
+Government spending, political cycles, and the cross section of stock returns.
+Journal of Financial Economics 107, 305--324.
+\bibitem[Binder(1985)]{binder1985} Binder, J.J., 1985.
+Measuring the effects of regulation with stock price data. RAND Journal of Economics 16, 167--183.
+\bibitem[Boehmer et al.(1991)]{boehmer1991} Boehmer, E., Musumeci, J., Poulsen, A.B., 1991.
+Event-study methodology under conditions of event-induced variance. Journal of Financial
+Economics 30, 253--272.
+\bibitem[Brown and Warner(1985)]{brown1985} Brown, S.J., Warner, J.B., 1985.
+Using daily stock returns: the case of event studies. Journal of Financial Economics 14, 3--31.
+\bibitem[Cooper et al.(2010)]{cooper2010} Cooper, M.J., Gulen, H., Ovtchinnikov, A.V., 2010.
+Corporate political contributions and stock returns. Journal of Finance 65, 687--724.
+\bibitem[Corrado(1989)]{corrado1989} Corrado, C.J., 1989.
+A nonparametric test for abnormal security-price performance in event studies.
+Journal of Financial Economics 23, 385--395.
+\bibitem[Cowan(1992)]{cowan1992} Cowan, A.R., 1992.
+Nonparametric event study tests. Review of Quantitative Finance and Accounting 2, 343--358.
+\bibitem[Criscuolo et al.(2019)]{criscuolo2019} Criscuolo, C., Martin, R., Overman, H.G., Van Reenen, J., 2019.
+Some causal effects of an industrial policy. American Economic Review 109, 48--85.
+\bibitem[Fama(1970)]{fama1970} Fama, E.F., 1970.
+Efficient capital markets: a review of theory and empirical work. Journal of Finance 25, 383--417.
+\bibitem[Fama et al.(1969)]{fama1969} Fama, E.F., Fisher, L., Jensen, M.C., Roll, R., 1969.
+The adjustment of stock prices to new information. International Economic Review 10, 1--21.
+\bibitem[Goldman et al.(2009)]{goldman2009} Goldman, E., Rocholl, J., So, J., 2009.
+Do politically connected boards affect firm value? Review of Financial Studies 22, 2331--2360.
+\bibitem[Juh\'asz et al.(2024)]{juhasz2024} Juh\'asz, R., Lane, N., Rodrik, D., 2024.
+The new economics of industrial policy. Annual Review of Economics 16, 213--242.
+\bibitem[Kolari and Pynn\"onen(2010)]{kolari2010} Kolari, J.W., Pynn\"onen, S., 2010.
+Event study testing with cross-sectional correlation of abnormal returns.
+Review of Financial Studies 23, 3996--4025.
+\bibitem[MacKinlay(1997)]{mackinlay1997} MacKinlay, A.C., 1997.
+Event studies in economics and finance. Journal of Economic Literature 35, 13--39.
+\bibitem[Patell(1976)]{patell1976} Patell, J.M., 1976.
+Corporate forecasts of earnings per share and stock price behavior: empirical tests.
+Journal of Accounting Research 14, 246--276.
+\bibitem[Schwert(1981)]{schwert1981} Schwert, G.W., 1981.
+Using financial data to measure effects of regulation. Journal of Law and Economics 24, 121--158.
+\bibitem[Slattery and Zidar(2020)]{slattery2020} Slattery, C., Zidar, O., 2020.
+Evaluating state and local business tax incentives. Journal of Economic Perspectives 34, 90--118.
+\bibitem[Young(2019)]{young2019} Young, A., 2019. Channeling Fisher: Randomization tests and the
+statistical insignificance of seemingly significant experimental results. Quarterly Journal of
+Economics 134, 557--598.
+\end{thebibliography}
+
+\FloatBarrier
+\newpage
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Summary statistics (15 CHIPS awardees)}\label{tab:sumstats}\small
+\input{tables/tab_sumstats.tex}
+\begin{tablenotes}\small\item \textit{Notes:} CARs are market-model cumulative abnormal
+returns; award and market-cap variables as defined in Section~\ref{sec:data}. Award/Market cap in
+percent; ln variables in \$millions.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Cumulative abnormal returns by event window}\label{tab:cars}\small
+\input{tables/tab_cars.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Market-model CARs, day 0 = first trading day
+on/after the CHIPS award announcement. $t$-stat tests mean${}=0$; sign $p$ is the two-sided
+exact binomial test that the fraction positive ${}=0.5$. $[-10,-3]$ is a pre-event placebo.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$. $N=15$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Cross-sectional regressions: does the reaction scale with award size?}\label{tab:crosssec}\footnotesize
+\input{tables/tab_crosssec.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DV is CAR$[-1,+1]$. Columns:
+(1) regressor is ln(Award); (2) Award/Market cap; (3) Award/Market cap $+$ ln(Market cap);
+(4) Award/Market cap, dropping Wolfspeed (the high-leverage observation); (5) Award/Market
+cap, dropping the single ADR (TSMC). HC1-robust $t$-statistics in parentheses. The column-2
+fit is driven entirely by Wolfspeed---compare column 4 and Figure~\ref{fig:scatter}.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Outlier-robust Spearman rank correlations}\label{tab:robust}\small
+\input{tables/tab_robust.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Spearman rank correlation between the CAR and
+the size measure, with two-sided $p$-values. ``drop confound'' excludes Amkor (earnings
+release inside its window); ``drop Wolfspeed'' excludes the high-leverage observation.
+None is significant at the 10\% level.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Heterogeneity of the announcement CAR by observable characteristics}\label{tab:hetero}\small
+\input{tables/tab_hetero.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DV is CAR$[-1,+1]$ (\%). Each row splits the 15
+awardees on a pre-determined, observable characteristic and reports the subgroup means, the
+difference, and a Welch two-sample $t$-test of equal means. ``High/Yes'' is the grant-plus-loan,
+above-median-size, above-median-relative-award, SIC-3674, or above-median-beta group,
+respectively. Provision-level and co-investment characteristics are deliberately \emph{not} used
+(they are the student's reserved hand-collected variables). No split is significant.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Robustness to abnormal-return model, estimation window, and test statistic}\label{tab:altmodels}\small
+\input{tables/tab_altmodels.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Panel A reports the mean CAR$[-1,+1]$ under
+alternative expected-return models (market-adjusted sets $\beta=1$; mean-adjusted uses the
+estimation-window mean return) and two alternative estimation windows. Panel B reports, for the
+market-model CARs, the cross-sectional $t$, the standardized \citet{patell1976} $Z$, the
+event-induced-variance-robust \citet{boehmer1991} (BMP) $Z$, and the nonparametric
+\citet{cowan1992} generalized-sign $Z$. The average-effect null holds under every model, window,
+and test. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Design-based (randomization) inference}\label{tab:randinf}\small
+\input{tables/tab_randinf.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Each row compares an actual statistic to its
+distribution under 2{,}000 randomizations. Row 1 assigns all firms a common placebo event timing
+(drawn so the estimation and event windows fit the CRSP calendar and avoid the true event) and
+recomputes the mean CAR$[-1,+1]$. Rows 2--3 permute the award-to-market-cap vector across firms,
+holding CARs fixed, and recompute the OLS slope and Spearman $\rho$. ``Perm.\ 95\% interval'' is
+the 2.5--97.5 percentile of the permutation distribution; the RI $p$-value is the share of draws
+with $|\text{statistic}|\geq|\text{actual}|$. The marginal OLS-slope $p$ reflects the single
+Wolfspeed leverage point, which the outlier-robust rank permutation does not (see
+Section~\ref{sec:randinf} and Figure~\ref{fig:randinf}).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Minimum detectable effects at 80\% power}\label{tab:power}\small
+\input{tables/tab_power.tex}
+\begin{tablenotes}\small\item \textit{Notes:} MDE(80\%) $=(z_{0.975}+z_{0.80})\times$SE
+$\approx 2.80\times$SE of the mean CAR in each window. ``MDE excl.\ WOLF'' recomputes the standard
+error dropping Wolfspeed, whose $+36\%$ reaction inflates the cross-sectional dispersion. A small
+MDE relative to a windfall-sized reaction indicates an informative null.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Event-level CARs (all 15 awardees)}\label{tab:events}\footnotesize
+\input{tables/tab_events.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Sorted by award/market-cap. CARs in percent.
+$^{\dagger}$ earnings release inside the event window (Amkor). $^{a}$ ADR (TSMC), whose CRSP
+market cap reflects only the ADR float. $\beta$ is the market-model beta.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\FloatBarrier
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.8\textwidth]{fig2_car_windows.pdf}
+\caption{Mean CHIPS-award announcement CAR by event window, with 95\% confidence intervals
+($N=15$). Every window's interval spans zero.}\label{fig:windows}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.8\textwidth]{fig1_car_vs_award.pdf}
+\caption{Three-day announcement CAR versus the award-to-market-cap ratio. The solid line is
+the OLS fit over all 15 firms; the dashed line excludes Wolfspeed (the point at the far
+right). The apparent ``scaling with size'' relationship is a single-observation
+artifact.}\label{fig:scatter}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.98\textwidth]{fig3_randinf.pdf}
+\caption{Randomization inference. Panel (a): the distribution of the 15-firm mean CAR$[-1,+1]$
+under 2{,}000 placebo event dates; the actual $+2.6\%$ (red line) lies well inside the
+distribution (design-based $p=0.14$). Panel (b): the distribution of the cross-sectional OLS slope
+under 2{,}000 permutations of the award-size vector; the actual slope lies in the right tail
+($p=0.02$), but this reflects the single Wolfspeed alignment---the outlier-robust rank permutation
+gives $p=0.18$ (Table~\ref{tab:randinf}).}\label{fig:randinf}
+\end{figure}
+
+\end{document}

@@ -1,0 +1,305 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}\doublespacing
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\graphicspath{{../output/figures/}}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{placeins}
+
+\title{\textbf{Is the LLM Reading the 10-K or Remembering the Stock?\\
+A Placebo Test for Look-Ahead Contamination in\\
+GPT Risk-Factor Scores}}
+\author{Lasya Yellamagari\thanks{ASSIP 2026, George Mason University. Mentor: Lei Gao.
+This is a student working paper prepared under faculty supervision. All results use
+public SEC EDGAR 10-K text and WRDS/CRSP return data; LLM scores are produced with
+gpt-4o (gpt-4o-2024-11-20) via the GMU PatriotAI gateway. Every reported number traces to
+a regression-output CSV in \texttt{output/tables/}. Code and data pipeline are in the
+project repository.}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent %ABSTRACT%
+ABSTRACT_PLACEHOLDER
+\\[4pt]
+\noindent\textbf{JEL:} G12, G14, G17, C55. \quad
+\textbf{Keywords:} large language models, look-ahead bias, data contamination, risk
+factors, 10-K disclosure, return predictability.
+\end{abstract}
+
+\section{Introduction}
+Large language models (LLMs) are being used to read corporate disclosures and produce
+signals that predict stock returns \citep{lopezlira2023,kim2024,jha2024}. A natural worry
+haunts every such exercise: when an LLM ``reads'' a 2019 annual report and rates its risk,
+is it processing the \emph{text}, or is it recalling---from its training data---what
+happened to that \emph{stock} afterward? Because a model like gpt-4o was trained on text
+scraped through October 2023, its parameters may encode both the filing itself and the
+subsequent price path. A return-predictability backtest that scores pre-training filings
+then ``predicts'' their already-realized returns is not forecasting; it is
+\emph{look-ahead contamination} \citep{glasserman2023,sarkar2024}. This paper asks how much
+of the return-predictive power of an LLM risk score is real reading versus remembered
+outcomes, and it proposes a simple, auditable test to tell them apart.
+
+Our identification is a placebo built from two orthogonal manipulations. First, we score
+each 10-K risk-factor section twice with the \emph{same} model and the \emph{same} prompt:
+once on the \textbf{raw} text and once on an \textbf{anonymized} copy in which the firm's
+name, ticker, dates, and state are redacted. If the model is genuinely reading risk, masking
+identity should barely move the score or its return-predictive power; if it is recognizing
+the firm, anonymization should strip predictive power away. Second, we split filings by the
+model's training cutoff. \textbf{Pre-cutoff} filings (filed 2019--2021) have a 12-month
+post-filing return window that closed \emph{before} October 2023, so the outcome could sit
+in the model's training data---look-ahead is \emph{possible}. \textbf{Post-cutoff} filings
+(filed in 2024) have both the text and the outcome \emph{after} the cutoff, so look-ahead is
+\emph{impossible} by construction. The contamination signature is sharp and falsifiable: raw
+scores should predict returns better than anonymized scores \emph{only} in the pre-cutoff
+window, and that raw-versus-anon gap should vanish post-cutoff.
+
+%RESULTS_PREVIEW%
+RESULTS_PREVIEW_PLACEHOLDER
+
+We contribute to three literatures. First, to the fast-growing literature applying LLMs to
+finance \citep{lopezlira2023,kim2024,jha2024,kelly2019,hansen2023}, we add a diagnostic that
+any such study can run before trusting a backtest. Second, to work on textual disclosure and
+returns \citep{cohen2020,loughran2011,campbell2014,kravet2013,tetlock2007}, we bring a
+design that separates information in the text from information about the firm. Third, to the
+machine-learning literature on training-data memorization and benchmark contamination
+\citep{carlini2021,sainz2023,magar2022,glasserman2023}, we provide a finance-specific,
+economically interpretable measurement. Section~\ref{sec:hyp} develops hypotheses;
+Section~\ref{sec:data} describes the data and the anonymization; Section~\ref{sec:res}
+presents results; Section~\ref{sec:rob} reports robustness; Section~\ref{sec:concl}
+concludes.
+
+\section{Hypotheses}\label{sec:hyp}
+Let $s^{\text{raw}}_i$ and $s^{\text{anon}}_i$ be the gpt-4o downside-risk score
+(0--100, higher = worse expected 12-month outlook) for filing $i$ on the raw and anonymized
+text, and let $R_i$ be the firm's 12-month post-filing buy-and-hold abnormal return (BHAR).
+
+If the score reflects genuine reading of risk content, then anonymizing identity---which
+leaves the risk content intact---should not change what the score knows:
+\begin{quote}
+\textbf{H1 (Reading).} The return-predictive slope of $s^{\text{raw}}$ equals that of
+$s^{\text{anon}}$, in both the pre- and post-cutoff windows.
+\end{quote}
+If instead the score partly reflects recognition of the firm and recall of its realized
+path, that channel is available only when (i) identity is visible and (ii) the outcome
+predates the training cutoff:
+\begin{quote}
+\textbf{H2 (Remembering / look-ahead).} $s^{\text{raw}}$ predicts $R$ more strongly
+(more negative slope) than $s^{\text{anon}}$ \emph{in the pre-cutoff window}, and the
+raw-minus-anon predictive gap is larger pre-cutoff than post-cutoff.
+\end{quote}
+H1 and H2 make opposite predictions about a single object---the raw-versus-anon predictive
+gap and its interaction with the training cutoff (the triple interaction
+$s\times\text{raw}\times\text{post}$). A closely related implication concerns the
+\emph{score gap} $g_i=s^{\text{raw}}_i-s^{\text{anon}}_i$ itself: under H2 the
+identity-driven adjustment $g_i$ should be return-relevant pre-cutoff (the model nudges the
+score toward the outcome it remembers) but not post-cutoff.
+\begin{quote}
+\textbf{H3 (Gap).} $g_i$ predicts $R_i$ in the pre-cutoff window but not post-cutoff.
+\end{quote}
+
+\section{Data and Variables}\label{sec:data}
+\paragraph{Filings.} We draw 10-K risk-factor sections (Item 1A) from a reusable archive of
+SEC EDGAR filings for CRSP/Compustat firms, which pre-extracts each item as plain text. We
+keep genuine 10-Ks (not amendments) that contain a non-empty Item 1A, and form two windows
+around gpt-4o's October-2023 knowledge cutoff: a \textbf{pre-cutoff} window of filings filed
+2019--2021 and a \textbf{post-cutoff} window of filings filed in 2024. Within each window we
+take one filing per firm (the latest in-window) and draw a random sample with a fixed seed.
+
+\paragraph{Returns.} Each filing is linked to CRSP via the Compustat CIK and the CRSP-Compustat
+link. Using CRSP monthly returns, we compute the buy-and-hold return over the $K$ calendar
+months after the filing month ($K=3,6,12$) and subtract the compounded market return
+(Fama--French market factor plus the risk-free rate) over the same months to form the
+market-adjusted BHAR. The 12-month BHAR is the primary outcome; both windows have full
+12-month return coverage (CRSP monthly extends through December 2025). The final sample keeps
+filings with a valid 12-month BHAR.
+
+\paragraph{LLM risk score.} We score each filing with gpt-4o (deployment
+gpt-4o-2024-11-20; temperature 0), using one fixed prompt that asks for an integer 0--100
+rating of downside risk to the stock over the next 12 months, given only the risk-factor
+text (truncated to a fixed length so raw and anonymized inputs are comparable). Each filing
+is scored twice---raw and anonymized---and we record both.
+
+\paragraph{Anonymization.} The automated anonymizer redacts the firm's name and its
+distinctive name-tokens ($\rightarrow$\texttt{[COMPANY]}), its CRSP ticker
+($\rightarrow$\texttt{[TICKER]}), every four-digit year ($\rightarrow$\texttt{[YEAR]}), and
+U.S. state names ($\rightarrow$\texttt{[STATE]}). This is a deliberate \emph{floor}: it
+removes explicit identifiers but not paraphrased self-descriptions or brand and product
+names, which a human can catch. Building that gold standard by hand---and measuring how much
+identity still leaks through the automated version---is the manual task documented in
+\texttt{STUDENT\_TASKS.md}; it is the natural next tightening of the placebo.
+
+\paragraph{Sample.} Table~\ref{tab:sumstats} reports summary statistics for the scored
+sample. Standardized scores (z-scored on the pooled raw$+$anon distribution) let the raw and
+anonymized slopes be read on a common scale.
+
+\section{Results}\label{sec:res}
+%RESULTS_BODY%
+RESULTS_BODY_PLACEHOLDER
+
+\section{Robustness}\label{sec:rob}
+%ROBUST_BODY%
+ROBUST_BODY_PLACEHOLDER
+
+\section{Conclusion}\label{sec:concl}
+%CONCL_BODY%
+CONCL_BODY_PLACEHOLDER
+
+\begin{thebibliography}{99}
+\bibitem[Campbell et al.(2014)]{campbell2014} Campbell, J.L., Chen, H., Dhaliwal, D.S.,
+Lu, H., Steele, L.B., 2014. The information content of mandatory risk factor disclosures in
+corporate filings. Review of Accounting Studies 19, 396--455.
+\bibitem[Carlini et al.(2021)]{carlini2021} Carlini, N., Tramèr, F., Wallace, E., et al.,
+2021. Extracting training data from large language models. In: 30th USENIX Security
+Symposium, 2633--2650.
+\bibitem[Cohen et al.(2020)]{cohen2020} Cohen, L., Malloy, C., Nguyen, Q., 2020.
+Lazy prices. Journal of Finance 75, 1371--1415.
+\bibitem[Fama and French(1993)]{fama1993} Fama, E.F., French, K.R., 1993. Common risk factors
+in the returns on stocks and bonds. Journal of Financial Economics 33, 3--56.
+\bibitem[Glasserman and Lin(2023)]{glasserman2023} Glasserman, P., Lin, C., 2023.
+Assessing look-ahead bias in stock return predictions generated by GPT sentiment analysis.
+Working paper, Columbia University (arXiv:2309.17322).
+\bibitem[Hansen and Kazinnik(2023)]{hansen2023} Hansen, A.L., Kazinnik, S., 2023.
+Can ChatGPT decipher Fedspeak? Working paper.
+\bibitem[Jha et al.(2024)]{jha2024} Jha, M., Qian, J., Weber, M., Yang, B., 2024.
+ChatGPT and corporate policies. NBER Working Paper 32161.
+\bibitem[Ke et al.(2019)]{kelly2019} Ke, Z.T., Kelly, B.T., Xiu, D., 2019. Predicting returns
+with text data. NBER Working Paper 26186.
+\bibitem[Kim et al.(2024)]{kim2024} Kim, A., Muhn, M., Nikolaev, V., 2024. Bloated
+disclosures: can ChatGPT help investors process information? Working paper, University of
+Chicago.
+\bibitem[Kravet and Muslu(2013)]{kravet2013} Kravet, T., Muslu, V., 2013. Textual risk
+disclosures and investors' risk perceptions. Review of Accounting Studies 18, 1088--1122.
+\bibitem[Loughran and McDonald(2011)]{loughran2011} Loughran, T., McDonald, B., 2011.
+When is a liability not a liability? Textual analysis, dictionaries, and 10-Ks. Journal of
+Finance 66, 35--65.
+\bibitem[López-Lira and Tang(2023)]{lopezlira2023} López-Lira, A., Tang, Y., 2023.
+Can ChatGPT forecast stock price movements? Return predictability and large language models.
+Working paper, University of Florida (arXiv:2304.07619).
+\bibitem[Magar and Schwartz(2022)]{magar2022} Magar, I., Schwartz, R., 2022. Data
+contamination: from memorization to exploitation. In: Proceedings of ACL 2022, 157--165.
+\bibitem[Sainz et al.(2023)]{sainz2023} Sainz, O., Campos, J.A., García-Ferrero, I.,
+Etxaniz, J., de Lacalle, O.L., Agirre, E., 2023. NLP evaluation in trouble: on the need to
+measure LLM data contamination for each benchmark. In: Findings of EMNLP 2023.
+\bibitem[Sarkar(2024)]{sarkar2024} Sarkar, S.K., 2024. Look-ahead bias in large language
+models: evidence and correction. Working paper.
+\bibitem[Tetlock(2007)]{tetlock2007} Tetlock, P.C., 2007. Giving content to investor
+sentiment: the role of media in the stock market. Journal of Finance 62, 1139--1168.
+\end{thebibliography}
+
+\FloatBarrier
+\newpage
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Summary statistics}\label{tab:sumstats}\small
+\input{tables/tab_sumstats.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Scored sample of 10-K risk-factor sections.
+Scores are gpt-4o downside-risk ratings (0--100) on raw and anonymized text; BHAR is the
+market-adjusted buy-and-hold return over the stated horizon after the filing.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Do raw and anonymized scores agree?}\label{tab:agree}\small
+\input{tables/tab_agreement.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Correlation of raw and anonymized scores and
+the mean score gap (raw$-$anon), by cutoff window. $t$(gap) tests whether the mean gap
+differs from zero.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Main placebo: return predictability of the LLM score, raw vs. anonymized,
+pre- vs. post-cutoff}\label{tab:main}\small
+\input{tables/tab_main.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DV is the winsorized 12-month BHAR. The
+regressor is the standardized gpt-4o risk score (raw or anonymized). Slopes are the change
+in 12-month BHAR per one-SD increase in the score; negative means a higher risk score
+predicts lower returns. HC1-robust $t$-statistics in parentheses.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Stacked triple-interaction test}\label{tab:interaction}\small
+\input{tables/tab_interaction.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Each filing contributes two rows (raw and
+anonymized). DV is the winsorized 12-month BHAR; \emph{Raw}$=1$ for the raw row,
+\emph{Post}$=1$ for post-cutoff filings. The coefficient on $z\times$Raw$\times$Post is the
+placebo's key statistic: how the raw-versus-anon predictive gap changes across the training
+cutoff. Standard errors clustered by filing. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Within-window raw-versus-anon slope gap}\label{tab:within}\small
+\input{tables/tab_within.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Stacked regression $\text{BHAR}\sim z\times
+\text{Raw}$ estimated separately within each window. \emph{Anon slope} is the slope on the
+anonymized score; \emph{Extra RAW slope} is the additional slope for raw text. Clustered by
+filing. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Does the raw$-$anon score gap predict returns?}\label{tab:gap}\small
+\input{tables/tab_gap.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DV is the winsorized 12-month BHAR; the
+regressor is the standardized score gap (raw$-$anon). HC1-robust $t$-statistics.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Robustness: alternative outcome horizons (pre-cutoff)}\label{tab:robust}\small
+\input{tables/tab_robust.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Pre-cutoff sample. Each row is a different
+dependent variable; columns report the raw-score and anonymized-score slopes with HC1
+$t$-statistics. ``(w)'' denotes winsorized 1/99. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\FloatBarrier
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.72\textwidth]{fig1_score_agreement.pdf}
+\caption{gpt-4o downside-risk scores on raw versus anonymized 10-K text, by cutoff window.
+Points on the 45$^\circ$ line indicate the model gave the same score with and without firm
+identity.}\label{fig:agree}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.82\textwidth]{fig2_predictability_slopes.pdf}
+\caption{Return-predictive slope (12-month BHAR per one-SD risk score) in each
+cell: raw vs.\ anonymized $\times$ pre- vs.\ post-cutoff. Whiskers are 95\% confidence
+intervals. Under look-ahead contamination the raw/pre bar is the most negative and the
+post-cutoff bars are near zero.}\label{fig:slopes}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.92\textwidth]{fig3_pre_scatter.pdf}
+\caption{Pre-cutoff filings: 12-month BHAR against the raw-text score (left) and the
+anonymized-text score (right), with fitted lines.}\label{fig:scatter}
+\end{figure}
+
+\end{document}

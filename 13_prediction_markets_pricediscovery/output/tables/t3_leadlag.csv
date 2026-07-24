@@ -1,0 +1,16 @@
+pair,meeting,outcome,peak_lag,peak_corr,ccf_0,leads
+26JUL_cut25,26JUL,cut25,7,-0.081,0.019,Kalshi
+26JUL_hike25,26JUL,hike25,0,0.257,0.257,Contemp
+26JUL_no_change,26JUL,no_change,0,0.165,0.165,Contemp
+26JUN_cut25,26JUN,cut25,1,0.068,-0.001,Kalshi
+26JUN_cut50p,26JUN,cut50p,-3,-0.128,-0.008,Polymarket
+26JUN_hike25,26JUN,hike25,9,-0.044,0.007,Kalshi
+26JUN_no_change,26JUN,no_change,1,0.064,0.019,Kalshi
+26OCT_cut25,26OCT,cut25,3,-0.171,-0.007,Kalshi
+26OCT_cut50p,26OCT,cut50p,-11,-0.565,0.013,Polymarket
+26OCT_hike25,26OCT,hike25,-7,-0.206,-0.014,Polymarket
+26OCT_no_change,26OCT,no_change,-3,-0.156,0.031,Polymarket
+26SEP_cut25,26SEP,cut25,-5,-0.05,0.02,Polymarket
+26SEP_hike25,26SEP,hike25,0,0.178,0.178,Contemp
+26SEP_hike50p,26SEP,hike50p,2,0.033,-0.005,Kalshi
+26SEP_no_change,26SEP,no_change,0,0.198,0.198,Contemp

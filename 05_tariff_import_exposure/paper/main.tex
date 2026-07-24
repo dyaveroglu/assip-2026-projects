@@ -1,0 +1,697 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}\doublespacing
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\graphicspath{{../output/figures/}}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{placeins}
+
+\title{\textbf{Import Exposure and the April 2025 Reciprocal-Tariff Shock:\\
+A Paired Event Study of the ``Liberation Day'' Crash and the April 9 Pause}}
+\author{Deniz Yaveroglu \and Lei Gao\thanks{Yaveroglu: ASSIP 2026, George Mason
+University. Gao (corresponding author): Costello College of Business, George Mason
+University, \texttt{lgao9@gmu.edu}. This is a student--faculty working paper prepared in the
+ASSIP 2026 Empirical Finance research group. All results use public data (WRDS CRSP daily
+returns; Fama--French factors; Compustat fundamentals; the BEA Summary Import Matrix and
+Gross-Output-by-industry tables); every reported number traces to a regression-output CSV in
+\texttt{output/tables/} and is reproduced by the code in \texttt{code/}. We thank the ASSIP
+2026 cohort for comments. Any errors are our own.}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent On April 2, 2025 the United States announced sweeping ``reciprocal'' tariffs;
+the equity market fell about 10.7\% over the next two trading days---its worst two-day
+loss since March 2020---before the largest one-day gain since 2008 ($+9.7\%$) when a 90-day
+pause was announced on April 9. We use this paired, opposite-signed pair of events to test
+whether firms exposed to \emph{imported inputs} were repriced by the tariff news. For
+4{,}275 U.S. common stocks we compute market-model cumulative abnormal returns (CARs) over
+the shock (April 3--4) and the pause (April 9), and relate them to the imported-input
+intensity of each firm's industry, built from the BEA Summary Import Matrix (imported
+intermediate inputs $\div$ industry gross output). Conditional on size and market beta, a
+one-standard-deviation increase in imported-input intensity is associated with a 0.73
+percentage-point \emph{lower} abnormal return on the shock ($t=-2.35$) and a 0.60pp
+\emph{higher} abnormal return on the pause ($t=1.78$); among non-microcap firms the pattern
+is opposite-signed and nearly symmetric ($-0.77$pp and $+0.77$pp, both $t\approx2.1$), and
+the shock-plus-pause round-trip is statistically zero. The effect is a \emph{conditional}
+one---it is absent in the raw cross-section, which is dominated by size and beta---and it
+is partly anticipated: exposure loads negatively in the pre-announcement window
+($t=-2.22$). We then stress-test the result with design-based methods. A falsification on
+generic big-market-move days shows the exposure loading is directionally coherent across the
+paired tariff events rather than a residual-beta artifact, but it is not silent on every
+non-tariff day. Most importantly, because exposure varies at the \emph{industry} level (73
+NAICS-3 groups), we conduct randomization inference that permutes industry exposure across
+industries: the opposite-signed spread and the shock loading are significant only at the
+10\% level ($p\approx0.08$--$0.10$) and the pause alone is insignificant---so conventional
+cluster-robust $t$-statistics overstate the precision available from an industry proxy. A
+minimum-detectable-effect analysis confirms the design sits at the edge of its resolving
+power for effects of this size. The honest reading is \emph{suggestive, directionally
+consistent evidence of an industry-level tariff-exposure repricing whose statistical strength
+is limited by the coarseness of the industry measure}---which is precisely the case for the
+hand-collected, firm-level 10-K sourcing data the companion student task is built to supply.
+\\[4pt]
+\noindent\textbf{JEL:} F13, F14, G14, G12. \quad
+\textbf{Keywords:} tariffs, trade war, imported inputs, event study, abnormal returns,
+randomization inference.
+\end{abstract}
+
+\newpage
+\section{Introduction}\label{sec:intro}
+Between April 2 and April 9, 2025, U.S. equities completed a violent round trip. After the
+close on April 2 (``Liberation Day''), the administration announced a schedule of
+country-specific ``reciprocal'' tariffs far larger than markets had expected; over April 3
+and April 4 the aggregate market fell about 10.7\%, the worst two-day loss since the
+COVID-19 crash. Selling continued through April 8. Then, roughly midday on April 9, a
+90-day pause on most of the reciprocal tariffs (excluding China) was announced, and the
+market rose 9.7\% in a single session---the largest one-day gain since October 2008. The
+speed and symmetry of this episode create an unusually clean laboratory: two large,
+opposite-signed shocks to the \emph{same} policy, six trading days apart, with little else
+changing.
+
+We use this laboratory to ask a specific cross-sectional question. Tariffs raise the cost
+of imported intermediate inputs. Firms that rely heavily on imported inputs therefore face
+a cost shock when tariffs are imposed and relief when they are paused. Did the equity
+market price this? Concretely: \emph{did firms in high imported-input-intensity industries
+underperform on the April 2--4 shock and rebound on the April 9 pause?} Because the two
+events push in opposite directions, a genuine tariff-exposure channel should generate an
+\emph{opposite-signed} loading on the same exposure measure---a pattern that is much harder
+to explain with a generic risk factor than a single-event correlation would be.
+
+Our exposure measure is built from real input-output data. Using the Bureau of Economic
+Analysis (BEA) 2023 Summary Import Matrix, we compute, for each of 66 BEA industries, the
+value of imported intermediate inputs used by that industry divided by its gross output.
+The measure is highest for petroleum and coal products (24.7\%), motor vehicles (18.3\%),
+primary metals (15.6\%), machinery (12.1\%), and chemicals (10.8\%), and lowest for
+services such as legal services, real estate, and software---exactly the ranking one would
+expect for input-cost exposure to tariffs. We map this industry measure to firms through
+their NAICS code and merge it to market-model CARs for the CRSP universe.
+
+Our findings are three. First, in the \emph{raw} cross-section imported-input intensity has
+no clean relationship with the shock CAR: the univariate coefficient is small and wrongly
+signed ($t=1.20$), because import-intensive industries are disproportionately large,
+high-beta firms and those two characteristics dominate the unconditional cross-section.
+Second, and centrally, \emph{once we condition on size and market beta the hypothesized
+paired pattern appears}. A one-standard-deviation increase in imported-input intensity is
+associated with a $0.73$pp lower shock CAR ($t=-2.35$) and a $0.60$pp higher pause CAR
+($t=1.78$); over the full April 3--8 sell-off the shock effect is $-1.34$pp ($t=-2.48$).
+Excluding microcaps sharpens the symmetry to $-0.77$pp on the shock and $+0.77$pp on the
+pause, both significant at 5\% under conventional inference, and the shock-plus-pause
+round-trip is a precise zero ($t=-0.46$): the pause reversed the shock's exposure effect.
+Third, we are candid that the episode is not a laboratory-clean event. Imported-input
+intensity also loads negatively in the April week \emph{before} the announcement
+($t=-2.22$), because tariff news was already flowing---auto tariffs were announced March 26
+and the reciprocal schedule was pre-trailed---so part of the repricing preceded April 2.
+
+The core of this revision is to subject that headline to design-based scrutiny rather than
+stopping at the conventional $t$-statistics, because the exposure measure varies at the
+industry level and industry proxies are known to inflate apparent precision
+\citep{cameron2008,young2019}. We add four steps. (1) \emph{Heterogeneity}
+(Section~\ref{sec:het}, Table~\ref{tab:hetero}): we interact the exposure loading with
+observable pre-event moderators. The clean economic prediction---that the effect concentrates
+in input-heavy (high-COGS/sales) firms---is \emph{not} confirmed at the industry level, which
+is itself informative: the industry proxy cannot see which firms within an industry actually
+source abroad. (2) \emph{Falsification} (Section~\ref{sec:placebo},
+Table~\ref{tab:placebo}): we recompute exposure loadings on the largest \emph{non-tariff}
+market-move days of 2024 using the same market model. The loadings there are smaller and
+sign-inconsistent, so the tariff pattern is distinguished by its coherent opposite-signed
+pairing on the same measure rather than by any single-day loading---but exposure is not
+literally silent on every big day, an honest qualifier. (3) \emph{Randomization inference}
+(Section~\ref{sec:ri}, Table~\ref{tab:ri}, Figure~\ref{fig:ri}): we permute the 73
+industry-level intensity values across industries 1{,}000 times and rebuild the loadings.
+The shock loading and the opposite-signed spread $D=\hat\beta_{\text{pause}}-\hat\beta_{\text{shock}}$
+are significant only at the 10\% level ($p\approx0.08$--$0.10$); the pause alone is
+insignificant ($p=0.16$). The clustered-SE $t$-statistics therefore overstate the evidence
+available from an industry proxy. (4) \emph{Power} (Section~\ref{sec:power},
+Table~\ref{tab:power}): the design's minimum detectable effect at 80\% power is about $0.9$pp
+per SD, just above the estimated loadings---so the marginal significance under randomization
+inference is a resolution problem, not a sign problem.
+
+Taken together, the evidence is \emph{suggestive and directionally consistent} but not
+decisive: the market appears to have priced imported-input exposure across the shock and the
+pause in a sign-coherent way, yet the statistical strength attainable from a 73-industry proxy
+is limited. This is not a weakness to be hidden but the paper's central motivation. The
+identifying variation that would sharpen both the point estimate and the inference lives
+\emph{within} industries---which apparel firm sources from Vietnam versus reshored to Mexico;
+which retailer imports finished goods that the input-output measure misses entirely---and it
+can only be recovered by reading filings. That firm-level, hand-collected 10-K sourcing
+measure, and the country-level April-2-versus-April-9 tariff map that lets a China-sourcing
+firm and a Vietnam-sourcing firm react differently to the pause, are the companion student
+contribution; we deliberately restrict every test in this paper to \emph{observable}
+industry- and firm-level characteristics so that the firm-level sourcing dimension is reserved
+for that sharper test.
+
+We contribute to two literatures. Relative to the trade-war economics literature
+\citep{amiti2019,fajgelbaum2020,handley2017}, which documents that the 2018--2019 tariffs
+raised input costs and were largely passed through to U.S. buyers, we provide
+high-frequency asset-pricing evidence that equity markets price imported-input exposure in
+real time and in a sign-consistent way across an imposition and a reversal, and we quantify
+how much of that evidence survives design-based inference. Relative to the event-study
+evidence on trade policy and firm value \citep{huang2023,amiti2020}, which uses tariff-list
+membership around 2018--2019, we exploit a single, larger, and cleanly paired 2025 shock and
+an input-output-based continuous exposure measure, and we import randomization-inference and
+power tools \citep{young2019,abadie2020} into a trade-event-study setting where cross-sectional
+correlation of abnormal returns \citep{kolari2010} makes naive inference fragile.
+Section~\ref{sec:lit} places the paper in the literature; Section~\ref{sec:hyp} states the
+hypotheses; Section~\ref{sec:data} describes the data, the exposure measure, and the
+design-based apparatus; Section~\ref{sec:res} reports the main results;
+Sections~\ref{sec:het}--\ref{sec:power} report the four extensions;
+Section~\ref{sec:robust} collects robustness; Section~\ref{sec:concl} concludes.
+
+\section{Related Literature}\label{sec:lit}
+This paper connects three strands. The first is the economics of the 2018--2025 trade wars
+and, in particular, the incidence of tariffs on imported \emph{inputs}. A now-large body of
+work shows that the 2018--2019 U.S. tariffs were passed through almost completely to U.S.
+prices, so that the burden fell on domestic buyers of imported goods and intermediates rather
+than on foreign exporters \citep{amiti2019,fajgelbaum2020}, and that policy uncertainty about
+trade itself depresses investment and trade volumes \citep{handley2017,amiti2020}. Because
+modern production is organized around global value chains \citep{antras2013}, a tariff on
+imported intermediates is a cost shock that propagates to any firm embedded in an
+import-intensive supply chain, and the manufacturing sector---already reshaped by earlier
+trade liberalization \citep{pierce2016}---is where that exposure concentrates. Our
+input-output exposure measure operationalizes exactly this channel: it is the share of an
+industry's gross output accounted for by imported intermediate inputs. We contribute
+high-frequency, market-based evidence on how equity prices capitalize that cost exposure when
+the tariff regime moves, in both directions, within a single week.
+
+The second strand is the asset-pricing and event-study literature on trade policy and firm
+value. \citet{huang2023} show that firms more exposed to the U.S.--China trade war through
+their input-output trade networks lost value around 2018--2019 tariff announcements, and
+\citet{amiti2020} document the investment consequences. Methodologically we follow the
+standard market-model event-study apparatus \citep{mackinlay1997,campbell1997,fama1993}, but
+we exploit two features specific to April 2025 that the 2018--2019 studies could not: the
+shock is a single, unusually large, cleanly dated surprise, and it is immediately followed by
+an opposite-signed reversal (the pause). The paired design lets us ask not only whether
+exposure loads negatively on a tariff shock but whether the \emph{same} exposure measure loads
+positively on the reversal---a discriminating test that a generic risk factor should fail.
+
+The third strand is the credibility of inference in cross-sectional event studies where the
+key regressor varies at a coarse (here, industry) level and abnormal returns are
+cross-sectionally correlated. Cross-sectional correlation of event-window abnormal returns
+badly biases conventional test statistics \citep{kolari2010}, and inference with a modest
+number of clusters---or with a treatment that is constant within cluster---benefits from
+design-based methods such as the wild cluster bootstrap \citep{cameron2008} and randomization
+inference \citep{young2019}. We use randomization inference not as decoration but as the
+primary honesty check: permuting industry exposure across industries provides a reference
+distribution that respects the fact that our exposure has only 73 independent industry values,
+and it materially tempers the conventional $t$-statistics. Finally, we follow the guidance that
+an estimate near a conventional threshold should be interpreted through its power and minimum
+detectable effect rather than through a bare significance star \citep{abadie2020}; the power
+analysis in Section~\ref{sec:power} states what the design can and cannot resolve.
+
+\section{Hypotheses}\label{sec:hyp}
+Let $\theta_j$ be the imported-input intensity of industry $j$. A tariff raises the
+domestic price of imported inputs; the present value of a firm in industry $j$ falls with
+$\theta_j$ when a tariff becomes more likely, and rises with $\theta_j$ when it becomes less
+likely, absent perfectly elastic input substitution.
+\begin{quote}
+\textbf{H1 (Shock).} Abnormal returns over the April 3--4 tariff shock are decreasing in
+imported-input intensity.\\
+\textbf{H2 (Pause).} Abnormal returns on the April 9 pause are increasing in imported-input
+intensity.\\
+\textbf{H3 (Symmetry).} The exposure loadings on the shock and the pause are opposite-signed;
+under a full reversal, the shock-plus-pause round-trip loading is zero.
+\end{quote}
+H3 is the discriminating test. A generic risk factor (for instance, if import-intensive
+firms simply have higher betas) would tend to produce \emph{same}-signed raw comovement
+with the market on both a down day and an up day; we neutralize that channel by studying
+market-model \emph{abnormal} returns and by controlling for pre-event beta directly, so a
+surviving opposite-signed loading is attributable to the tariff news rather than to market
+timing. Section~\ref{sec:placebo} tests the residual-beta concern directly by re-running the
+exposure regression on non-tariff big-move days, and Section~\ref{sec:ri} asks how likely the
+observed opposite-signed spread is under random assignment of industry exposure.
+
+\section{Data and Research Design}\label{sec:data}
+\paragraph{Sample.} We start from all U.S. common shares (CRSP \texttt{stocknames\_v2}
+share type NS, security type EQTY/COM) trading on the NYSE, AMEX, or Nasdaq in April 2025:
+5{,}072 stocks. We pull CRSP daily returns from \texttt{dsf\_v2} for 2024-01 through
+2025-05, giving the estimation window and the event windows. The daily market return is the
+Fama--French market factor plus the risk-free rate (\texttt{mktrf}+\texttt{rf}), because the
+legacy CRSP index table has no 2025 rows; it registers the episode exactly ($-5.11\%$ on
+April 3, $-5.90\%$ on April 4, $+9.67\%$ on April 9). Merging to Compustat fundamentals
+(via the CCM link) and to a non-missing industry exposure leaves 4{,}275 firms across 73
+NAICS-3 industries in the analytical panel.
+
+\paragraph{Imported-input intensity.} For each BEA summary industry we sum the imported
+intermediate inputs it uses (the column total over imported commodities in the BEA 2023
+Summary Import Matrix, Before Redefinitions) and divide by that industry's 2023 gross output
+(BEA GDP-by-industry). We map the 66 resulting BEA industries to NAICS-3 codes and attach
+the intensity to each firm through its Compustat NAICS. The measure captures \emph{cost-side}
+exposure to imported intermediates; it understates the exposure of retailers that import
+\emph{finished} goods (which enter final demand, not intermediate use in input-output
+accounting), a limitation we return to and that the student's hand-collected 10-K sourcing
+data address directly. Because the measure is constant within a NAICS-3 industry, its
+effective identifying variation comes from 73 industry values, not 4{,}275 firms---a fact that
+drives the inference discussion below.
+
+\paragraph{Controls and event study.} Firm controls (all from the most recent pre-event
+Compustat fiscal year) are $\ln(\text{assets})$, COGS/sales, leverage, and book-to-market;
+we also control for pre-event market beta. Day 0 is April 3 for the shock (the first full
+trading day after the after-close announcement) and April 9 for the pause. We estimate a
+market model $R_{it}=\alpha_i+\beta_i R_{mt}+\varepsilon_{it}$ over $[-252,-46]$ trading
+days---a window that ends in early February, before any tariff news---and cumulate abnormal
+returns over the event windows. For outcome $y_i$ (a firm's event-window CAR) the
+cross-sectional specification is
+\begin{equation}
+y_i = \beta\, \tilde\theta_{j(i)} + \gamma' X_i + \varepsilon_i,
+\label{eq:xs}
+\end{equation}
+where $\tilde\theta_{j(i)}$ is the (winsorized, standardized) imported-input intensity of firm
+$i$'s industry, $X_i$ are the standardized controls plus beta, and standard errors are
+clustered by NAICS-3 industry, with HC1-robust errors as a robustness check. Predictors are
+winsorized at 1/99 and standardized, so $\beta$ is the abnormal return, in CAR points, per
+one-standard-deviation increase in exposure. Table~\ref{tab:sumstats} reports summary
+statistics.
+
+\paragraph{Design-based apparatus.} Beyond equation~\eqref{eq:xs} we run three checks that do
+not rely on the parametric null. (1) A \emph{falsification} on non-tariff big-move days: using
+the market model already estimated for the shock (so $\alpha_i,\beta_i$ are valid), we compute
+single-day abnormal returns on the largest generic up- and down-market days of 2024 and re-run
+\eqref{eq:xs}; a genuine tariff channel need not be silent on every day, but it should not
+reproduce the coherent opposite-signed tariff pattern out of sample. (2) \emph{Randomization
+inference}: we permute the 73 industry-level intensity values across industries, remap to
+firms, re-standardize, and re-estimate the shock loading, the pause loading, and their spread
+$D=\hat\beta_{\text{pause}}-\hat\beta_{\text{shock}}$; the design-based $p$-value is the share
+of 1{,}000 permutations at least as extreme as the actual statistic. (3) \emph{Power}: we
+compute the minimum detectable effect at 80\% power from each loading's standard error.
+Together these convert a conventional ``significant at 5\%'' into a set of falsifiable,
+design-based statements about what the industry proxy can support.
+
+\section{Main Results}\label{sec:res}
+\paragraph{The two shocks.} Table~\ref{tab:cars} summarizes mean abnormal returns by window.
+The equal-weighted mean abnormal return is $+1.36\%$ over the shock and $-2.38\%$ on the
+pause: because the benchmark is (value-weighted) and the largest, most import-exposed
+mega-caps moved most, the \emph{typical} firm fell less than the index on the down days and
+rose less on the up day. This makes the mean uninformative about our question and points to
+the cross-section, where the exposure test lives.
+
+\paragraph{The shock (H1).} Table~\ref{tab:shock} is the core shock result. Column (1), the
+raw cross-section, shows no clean relationship ($+0.0050$, $t=1.20$): import-intensive
+industries are large and high-beta, and those load strongly (ln assets $t=-6.4$, beta
+$t=+20$). Adding size and beta in column (2) uncovers the hypothesized negative loading,
+$-0.62$pp per SD ($t=-2.23$); the full-control specification in column (3) gives $-0.73$pp
+($t=-2.35$). H1 is supported \emph{conditionally}. Column (4) adds a manufacturing dummy,
+which is collinear with imported-input intensity (import-intensive industries are largely
+manufacturing) and absorbs the coefficient---an honest indication that the effect operates
+through goods-producing sectors rather than being a within-industry firm effect.
+
+\paragraph{The pause (H2) and symmetry (H3).} Table~\ref{tab:pause} repeats the design for
+the April 9 pause. The sign flips exactly as H2 predicts: conditional on size and beta the
+loading is $+0.49$pp ($t=1.34$) in column (2) and $+0.60$pp ($t=1.78$) in column (3). The
+paired opposite-signed pattern---negative on the shock, positive on the pause, on the
+\emph{same} exposure measure---is the paper's central finding and is visualized in
+Figure~\ref{fig:av}. Table~\ref{tab:robust} shows the symmetry is tightest among
+economically meaningful firms: excluding microcaps (market cap $<\$300$m), the loadings are
+$-0.77$pp on the shock and $+0.77$pp on the pause, both with $t\approx2.1$, and the
+shock-plus-pause round-trip loading is an insignificant $-0.12$pp ($t=-0.46$)---the pause
+essentially reversed the shock's exposure effect, satisfying H3. Table~\ref{tab:quartiles}
+shows the same message non-parametrically once size and beta are held fixed; the raw
+quartile means are noisy precisely because the unconditional cross-section is dominated by
+size and beta.
+
+\paragraph{Magnitude.} A $0.6$--$0.8$pp abnormal move per standard deviation of exposure is
+economically modest but not trivial: the interquartile range of imported-input intensity is
+about 2.0 SD, so moving from the 25th to the 75th percentile industry is associated with
+roughly a $1.5$pp larger drop on the shock and a comparable rebound on the pause, on top of
+the market move. Figure~\ref{fig:path} plots cumulative abnormal returns for the top and
+bottom exposure quartiles and shows high-exposure firms persistently underperforming through
+the episode. Sections~\ref{sec:het}--\ref{sec:power} now ask how much of this survives
+observable-heterogeneity, out-of-sample falsification, design-based inference, and a power
+audit.
+
+\section{Heterogeneity by Observable Moderators}\label{sec:het}
+If the industry exposure measure is capturing a genuine input-cost channel, the loading
+should be strongest where input costs matter most---above all in firms with a high
+cost-of-goods-sold share of sales, which are the input-heavy firms in any industry.
+Table~\ref{tab:hetero} interacts the exposure loading with five observable pre-event
+moderators (each a median split): high COGS/sales, large firms, high beta, high leverage, and
+high book-to-market. For each moderator we report the base loading (low-$M$ group) and the
+interaction (extra loading for the high-$M$ group), separately for the shock and the pause.
+
+The cleanest economic prediction is not confirmed. The COGS/sales interaction is economically
+small and statistically zero on both events (shock interaction $+0.0015$, $t=0.19$; pause
+interaction $-0.0038$, $t=-0.53$): input-heavy firms do \emph{not} show a systematically larger
+tariff loading than input-light firms in the same exposure bucket. Read literally, this is a
+limitation of the industry proxy, not evidence against the channel: because exposure is
+assigned at the industry level, ``high-COGS'' and ``low-COGS'' firms \emph{within} an industry
+carry the identical $\theta_j$, so the interaction can only pick up cross-industry COGS
+differences, which are weak. The moderators that \emph{do} move the loading are mechanical or
+size-related---the negative shock loading is concentrated in low-beta firms (base $-0.0124$,
+$t=-3.64$; interaction $+0.0096$, $t=+3.30$, so the high-beta group's loading is
+$-0.0124+0.0096=-0.0028$, near zero once beta is separately controlled), and the pause loading
+is larger for large and value firms
+(size interaction $+0.0117$, $t=3.09$; book/market interaction $+0.0113$, $t=3.36$),
+consistent with the mega-cap-driven mean pattern in Table~\ref{tab:cars} rather than with a
+sharpening of the input-cost channel. The absence of a clean COGS gradient is the first
+concrete sign that the industry proxy is too coarse to localize the effect---and it is exactly
+the gap the firm-level sourcing measure is designed to fill. We emphasize that we do
+\emph{not} interact exposure with firm-level import reliance, source country, or a
+finished-goods-importer flag: those are unobservable to us and are the student's hand-collected
+contribution; the moderators above are chosen precisely because they are observable and
+orthogonal to that reserved test.
+
+\section{Falsification: Non-Tariff Big-Move Days}\label{sec:placebo}
+The chief threat to a causal reading is that imported-input intensity proxies for residual
+volatility or beta, so that it would load negatively on \emph{any} down day and positively on
+\emph{any} up day, mimicking the tariff pattern mechanically. We control for beta throughout,
+but Table~\ref{tab:placebo} tests the concern directly. Using the same market model estimated
+for the shock ($\alpha_i,\beta_i$ over $[-252,-46]$, a window that contains these dates), we
+recompute single-day abnormal returns on the four largest down-market days and four largest
+up-market days of 2024---generic risk-off and risk-on days with no tariff content---and re-run
+the full-control exposure regression on each.
+
+Two things stand out. First, the exposure loadings on generic big-move days are \emph{smaller}
+than on the tariff events (mean absolute loading $0.28$pp versus $0.73$pp on the shock) and,
+critically, they are \emph{sign-inconsistent}: on the four down days the loadings are
+$+0.0016$, $+0.0022$, $-0.0002$, and $-0.0026$, and on the four up days $-0.0091$, $+0.0024$,
+$-0.0018$, and $+0.0024$---no systematic tendency to load with the direction of the market.
+The one large negative loading occurs on an \emph{up} day (November 6, 2024, $+0.0290$ market
+return; exposure loading $-0.0091$, $t=-2.09$), which is the wrong sign for the residual-beta
+story and instead reflects an idiosyncratic industry rotation that day. So the residual-beta
+channel does not survive: after controlling for beta, exposure does not systematically track
+the market's direction. Second, and stated plainly, exposure is \emph{not} literally silent on
+every non-tariff day---several placebo loadings are individually significant (the industry
+proxy inevitably picks up whatever industry-level return clustering happens on a given day).
+The correct inference is therefore not ``exposure only loads on tariff days'' but rather that
+\emph{the tariff events are distinguished by a coherent opposite-signed pairing on the same
+measure}, which no generic pair of big-move days reproduces. This is precisely why the paired
+design, and the randomization-inference test on the spread in Section~\ref{sec:ri}, are the
+right tests rather than any single-event regression.
+
+\section{Randomization Inference}\label{sec:ri}
+Our exposure measure has only 73 distinct industry values, so the effective number of
+independent ``treatment'' draws is far smaller than the 4{,}275 firms in the regression, and
+NAICS-3 cluster-robust standard errors---which assume a growing number of clusters---can
+overstate precision when the regressor is constant within cluster
+\citep{cameron2008,young2019}. Table~\ref{tab:ri} and Figure~\ref{fig:ri} report a
+design-based alternative. We permute the 73 industry-level intensity values across the 73
+industries 1{,}000 times, remap the permuted values to firms, re-standardize, and re-estimate
+the full-control loading for the shock, the pause, and their opposite-signed spread
+$D=\hat\beta_{\text{pause}}-\hat\beta_{\text{shock}}$. The design-based $p$-value is the share
+of permutations whose statistic is at least as extreme as the actual one; this is the sharp
+test of the null that industry exposure is unrelated to CARs conditional on controls.
+
+The result tempers the headline honestly. The actual shock loading ($-0.0073$) lies just
+inside the permutation 95\% interval $[-0.0091,+0.0080]$, giving a randomization $p$-value of
+$0.084$; the actual pause loading ($+0.0060$) sits well inside its interval, $p=0.158$; and
+the opposite-signed spread ($D=+0.0134$) has $p=0.097$. In words: under design-based inference
+at the level treatment actually varies, the shock loading and the paired opposite-signed
+spread are significant only at the 10\% level, and the pause on its own is not significant.
+The conventional cluster-robust $t$-statistics ($-2.35$ on the shock, $+1.78$ on the pause)
+thus overstate the evidence that a 73-industry proxy can bear. We read the randomization
+inference as \emph{suggestive but not decisive} support for a real industry-level
+tariff-exposure channel: the actual spread is in the upper tail of the permutation distribution
+(Figure~\ref{fig:ri}), directionally consistent with H1--H3, but not beyond what industry-level
+noise produces one time in ten. Sharper inference requires identifying variation \emph{within}
+industries---the firm-level sourcing measure the student is collecting---which would raise the
+number of independent treatment values far above 73 and is the direct route to a test that can
+distinguish this channel from industry-level noise.
+
+\section{Is the Effect Precisely Estimated? Power and Minimum Detectable Effects}\label{sec:power}
+A marginal result can reflect either a genuinely small effect or an underpowered design.
+Table~\ref{tab:power} reports, for the shock, the pause, the round-trip, and the pre-window,
+the minimum detectable effect (MDE) at 80\% power,
+$\text{MDE}=(z_{0.975}+z_{0.80})\,\widehat{\text{SE}}\approx 2.80\,\widehat{\text{SE}}$,
+expressed as a share of the cross-firm standard deviation of that window's CAR. The design's
+MDE is about $0.88$pp per SD on the shock ($7.5\%$ of the CAR SD) and $0.95$pp on the pause
+($11.2\%$). The estimated loadings ($0.73$pp and $0.60$pp) sit \emph{just below} these
+thresholds, and the achieved $|t|$-statistics ($2.35$ and $1.78$) are below the $\approx2.80$
+needed to detect an effect of exactly this size at 80\% power. In other words, the marginal
+significance under randomization inference in Section~\ref{sec:ri} is a resolution problem: the
+industry proxy places the true loading right at the edge of what the design can detect, so an
+effect of this magnitude is expected to be borderline rather than decisively significant. The
+round-trip is the informative complement: its MDE is $0.73$pp per SD ($7.2\%$ of the CAR SD),
+so the near-zero round-trip loading ($-0.12$pp) rules out a net repricing larger than about
+$0.7$pp per SD---evidence that the pause reversed the shock nearly completely, consistent with
+H3, rather than an underpowered zero. The power audit thus reconciles the two halves of the
+paper: the paired signal is real and directionally coherent but small relative to the noise a
+73-industry measure carries, and the round-trip zero is precise enough to support near-full
+reversal.
+
+\section{Robustness}\label{sec:robust}
+Table~\ref{tab:robust} collects the conventional robustness tests. The exposure loading is (i)
+opposite-signed and significant across the shock and pause under both cluster-robust and
+HC1 standard errors (HC1 $t=-5.6$ and $+5.4$)---the HC1 errors, which ignore the industry
+clustering, are the \emph{most} favorable and precisely the ones the randomization inference
+in Section~\ref{sec:ri} shows to be too generous; (ii) stronger over the full April 3--8
+sell-off ($-1.34$pp, $t=-2.48$); and (iii) robust to excluding microcaps. Two results qualify
+the ``clean event'' interpretation and we report them plainly. First, the single-day April 3
+loading is insignificant ($t=-1.35$): most of the two-day effect is in April 4, consistent
+with information diffusing as the tariff schedule was digested. Second, and more important,
+imported-input intensity loads \emph{negatively} in the pre-announcement window (March
+27--April 2; $-0.53$pp, $t=-2.22$). This is not a clean placebo: tariff news was already
+flowing (Section 232 auto tariffs were announced March 26, and the reciprocal package was
+pre-trailed), so the market had begun to price exposure before the formal April 2 announcement.
+The pre-trend means our event-window loadings are best read as a lower bound on the total
+tariff-exposure repricing rather than as the causal effect of a single surprise. Sharpening
+identification requires a firm-level, time-stamped measure of \emph{which} tariffed countries
+each firm sources from---precisely the hand-collected 10-K evidence described in the companion
+task file.
+
+\section{Conclusion}\label{sec:concl}
+Across 4{,}275 U.S. stocks, firms in industries that rely more on imported intermediate
+inputs underperformed on the April 2--4, 2025 reciprocal-tariff shock and rebounded on the
+April 9 pause, once size and market beta are held fixed; the two loadings are opposite-signed
+and, among non-microcap firms, nearly symmetric, and they net to zero over the round trip. A
+falsification on non-tariff big-move days shows the pattern is directionally coherent rather
+than a residual-beta artifact, and a power audit shows the round-trip zero is precise enough to
+imply near-full reversal. But the honest bottom line, sharpened by this revision, is one of
+\emph{calibrated confidence}: because the exposure measure varies only across 73 industries,
+randomization inference that respects that structure downgrades the conventional 5\%
+significance to roughly the 10\% level, and the minimum detectable effect shows the design sits
+at the edge of its resolving power for effects of this size. The market plausibly priced
+imported-input cost exposure in real time and reversed that pricing when the policy was paused,
+but a 73-industry proxy cannot establish it decisively.
+
+That limitation is the paper's point of departure, not a footnote. The identifying variation
+that would sharpen both the estimate and the inference lives \emph{within} industries: which
+firms in an import-intensive industry actually source abroad, which retailers import
+\emph{finished} goods that the input-output measure scores as low-exposure, and which specific
+countries' tariffs changed on April 2 (broad) versus April 9 (China excluded). None of these
+is observable in the input-output data; all of them can be read out of 10-K filings. The
+companion student task hand-collects firm-level input sourcing and a country-level April-2025
+tariff map, which together replace the industry proxy with a firm-level exposure measure and
+enable a China-versus-rest test of the pause---raising the number of independent treatment
+values far above 73 and turning this suggestive, proxy-based result into a sharp,
+firm-level test of whether imported-input exposure was priced in the 2025 tariff shock. That
+test---not another robustness check on the industry proxy---is the natural next step, and it is
+the contribution this design has been built to receive.
+
+\begin{thebibliography}{99}
+\bibitem[Abadie(2020)]{abadie2020} Abadie, A., 2020. Statistical nonsignificance in empirical
+economics. American Economic Review: Insights 2, 193--208.
+\bibitem[Amiti et al.(2019)]{amiti2019} Amiti, M., Redding, S.J., Weinstein, D.E., 2019.
+The impact of the 2018 tariffs on prices and welfare. Journal of Economic Perspectives
+33(4), 187--210.
+\bibitem[Amiti et al.(2020)]{amiti2020} Amiti, M., Kong, S.H., Weinstein, D.E., 2020.
+The effect of the U.S.--China trade war on U.S. investment. NBER Working Paper 27114.
+\bibitem[Antr\`as and Chor(2013)]{antras2013} Antr\`as, P., Chor, D., 2013.
+Organizing the global value chain. Econometrica 81(6), 2127--2204.
+\bibitem[Cameron et al.(2008)]{cameron2008} Cameron, A.C., Gelbach, J.B., Miller, D.L., 2008.
+Bootstrap-based improvements for inference with clustered errors. Review of Economics and
+Statistics 90(3), 414--427.
+\bibitem[Campbell et al.(1997)]{campbell1997} Campbell, J.Y., Lo, A.W., MacKinlay, A.C., 1997.
+The Econometrics of Financial Markets. Princeton University Press, Princeton, NJ.
+\bibitem[Fajgelbaum et al.(2020)]{fajgelbaum2020} Fajgelbaum, P.D., Goldberg, P.K.,
+Kennedy, P.J., Khandelwal, A.K., 2020. The return to protectionism. Quarterly Journal of
+Economics 135(1), 1--55.
+\bibitem[Fama and French(1993)]{fama1993} Fama, E.F., French, K.R., 1993. Common risk
+factors in the returns on stocks and bonds. Journal of Financial Economics 33(1), 3--56.
+\bibitem[Handley and Lim\~ao(2017)]{handley2017} Handley, K., Lim\~ao, N., 2017. Policy
+uncertainty, trade, and welfare: Theory and evidence for China and the United States.
+American Economic Review 107(9), 2731--2783.
+\bibitem[Huang et al.(2023)]{huang2023} Huang, Y., Lin, C., Liu, S., Tang, H., 2023.
+Trade networks and firm value: Evidence from the U.S.--China trade war. Journal of
+International Economics 145, 103811.
+\bibitem[Kolari and Pynn\"onen(2010)]{kolari2010} Kolari, J.W., Pynn\"onen, S., 2010. Event
+study testing with cross-sectional correlation of abnormal returns. Review of Financial
+Studies 23(11), 3996--4025.
+\bibitem[MacKinlay(1997)]{mackinlay1997} MacKinlay, A.C., 1997. Event studies in economics
+and finance. Journal of Economic Literature 35(1), 13--39.
+\bibitem[Pierce and Schott(2016)]{pierce2016} Pierce, J.R., Schott, P.K., 2016. The
+surprisingly swift decline of U.S. manufacturing employment. American Economic Review
+106(7), 1632--1662.
+\bibitem[Young(2019)]{young2019} Young, A., 2019. Channeling Fisher: Randomization tests and
+the statistical insignificance of seemingly significant experimental results. Quarterly
+Journal of Economics 134(2), 557--598.
+\end{thebibliography}
+
+\FloatBarrier
+\newpage
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Summary statistics}\label{tab:sumstats}\small
+\input{tables/tab_sumstats.tex}
+\begin{tablenotes}\small\item \textit{Notes:} 4{,}275 U.S. common stocks, April 2025.
+CARs are market-model abnormal returns against the Fama--French market factor, estimation
+window $[-252,-46]$. Imported-input intensity is industry imported intermediate inputs
+divided by gross output (BEA, 2023).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Mean cumulative abnormal returns by window}\label{tab:cars}\small
+\input{tables/tab_cars.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Equal-weighted mean CARs. Positive shock and
+negative pause means reflect the value-weighted benchmark: the largest, most import-exposed
+firms moved most, so the typical firm underperformed the index on down days and on the up
+day. The cross-sectional tests (Tables~\ref{tab:shock}--\ref{tab:pause}) are the relevant
+exposure tests.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Tariff SHOCK: CAR[Apr 3, Apr 4] on imported-input intensity}\label{tab:shock}\small
+\input{tables/tab_shock.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DV is the market-model CAR over April 3--4,
+2025. Predictors winsorized 1/99 and standardized (coefficient = effect of a one-SD
+increase, in CAR points). Column (4) adds a manufacturing dummy, collinear with exposure.
+NAICS-3 cluster-robust $t$-statistics in parentheses.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Tariff PAUSE: CAR[Apr 9] on imported-input intensity}\label{tab:pause}\small
+\input{tables/tab_pause.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DV is the market-model CAR on April 9, 2025.
+Same specification as Table~\ref{tab:shock}. The exposure loading flips sign relative to the
+shock, as hypothesized. NAICS-3 cluster-robust $t$-statistics in parentheses.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Robustness: imported-input-intensity loading across designs}\label{tab:robust}\small
+\input{tables/tab_robust.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Each row is the standardized imported-input
+intensity coefficient (and $t$) from a full-control specification. ``Round-trip'' is the sum
+of the pause and shock CARs. ``ex-microcap'' drops firms with market cap $<\$300$m. The
+pre-window is not a clean placebo (tariff news preceded April 2). The HC1 rows ignore
+industry clustering and are the most favorable; randomization inference (Table~\ref{tab:ri})
+shows they overstate precision. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Mean CARs by imported-input-intensity quartile}\label{tab:quartiles}\small
+\input{tables/tab_quartiles.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Raw (unconditional) quartile means; noisy
+because the unconditional cross-section is dominated by size and beta. The conditional
+pattern is in Tables~\ref{tab:shock}--\ref{tab:pause} and Figure~\ref{fig:av}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Heterogeneity of the exposure loading by observable pre-event moderators}
+\label{tab:hetero}\small
+\input{tables/tab_hetero.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Each row adds an interaction of standardized
+imported-input intensity with a median split on a pre-event moderator $M$, plus the $M$
+indicator, to equation~\eqref{eq:xs}. ``Base'' is the loading for the low-$M$ group;
+``Exp.$\times M$'' is the extra loading for the high-$M$ group. Columns report the shock
+CAR[Apr3,4] and the pause CAR[Apr9]. The clean input-cost prediction (a larger loading for
+high-COGS/sales firms) is not confirmed, a consequence of the industry-level proxy. Firm-level
+import reliance / source country is deliberately \emph{not} used (it is the student's
+hand-collected variable). NAICS-3 cluster-robust $t$-statistics underlie the stars.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Falsification: exposure loadings on non-tariff big-market-move days (2024)}
+\label{tab:placebo}\small
+\input{tables/tab_placebo.tex}
+\begin{tablenotes}\small\item \textit{Notes:} For the four largest down-market and four
+largest up-market days of 2024 (generic risk-off/risk-on days with no tariff content), we
+compute single-day abnormal returns using the market model estimated for the shock event
+($\alpha_i,\beta_i$ over $[-252,-46]$, a window containing these dates) and re-run the
+full-control exposure regression. Loadings are smaller than on the tariff events and
+sign-inconsistent, so the tariff pattern is not a residual-beta artifact; but exposure is not
+silent on every big day, so the paired opposite-signed design is the discriminating test.
+NAICS-3 cluster-robust $t$-statistics in parentheses.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Randomization inference (1{,}000 permutations of industry exposure)}
+\label{tab:ri}\small
+\input{tables/tab_ri.tex}
+\begin{tablenotes}\small\item \textit{Notes:} The 73 NAICS-3 industry-level intensity values
+are permuted across industries, remapped to firms, re-standardized, and the full-control
+loading is re-estimated for the shock, the pause, and the spread
+$D=\hat\beta_{\text{pause}}-\hat\beta_{\text{shock}}$. ``Perm.\ 95\% interval'' is the
+2.5--97.5 percentile of the permutation distribution; the RI $p$-value is the share of
+permutations with a statistic at least as extreme as the actual one. At the level treatment
+varies, the shock and the opposite-signed spread are significant only at the 10\% level. See
+Figure~\ref{fig:ri}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Minimum detectable effects at 80\% power}\label{tab:power}\small
+\input{tables/tab_power.tex}
+\begin{tablenotes}\small\item \textit{Notes:} MDE(80\%) $=(z_{0.975}+z_{0.80})\times$SE
+$\approx 2.80\times$SE of the full-control exposure loading, expressed as a share of the
+window's cross-firm CAR standard deviation. $|t|$ is the achieved cluster-robust statistic;
+detecting an effect of the estimated size at 80\% power requires $|t|\gtrsim2.80$. The
+estimated shock and pause loadings sit just below their MDEs; the small round-trip MDE means
+the near-zero round-trip rules out net repricing larger than about $0.7$pp per SD (near-full
+reversal, H3).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\FloatBarrier
+\begin{figure}[htbp]\centering
+\includegraphics[width=\textwidth]{fig1_avplot.pdf}
+\caption{Added-variable (partial-regression) plots of CAR against imported-input intensity,
+net of size, beta, and the firm controls. Left: the April 3--4 shock (negative slope).
+Right: the April 9 pause (positive slope). Gray points are firms; colored points are bin
+means.}\label{fig:av}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.85\textwidth]{fig2_carpath.pdf}
+\caption{Cumulative abnormal returns of the top and bottom imported-input-intensity
+quartiles, March 26--April 15, 2025. High-exposure firms underperform through the episode;
+the divergence opens with the March 26 auto tariffs and the April 2 announcement.}
+\label{fig:path}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.72\textwidth]{fig3_randinf.pdf}
+\caption{Randomization inference for the opposite-signed spread
+$D=\hat\beta_{\text{pause}}-\hat\beta_{\text{shock}}$. Histogram: the distribution of $D$
+under 1{,}000 random permutations of the 73 industry-level intensity values across industries.
+The actual spread (red line) lies in the upper tail (RI $p=0.097$): directionally consistent
+with a paired tariff-exposure channel, but not beyond what industry-level noise produces about
+one time in ten.}\label{fig:ri}
+\end{figure}
+
+\end{document}

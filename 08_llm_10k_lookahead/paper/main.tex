@@ -1,0 +1,629 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}\doublespacing
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\graphicspath{{../output/figures/}}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{placeins}
+
+\title{\textbf{Is the LLM Reading the 10-K or Remembering the Stock?\\
+A Placebo Test for Look-Ahead Contamination in\\
+Large-Language-Model Risk-Factor Scores}}
+\author{Lasya Yellamagari \and Lei Gao\thanks{Yellamagari: ASSIP 2026, George Mason
+University. Gao (corresponding author): Costello College of Business, George Mason
+University, \texttt{lgao9@gmu.edu}. This is a student--faculty working paper prepared in the
+ASSIP 2026 Empirical Finance research group. All results use public SEC EDGAR 10-K text and
+WRDS/CRSP return data; LLM scores are produced with Llama-4-Scout (109B) run locally via
+Ollama on the GMU Hopper GPU cluster. Every reported number traces to a regression-output CSV
+in \texttt{output/tables/} and is reproduced by the code in \texttt{code/}. We thank the ASSIP
+2026 cohort for comments. Any errors are our own.}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+We ask whether a large language model that scores 10-K risk factors is reading the disclosure or recalling the stock. Using Llama-4-Scout (109B; approximate mid-2024 training cutoff), we score 209 SEC 10-K risk-factor sections twice with an identical prompt---once on the raw text and once on an anonymized copy that redacts the firm's name, ticker, dates, and state---and relate the scores to 12-month post-filing buy-and-hold abnormal returns (BHAR). Identification is a placebo: we split filings into a pre-cutoff window (filed 2019--2021, outcome realized before the cutoff, so look-ahead is possible) and a post-window (filed 2024, at or after the model's approximate cutoff, so memorization is unlikely). Raw and anonymized scores are highly correlated ($\rho=0.65$; mean absolute gap 5.2 points). We do not detect look-ahead contamination in this sample: neither the raw nor the anonymized score reliably predicts 12-month returns (raw/pre slope -0.0085 ($t=-0.17$); anon/pre -0.0255 ($t=-0.60$)), and the raw-versus-anon predictive gap does not differ significantly across the training cutoff (triple interaction +0.0297, $t=0.37$). Four design-based extensions reinforce the null rather than resurrect a signal: the gap is flat across observable filing subgroups; it survives a composition-matched placebo that balances the two windows on observable score level and redaction density; a randomization-inference test that swaps the raw/anon label within each filing 2{,}000 times places the actual statistic near the center of its permutation distribution (design-based $p=0.76$); and a minimum-detectable-effect calculation states exactly how large a contamination effect the design could have caught. The design is a reusable, auditable diagnostic for LLM-based return-prediction studies, and it motivates a hand-built anonymization gold standard as the next tightening.
+\\[4pt]
+\noindent\textbf{JEL:} G12, G14, G17, C55. \quad
+\textbf{Keywords:} large language models, look-ahead bias, data contamination, risk
+factors, 10-K disclosure, return predictability, randomization inference.
+\end{abstract}
+
+\newpage
+\section{Introduction}
+Large language models (LLMs) are being used to read corporate disclosures and produce
+signals that predict stock returns \citep{lopezlira2023,kim2024,jha2024}. A natural worry
+haunts every such exercise: when an LLM ``reads'' a 2019 annual report and rates its risk,
+is it processing the \emph{text}, or is it recalling---from its training data---what
+happened to that \emph{stock} afterward? Because a model like Llama-4-Scout was trained on
+text scraped through roughly mid-2024, its parameters may encode both the filing itself and
+the subsequent price path. A return-predictability backtest that scores pre-training filings
+then ``predicts'' their already-realized returns is not forecasting; it is
+\emph{look-ahead contamination} \citep{glasserman2023,sarkar2024}. This paper asks how much
+of the return-predictive power of an LLM risk score is real reading versus remembered
+outcomes, and it proposes a simple, auditable test to tell them apart.
+
+Our identification is a placebo built from two orthogonal manipulations. First, we score
+each 10-K risk-factor section twice with the \emph{same} model and the \emph{same} prompt:
+once on the \textbf{raw} text and once on an \textbf{anonymized} copy in which the firm's
+name, ticker, dates, and state are redacted. If the model is genuinely reading risk, masking
+identity should barely move the score or its return-predictive power; if it is recognizing
+the firm, anonymization should strip predictive power away. Second, we split filings by the
+model's training cutoff. \textbf{Pre-cutoff} filings (filed 2019--2021) have a 12-month
+post-filing return window that closed \emph{before} the model's training cutoff, so the
+outcome could sit in the model's training data---look-ahead is \emph{possible}.
+\textbf{Post-cutoff} filings (filed in 2024) have both the text and the outcome \emph{after}
+the cutoff, so look-ahead is \emph{unlikely} by construction. The contamination signature is
+sharp and falsifiable: raw scores should predict returns better than anonymized scores
+\emph{only} in the pre-cutoff window, and that raw-versus-anon gap should vanish post-cutoff.
+
+Our findings can be previewed in four numbers (Table~\ref{tab:main}). In the pre-cutoff
+window ($N=106$), a one-standard-deviation increase in the \emph{raw}-text risk score moves
+12-month BHAR by -0.0085 ($t=-0.17$), while the \emph{anonymized} score moves it by -0.0255
+($t=-0.60$). In the post-cutoff window ($N=103$)---where the model cannot easily have seen
+the outcome---the raw slope is -0.0294 ($t=-0.33$) and the anonymized slope is -0.0760
+($t=-1.03$). The stacked triple interaction $z\times\text{Raw}\times\text{Post}$, which asks
+whether the raw-versus-anon predictive gap changes across the cutoff, is +0.0297 ($t=0.37$)
+(Table~\ref{tab:interaction}). On these estimates we cannot reject H1 (genuine reading) in
+favor of H2 (look-ahead).
+
+We then do four things that push a bare null toward an informative one, each adapted to this
+placebo design. First, we ask whether the contamination signature hides in an
+\emph{observable subgroup} the pooled test averages away: we interact the raw-versus-anon gap
+with three observable filing characteristics---the automated redactor's identifier count, the
+model's own risk level, and whether the firm names itself in the surviving text---and find no
+subgroup in which raw text carries the extra pre-cutoff predictive power look-ahead would
+produce (Section~\ref{sec:het}, Table~\ref{tab:hetero}). Second, because the pre- and
+post-cutoff windows are different firms filed in different years, we run a
+\emph{composition-matched placebo}: we nearest-neighbor match pre- to post-cutoff filings on
+observable score level and redaction density, balancing the windows, and re-estimate the
+placebo on the matched sample (Section~\ref{sec:matched}, Table~\ref{tab:matched}); the
+triple interaction stays small and insignificant. Third, we subject the placebo to
+\emph{randomization inference}: because the truly randomizable object is which of a filing's
+two scores we \emph{call} ``raw,'' we swap that label within each filing 2{,}000 times to
+build a design-based null and find the actual statistic sitting near the center of its
+permutation distribution (Section~\ref{sec:inference}, Table~\ref{tab:ri},
+Figure~\ref{fig:randinf}), $p=0.76$. Fourth, we ask whether the null is \emph{informative} or
+merely underpowered, reporting the minimum contamination effect the design could have
+detected at 80\% power (Table~\ref{tab:power}). Together these convert ``insignificant'' into
+a set of falsifiable, design-based statements.
+
+We contribute to three literatures. First, to the fast-growing literature applying LLMs to
+finance \citep{lopezlira2023,kim2024,jha2024,kelly2019,hansen2023}, we add a diagnostic that
+any such study can run before trusting a backtest. Second, to work on textual disclosure and
+returns \citep{cohen2020,loughran2011,campbell2014,kravet2013,tetlock2007}, we bring a design
+that separates information in the text from information about the firm. Third, to the
+machine-learning literature on training-data memorization and benchmark contamination
+\citep{carlini2021,sainz2023,magar2022,glasserman2023}, we provide a finance-specific,
+economically interpretable measurement, and we treat the resulting null as a quantitative
+object with a stated power \citep{abadie2020,young2019}. Section~\ref{sec:lit} places the
+paper in the literature; Section~\ref{sec:hyp} develops hypotheses; Section~\ref{sec:data}
+describes the data, the anonymization, and the design-based checks; Section~\ref{sec:res}
+presents the main placebo; Sections~\ref{sec:het}--\ref{sec:inference} report the
+heterogeneity, matching, randomization-inference, and power extensions;
+Section~\ref{sec:rob} reports outcome-horizon robustness; and Section~\ref{sec:concl}
+concludes with the hand-collection that would sharpen the test.
+
+\section{Related Literature}\label{sec:lit}
+This paper connects three strands. The first is the fast-growing use of LLMs to read
+corporate disclosure and forecast returns. \citet{lopezlira2023} show that ChatGPT sentiment
+scores of news headlines predict next-day returns; \citet{kim2024} use GPT to summarize and
+``unbloat'' disclosures and relate the distilled content to market reactions;
+\citet{jha2024} score corporate policies from earnings calls and 10-Ks. These join a longer
+line of text-based return prediction \citep{kelly2019,hansen2023,tetlock2007}. Our
+contribution to this strand is not another predictive signal but a \emph{diagnostic}: a test
+of whether a modern LLM's apparent forecasting skill on pre-training-cutoff filings is real
+reading or recall of already-realized outcomes---a check any such study can run before
+trusting a backtest.
+
+The second strand is textual analysis of disclosure and its risk content. Risk-factor
+sections (Item 1A) are informative about future volatility and returns
+\citep{campbell2014,kravet2013}, textual tone and word choice move prices
+\citep{loughran2011,tetlock2007}, and even year-over-year changes in language carry
+information \citep{cohen2020}. This literature reads the \emph{text}; our design is built to
+separate the information that is genuinely in the risk-factor text from information the model
+holds about the \emph{firm}. Anonymization is the wedge: it leaves the risk content intact
+while removing explicit identity, so any predictive power that survives anonymization is
+attributable to text rather than to firm recognition.
+
+The third strand is the machine-learning literature on training-data memorization and
+benchmark contamination, and its finance-specific echo. Large models provably memorize and
+can regurgitate training data \citep{carlini2021}, and evaluation on data seen during
+training inflates measured performance \citep{magar2022,sainz2023}. In finance,
+\citet{glasserman2023} and \citet{sarkar2024} show that LLM return-prediction backtests on
+pre-cutoff periods are vulnerable to look-ahead: the model may ``know'' the outcome. We add
+an economically interpretable, auditable measurement of that channel built from a
+within-filing anonymization contrast crossed with the training cutoff. Finally, because our
+headline is a null, we follow the methodological guidance that a statistically insignificant
+estimate should be read through its power and its design-based distribution rather than as
+proof of no effect \citep{abadie2020,young2019}: Section~\ref{sec:inference} reports both a
+randomization-inference $p$-value and a minimum detectable effect, so the null is stated as a
+bound on contamination rather than as a bare ``insignificant.''
+
+\section{Hypotheses}\label{sec:hyp}
+Let $s^{\text{raw}}_i$ and $s^{\text{anon}}_i$ be the Llama-4-Scout downside-risk score
+(0--100, higher = worse expected 12-month outlook) for filing $i$ on the raw and anonymized
+text, and let $R_i$ be the firm's 12-month post-filing buy-and-hold abnormal return (BHAR).
+
+If the score reflects genuine reading of risk content, then anonymizing identity---which
+leaves the risk content intact---should not change what the score knows:
+\begin{quote}
+\textbf{H1 (Reading).} The return-predictive slope of $s^{\text{raw}}$ equals that of
+$s^{\text{anon}}$, in both the pre- and post-cutoff windows.
+\end{quote}
+If instead the score partly reflects recognition of the firm and recall of its realized
+path, that channel is available only when (i) identity is visible and (ii) the outcome
+predates the training cutoff:
+\begin{quote}
+\textbf{H2 (Remembering / look-ahead).} $s^{\text{raw}}$ predicts $R$ more strongly
+(more negative slope) than $s^{\text{anon}}$ \emph{in the pre-cutoff window}, and the
+raw-minus-anon predictive gap is larger pre-cutoff than post-cutoff.
+\end{quote}
+H1 and H2 make opposite predictions about a single object---the raw-versus-anon predictive
+gap and its interaction with the training cutoff (the triple interaction
+$s\times\text{raw}\times\text{post}$). A closely related implication concerns the
+\emph{score gap} $g_i=s^{\text{raw}}_i-s^{\text{anon}}_i$ itself: under H2 the
+identity-driven adjustment $g_i$ should be return-relevant pre-cutoff (the model nudges the
+score toward the outcome it remembers) but not post-cutoff.
+\begin{quote}
+\textbf{H3 (Gap).} $g_i$ predicts $R_i$ in the pre-cutoff window but not post-cutoff.
+\end{quote}
+Under H2, the extra pre-cutoff predictive power of raw text should also be \emph{stronger}
+where firm identity is denser in the text. We test that observable-heterogeneity implication
+in Section~\ref{sec:het}, using filing characteristics the automated pipeline already
+records---and we are careful to keep it distinct from the human identifiability measurement
+reserved for the hand-collection phase.
+
+\section{Data, Anonymization, and Design}\label{sec:data}
+\paragraph{Filings.} We draw 10-K risk-factor sections (Item 1A) from a reusable archive of
+SEC EDGAR filings for CRSP/Compustat firms, which pre-extracts each item as plain text. We
+keep genuine 10-Ks (not amendments) that contain a non-empty Item 1A, and form two windows
+around the model's approximate mid-2024 training cutoff: a \textbf{pre-cutoff} window of
+filings filed 2019--2021 and a \textbf{post-cutoff} window of filings filed in 2024. Within
+each window we take one filing per firm (the latest in-window) and draw a random sample with a
+fixed seed. The scored analytic sample is 209 filings (106 pre-, 103 post-cutoff); only one
+firm appears in both windows, so firm fixed effects across windows are infeasible and the
+between-window comparison must be defended by matching and placebo rather than by
+within-firm differencing.
+
+\paragraph{Returns.} Each filing is linked to CRSP via the Compustat CIK and the
+CRSP-Compustat link. Using CRSP monthly returns, we compute the buy-and-hold return over the
+$K$ calendar months after the filing month ($K=3,6,12$) and subtract the compounded market
+return (Fama--French market factor plus the risk-free rate) over the same months to form the
+market-adjusted BHAR. The 12-month BHAR is the primary outcome; both windows have full
+12-month return coverage (CRSP monthly extends through December 2025). The final sample keeps
+filings with a valid 12-month BHAR.
+
+\paragraph{LLM risk score.} We score each filing with Llama-4-Scout (109B, run locally via
+Ollama on the GMU Hopper GPU cluster; temperature 0), using one fixed prompt that asks for an
+integer 0--100 rating of downside risk to the stock over the next 12 months, given only the
+risk-factor text (truncated to a fixed length so raw and anonymized inputs are comparable).
+Each filing is scored twice---raw and anonymized---and we record both. Scores are z-scored on
+the pooled raw$+$anon distribution so the raw and anonymized slopes are read on a common
+scale.
+
+\paragraph{Anonymization.} The automated anonymizer redacts the firm's name and its
+distinctive name-tokens ($\rightarrow$\texttt{[COMPANY]}), its CRSP ticker
+($\rightarrow$\texttt{[TICKER]}), every four-digit year ($\rightarrow$\texttt{[YEAR]}), and
+U.S. state names ($\rightarrow$\texttt{[STATE]}). This is a deliberate \emph{floor}: it
+removes explicit identifiers but not paraphrased self-descriptions or brand and product
+names, which a human can catch. Building that gold standard by hand---and measuring, with a
+human blind-identification test, how much identity still leaks through the automated
+version---is the manual task documented in \texttt{STUDENT\_TASKS.md}; it is the natural next
+tightening of the placebo, and the observable moderators we use below are chosen precisely so
+as \emph{not} to pre-empt that reserved identifiability measurement.
+
+\paragraph{Design-based checks.} Beyond the four cross-sectional cells, we run three checks
+that do not lean on the parametric null. (1) \emph{Observable heterogeneity}: we interact the
+raw-versus-anon gap with observable filing characteristics to see whether contamination hides
+in a subgroup (Section~\ref{sec:het}). (2) \emph{Composition matching}: we nearest-neighbor
+match pre- to post-cutoff filings on observable score level and redaction density and
+re-estimate the placebo on the balanced sample (Section~\ref{sec:matched}). (3)
+\emph{Randomization inference and power}: we swap the raw/anon label within each filing
+2{,}000 times to build a design-based null for the placebo statistics, and we compute the
+minimum contamination effect detectable at 80\% power (Section~\ref{sec:inference}). Together
+these convert an insignificant coefficient into falsifiable, design-based statements about
+what the data can and cannot rule out.
+
+\paragraph{Sample.} Table~\ref{tab:sumstats} reports summary statistics for the scored
+sample.
+
+\section{Main Results}\label{sec:res}
+\paragraph{Raw and anonymized scores agree closely.} Across the full sample the two scores
+correlate at $\rho=0.65$, and the mean absolute score gap is 5.2 points on the 0--100 scale
+(Table~\ref{tab:agree}). The model rarely changes its risk assessment much when identity is
+stripped---already a hint that explicit identifiers are not the model's main input, though
+(as we discuss) firms may remain identifiable from the surviving business text.
+
+\paragraph{The main placebo.} Table~\ref{tab:main} and Figure~\ref{fig:slopes} report the
+return-predictive slope in each of the four cells. Pre-cutoff, the raw-text slope is -0.0085
+($t=-0.17$) (statistically insignificant) and the anonymized slope is -0.0255 ($t=-0.60$)
+(statistically insignificant). Post-cutoff, the raw slope is -0.0294 ($t=-0.33$) and the
+anonymized slope is -0.0760 ($t=-1.03$). The four slopes are similar in magnitude and mostly
+insignificant; the raw score does not show the extra pre-cutoff predictive power that
+look-ahead would produce, so we cannot reject H1.
+
+\paragraph{The triple-interaction test.} Stacking the raw and anonymized observations and
+clustering by filing (Table~\ref{tab:interaction}), the coefficient on
+$z\times\text{Raw}\times\text{Post}$---which asks whether the raw-versus-anon predictive gap
+changes across the training cutoff---is +0.0297 ($t=0.37$), statistically insignificant.
+Within the pre-cutoff window (Table~\ref{tab:within}), the anonymized-score slope is -0.0255
+($t=-0.60$) and the \emph{extra} slope carried by raw text is +0.0169 ($t=0.37$)
+(statistically insignificant, and of the ``wrong'' sign for look-ahead, which would predict a
+\emph{negative} extra-raw slope).
+
+\paragraph{Does the identity-driven score adjustment predict returns?} Under look-ahead, the
+raw-minus-anon score gap should itself forecast pre-cutoff returns. Table~\ref{tab:gap} shows
+the gap slope is +0.0260 ($t=0.38$) pre-cutoff and +0.0637 ($t=0.70$) post-cutoff. Neither is
+significant, so H3 is not supported here.
+
+\section{Heterogeneity: Does Contamination Hide in a Subgroup?}\label{sec:het}
+A pooled null can mask an effect that is present only where firm identity is dense enough for
+the model to recognize the firm. If look-ahead is real, the extra pre-cutoff predictive power
+of raw text (the raw-versus-anon gap) should concentrate in filings that carry more identity
+signal. We test this in the pre-cutoff window---the only window where look-ahead is
+possible---by interacting the placebo with three \emph{observable} filing characteristics
+that the automated pipeline already records: an above-median count of automated redactions
+(a filing-level measure of how many explicit identifiers the machine floor removed), an
+elevated model risk score (the model's own assessment exceeds its modal baseline), and an
+indicator for whether the firm's name still appears in the raw text. We stress that these are
+observable, machine-produced filing characteristics; they are \emph{not} a measure of how
+identifiable the anonymized firm is to a human reader---that identifiability/leakage
+measurement is precisely the gold-standard blind-identification test reserved for the
+hand-collection phase (Section~\ref{sec:data}), and we keep the two verbally and operationally
+distinct.
+
+Table~\ref{tab:hetero} reports, for each moderator $M$, the extra-raw slope
+($z\times\text{Raw}$) for the $M$-low group and its interaction with $M$, and, in a companion
+specification, the score-gap slope and its interaction with $M$. The look-ahead prediction is
+a \emph{negative} extra-raw slope that grows more negative for high-$M$ filings, and a
+gap-slope interaction of the same sign. We find neither pattern. The extra-raw interactions
+are individually insignificant for all three moderators ($t=+1.11$, $-1.31$, and $+1.08$),
+and their signs are inconsistent with a single look-ahead channel. The only significant
+coefficients anywhere in the table appear in the score-gap columns for elevated-score firms: a
+positive base gap slope of $+0.131$ ($t=2.16$) for the $M$-low group and a negative
+interaction of $-0.229$ ($t=-2.04$). Their sum implies a \emph{negative} gap--return slope for
+the elevated-score (high-$M$) group---the opposite of the positive, identity-driven gap
+predictability that look-ahead (H3) requires in the \emph{more} identity-dense subgroup. This
+pair therefore cuts against contamination rather than for it; and, isolated among a dozen
+tested coefficients, it is in any case fragile to multiple comparisons. No observable subgroup
+shows the raw-over-anon pre-cutoff predictive advantage that memorization would produce.
+
+\section{A Composition-Matched Placebo}\label{sec:matched}
+The pre- and post-cutoff windows are not the same firms: they are different companies filing
+in different years, and only one firm appears in both. In principle the flat triple
+interaction could reflect that composition gap rather than the absence of look-ahead---if,
+say, pre-cutoff filings systematically differed in observable score level or identifier
+density from post-cutoff filings. Because firm fixed effects across windows are infeasible
+(one overlapping firm), we instead balance the windows by matching. We nearest-neighbor match
+each post-cutoff filing to a not-yet-used pre-cutoff filing on two observable characteristics---
+the standardized raw score and the standardized automated-redaction count---without
+replacement and within a 0.5-SD caliper on the score, and re-estimate the four cells and the
+triple interaction on the resulting balanced sample.
+
+Table~\ref{tab:matched} reports the result. Matching yields 90 pre--post pairs (180 filings)
+and collapses the pre-versus-post score-level gap from $+0.196$ SD in the full sample to
+$-0.027$ SD in the matched sample---the windows are now comparable on observables. On this
+composition-balanced sample the triple interaction is $-0.0269$ ($t=-0.24$): still small and
+insignificant, and now even the point estimate leans the ``wrong'' way for look-ahead. Three
+of the four cell slopes remain individually weak; the exception is the anonymized post-cutoff
+cell ($-0.120$, $t=-2.62$), but this is precisely the cell where look-ahead is \emph{least}
+possible (anonymized text and a post-cutoff outcome), its full-sample analog is insignificant
+(Table~\ref{tab:main}, $-0.076$, $t=-1.03$), and it therefore reads as matched-subsample noise
+or genuine reading rather than as contamination. The pre-cutoff raw-text slope is, if
+anything, positive ($+0.062$, $t=0.89$). Balancing the windows on observable composition does
+not uncover the contamination signature; the null is not an artifact of who is in each window.
+
+\section{Design-Based Inference and Statistical Power}\label{sec:inference}
+\paragraph{Randomization inference.} The parametric tests above rely on clustered-SE
+asymptotics with a moderate number of filings. We complement them with a design-based test
+built around the manipulation that is actually randomizable here: \emph{which} of a filing's
+two scores we label ``raw.'' Under H1---the model reads risk and firm identity is irrelevant
+to the score's information---the raw and anonymized scores are exchangeable within a filing,
+so swapping the label at random (independently, with probability one-half per filing) leaves
+the joint distribution of the data unchanged and generates an exact null distribution for the
+placebo statistics. We perform 2{,}000 such within-filing swaps and, on each, recompute the
+triple interaction $z\times\text{Raw}\times\text{Post}$ and the within-pre extra-raw slope
+$z\times\text{Raw}$. Table~\ref{tab:ri} and Figure~\ref{fig:randinf} report the result. The
+actual triple interaction ($+0.0297$) sits near the center of its permutation distribution
+(95\% permutation interval $[-0.152,+0.147]$), giving a design-based $p$-value of $0.76$; the
+within-pre extra-raw slope ($+0.0169$) likewise sits centrally ($p=0.71$). The null does not
+depend on the parametric error structure: under random relabeling, statistics at least as
+extreme as the ones we observe arise about three-quarters of the time.
+
+\paragraph{Is the null informative?} A null is only interesting if the design could have
+detected a real contamination effect. Table~\ref{tab:power} reports, for each key placebo
+slope, the minimum detectable effect (MDE) at 80\% power,
+$\text{MDE}=(z_{0.975}+z_{0.80})\,\widehat{\text{SE}}\approx 2.80\,\widehat{\text{SE}}$,
+expressed both in annual return points and as a share of the 12-month BHAR cross-sectional
+standard deviation. At this sample size the design can resolve a raw-versus-anon predictive
+gap that shifts across the cutoff by about 22.5 return points per one-SD score move (the
+triple-interaction MDE), or roughly 37\% of the cross-firm dispersion in annual BHAR; the
+individual pre-cutoff raw and anon slopes have MDEs near 12--14 return points, or about
+20--23\% of that dispersion. These are honest bounds: they say the test would have caught a
+\emph{large} look-ahead effect---one that reorders the raw-versus-anon gap by a fifth to a
+third of return dispersion---but that contamination smaller than that is beyond the resolution
+of a 209-filing sample. This is the sense in which the null is informative rather than empty,
+and it is also why scaling the scored sample (the intended next step) is valuable: it would
+shrink these MDEs and sharpen the bound.
+
+\section{Robustness: Alternative Outcome Horizons}\label{sec:rob}
+Table~\ref{tab:robust} re-estimates the pre-cutoff raw-versus-anon comparison for alternative
+outcomes---6- and 3-month BHAR, raw (non-market-adjusted) 12-month returns, and unwinsorized
+12-month BHAR. No horizon produces a robust raw-over-anon predictive gap, reinforcing the
+null. Three caveats bound the reading of these results. First, the scored sample is small
+(209 filings, 106 pre- and 103 post-cutoff) because the shared LLM gateway is rate-limited;
+the design, not the power, is the contribution, and the hand-built gold standard
+(Section~\ref{sec:data}) is the intended scale-up. Second, the automated anonymizer removes
+explicit identifiers but not paraphrased self-descriptions or brand names, so the anonymized
+text may still be identifiable to the model---biasing the placebo \emph{toward} finding no
+difference. Third, risk-factor text is truncated to a fixed length for comparability, which is
+applied identically to raw and anonymized inputs.
+
+\section{Conclusion}\label{sec:concl}
+In this sample we do not detect look-ahead contamination: the Llama-4-Scout risk score
+predicts returns no better with firm identity than without, and no better for filings the
+model could have memorized. The main placebo, the triple-interaction test, an
+observable-subgroup heterogeneity analysis, a composition-matched placebo, a
+randomization-inference test built on the raw/anon relabeling, and a minimum-detectable-effect
+calculation all point the same way. The honest reading is a null---but a useful one, because
+it is produced by a battery of tests that \emph{could} have found contamination and did not,
+and because the power analysis states the size of effect the design could and could not have
+caught. The broader point is methodological: any study that scores pre-cutoff disclosures with
+a modern LLM and reports return predictability should run this raw-versus-anonymized,
+pre-versus-post placebo---and, ideally, its design-based companions---before claiming a
+forecast.
+
+The natural next step, left to the hand-collection phase, is to replace the automated redactor
+with a human gold standard that also masks brands, products, and paraphrased
+self-identifiers, and to \emph{measure} the residual leakage with a blind human
+identification test, then re-run the placebo on that cleaner text. That reserved
+contribution---not another design-based check on the automated floor---is what would turn this
+memorization test into a razor-sharp look-ahead placebo. An initial gpt-4o pilot ($N=10$,
+clean October-2023 cutoff) hinted at contamination, but that does not survive scaling to
+$N=209$ on Llama-4-Scout. Because Llama-4-Scout's training cutoff (roughly mid-2024) only
+approximately post-dates the 2024 filings, the post-window is a weaker control here than in
+the pilot---so the null is best read as a memorization test (does firm identity change
+predictive power?) rather than a razor-sharp look-ahead placebo. Limitations include the
+scored sample of 209 filings, the single model, the approximate cutoff, and the truncation of
+long risk-factor sections.
+
+\begin{thebibliography}{99}
+\bibitem[Abadie(2020)]{abadie2020} Abadie, A., 2020. Statistical nonsignificance in empirical
+economics. American Economic Review: Insights 2, 193--208.
+\bibitem[Campbell et al.(2014)]{campbell2014} Campbell, J.L., Chen, H., Dhaliwal, D.S.,
+Lu, H., Steele, L.B., 2014. The information content of mandatory risk factor disclosures in
+corporate filings. Review of Accounting Studies 19, 396--455.
+\bibitem[Carlini et al.(2021)]{carlini2021} Carlini, N., Tramèr, F., Wallace, E., et al.,
+2021. Extracting training data from large language models. In: 30th USENIX Security
+Symposium, 2633--2650.
+\bibitem[Cohen et al.(2020)]{cohen2020} Cohen, L., Malloy, C., Nguyen, Q., 2020.
+Lazy prices. Journal of Finance 75, 1371--1415.
+\bibitem[Fama and French(1993)]{fama1993} Fama, E.F., French, K.R., 1993. Common risk factors
+in the returns on stocks and bonds. Journal of Financial Economics 33, 3--56.
+\bibitem[Glasserman and Lin(2023)]{glasserman2023} Glasserman, P., Lin, C., 2023.
+Assessing look-ahead bias in stock return predictions generated by GPT sentiment analysis.
+Working paper, Columbia University (arXiv:2309.17322).
+\bibitem[Hansen and Kazinnik(2023)]{hansen2023} Hansen, A.L., Kazinnik, S., 2023.
+Can ChatGPT decipher Fedspeak? Working paper.
+\bibitem[Jha et al.(2024)]{jha2024} Jha, M., Qian, J., Weber, M., Yang, B., 2024.
+ChatGPT and corporate policies. NBER Working Paper 32161.
+\bibitem[Ke et al.(2019)]{kelly2019} Ke, Z.T., Kelly, B.T., Xiu, D., 2019. Predicting returns
+with text data. NBER Working Paper 26186.
+\bibitem[Kim et al.(2024)]{kim2024} Kim, A., Muhn, M., Nikolaev, V., 2024. Bloated
+disclosures: can ChatGPT help investors process information? Working paper, University of
+Chicago.
+\bibitem[Kravet and Muslu(2013)]{kravet2013} Kravet, T., Muslu, V., 2013. Textual risk
+disclosures and investors' risk perceptions. Review of Accounting Studies 18, 1088--1122.
+\bibitem[Loughran and McDonald(2011)]{loughran2011} Loughran, T., McDonald, B., 2011.
+When is a liability not a liability? Textual analysis, dictionaries, and 10-Ks. Journal of
+Finance 66, 35--65.
+\bibitem[López-Lira and Tang(2023)]{lopezlira2023} López-Lira, A., Tang, Y., 2023.
+Can ChatGPT forecast stock price movements? Return predictability and large language models.
+Working paper, University of Florida (arXiv:2304.07619).
+\bibitem[Magar and Schwartz(2022)]{magar2022} Magar, I., Schwartz, R., 2022. Data
+contamination: from memorization to exploitation. In: Proceedings of ACL 2022, 157--165.
+\bibitem[Sainz et al.(2023)]{sainz2023} Sainz, O., Campos, J.A., García-Ferrero, I.,
+Etxaniz, J., de Lacalle, O.L., Agirre, E., 2023. NLP evaluation in trouble: on the need to
+measure LLM data contamination for each benchmark. In: Findings of EMNLP 2023.
+\bibitem[Sarkar(2024)]{sarkar2024} Sarkar, S.K., 2024. Look-ahead bias in large language
+models: evidence and correction. Working paper.
+\bibitem[Tetlock(2007)]{tetlock2007} Tetlock, P.C., 2007. Giving content to investor
+sentiment: the role of media in the stock market. Journal of Finance 62, 1139--1168.
+\bibitem[Young(2019)]{young2019} Young, A., 2019. Channeling Fisher: Randomization tests and
+the statistical insignificance of seemingly significant experimental results. Quarterly
+Journal of Economics 134, 557--598.
+\end{thebibliography}
+
+\FloatBarrier
+\newpage
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Summary statistics}\label{tab:sumstats}\small
+\input{tables/tab_sumstats.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Scored sample of 10-K risk-factor sections.
+Scores are Llama-4-Scout downside-risk ratings (0--100) on raw and anonymized text; BHAR is
+the market-adjusted buy-and-hold return over the stated horizon after the filing.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Do raw and anonymized scores agree?}\label{tab:agree}\small
+\input{tables/tab_agreement.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Correlation of raw and anonymized scores and
+the mean score gap (raw$-$anon), by cutoff window. $t$(gap) tests whether the mean gap
+differs from zero.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Main placebo: return predictability of the LLM score, raw vs. anonymized,
+pre- vs. post-cutoff}\label{tab:main}\small
+\input{tables/tab_main.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DV is the winsorized 12-month BHAR. The
+regressor is the standardized Llama-4-Scout risk score (raw or anonymized). Slopes are the
+change in 12-month BHAR per one-SD increase in the score; negative means a higher risk score
+predicts lower returns. HC1-robust $t$-statistics in parentheses.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Stacked triple-interaction test}\label{tab:interaction}\small
+\input{tables/tab_interaction.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Each filing contributes two rows (raw and
+anonymized). DV is the winsorized 12-month BHAR; \emph{Raw}$=1$ for the raw row,
+\emph{Post}$=1$ for post-cutoff filings. The coefficient on $z\times$Raw$\times$Post is the
+placebo's key statistic: how the raw-versus-anon predictive gap changes across the training
+cutoff. Standard errors clustered by filing. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Within-window raw-versus-anon slope gap}\label{tab:within}\small
+\input{tables/tab_within.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Stacked regression $\text{BHAR}\sim z\times
+\text{Raw}$ estimated separately within each window. \emph{Anon slope} is the slope on the
+anonymized score; \emph{Extra RAW slope} is the additional slope for raw text. Clustered by
+filing. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Does the raw$-$anon score gap predict returns?}\label{tab:gap}\small
+\input{tables/tab_gap.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DV is the winsorized 12-month BHAR; the
+regressor is the standardized score gap (raw$-$anon). HC1-robust $t$-statistics.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Heterogeneity of the raw-versus-anon gap by observable moderators (pre-cutoff)}
+\label{tab:hetero}\small
+\input{tables/tab_hetero.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Pre-cutoff window ($N=106$). For each
+observable moderator $M$, \emph{Extra-RAW slope} columns report the additional predictive
+slope carried by raw over anonymized text ($z\times$Raw) for the $M$-low group and its
+interaction with $M$ (from a stacked regression clustered by filing); \emph{Score-gap slope}
+columns report the slope of the standardized raw$-$anon score gap for the $M$-low group and
+its interaction with $M$. Moderators are observable filing characteristics: above-median
+automated-redaction count; model risk score above its modal baseline; and whether the firm's
+name appears in the raw text. Look-ahead predicts a negative extra-RAW slope that strengthens
+for high-$M$ filings; no such pattern appears. Provision-level identifiability of the
+anonymized text is \emph{not} used here---that human leakage measurement is the reserved
+hand-collection task. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Composition-matched placebo (pre- and post-cutoff windows balanced on observables)}
+\label{tab:matched}\small
+\input{tables/tab_matched.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Each post-cutoff filing is nearest-neighbor
+matched without replacement to a pre-cutoff filing on the standardized raw score and the
+standardized automated-redaction count, within a 0.5-SD caliper on the score (90 pairs, 180
+filings). Matching collapses the pre-versus-post score-level gap from $+0.196$ to $-0.027$ SD.
+Rows (1)--(4) re-estimate the four cross-sectional cells on the matched sample; the last row
+is the stacked triple interaction $z\times$Raw$\times$Post (clustered by filing). HC1-robust
+$t$-statistics for the cells. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Randomization inference (2{,}000 within-filing raw/anon label swaps)}
+\label{tab:ri}\small
+\input{tables/tab_ri.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Under H1 the raw and anonymized scores are
+exchangeable within a filing, so the raw/anon label is randomly swapped (probability
+one-half, independently per filing) 2{,}000 times to build a design-based null. ``Perm.\ 95\%
+interval'' is the 2.5--97.5 percentile of the permutation distribution; the RI $p$-value is
+the share of permutations with $|\text{statistic}|\geq|\text{actual}|$. Both placebo
+statistics sit near the center of their permutation distributions. See
+Figure~\ref{fig:randinf}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Minimum detectable effects at 80\% power}\label{tab:power}\small
+\input{tables/tab_power.tex}
+\begin{tablenotes}\small\item \textit{Notes:} MDE(80\%) $=(z_{0.975}+z_{0.80})\times$SE
+$\approx 2.80\times$SE of the corresponding estimate. ``MDE (pp)'' expresses the minimum
+detectable slope in annual return points (per one-SD score move); ``\% of BHAR SD'' scales it
+by the 12-month BHAR cross-sectional standard deviation. A contamination effect at least this
+large would have been detected at 80\% power; smaller effects are beyond the resolution of the
+209-filing sample.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Robustness: alternative outcome horizons (pre-cutoff)}\label{tab:robust}\small
+\input{tables/tab_robust.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Pre-cutoff sample. Each row is a different
+dependent variable; columns report the raw-score and anonymized-score slopes with HC1
+$t$-statistics. ``(w)'' denotes winsorized 1/99. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\FloatBarrier
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.72\textwidth]{fig1_score_agreement.pdf}
+\caption{Llama-4-Scout downside-risk scores on raw versus anonymized 10-K text, by cutoff
+window. Points on the 45$^\circ$ line indicate the model gave the same score with and without
+firm identity.}\label{fig:agree}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.82\textwidth]{fig2_predictability_slopes.pdf}
+\caption{Return-predictive slope (12-month BHAR per one-SD risk score) in each
+cell: raw vs.\ anonymized $\times$ pre- vs.\ post-cutoff. Whiskers are 95\% confidence
+intervals. Under look-ahead contamination the raw/pre bar is the most negative and the
+post-cutoff bars are near zero.}\label{fig:slopes}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.92\textwidth]{fig3_pre_scatter.pdf}
+\caption{Pre-cutoff filings: 12-month BHAR against the raw-text score (left) and the
+anonymized-text score (right), with fitted lines.}\label{fig:scatter}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.72\textwidth]{fig4_randinf.pdf}
+\caption{Randomization inference for the triple interaction $z\times$Raw$\times$Post.
+Histogram: the distribution of the triple-interaction coefficient under 2{,}000 random
+within-filing swaps of the raw/anon label. The actual estimate (red line) lies near the
+center of the distribution (RI $p=0.76$), so the raw-versus-anon predictive gap does not
+change across the training cutoff by more than random relabeling would
+produce.}\label{fig:randinf}
+\end{figure}
+
+\end{document}

@@ -1,0 +1,666 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}\doublespacing
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\graphicspath{{../output/figures/}}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{placeins}
+
+\title{\textbf{Do Anomalies Die When They Are Published?\\
+Out-of-Sample and Post-Publication Decay in 212 Cross-Sectional Predictors}}
+\author{Christopher Abhi Dadoo \and Lei Gao\thanks{Dadoo: ASSIP 2026, George Mason
+University. Gao (corresponding author): Costello College of Business, George Mason University,
+\texttt{lgao9@gmu.edu}. This is a student--faculty working paper prepared in the ASSIP 2026
+Empirical Finance research group. All returns and metadata are from the public Open Source
+Asset Pricing dataset \citep{chenzimmermann2022}; every number in the paper traces to a CSV in
+\texttt{output/tables/} and is reproduced by the code in \texttt{code/}. No number is
+hand-entered or simulated. We thank the ASSIP 2026 cohort for comments. Any errors are our
+own.}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent \citet{mcleanpontiff2016} show that published stock-return anomalies weaken after
+the academic articles that document them appear. We revisit their question with the full
+Open Source Asset Pricing library---monthly long-short returns for \textbf{212} published
+predictors, \textbf{173{,}302} anomaly-months over 1926--2024---and classify each
+anomaly-month as in-sample, post-sample (out of sample but before publication), or
+post-publication using each study's original sample-end year and journal-publication year.
+The average anomaly earns \textbf{0.61\%} per month in sample; this falls to 0.42\% out of
+sample and to \textbf{0.30\%} after publication---a within-anomaly decline of
+\textbf{$-$51\%} (paired $t=-7.6$). In a pooled panel with anomaly fixed effects the
+post-publication return is $0.27$ points per month lower ($t=-7.9$), and the effect survives
+anomaly-plus-calendar-month fixed effects ($-0.24$, $t=-3.2$). The decay is thus large and
+robust. Four extensions sharpen the interpretation without overclaiming. First, the decay is
+strongly \emph{heterogeneous} in observable strength: anomalies with above-median in-sample
+returns lose an extra $-0.28$ points ($t=-4.3$) beyond the baseline, exactly the
+cross-sectional pattern \citet{mcleanpontiff2016} predict (though partly regression to the
+mean). Second, because every anomaly is eventually ``treated,'' we build a \emph{not-yet-published-control}
+stacked difference-in-differences: it gives a clear $-0.37$ ($t=-5.2$) with cohort-anomaly
+fixed effects but only $-0.05$ ($t=-0.6$) once cohort$\times$calendar-year effects absorb the
+common trend---so the drop is largely an out-of-sample phenomenon, not a discrete publication
+kink. Third, \emph{randomization inference} that permutes each anomaly's publication date
+within its own out-of-sample life shows the true date is not special for the level decay (RI
+$p=0.31$) and only marginally so for the incremental effect ($p=0.08$). Fourth, a
+\emph{minimum-detectable-effect} analysis shows the null on the risk-versus-mispricing split is
+informative only for large differences ($\ge$39\% of the in-sample mean), which is exactly why
+the pivotal hand-collection task---reading each original article's stated economic framing---is
+left to the student.\\[4pt]
+\noindent\textbf{JEL:} G12, G14, G11. \quad
+\textbf{Keywords:} anomalies, market efficiency, return predictability, publication, limits to
+arbitrage, randomization inference, stacked difference-in-differences.
+\end{abstract}
+
+\newpage
+\section{Introduction}
+A central tension in empirical asset pricing is whether documented cross-sectional return
+predictors reflect \emph{risk} or \emph{mispricing}. \citet{mcleanpontiff2016} sharpen the
+question by asking what happens to an anomaly's long-short return \emph{after} the academic
+paper documenting it is published. If a predictor is compensation for risk, publicizing it
+should not change its return; if it is mispricing, sophisticated investors who read the paper
+should trade against it and shrink it. They find that anomaly returns are 26\% lower out of
+sample and 58\% lower post-publication, evidence that academic research itself erodes
+predictability. This paper re-examines that finding on the largest openly available anomaly
+library and asks two questions: (i) how large is the out-of-sample and post-publication decay
+when measured on 212 predictors through 2024, and (ii) is the decay concentrated in
+mispricing-framed anomalies, as the arbitrage story predicts?
+
+We use the Open Source Asset Pricing dataset of \citet{chenzimmermann2022}, which provides
+monthly long-short returns for 212 published predictors together with a metadata file
+recording each predictor's original authors, journal, publication year, and sample window.
+We form a panel of 173{,}302 anomaly-months (1926--2024) and label each observation
+\emph{in-sample} (calendar year $\le$ the study's sample-end year), \emph{post-sample} (after
+the sample ends but before publication), or \emph{post-publication} (publication year and
+after), exactly the three regimes of \citet{mcleanpontiff2016}.
+
+Our first result confirms and updates theirs. The equal-weighted average anomaly earns
+\textbf{0.61\%} per month in sample, \textbf{0.42\%} post-sample, and \textbf{0.30\%}
+post-publication: a $-32\%$ out-of-sample decline and a $-51\%$ post-publication decline
+(paired within-anomaly $t=-7.6$; Table~\ref{tab:regime}). In a pooled panel the
+post-publication indicator carries a coefficient of $-0.24$ to $-0.27$ points per month with
+$t$-statistics from $-6.4$ (no fixed effects) to $-7.9$ (anomaly fixed effects), and it
+remains $-0.24$ ($t=-3.2$) with both anomaly and calendar-month fixed effects
+(Table~\ref{tab:panel}). Figure~\ref{fig:evt} plots the level in event-time: it sits near
+100\% of the in-sample mean until the publication year and then falls to roughly 55--60\%,
+where it stays.
+
+Our second and third results are honest qualifications that a naive reading would miss.
+\emph{First}, the decline is best described as an \emph{out-of-sample} effect rather than a
+sharp publication event. Following \citet{mcleanpontiff2016}, we decompose the decline into an
+``out-of-sample'' component (present as soon as the original sample ends) and an
+``extra-at-publication'' component. With anomaly fixed effects the extra publication effect is
+economically and statistically meaningful ($-0.13$, $t=-2.2$). But once we add calendar-year
+(or -month) fixed effects, the post-sample and post-publication coefficients become
+\emph{identical} ($-0.245$ each) and the incremental publication effect collapses to zero
+(Table~\ref{tab:panel}). Because anomalies were published in a small number of overlapping
+decades, the discrete ``publication kink'' is hard to separate from the general downward drift
+in anomaly profits over calendar time \citep{chordia2014,mcleanpontiff2016}. We report this
+transparently rather than claim a clean event.
+
+\emph{Second}, the arbitrage story predicts that \emph{mispricing}-framed anomalies should
+decay more than \emph{risk}-framed ones. We cannot confirm this with the metadata alone. Using
+the Open Source Asset Pricing economic-category field to proxy for framing, the
+post-publication decay is statistically indistinguishable between the two groups: the
+risk$\times$post-publication interaction is $-0.03$ ($t=-0.4$) when liquidity anomalies are
+counted as risk-based and $+0.10$ ($t=1.0$) when they are not (Table~\ref{tab:hetero};
+Figure~\ref{fig:frame}). The sign of the difference is not even stable across a reasonable
+definitional choice. The reason is instructive: the category field is a coarse taxonomy of
+\emph{mechanism}, not of the \emph{authors' stated economic interpretation}. Book-to-market,
+for instance, is coded ``valuation'' here yet is framed as compensation for risk by
+\citet{famafrench1996}. Separating a risk framing from a mispricing framing therefore requires
+reading each original article---the hand-collection task at the heart of the student's
+contribution to this project.
+
+\textbf{Four extensions push the paper past a bare replication.} First, we show that the decay
+is strongly heterogeneous in \emph{observable} anomaly strength: predictors whose in-sample
+long-short return is above the cross-sectional median lose an additional $-0.28$ points per
+month at publication ($t=-4.3$) on top of a baseline $-0.13$, and stronger in-sample
+$t$-statistics carry an extra $-0.16$ ($t=-2.4$) (Section~\ref{sec:het},
+Table~\ref{tab:hetero-ext}). This is precisely the cross-sectional prediction of
+\citet{mcleanpontiff2016}---high-return anomalies attract more arbitrage---though we are careful
+to note that selecting on high in-sample returns mechanically induces some reversion
+\citep{harveyliuzhu2016}. Second, because \emph{every} anomaly is eventually published, a
+conventional two-way fixed-effects panel implicitly uses already-published anomalies as
+controls, the ``bad comparison'' problem of staggered adoption
+\citep{goodmanbacon2021,callaway2021}. We therefore estimate a \emph{not-yet-published-control}
+stacked difference-in-differences \citep{cengiz2019}: each publication cohort is compared only
+to anomalies not yet published within the event window. The stacked estimate is $-0.37$
+($t=-5.2$) with cohort-anomaly fixed effects but attenuates to a statistically insignificant
+$-0.05$ ($t=-0.6$) once cohort$\times$calendar-year fixed effects absorb the common decline
+(Section~\ref{sec:stacked}, Table~\ref{tab:stacked}), corroborating our reading that the drop is
+predominantly out-of-sample rather than a distinct publication event. Third, we run
+\emph{randomization inference} \citep{young2019} that permutes each anomaly's publication date
+to a random point within its own out-of-sample life; the true date is not special for the level
+decay (RI $p=0.31$) and only marginally so for the incremental effect ($p=0.08$)
+(Section~\ref{sec:ri}, Table~\ref{tab:ri}, Figure~\ref{fig:ri}). Fourth, we treat the H2/H3
+nulls quantitatively, reporting minimum detectable effects: at 80\% power the design could
+detect an incremental publication effect of 27\% of the in-sample mean and a
+risk-versus-mispricing gap of 39\%, so the framing null rules out only large differences
+(Section~\ref{sec:power}, Table~\ref{tab:power}). That bound is exactly why the student's
+hand-coded framing is the decisive next step.
+
+We contribute to three literatures. We update the publication-decay evidence of
+\citet{mcleanpontiff2016} and \citet{jacobsmuller2020} to a larger, openly reproducible
+anomaly set running through 2024, and we show that the headline decay is robust while its
+\emph{causal attribution to publication per se} is more fragile than commonly assumed once
+one confronts the staggered-timing problem directly. We add to work documenting the general
+attenuation of anomalies \citep{chordia2014,greenhandzhang2017} and the statistical fragility
+of the anomaly zoo \citep{harveyliuzhu2016,houxuezhang2020}, and to the recent econometrics of
+difference-in-differences under variation in treatment timing
+\citep{goodmanbacon2021,callaway2021,cengiz2019}. And we speak to the risk-versus-mispricing
+debate \citep{cochrane2011,shleifervishny1997} by showing that testing it demands the
+human-coded framing that motivates the manual work in Section~\ref{sec:tasks}.
+Section~\ref{sec:hyp} develops hypotheses, Section~\ref{sec:lit} places the paper in the
+literature, Section~\ref{sec:data} describes the data and research design, Section~\ref{sec:res}
+presents the main results, Section~\ref{sec:het} the heterogeneity, Section~\ref{sec:stacked}
+the not-yet-published-control design, Section~\ref{sec:ri} randomization inference,
+Section~\ref{sec:power} the power analysis, Section~\ref{sec:rob} robustness, and
+Section~\ref{sec:tasks} concludes.
+
+\section{Hypotheses}\label{sec:hyp}
+\citet{mcleanpontiff2016} formalize three views. Under \emph{data mining}, an in-sample
+anomaly is a statistical fluke and should disappear as soon as one leaves the original sample,
+publication or not. Under \emph{risk-based} pricing, the long-short return is compensation for
+a systematic factor and should persist even after the pattern is publicized. Under
+\emph{mispricing corrected by arbitrage}, the return persists out of sample until the paper
+alerts investors, who then trade it away, so the decline should be concentrated \emph{at and
+after publication}. These map to testable predictions.
+
+\begin{quote}
+\textbf{H1 (Publication decay).} Anomaly long-short returns are lower post-publication than
+in-sample, and lower still than in the post-sample-pre-publication window.
+\end{quote}
+\begin{quote}
+\textbf{H2 (Incremental publication effect).} Beyond any general out-of-sample decline, there
+is an \emph{additional} drop that begins specifically at publication (the arbitrage
+prediction, distinct from pure data-mining).
+\end{quote}
+\begin{quote}
+\textbf{H3 (Framing heterogeneity).} The decay is larger for mispricing-framed anomalies than
+for risk-framed anomalies, because only mispricing is arbitraged away.
+\end{quote}
+H1 is a level prediction; H2 is the sharper causal claim that isolates publication from mere
+out-of-sample decay; H3 is the cross-sectional test that would adjudicate risk versus
+mispricing. We find strong support for H1, fragile support for H2, and no reliable support for
+H3 \emph{with the metadata proxy}---a null that we argue reflects the crudeness of the proxy,
+not the absence of an effect. A fourth, \emph{observable} cross-sectional prediction lets us
+probe the arbitrage mechanism without the reserved framing variable:
+\begin{quote}
+\textbf{H4 (Strength heterogeneity).} If arbitrage drives the decay, anomalies that were
+\emph{stronger in sample}---higher long-short returns, larger $t$-statistics, more prominent
+outlets---should decay more, because they are more attractive to trade.
+\end{quote}
+H4 is testable from observable metadata alone and is the subject of Section~\ref{sec:het}.
+
+\section{Related Literature}\label{sec:lit}
+This paper connects three strands. The first is the economics of anomaly decay after
+publication. \citet{mcleanpontiff2016} is the touchstone: studying 97 predictors, they find
+returns fall 26\% out of sample and a further amount at publication, and interpret the extra
+drop as evidence that arbitrageurs read academic research and trade against mispricing.
+\citet{jacobsmuller2020} extend the question internationally and find that the post-publication
+decline is concentrated in the United States, where arbitrage capital is deepest.
+\citet{chordia2014} and \citet{greenhandzhang2017} document a broader secular attenuation of
+anomalies as liquidity and trading activity have risen. Our contribution to this strand is
+scale and openness---212 predictors through 2024 from a fully reproducible library---and a
+direct confrontation with the identification problem that publication dates cluster in calendar
+time, so that ``out-of-sample'' and ``at-publication'' declines are hard to separate.
+
+The second strand is the statistical fragility of the ``anomaly zoo.'' \citet{harveyliuzhu2016}
+argue that conventional $t$-thresholds are far too lax given the number of predictors tested and
+propose multiple-testing corrections; \citet{houxuezhang2020} show that a large share of
+published anomalies fail to replicate under common protocols. This literature matters for our
+heterogeneity result: because we sort on \emph{in-sample} strength, part of any extra decay for
+high-return anomalies is mechanical reversion (a strong in-sample draw is partly luck that does
+not repeat), and we flag this explicitly rather than read the cross-sectional pattern as pure
+arbitrage.
+
+The third strand is the econometrics of difference-in-differences and design-based inference,
+which we import into the anomaly-decay setting. When treatment timing is staggered---as
+publication is---two-way fixed-effects estimators can place negative weight on some
+comparisons and use already-treated units as controls
+\citep{goodmanbacon2021,callaway2021}. \citet{cengiz2019} propose a ``stacked'' design that
+compares each treatment cohort only to not-yet-treated units; we adapt it to anomalies in
+Section~\ref{sec:stacked}. For inference with clustered, serially correlated panels and a
+modest number of natural experiments, \citet{young2019} advocates randomization tests, which we
+use in Section~\ref{sec:ri}. Finally, methodologists urge that a statistically insignificant
+estimate be interpreted through its power and confidence interval rather than treated as proof
+of no effect \citep{abadie2020,ioannidis2017}; Section~\ref{sec:power} follows that guidance
+literally, reporting minimum detectable effects for the H2 and H3 nulls.
+
+\section{Data and Research Design}\label{sec:data}
+\paragraph{Source.} We use the Open Source Asset Pricing library
+\citep{chenzimmermann2022}, downloaded directly from the project's public repository. Two files
+enter the analysis. \texttt{PredictorLSretWide.csv} gives the monthly long-short return (in
+percent, signed so that the in-sample mean is positive) of each predictor's decile (or
+otherwise sorted) portfolio. \texttt{SignalDoc.csv} gives, for each predictor, the original
+study's authors, journal, publication \texttt{Year}, \texttt{SampleStartYear},
+\texttt{SampleEndYear}, an economic-category field (\texttt{Cat.Economic}), and the study's
+reported in-sample long-short return and $t$-statistic.
+
+\paragraph{Sample construction.} We keep the 212 entries flagged as \texttt{Predictor}
+(dropping placebos and withdrawn signals), all of which have a publication year and a
+sample-end year, and reshape the returns to a long anomaly-month panel. The merged panel has
+\textbf{173{,}302} non-missing anomaly-months across \textbf{212} anomalies, with a median of
+858 monthly observations per anomaly and calendar coverage 1926--2024. For every anomaly-month
+we assign a regime from the study's own sample-end year ($\tau^{end}_i$) and publication year
+($\tau^{pub}_i$), with $\tau^{pub}_i \ge \tau^{end}_i$ for all 212 anomalies:
+\[
+\text{in-sample: } y_t \le \tau^{end}_i, \quad
+\text{post-sample: } \tau^{end}_i < y_t < \tau^{pub}_i, \quad
+\text{post-pub: } y_t \ge \tau^{pub}_i .
+\]
+Table~\ref{tab:sumstats} reports the resulting split: 111{,}352 in-sample, 9{,}042
+post-sample, and 52{,}908 post-publication anomaly-months.
+
+\paragraph{Baseline specification.} For anomaly $i$ in month $t$ we estimate
+\begin{equation}
+r_{it} = b_1\,\text{PostSample}_{it} + b_2\,\text{PostPub}_{it} + \alpha_i + \delta_t + \varepsilon_{it},
+\label{eq:main}
+\end{equation}
+where the regime dummies are mutually exclusive (base $=$ in-sample), $\alpha_i$ and $\delta_t$
+are anomaly and calendar-time fixed effects, and standard errors are clustered by anomaly (and
+two-way by anomaly and month in the demanding specifications). We separately estimate the nested
+\citet{mcleanpontiff2016} decomposition $r_{it}=g_1\,\text{OOS}_{it}+g_2\,\text{Pub}_{it}
++\alpha_i+\delta_t+\varepsilon_{it}$, where $\text{OOS}=\mathbf{1}[y_t>\tau^{end}_i]$ and
+$\text{Pub}=\mathbf{1}[y_t\ge\tau^{pub}_i]$, so $g_2$ is the \emph{extra} decline attributable
+to publication itself.
+
+\paragraph{Risk-versus-mispricing proxy.} The Open Source Asset Pricing category field is a
+taxonomy of mechanism (e.g.\ ``momentum,'' ``accruals,'' ``valuation,'' ``liquidity,''
+``volatility''). To proxy for the risk-versus-mispricing framing that H3 requires, we label an
+anomaly \emph{risk-framed} if its category is one of an explicitly risk-based set
+$\{$risk, market risk, cash flow risk, default risk, option risk, volatility, liquidity$\}$,
+and \emph{mispricing-framed} otherwise. This yields 27 risk-framed and 185 mispricing-framed
+anomalies (18 versus 194 if liquidity is excluded). We stress that this is a \emph{crude}
+stand-in for the authors' stated economic story---many predictors admit both readings---and
+Section~\ref{sec:tasks} assigns the careful hand-coding to the student.
+
+\paragraph{Four design-based extensions.} Beyond equation~\eqref{eq:main} we add four analyses
+that use \emph{observable metadata only} and never the reserved framing variable. (1)
+\emph{Heterogeneity} interacts the regime dummies with observable pre-set moderators (in-sample
+return, in-sample $t$-statistic, journal prominence, publication era) to test H4. (2) A
+\emph{not-yet-published-control stacked DiD} compares each publication cohort only to anomalies
+not yet published within the window, purging the staggered-timing bias. (3)
+\emph{Randomization inference} permutes each anomaly's publication date within its own
+out-of-sample life to ask whether the true date is special. (4) A \emph{minimum-detectable-effect}
+calculation converts the H2 and H3 nulls into quantitative bounds. Together these move the paper
+from ``we replicate McLean--Pontiff'' to a set of falsifiable, design-based statements about
+\emph{when} and \emph{for which} anomalies the decay occurs.
+
+\section{Main Results}\label{sec:res}
+\paragraph{Level decay (H1).} Table~\ref{tab:regime} reports mean long-short returns by regime.
+Equal-weighting across anomalies, the average predictor earns \textbf{0.614\%} per month in
+sample ($t=20.1$), \textbf{0.417\%} post-sample ($t=6.8$), and \textbf{0.303\%}
+post-publication ($t=6.9$)---67.9\% and 49.3\% of the in-sample mean, respectively. The paired
+within-anomaly declines are $-0.197$ points post-sample ($-32.1\%$, $t=-3.1$) and $-0.312$
+points post-publication ($-50.7\%$, $t=-7.6$). These magnitudes closely track the 26\% and
+58\% of \citet{mcleanpontiff2016}, confirming H1 on an independent, larger, more recent sample.
+
+\paragraph{Panel estimates and the publication ``kink'' (H2).} Table~\ref{tab:panel} regresses
+the monthly return on post-sample and post-publication indicators (columns report
+$b_1$ and $b_2$, both relative to in-sample), and separately estimates the nested
+\citet{mcleanpontiff2016} decomposition into an out-of-sample dummy and an extra-at-publication
+dummy ($g_2$). With no fixed effects the post-publication coefficient is $-0.244$ ($t=-6.4$);
+with anomaly fixed effects it is $-0.272$ ($t=-7.9$). Crucially, the \emph{incremental}
+publication effect $g_2$ is $-0.093$ ($t=-1.6$) without fixed effects and a significant
+$-0.127$ ($t=-2.2$) with anomaly fixed effects---consistent with H2. But adding calendar-year
+or calendar-month fixed effects makes the post-sample and post-publication coefficients
+\emph{identical} ($-0.245$ each, $t\approx-3.3$) and drives $g_2$ to zero. In other words, once
+we compare anomalies to each other \emph{within the same calendar period}, the return is lower
+whenever an anomaly is out of its original sample, but it does not drop \emph{further} at the
+moment of publication. Because publications cluster in a few decades, the discrete publication
+event is econometrically hard to separate from the secular decline in anomaly profits. We read
+this as strong support for H1 (out-of-sample decay) but only fragile, non-robust support for
+H2 (a distinct publication kink).
+
+\paragraph{Framing heterogeneity (H3).} Table~\ref{tab:hetero} interacts the post-publication
+indicator with the risk-framed proxy. Under the broad proxy the mispricing group decays by
+$-0.242$ ($t=-5.7$) and the risk$\times$post-publication interaction is $-0.034$ ($t=-0.4$),
+implying \emph{more} decay for risk anomalies---the opposite of H3, but statistically zero.
+Under the narrow proxy the interaction is $+0.096$ ($t=1.0$), implying less decay for risk
+anomalies, again insignificant. The sign is not robust to whether liquidity is treated as risk.
+Figure~\ref{fig:frame} shows both groups falling in near-parallel from in-sample to
+post-publication. We therefore find \emph{no reliable evidence} for H3 using the metadata
+proxy. This is exactly the boundary at which automated classification fails and human coding
+is required: a mechanism label is not an economic-interpretation label.
+
+\section{Heterogeneity in the Decay}\label{sec:het}
+If arbitrage rather than pure data-mining drives the decline, the anomalies that were
+\emph{stronger in sample} should decay more, because they are the most attractive targets for
+sophisticated capital (H4). Table~\ref{tab:hetero-ext} tests this with four \emph{observable}
+moderators fixed at the study level---above-median in-sample long-short return, above-median
+in-sample $t$-statistic, publication in a top-3 finance journal (\emph{JF/JFE/RFS}), and a
+modern-era indicator (published in 2006 or later)---by adding the interaction
+$\text{PostPub}\times\mathbf{1}[\text{high }M]$ to equation~\eqref{eq:main} with anomaly fixed
+effects. The pattern is sharp on the strength margins and matches the arbitrage prediction. For
+in-sample return, the low-strength group decays by $-0.132$ ($t=-4.0$) and the high-strength
+group decays by an \emph{additional} $-0.280$ ($t=-4.3$), for a total post-publication decline
+of $-0.41$ points per month---triple the baseline. In-sample $t$-statistic tells the same
+story: an extra $-0.160$ ($t=-2.4$) for statistically stronger anomalies. Journal prominence
+does not sharpen the decay (interaction $+0.049$, $t=0.8$)---prestige is not the operative
+margin---while modern-era anomalies decay marginally more ($-0.117$, $t=-1.8$), consistent with
+faster arbitrage in the recent, more liquid era \citep{chordia2014}.
+
+We are deliberately cautious about the interpretation. Sorting on \emph{in-sample} strength
+mechanically induces reversion: an anomaly with an unusually high in-sample return has, in part,
+drawn a lucky sample that will not repeat out of sample regardless of arbitrage
+\citep{harveyliuzhu2016,mcleanpontiff2016}. The strength result is therefore consistent with
+arbitrage but does not prove it, and we do not lean on it as a causal test. Its role is to show
+that the aggregate decay is not uniform noise---it concentrates precisely where both arbitrage
+and reversion predict---and to demonstrate that observable moderators, unlike the reserved
+risk-versus-mispricing framing, are available for this cross-sectional cut. The moderator that
+\emph{would} adjudicate risk versus mispricing is the authors' stated economic story, which we
+do not construct here; it is the student's Task~2.
+
+\section{A Not-Yet-Published-Control Design}\label{sec:stacked}
+The fragility of H2 in Table~\ref{tab:panel} could reflect a genuine absence of a publication
+kink, or an artifact of how two-way fixed effects handle staggered treatment. Because every
+anomaly is eventually published, the anomaly-plus-time specification identifies the
+post-publication coefficient partly by comparing newly published anomalies to \emph{already
+published} ones, a comparison that the staggered-DiD literature shows can be
+contaminated \citep{goodmanbacon2021,callaway2021}. To remove that contamination we adopt the
+stacked design of \citet{cengiz2019}, collapsing the data to anomaly-years. For each three-year
+publication cohort centered on year $Y_c$ we form a clean sub-experiment: the \emph{treated}
+units are anomalies published in $[Y_c-1,Y_c+1]$; the \emph{controls} are anomalies
+\emph{not yet published} anywhere in the $\pm 8$-year window (publication year $\ge Y_c+8$); the
+post indicator is $\mathbf{1}[y_t\ge Y_c]$; and the estimand is the coefficient on
+$\text{Post}\times\text{Treated}$. We stack the nine identified cohorts (19{,}433 anomaly-year
+observations) and estimate with cohort-anomaly fixed effects, clustering by anomaly.
+
+Table~\ref{tab:stacked} reports the result and it is instructive. With cohort-anomaly fixed
+effects and a common post indicator, the stacked post-publication effect is $-0.374$ points per
+month ($t=-5.2$): comparing newly published anomalies only to not-yet-published ones, published
+anomalies do earn substantially less. But once we add cohort$\times$calendar-year fixed
+effects---so that treated and control anomalies are compared \emph{within the same calendar
+year of the same sub-experiment}---the estimate attenuates to a statistically insignificant
+$-0.053$ ($t=-0.6$). The clean design thus delivers the same verdict as the two-way FE panel,
+now free of the bad-comparison critique: the raw published-versus-unpublished gap is large, but
+almost all of it is common calendar-time decline in anomaly profits rather than a treatment
+effect that switches on at each anomaly's own publication date. This is strong, design-based
+support for H1 and against a distinct H2 kink.
+
+\section{Randomization and Timing-Specificity Inference}\label{sec:ri}
+Our clustered standard errors rest on asymptotics with 212 anomaly clusters and serially
+correlated returns; \citet{young2019} shows such inference can overstate significance. More
+fundamentally, we want to know whether the decay is tied to the \emph{true} publication date or
+would appear at any later date in an anomaly's life. We therefore run a randomization /
+timing-specificity test: holding each anomaly's real sample-end fixed, we draw a \emph{fake}
+publication year uniformly from within that anomaly's own out-of-sample life
+(sample-end$+1$ through its last observed year), rebuild the post-publication (and nested
+publication) indicators, and re-estimate the anomaly-fixed-effects panel. Repeating this 500
+times traces the distribution of the decay coefficient under random within-life event dates,
+against which we compare the actual estimate.
+
+Table~\ref{tab:ri} and Figure~\ref{fig:ri} report the result, and the correct reading is
+subtle. Because anomaly returns drift downward over each predictor's life, a \emph{random} later
+date already produces a negative coefficient---the placebo mean level-decay is $-0.250$, almost
+identical to the actual $-0.259$. The true date is therefore \emph{not} special for the level of
+the decline (randomization $p=0.31$): H1 is a pervasive out-of-sample phenomenon, not something
+that switches on at the exact publication month. For the \emph{incremental} effect (the extra
+drop beyond general out-of-sample decay), the actual estimate $-0.127$ lies in the left tail of
+the placebo distribution (placebo mean $-0.077$), but only marginally so (randomization
+$p=0.08$). Randomization inference thus reaches the same conclusion as the stacked design
+through an entirely different route: the level decay is real and robust, while a distinct
+\emph{publication-timed} effect is at best weakly identified. This is the design-based version of
+our headline qualification, and we present it as such rather than forcing a tail reading.
+
+\section{Is the Null Informative? Power and Minimum Detectable Effects}\label{sec:power}
+A null is only interesting if the design could have detected a real effect. Table~\ref{tab:power}
+reports, for the three quantities where we report a weak or null result, the minimum detectable
+effect (MDE) at 80\% power, $\text{MDE}=(z_{0.975}+z_{0.80})\,\widehat{\text{SE}}\approx
+2.80\,\widehat{\text{SE}}$, expressed in percent per month and as a share of the pooled
+in-sample mean (0.581\%). The headline decay is well powered: its MDE is $0.096$, only 16.6\% of
+the in-sample mean, far below the estimated $-0.272$. The incremental publication effect has an
+MDE of $0.160$ (27.5\% of the in-sample mean); the design could have detected an
+extra-at-publication drop of that size, so the fragile $g_2$ is an informative upper bound---any
+distinct publication kink is at most about a quarter of the in-sample premium, not a large
+effect we simply missed. The risk-versus-mispricing interaction is the least powered: its MDE is
+$0.228$, or 39.3\% of the in-sample mean. The design can rule out only \emph{large} framing
+differences; a moderate but economically meaningful gap between risk- and mispricing-framed
+anomalies would be undetectable with the coarse category proxy and only 27 risk-framed
+anomalies. This is the quantitative case for the hand-collection: sharpening H3 needs a
+better-measured framing variable, not merely more data, and that variable is the student's to
+build.
+
+\section{Robustness}\label{sec:rob}
+Table~\ref{tab:robust} probes the H1 result. (i) Rescaling each anomaly's return so that its
+own in-sample mean equals 100 (a scale-free measure), the post-publication level is $-39.8$
+($t=-2.5$), i.e.\ about 40\% below in-sample---consistent with the equal-weighted 51\%. (ii)
+Restricting to the modern 1963-onward sample strengthens the effect ($-0.318$, $t=-9.3$).
+(iii) Requiring at least 36 post-publication months per anomaly leaves the estimate essentially
+unchanged ($-0.272$, $t=-7.9$). (iv) Winsorizing returns at 1/99 gives $-0.236$ ($t=-8.1$).
+(v) A placebo that back-dates each publication by 12 years yields a post-``publication''
+coefficient of only $-0.108$ ($t=-3.6$)---materially weaker than the true $-0.244$---indicating
+that the estimated decline is tied to the actual out-of-sample/publication timing rather than
+being a mechanical artifact of any arbitrary date. The out-of-sample decay in anomaly returns
+is thus a stable feature of the data; what remains genuinely uncertain is the finer
+attribution to publication per se and the risk-versus-mispricing split.
+
+\section{Conclusion and the pivotal hand-collection task}\label{sec:tasks}
+Using the full 212-predictor Open Source Asset Pricing library through 2024, we confirm the
+central \citet{mcleanpontiff2016} finding: anomaly long-short returns fall by roughly half from
+their in-sample to their post-publication regime ($0.61\%\!\to\!0.30\%$ per month; $t=-7.6$),
+and the decline is robust to fixed effects, winsorization, sample period, and a timing placebo.
+The decay is strongly heterogeneous in observable strength---high in-sample-return anomalies
+decay three times as much---consistent with (though not proof of) an arbitrage mechanism.
+Two design-based tests we did not previously have both point the same way on the sharper causal
+claim: a not-yet-published-control stacked difference-in-differences and a within-life
+randomization test agree that almost all of the decline is a general out-of-sample /
+calendar-time phenomenon, with at most a marginal drop timed to publication itself. And a power
+analysis shows the framing null is informative only against large differences.
+
+Two questions the data alone cannot settle define the project's human contribution. First,
+whether there is a discrete \emph{publication} effect beyond general out-of-sample decay is not
+robustly identified from the metadata, because publication dates cluster in time; pinning down
+each study's \emph{exact last sample month} (not just year), and the working-paper circulation
+date at which arbitrage could have begun, would sharpen the event timing that our stacked and
+randomization designs show is currently blurred. Second, and more fundamentally, the
+risk-versus-mispricing test (H3) cannot be run on a mechanism taxonomy---it needs each original
+article's \emph{stated economic interpretation}, hand-read from the paper, and our power
+analysis shows the coarse proxy can only detect large framing gaps. We hand this to the student:
+recording the exact publication timing and risk-versus-mispricing framing for roughly 60
+flagship anomalies is what turns this robust-but-coarse replication into a sharp test of
+\emph{why} anomalies die when they are published.
+
+\begin{thebibliography}{99}
+\bibitem[Abadie(2020)]{abadie2020} Abadie, A., 2020. Statistical nonsignificance in empirical
+economics. American Economic Review: Insights 2, 193--208.
+\bibitem[Callaway and Sant'Anna(2021)]{callaway2021} Callaway, B., Sant'Anna, P.H.C., 2021.
+Difference-in-differences with multiple time periods. Journal of Econometrics 225, 200--230.
+\bibitem[Cengiz et al.(2019)]{cengiz2019} Cengiz, D., Dube, A., Lindner, A., Zipperer, B., 2019.
+The effect of minimum wages on low-wage jobs. Quarterly Journal of Economics 134, 1405--1454.
+\bibitem[Chen and Zimmermann(2022)]{chenzimmermann2022} Chen, A.Y., Zimmermann, T., 2022.
+Open source cross-sectional asset pricing. Critical Finance Review 11, 207--264.
+\bibitem[Chordia et al.(2014)]{chordia2014} Chordia, T., Subrahmanyam, A., Tong, Q., 2014.
+Have capital market anomalies attenuated in the recent era of high liquidity and trading activity?
+Journal of Accounting and Economics 58, 41--58.
+\bibitem[Cochrane(2011)]{cochrane2011} Cochrane, J.H., 2011.
+Presidential address: discount rates. Journal of Finance 66, 1047--1108.
+\bibitem[Fama and French(1996)]{famafrench1996} Fama, E.F., French, K.R., 1996.
+Multifactor explanations of asset pricing anomalies. Journal of Finance 51, 55--84.
+\bibitem[Goodman-Bacon(2021)]{goodmanbacon2021} Goodman-Bacon, A., 2021.
+Difference-in-differences with variation in treatment timing. Journal of Econometrics 225, 254--277.
+\bibitem[Green et al.(2017)]{greenhandzhang2017} Green, J., Hand, J.R.M., Zhang, X.F., 2017.
+The characteristics that provide independent information about average U.S. monthly stock returns.
+Review of Financial Studies 30, 4389--4436.
+\bibitem[Harvey et al.(2016)]{harveyliuzhu2016} Harvey, C.R., Liu, Y., Zhu, H., 2016.
+$\ldots$ and the cross-section of expected returns. Review of Financial Studies 29, 5--68.
+\bibitem[Hou et al.(2020)]{houxuezhang2020} Hou, K., Xue, C., Zhang, L., 2020.
+Replicating anomalies. Review of Financial Studies 33, 2019--2133.
+\bibitem[Ioannidis et al.(2017)]{ioannidis2017} Ioannidis, J.P.A., Stanley, T.D., Doucouliagos, H.,
+2017. The power of bias in economics research. Economic Journal 127, F236--F265.
+\bibitem[Jacobs and M\"uller(2020)]{jacobsmuller2020} Jacobs, H., M\"uller, S., 2020.
+Anomalies across the globe: once public, no longer existent? Journal of Financial Economics 135, 213--230.
+\bibitem[McLean and Pontiff(2016)]{mcleanpontiff2016} McLean, R.D., Pontiff, J., 2016.
+Does academic research destroy stock return predictability? Journal of Finance 71, 5--32.
+\bibitem[Shleifer and Vishny(1997)]{shleifervishny1997} Shleifer, A., Vishny, R.W., 1997.
+The limits of arbitrage. Journal of Finance 52, 35--55.
+\bibitem[Young(2019)]{young2019} Young, A., 2019. Channeling Fisher: Randomization tests and the
+statistical insignificance of seemingly significant experimental results. Quarterly Journal of
+Economics 134, 557--598.
+\end{thebibliography}
+
+\FloatBarrier
+\newpage
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Sample composition by publication regime}\label{tab:sumstats}\small
+\input{tables/tab_sumstats.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Monthly long-short returns (in \%) for 212
+Open Source Asset Pricing predictors, 1926--2024. Regime assigned from each study's
+sample-end year and publication year. ``\% of in-samp.'' is the pooled regime mean divided by
+the pooled in-sample mean.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Anomaly returns fall out of sample and again after publication}\label{tab:regime}\small
+\input{tables/tab_regime.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Equal-weighted mean is the cross-anomaly average
+of each anomaly's within-regime mean; $t$ tests the mean across the 212 anomalies. Paired
+declines difference each anomaly's regime mean from its own in-sample mean.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Panel regressions: post-sample and post-publication decay}\label{tab:panel}\small
+\input{tables/tab_panel.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DV is the monthly long-short return (\%).
+$b_1,b_2$ are coefficients on mutually exclusive post-sample and post-publication indicators
+(base = in-sample). $g_2$ is the extra-at-publication coefficient from the nested
+out-of-sample $+$ publication specification \citep{mcleanpontiff2016}, estimated under the
+same fixed effects. SE clustered by anomaly in (1)--(2); two-way by anomaly and month in
+(3)--(4). $t$-statistics in parentheses. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Framing heterogeneity: no reliable risk-vs-mispricing difference}\label{tab:hetero}\small
+\input{tables/tab_hetero.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DV is the monthly long-short return (\%),
+regressed on post-sample, post-publication, their interactions with the risk-framed proxy, and
+the risk main effect; SE clustered by anomaly. ``Implied decay'' is the post-publication
+coefficient for each group. $t$-statistics in parentheses.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Heterogeneity of the decay by observable anomaly strength (H4)}\label{tab:hetero-ext}\small
+\input{tables/tab_hetero_ext.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Each row adds
+$\text{PostPub}\times\mathbf{1}[\text{high }M]$ (and the corresponding post-sample interaction
+and $M$ main effect) to equation~\eqref{eq:main} with anomaly fixed effects; SE clustered by
+anomaly. Columns report the post-publication decay for the low-$M$ group, the extra decay for
+the high-$M$ group, their sum, and the number of anomalies in each group. Moderators are
+observable metadata fixed at the study level. Sorting on in-sample strength mechanically induces
+some reversion \citep{harveyliuzhu2016}; the reserved risk-vs-mispricing framing is
+\emph{not} used as a moderator (it is the student's hand-collected variable).
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Not-yet-published-control stacked difference-in-differences}\label{tab:stacked}\small
+\input{tables/tab_stacked.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Anomaly-year data stacked into nine three-year
+publication cohorts \citep{cengiz2019}. In each cohort, treated $=$ anomalies published within
+$\pm1$ year of the cohort center; controls $=$ anomalies not yet published within the $\pm8$-year
+window (publication year $\ge$ center $+8$). Post $=\mathbf{1}[\text{year}\ge\text{center}]$; the
+estimand is Post$\times$Treated. Column (1) uses cohort-anomaly fixed effects and a common Post
+main effect; column (2) adds cohort$\times$calendar-year fixed effects. SE clustered by anomaly.
+The large raw effect in (1) is almost entirely common calendar-time decline: it vanishes in (2).
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Randomization / timing-specificity inference (500 permutations)}\label{tab:ri}\small
+\input{tables/tab_ri.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Each anomaly's publication date is redrawn
+uniformly from within its own out-of-sample life (sample-end$+1$ through last observed year),
+holding the real sample-end fixed; the anomaly-fixed-effects panel is re-estimated 500 times.
+``Placebo mean'' and ``Placebo 95\% interval'' summarize the coefficient under random within-life
+dates; the RI $p$-value is the share of placebos with $|\text{coefficient}|\ge|\text{actual}|$.
+Because returns drift down over each anomaly's life, random dates also produce negative
+coefficients; the test therefore asks whether the \emph{true} date is special. The level row
+uses a post-publication-only specification (base $=$ in-sample and post-sample combined), so it
+differs from the post-sample-adjusted $-0.272$ in Table~\ref{tab:panel}. See
+Figure~\ref{fig:ri}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Minimum detectable effects at 80\% power}\label{tab:power}\small
+\input{tables/tab_power.tex}
+\begin{tablenotes}\small\item \textit{Notes:} MDE(80\%) $=(z_{0.975}+z_{0.80})\times$SE
+$\approx 2.80\times$SE, expressed in \%/month and as a share of the pooled in-sample mean
+(0.581\%). SE recovered as coefficient/$t$ from the anomaly-fixed-effects panel (H1, H2) and the
+broad risk-proxy interaction (H3). Small MDE/mean ratios indicate an informative null. The H3
+interaction can detect only large framing differences, motivating the hand-coded framing.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Robustness of the post-publication decay}\label{tab:robust}\small
+\input{tables/tab_robust.tex}
+\begin{tablenotes}\small\item \textit{Notes:} All specifications include anomaly fixed effects
+and cluster SE by anomaly. ``Normalized DV'' rescales each anomaly's return so its in-sample
+mean is 100. The placebo back-dates publication by 12 years. $t$-statistics in parentheses.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\FloatBarrier
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.85\textwidth]{fig1_eventtime_decay.pdf}
+\caption{Average anomaly long-short return by year relative to publication (0 = publication
+year), as \% of the pooled in-sample mean. The level sits near 100\% before publication and
+falls to roughly 55--60\% afterward. Bins with fewer than 300 anomaly-months are omitted.}
+\label{fig:evt}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.82\textwidth]{fig2_regime_by_frame.pdf}
+\caption{Equal-weighted mean long-short return by regime, split by the (proxy) risk- versus
+mispricing-framed groups. Both groups decay in near-parallel; error bars are $\pm1$ standard
+error across anomalies. The proxy does not separate the decay---see Table~\ref{tab:hetero}.}
+\label{fig:frame}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.72\textwidth]{fig3_randinf.pdf}
+\caption{Randomization / timing-specificity inference for the \emph{incremental}-at-publication
+effect (H2). Histogram: the coefficient under 500 random within-life publication dates. The
+actual estimate (red line) lies in the left tail but only marginally (RI $p=0.08$); a random
+later date already produces a negative incremental coefficient, so the true publication date is
+at best weakly special---the design-based counterpart of the stacked-DiD verdict in
+Table~\ref{tab:stacked}.}\label{fig:ri}
+\end{figure}
+
+\end{document}

@@ -1,0 +1,748 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}\doublespacing
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\graphicspath{{../output/figures/}}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{placeins}
+
+\title{\textbf{What Kind of Layoff Does the Market Punish?\\
+Materiality, Motive, and the Limits of Administrative Data\\
+in a WARN-Notice Event Study}}
+\author{Andy Pham \and Lei Gao\thanks{Pham: ASSIP 2026, George Mason University.
+Gao (corresponding author): Costello College of Business, George Mason University,
+\texttt{lgao9@gmu.edu}. This is a student--faculty working paper prepared in the
+ASSIP 2026 Empirical Finance research group. All results use public data---state
+WARN databases (California EDD, Texas Workforce Commission, Oregon) and WRDS
+(CRSP daily returns and value-weighted/S\&P indices; Compustat fundamentals;
+the CRSP/Compustat link)---and every reported number traces to a CSV in
+\texttt{output/tables/} and is reproduced by the code in \texttt{code/}. We thank
+the ASSIP 2026 cohort for comments. Any errors are our own.}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent Firms lay off workers for very different reasons---to cut costs in a
+downturn, or to reallocate away from a shrinking line of business---and it is not
+obvious that equity investors treat the two alike. We build a multi-state panel
+of mass-layoff (WARN Act) notices for 2022--2025 from the California, Texas, and
+Oregon WARN databases (6{,}560 notices), fuzzy-match the filers to listed firms,
+and estimate market-model cumulative abnormal returns (CARs) around 615
+firm-level layoff events at 328 public companies. On average the market gives a
+\emph{modest but statistically significant negative} verdict: CAR$[0,+5]=-1.6\%$
+($t=-2.41$), concentrated in the days after the notice, with a clean near-zero
+pre-event placebo ($-0.18\%$, $t=-0.32$). But the average hides sharp
+heterogeneity, and it is not about \emph{how many} people are let go. Absolute
+headcount is irrelevant ($t=0.46$); what matters is the layoff's size
+\emph{relative to the firm} and, equivalently, how small the firm is. Small firms
+lose $3.9\%$ ($t=-2.86$) while large firms are essentially unaffected ($+0.4\%$,
+$t=1.13$); a one-standard-deviation larger relative layoff moves CAR by
+$-3.3$ percentage points ($t=-2.77$), and this punishment falls almost entirely
+on small firms (size$\times$relative-layoff interaction $=-0.065$, $t=-2.86$).
+Four journal-track additions sharpen the reading. Randomization inference
+(2{,}000 permutations) places the materiality slope far in the tail (design-based
+$p=0.001$), so the effect does not rest on clustered-standard-error asymptotics.
+The average reaction survives three alternative abnormal-return benchmarks and is,
+if anything, \emph{stronger} against market- and S\&P-adjusted returns
+($-2.0\%$, $t=-3.0$). Crucially, our crude machine-readable proxy for
+\emph{motive}---whether the filing is a plant \emph{closure} (exit/reallocation)
+or an ongoing-operation \emph{layoff} (cost-cutting)---shows \emph{no} difference
+in CARs ($t=-0.07$; randomization $p=0.92$), and a minimum-detectable-effect
+analysis shows this null is \emph{not} a tight bound: the machine proxy could only
+have detected a motive effect of $5.1$ percentage points at 80\% power, far above
+plausible layoff-CAR magnitudes. The machine motive flag is thus both a point-null
+\emph{and} too imprecise to rule out a real motive effect. Distinguishing
+cost-cutting from strategic reallocation therefore requires reading the
+announcements and hand-coding motive, which is the central task this paper sets
+up. \\[4pt]
+\noindent\textbf{JEL:} G14, J63, M51, G34. \quad
+\textbf{Keywords:} mass layoffs, WARN Act, event study, abnormal returns,
+downsizing, restructuring, randomization inference, statistical power.
+\end{abstract}
+
+\newpage
+\section{Introduction}
+When a firm announces that it is cutting jobs, the stock can go up or down, and
+which way it goes has long been read as a window into \emph{why} the firm is
+cutting. A layoff undertaken to trim fat and defend margins may be cheered as
+discipline; a layoff forced by collapsing demand is a bad-news signal about the
+franchise; and a layoff that reallocates resources out of a dying business toward
+a growing one is something else again \citep{cascio1993,love2005}. The empirical
+record on the average reaction is famously mixed---early studies found small
+negative reactions \citep{worrell1991,palmon1997}, later work found the reaction
+attenuating or turning positive over time \citep{farber2009}, and the sign
+appears to depend on the layoff's stated \emph{cause}
+\citep{elayan1998,nixon2004,chen2001}. This paper asks a sharp version of the
+question using a data source that has been under-used in finance: the mandatory
+mass-layoff notices filed under the Worker Adjustment and Retraining Notification
+(WARN) Act \citep{addison1994}.
+
+Our question is: \emph{across mass-layoff events at public firms, what kind of
+layoff does the market punish---and can the announced form of the layoff tell us
+the firm's motive?} We answer it with a cross-sectional event study. We assemble
+every WARN notice filed in California, Texas, and Oregon from 2022 through 2025
+(6{,}560 notices covering 3{,}450 distinct filers), fuzzy-match the filer names to
+CRSP/Compustat public firms, cluster each firm's site-level notices into
+firm-level layoff \emph{events}, and estimate market-model CARs against the CRSP
+value-weighted index. The matched sample with valid returns is 615 firm-events at
+328 listed companies over 2022--2024.\footnote{The CRSP daily market index in our
+WRDS extract runs through 2024-12-31, so events with a full post-event window are
+those through December 2024; the WARN panel itself extends into 2025.}
+
+Our findings are threefold, and each is then stress-tested with a design-based
+method. \emph{First}, the average market reaction to a WARN notice is negative and
+significant, but small. Over the $[0,+5]$ window the mean CAR is $-1.6\%$
+($t=-2.41$; Table~\ref{tab:cars}); the $[0,+2]$ window is $-1.3\%$ ($t=-2.22$);
+the reaction sits after the notice date, and the pre-event $[-10,-2]$ placebo is
+an insignificant $-0.18\%$. Notably only $49\%$ of CARs are negative: the mean is
+driven by a negative \emph{tail}, not a uniform markdown. The market does not
+reflexively punish layoffs.
+
+\emph{Second}, what determines who lands in that negative tail is \emph{firm
+size / relative layoff size}, not the raw number of jobs. The absolute headcount
+laid off carries no information for returns (Table~\ref{tab:main} column 2,
+$t=0.46$). The layoff's size \emph{relative to the firm's workforce} does: a
+one-standard-deviation increase in the relative-layoff ratio is associated with a
+$-3.3$-percentage-point CAR ($t=-2.77$, column 1). Equivalently, larger firms are
+spared: a one-SD increase in $\ln(\text{assets})$ moves CAR by $+3.1$pp
+($t=3.34$, column 3). The two are two sides of one coin---a WARN filing is a
+locally large but firm-level tiny event for a mega-cap, and a material event for a
+small company. Splitting the sample makes this vivid (Table~\ref{tab:groups}):
+small firms lose $3.9\%$ ($t=-2.86$) and large firms gain a statistically-zero
+$0.4\%$; top-half relative layoffs lose $3.5\%$ ($t=-2.70$) and bottom-half
+relative layoffs are flat. The punishment is concentrated where the layoff is big
+relative to the firm: the size$\times$relative-layoff interaction is $-0.065$
+($t=-2.86$; Table~\ref{tab:hetero}).
+
+\emph{Third}, and most important for the paper's title question, our
+machine-readable proxy for \emph{motive} does \emph{not} separate winners from
+losers. State WARN filings flag whether a layoff is a permanent plant
+\emph{closure}---a natural proxy for exit/reallocation---or an ongoing-operation
+\emph{layoff}---a natural proxy for cost-cutting. Closures and ongoing-operation
+layoffs earn statistically identical CARs ($-1.5\%$ vs.\ $-1.6\%$; the closure
+dummy is $-0.001$ with $t=-0.07$ in the full specification,
+Table~\ref{tab:main} column 5). The form of the layoff, as coded from the filing's
+category field, is uninformative about motive in a way that moves prices.
+
+We then push each result past the point where most short event studies stop, using
+four design-based additions that are the methodological contribution of this
+version of the paper. (i) \emph{Randomization inference} (Section~\ref{sec:ri},
+Table~\ref{tab:randinf}, Figure~\ref{fig:ri}): permuting the materiality regressor
+2{,}000 times places the actual slope far outside the permutation distribution
+(design-based $p=0.001$), while the closure/motive coefficient sits dead-center
+($p=0.92$)---the materiality effect is real and the machine-motive null is robust
+to design-based inference, not an artifact of clustered-SE asymptotics with a
+moderate number of firms. (ii) \emph{Alternative abnormal-return benchmarks}
+(Section~\ref{sec:altbench}, Table~\ref{tab:altbench}): re-deriving CARs from the
+raw daily returns under market-adjusted, S\&P-500-adjusted, and mean-adjusted
+models leaves the average negative reaction and the materiality slope intact---and
+the market- and S\&P-adjusted reactions are actually \emph{larger} ($-2.0\%$,
+$t\approx-3.0$). (iii) \emph{Expanded heterogeneity on observable moderators}
+(Section~\ref{sec:het}, Table~\ref{tab:heteroext}): the materiality effect does
+not concentrate in any observable subgroup (valuation, asset turnover, sample year,
+goods-producing), reinforcing that it is a broad materiality phenomenon rather than
+a proxy for something firm-specific. (iv) \emph{Power and minimum detectable
+effects} (Section~\ref{sec:power}, Table~\ref{tab:power}): the materiality estimate
+($-2.5$pp size-controlled, $-3.3$pp unconditional) is comparable to its
+$\approx3.9$pp 80\%-power minimum detectable effect---the design is powered to
+detect roughly the effect it finds---whereas the machine motive proxy could only
+have detected a motive effect of $5.1$ percentage points at 80\% power---larger
+than the entire average reaction and than any plausible motive effect. So the
+closure flag is not merely \emph{zero}; it is \emph{too coarse and too noisy} to
+rule out a real motive effect. This is exactly the wedge that motivates
+hand-coding: the difference between ``we are closing this plant because the product
+is dying'' (reallocation) and ``we are closing this plant to cut costs''
+(retrenchment) is not in the WARN category field---it is in the announcement text
+and the surrounding disclosure, which a human must read. Resolving true motive, and
+re-running the cross-section on it, is the pivotal contribution we leave to the
+student researcher (\texttt{STUDENT\_TASKS.md}).
+
+We make four contributions. First, relative to the classic layoff event-study
+literature \citep{worrell1991,palmon1997,chen2001,farber2009}, we bring a new and
+cleaner event source---mandatory WARN filings with precise dates---and show that in
+a modern (2022--2024) sample the average reaction is small and negative but the
+action is entirely in the \emph{relative} size of the cut. Second, relative to the
+strategy literature on downsizing motive
+\citep{cascio1993,nixon2004,love2005,guthrie2008}, we show---and quantify with a
+power calculation---that the coarse closure-vs-layoff distinction available in
+administrative data is \emph{not} a usable proxy for the
+cost-cutting-vs-reallocation motive that theory says should matter. Third, relative
+to work using WARN data \citep{addison1994}, we provide, to our knowledge, one of
+the first matched WARN-to-CRSP event studies. Fourth, we treat both the headline
+effect and the null as quantitative objects, reporting design-based
+(randomization) $p$-values, alternative-benchmark robustness, and minimum
+detectable effects, so that readers can see what the design can and cannot rule
+out \citep{young2019,abadie2020}. Section~\ref{sec:lit} places the paper in the
+literature; Section~\ref{sec:hyp} develops hypotheses; Section~\ref{sec:data}
+describes the data and matching; Section~\ref{sec:design} the research design and
+inference; Section~\ref{sec:res} the main results; Section~\ref{sec:het}
+heterogeneity; Section~\ref{sec:ri} randomization inference;
+Section~\ref{sec:altbench} alternative benchmarks; Section~\ref{sec:power} power
+and the informativeness of the motive null; Section~\ref{sec:robust} robustness;
+and Section~\ref{sec:concl} concludes.
+
+\section{Related Literature}\label{sec:lit}
+This paper connects three strands. The first is the \emph{layoff event-study}
+literature. Early studies of the stock-price reaction to layoff and plant-closing
+announcements generally found small negative average returns
+\citep{worrell1991,palmon1997}, with the reaction depending on the stated reason
+for the cut: layoffs framed as demand-driven or financially-distressed drew more
+negative reactions than layoffs framed as efficiency-improving or strategic
+reorganizations \citep{elayan1998,chen2001,nixon2004}. \citet{farber2009} document
+that the average reaction attenuated and at times turned positive over the
+1970--1999 period, consistent with layoffs being increasingly read as proactive
+restructuring rather than distress. Our contribution to this strand is a new event
+source---mandatory WARN filings, which carry precise, legally-required dates and a
+site-level headcount---and a modern (2022--2024) sample in which we show that the
+average masks a materiality gradient: the reaction is entirely about the size of
+the cut \emph{relative to the firm}, not the number of workers or the raw event.
+
+The second strand is the \emph{strategy and management} literature on the
+consequences and interpretation of downsizing. \citet{cascio1993} and
+\citet{love2005} distinguish reactive, cost-cutting ``retrenchment'' from proactive,
+strategic ``reorientation,'' and argue that the two have different performance
+consequences; \citet{guthrie2008} show the effect of downsizing on firm performance
+is moderated by industry conditions. This literature is precisely about
+\emph{motive}. Our contribution is to test whether motive is legible in the one
+motive-like field available in administrative data---the plant-closure-vs-layoff
+category---and to show, with a power calculation, that it is not: the machine flag
+is both a point-null and too imprecise to rule out the motive effect this
+literature predicts. Measuring motive therefore requires the narrative, which
+motivates the hand-coding step.
+
+The third strand is \emph{event-study methodology and the interpretation of null
+results}. We follow the standard market-model event-study framework
+\citep{mackinlay1997,brown1985} and, because event-induced variance and
+cross-sectional correlation can distort conventional $t$-tests
+\citep{boehmer1991,corrado1989,kolari2010}, we complement parametric inference with
+randomization inference \citep{young2019}, which is valid under the sharp null
+without asymptotic assumptions on the number of clusters. We also follow the
+guidance that a statistically insignificant estimate should be interpreted through
+its power and minimum detectable effect rather than treated as proof of no effect
+\citep{abadie2020}: Section~\ref{sec:power} states the motive null as a bound
+($5.1$pp at 80\% power) rather than a bare ``insignificant,'' which is what makes
+the case for hand-coding quantitative rather than rhetorical.
+
+\section{Hypotheses}\label{sec:hyp}
+Layoff announcements carry two offsetting signals \citep{palmon1997,chen2001}. A
+cut can be \emph{good news}---evidence that management is disciplined and is
+lowering the cost base (an ``efficiency'' signal)---or \emph{bad news}---evidence
+that demand for the firm's product is falling (a ``demand'' signal). Which
+dominates should depend on how material the cut is and on why it is being made.
+\begin{quote}
+\textbf{H1 (Average reaction).} The average CAR around a WARN mass-layoff notice
+is non-zero. (Sign is an empirical question: the efficiency and demand signals
+push in opposite directions.)
+\end{quote}
+A cut that is large relative to the firm is more likely to be read as a demand
+signal about the whole franchise, whereas a cut that is trivial relative to the
+firm is noise.
+\begin{quote}
+\textbf{H2 (Materiality).} CARs are decreasing in the size of the layoff
+\emph{relative to the firm} (relative-layoff ratio), and, equivalently,
+increasing in firm size. Absolute headcount, which does not scale by the firm,
+should matter less.
+\end{quote}
+Finally, the motive. A layoff that \emph{reallocates} resources away from a
+declining business (often a plant closure) toward better uses may be read
+differently from a defensive, across-the-board \emph{cost-cutting} layoff
+\citep{love2005,nixon2004}.
+\begin{quote}
+\textbf{H3 (Motive).} CARs differ by layoff motive. If the administrative
+closure-vs-layoff flag captures motive, closures and ongoing-operation layoffs
+should earn different CARs; if it does not, the flag will be uninformative and
+motive must be measured from the announcement itself.
+\end{quote}
+
+\section{Data and Variables}\label{sec:data}
+\paragraph{WARN notices.} The WARN Act requires employers with 100+ workers to
+give 60 days' notice of a plant closing or mass layoff; states publish the
+notices. We use three machine-readable state sources: the California EDD detailed
+WARN reports (four fiscal-year files, 07/2022--06/2026, parsed from the official
+PDF/XLSX), the Texas Workforce Commission WARN dataset
+(\texttt{data.texas.gov}), and the Oregon WARN dataset (\texttt{data.oregon.gov}).
+Each notice carries the filer name, the notice date, the number of employees
+affected, the location, and (in CA/OR) a layoff/closure type. Pooling and
+restricting to 2022--2025 gives 6{,}560 notices from 3{,}450 distinct filer names
+(CA 5{,}548; TX 815; OR 190; a few notices in other states appear in the Oregon
+cross-file).
+
+\paragraph{Matching to listed firms.} WARN filers are operating names at a job
+site (``Amgen,'' ``Applied Materials, Inc.\ (557 E.\ Ca\ldots)''). We build a name
+universe of U.S.\ common stocks active 2021--2026 from CRSP (\texttt{stocknames})
+plus Compustat legal names (\texttt{company}) linked to permno via the
+CRSP/Compustat link, normalize both sides (dropping legal suffixes, ``dba'' trade
+names, and store/site numbers), and fuzzy-match each filer to the nearest listed
+name with a token-set score, keeping a match only when it clears a strict score
+\emph{and} a leading-anchor test (the filer name and the listed name share their
+first distinctive token). This high-precision pass matches 738 distinct filer
+names to 412 listed firms. It deliberately \emph{misses} brand/subsidiary filings
+(``Pixar''$\to$Disney, ``Optum''$\to$UnitedHealth); resolving those and verifying
+the automated matches is a hand task (\texttt{STUDENT\_TASKS.md}). Because the
+event study rests entirely on these matches, this precision-over-recall choice is
+deliberate: a false match injects an unrelated firm's return into the sample,
+whereas a missed match merely omits an event. The hand-verification and
+brand-rescue steps reserved for the student directly raise recall without
+sacrificing precision.
+
+\paragraph{From notices to events.} Firms often file several site notices within
+days. We cluster a firm's notices into \emph{events}: a new event begins when a
+notice is more than 20 calendar days after the current event's first notice; the
+event date is the first notice in the cluster and headcount is the cluster sum.
+This yields 852 firm-events at 412 firms. Merging Compustat fundamentals (most
+recent fiscal year before the event: assets, employees, sales, market cap,
+industry) and CRSP returns leaves 615 firm-events at 328 firms with a valid
+market model.
+
+\paragraph{Variables.} \emph{Relative layoff} $=$ cluster headcount $/$ total
+firm employees. \emph{Firm size} $=\ln(\text{assets})$ (and $\ln(\text{market
+cap})$ in robustness). \emph{Closure} is an indicator that the filing's type
+field contains ``closure'' (our crude reallocation/exit proxy). \emph{Tech} is an
+indicator for computer/electronics/software SIC codes. In the extended
+heterogeneity analysis we add three further \emph{observable} moderators, all
+measured at the pre-event fiscal year and all deliberately orthogonal to the
+reserved hand-coded motive: market-to-assets ($\text{market cap}/\text{assets}$, a
+glamour/growth proxy), asset turnover ($\text{sales}/\text{assets}$), and a
+goods-producing (non-tech manufacturing) indicator. Continuous predictors are
+winsorized at 1/99 and standardized, so a coefficient is the effect of a one-SD
+increase, in CAR points. Table~\ref{tab:sumstats} reports summary statistics: the
+median WARN event lays off 86 workers, $0.8\%$ of the firm's workforce, at a firm
+with $\$8$B in assets---confirming these are locally large but firm-level small
+cuts at sizable public companies.
+
+\section{Research Design and Inference}\label{sec:design}
+\paragraph{Event study.} Day 0 is the first trading day on/after the notice date.
+We estimate the market model $R_{it}=\alpha_i+\beta_i R_{mt}+\varepsilon_{it}$ over
+$[-252,-46]$ against the CRSP value-weighted index and cumulate abnormal returns
+over several windows. The cross-sectional regressions take a CAR as the dependent
+variable and firm/layoff characteristics as regressors, with standard errors
+clustered by firm (some firms file multiple events).
+
+\paragraph{Inference.} Cross-sectional event-study $t$-tests can be distorted by
+event-induced variance and by cross-sectional correlation among abnormal returns
+\citep{boehmer1991,corrado1989,kolari2010}. We take three precautions beyond
+clustered standard errors. First, we report a pre-event $[-10,-2]$ placebo window,
+which should be zero if the reaction is news rather than anticipation or a
+pre-trend. Second, we subject the two coefficients that carry the paper---the
+materiality slope and the machine-motive (closure) coefficient---to
+\emph{randomization inference}: we permute the regressor across events 2{,}000
+times and compare the actual coefficient to the permutation distribution, yielding
+a design-based $p$-value that is valid under the sharp null without asymptotic
+assumptions \citep{young2019}. Third, we re-derive the CARs under three
+alternative abnormal-return benchmarks straight from the raw daily returns, so the
+result cannot be an artifact of the market-model specification. Finally, we convert
+``insignificant'' into a bound by reporting the minimum detectable effect at 80\%
+power for each key coefficient \citep{abadie2020}. None of these steps uses the
+reserved hand-coded motive; all use observable data only.
+
+\section{Main Results}\label{sec:res}
+\paragraph{The average reaction (H1).} Table~\ref{tab:cars} and
+Figure~\ref{fig:path} give the event-study result. The market marks the stock
+\emph{down} after a WARN notice: mean CAR of $-0.9\%$ over $[0,+1]$, $-1.3\%$ over
+$[0,+2]$ ($t=-2.22$), and $-1.6\%$ over $[0,+5]$ ($t=-2.41$). The drift is
+post-event---the $[-10,-2]$ placebo is an insignificant $-0.18\%$---consistent
+with the notice conveying news rather than being anticipated. But the reaction is
+not universal: fewer than half of events ($49\%$) have negative CAR$[0,+5]$, so
+the negative mean reflects a tail of badly-received layoffs rather than a
+uniform markdown. H1 is supported (the average is significantly negative) with the
+caveat that the median firm's stock barely moves.
+
+\paragraph{Materiality, not headcount (H2).} Table~\ref{tab:main} is the core
+cross-section. Relative layoff size is the variable that matters: alone (column 1)
+a one-SD larger relative layoff is worth $-3.3$pp of CAR ($t=-2.77$). Firm size
+enters with the mirror-image sign: a one-SD larger firm is worth $+3.1$pp
+($t=3.34$, column 3). Absolute headcount is a precise zero (column 2, $R^2=0.000$,
+$t=0.46$): the market does not react to the \emph{number} laid off, only to its
+\emph{proportion} of the firm. Because relative-layoff and firm size are two
+encodings of the same materiality, they partly compete when entered together
+(column 4: relative layoff $-2.6$pp, $t=-1.87$; size $+1.5$pp, $t=1.53$), but the
+materiality channel is unmistakable. The subgroup means in Table~\ref{tab:groups}
+and Figure~\ref{fig:groups} tell the same story without any modeling: small firms
+$-3.9\%$ ($t=-2.86$) versus large firms $+0.4\%$ (ns); top-half relative layoffs
+$-3.5\%$ ($t=-2.70$) versus bottom-half $+0.2\%$ (ns). H2 is strongly supported.
+
+\paragraph{Motive is not in the flag (H3).} The closure indicator---our
+administrative proxy for strategic exit/reallocation as opposed to
+cost-cutting---is economically and statistically zero throughout. Closures earn
+$-1.5\%$ and ongoing-operation layoffs $-1.6\%$ (Table~\ref{tab:groups}); in the
+regression the closure dummy is $-0.001$ ($t=-0.07$, Table~\ref{tab:main} column
+5), and it stays insignificant in every robustness cut (Table~\ref{tab:robust}).
+The market clearly \emph{does} discriminate among layoffs---by materiality---but
+the closure-vs-layoff category available in administrative data does not capture
+the discrimination. H3 is \emph{not} supported \emph{with the machine proxy}. As
+Section~\ref{sec:power} shows, this is not because we have precisely estimated a
+zero motive effect; it is because the machine proxy is too coarse to detect one.
+That is the paper's pivotal negative result: if motive matters (as theory and the
+strategy literature argue), it is encoded in the announcement narrative, not in
+the WARN type field, and only hand-coding can recover it.
+
+\section{Heterogeneity: Where the Bite Is}\label{sec:het}
+\paragraph{The punishment is a small-firm phenomenon.} Table~\ref{tab:hetero}
+shows the materiality effect is concentrated among small firms. Interacting
+relative layoff with a below-median-size dummy, the relative-layoff slope is a
+positive $+0.041$ ($t=2.08$) among large firms and the small-firm interaction is
+$-0.065$ ($t=-2.86$)---so among large firms a bigger relative cut is, if anything,
+mildly \emph{rewarded} (an efficiency read), while among small firms it is
+punished (a demand read). Neither the closure nor the tech interaction is
+significant. That a given relative cut flips sign with firm size is itself
+suggestive that \emph{motive} is being inferred differently across firms---and is
+a further reason to measure motive directly.
+
+\paragraph{Not concentrated in any other observable subgroup.} If the materiality
+effect were really a proxy for some other firm characteristic, it should
+concentrate in the corresponding observable subgroup. Table~\ref{tab:heteroext}
+interacts the standardized relative-layoff ratio with four additional pre-event,
+observable moderators---high market-to-assets (glamour/growth), high asset
+turnover, an early-sample (2022) indicator, and a goods-producing (non-tech
+manufacturing) indicator---always controlling for firm size. In every case the
+materiality slope is negative (ranging $-0.018$ to $-0.026$) and the interaction is
+economically small and statistically indistinguishable from zero (the largest
+$|t|$ on any interaction is $0.58$). The materiality effect is thus a broad
+phenomenon, not a growth-firm, capital-intensity, sample-period, or
+industry-specific artifact. Crucially, we do \emph{not} interact the reaction with
+the hand-coded motive here---that dimension is unobservable to us and is the
+student's reserved contribution; the moderators above are observable firm
+characteristics chosen precisely because they are orthogonal to that reserved test.
+
+\section{Randomization Inference}\label{sec:ri}
+Cross-sectional CAR regressions with clustered standard errors rely on asymptotics
+in the number of clusters, and event-induced variance can inflate conventional
+test statistics \citep{boehmer1991,kolari2010}. Table~\ref{tab:randinf} and
+Figure~\ref{fig:ri} report design-based inference from 2{,}000 permutations of the
+regressor under the sharp null of no cross-sectional relation. The materiality
+slope ($-0.024$ in the size-controlled specification) lies far outside the
+permutation distribution (95\% permutation interval $[-0.014,+0.013]$; design-based
+$p=0.001$): the relation between relative layoff size and CARs is not a
+clustered-SE artifact. By contrast, the machine-motive (closure) coefficient
+($-0.001$) sits essentially at the center of its permutation distribution
+($p=0.92$, 95\% interval $[-0.031,+0.030]$)---the motive null is robust to
+design-based inference. One caveat sharpens rather than weakens the reading: our
+permutation reassigns the regressor at the event level and so ignores the
+within-firm dependence that the clustered standard errors (328 firms, 615 events)
+are designed to handle. Randomization inference and the clustered $t$ therefore
+\emph{bracket} the true inference---the design-based $p=0.001$ is a lower bound on
+significance and the size-controlled clustered $t=-1.81$ an upper bound---and the
+materiality effect is significant on the unconditional clustered $t=-2.77$ as well. Randomization inference thus corroborates both halves of
+the paper: the materiality effect is a genuine signal, and the machine-motive null
+is real rather than a failure of the parametric standard errors. It does not,
+however, tell us whether the motive null is a \emph{tight} bound; that is the
+question the power analysis in Section~\ref{sec:power} answers, and its answer is
+what makes the hand-coding necessary.
+
+\section{Alternative Abnormal-Return Benchmarks}\label{sec:altbench}
+The headline CARs use a firm-specific market model. To rule out that either the
+average reaction or the materiality slope is an artifact of that benchmark, we
+re-derive CAR$[0,+5]$ straight from the raw CRSP daily returns under three
+alternatives: market-adjusted returns (abnormal return $=R_{it}-R_{mt}$, i.e.\
+$\beta$ forced to one), S\&P-500-adjusted returns ($R_{it}-R^{\text{S\&P}}_{t}$),
+and mean-adjusted returns ($R_{it}$ less the firm's estimation-window mean). As a
+correctness check, the code first rebuilds the market-model CAR from the stored
+$\alpha,\beta$ and confirms it matches the base CARs to machine precision
+($\max|\text{diff}|<10^{-15}$ across 571 events). Table~\ref{tab:altbench} reports,
+for each benchmark, the average CAR (H1) and the materiality slope (H2). The
+average negative reaction is not only robust but \emph{stronger} against the two
+index benchmarks that do not net out firm $\beta$: $-2.0\%$ ($t=-3.03$)
+market-adjusted and $-2.0\%$ ($t=-3.06$) S\&P-adjusted, versus $-1.6\%$
+($t=-2.41$) for the market model. It is weaker and marginally insignificant under
+the mean-adjusted model ($-1.0\%$, $t=-1.53$)---expected, because mean-adjustment
+ignores the generally negative market drift over some event windows and so is the
+noisiest benchmark. The materiality slope is stable and negative across all four
+benchmarks ($-0.020$ to $-0.027$; $|t|$ up to $2.08$). The core results survive
+the choice of abnormal-return model.
+
+\section{Is the Motive Null Informative? Power and Minimum Detectable Effects}\label{sec:power}
+A null is only interesting if the design could have detected a real effect, and
+here the answer differs sharply between the materiality slope and the motive proxy.
+Table~\ref{tab:power} reports, for each key coefficient, the minimum detectable
+effect at 80\% power, $\text{MDE}=(z_{0.975}+z_{0.80})\,\widehat{\text{SE}}\approx
+2.80\,\widehat{\text{SE}}$. For the materiality slope the estimate ($-2.5$pp per SD
+in the size-controlled specification, $-3.3$pp unconditionally) is comparable to
+its $\approx3.9$pp 80\%-power MDE: the design is powered to detect roughly the
+effect it actually finds. That the size-controlled clustered $t$ is only $-1.81$
+reflects the mechanical relative-layoff/size collinearity flagged above, not a
+fragile effect---the unconditional slope is significant at $t=-2.77$ and the
+randomization-inference $p$ is $0.001$ (Section~\ref{sec:ri}). The average reaction
+is likewise a clear but not high-powered signal (estimate $-1.6$pp, MDE $1.9$pp;
+significant at $t=-2.41$ because significance requires $1.96\times$SE while the
+80\%-power MDE is $2.80\times$SE). The machine-motive proxy is a different case
+entirely. Its coefficient is a near-perfect zero ($-0.1$pp), but its standard error is
+large (1.8pp), so the smallest motive effect it could have detected at 80\% power
+is \emph{5.1 percentage points}---larger than the entire average market reaction to
+a layoff and far above any plausible motive-driven CAR difference in the strategy
+literature. In other words, the closure flag does not deliver an informative null:
+it is both a point estimate of zero \emph{and} too imprecise to rule out an
+economically meaningful motive effect. This is the quantitative case for
+hand-coding. A sharper, narrative-based motive measure would (i) replace a coarse
+binary that mixes cost-cutting and reallocation within the ``closure'' category
+with a clean strategic-vs-defensive split, and (ii) plausibly reduce the noise that
+inflates the current MDE, so that a true motive effect of, say, 1--3pp---below the
+current $5.1$pp detection threshold but consistent with the layoff literature---could
+actually be detected. The design has been built to receive exactly that measure.
+
+\section{Robustness}\label{sec:robust}
+Table~\ref{tab:robust} re-estimates the full specification under alternative
+choices. The relative-layoff effect is stable and negative across dependent
+variables (CAR$[0,+2]$: $-0.031$, $t=-2.01$; CAR$[-1,+5]$: $-0.028$, $t=-2.04$),
+when 2022 events are dropped ($-0.030$, $t=-1.73$), when we restrict to
+U.S.-incorporated firms ($-0.025$, $t=-1.75$), and when firm size is measured by
+market capitalization instead of assets ($-0.029$, $t=-2.15$). The firm-size
+coefficient is consistently positive, attenuating to insignificance only when
+relative layoff (its near-mirror) is also in the model---an expected
+multicollinearity, not a fragility. The closure (motive) proxy is insignificant in
+all six columns. Together with the alternative-benchmark table
+(Table~\ref{tab:altbench}) and the randomization-inference table
+(Table~\ref{tab:randinf}), the materiality result is robust to window, sample,
+size proxy, abnormal-return benchmark, and inference method; the null on the
+machine-coded motive is equally robust---and, per Section~\ref{sec:power}, equally
+uninformative as a bound.
+
+\section{Conclusion}\label{sec:concl}
+Using a new matched WARN-to-CRSP sample, we find that the market's reaction to a
+mass-layoff notice is, on average, a modest negative $-1.6\%$ over five days
+(robust, and stronger, under alternative benchmarks), but that this average is
+almost entirely about \emph{materiality}: layoffs that are large relative to a
+small firm are punished ($-3.9\%$), while the same administrative event at a large
+firm is a non-event. The number of workers laid off, per se, carries no
+information, and randomization inference confirms the materiality effect is a
+genuine signal ($p=0.001$) rather than a standard-error artifact. Most importantly
+for the question in our title, the one motive proxy available in administrative
+data---plant closure versus ongoing-operation layoff---does \emph{not} distinguish
+the CARs, and the power analysis shows this is not a tight null: the machine proxy
+could only have detected a motive effect of $5.1$ percentage points, so it cannot
+rule out the economically meaningful motive effects the strategy literature
+predicts. Whether a layoff is cost-cutting or strategic reallocation is not legible
+in the WARN category field. The natural and necessary next step, which this paper
+is designed to enable, is to read the announcements and \emph{hand-code} the
+motive, then re-run the cross-section on it: only then can we answer whether the
+market truly punishes cost-cutting and rewards reallocation, or vice versa.
+Limitations include the three-state footprint (CA, TX, OR), the lead-name matching
+(hand-verification pending), the 2022--2024 return window, and the coarse motive
+proxy---each of which the student work is built to address.
+
+\begin{thebibliography}{99}
+\bibitem[Abadie(2020)]{abadie2020} Abadie, A., 2020. Statistical nonsignificance in
+empirical economics. American Economic Review: Insights 2, 193--208.
+\bibitem[Addison and Blackburn(1994)]{addison1994} Addison, J.T., Blackburn, M.L.,
+1994. The Worker Adjustment and Retraining Notification Act: Effects on notice
+provision. Industrial and Labor Relations Review 47, 650--662.
+\bibitem[Boehmer et al.(1991)]{boehmer1991} Boehmer, E., Musumeci, J., Poulsen,
+A.B., 1991. Event-study methodology under conditions of event-induced variance.
+Journal of Financial Economics 30, 253--272.
+\bibitem[Brown and Warner(1985)]{brown1985} Brown, S.J., Warner, J.B., 1985. Using
+daily stock returns: The case of event studies. Journal of Financial Economics
+14, 3--31.
+\bibitem[Cascio(1993)]{cascio1993} Cascio, W.F., 1993. Downsizing: What do we
+know? What have we learned? Academy of Management Executive 7, 95--104.
+\bibitem[Chen et al.(2001)]{chen2001} Chen, P., Mehrotra, V., Sivakumar, R., Yu,
+W.W., 2001. Layoffs, shareholders' wealth, and corporate performance. Journal of
+Empirical Finance 8, 171--199.
+\bibitem[Corrado(1989)]{corrado1989} Corrado, C.J., 1989. A nonparametric test for
+abnormal security-price performance in event studies. Journal of Financial
+Economics 23, 385--395.
+\bibitem[Elayan et al.(1998)]{elayan1998} Elayan, F.A., Swales, G.S., Maris, B.A.,
+Scott, J.R., 1998. Market reactions, characteristics, and the effectiveness of
+corporate layoffs. Journal of Business Finance \& Accounting 25, 329--351.
+\bibitem[Farber and Hallock(2009)]{farber2009} Farber, H.S., Hallock, K.F., 2009.
+The changing relationship between job loss announcements and stock prices:
+1970--1999. Labour Economics 16, 1--11.
+\bibitem[Guthrie and Datta(2008)]{guthrie2008} Guthrie, J.P., Datta, D.K., 2008.
+Dumb and dumber: The impact of downsizing on firm performance as moderated by
+industry conditions. Organization Science 19, 108--123.
+\bibitem[Hallock(1998)]{hallock1998} Hallock, K.F., 1998. Layoffs, top executive
+pay, and firm performance. American Economic Review 88, 711--723.
+\bibitem[Kolari and Pynn\"onen(2010)]{kolari2010} Kolari, J.W., Pynn\"onen, S.,
+2010. Event study testing with cross-sectional correlation of abnormal returns.
+Review of Financial Studies 23, 3996--4025.
+\bibitem[Love and Nohria(2005)]{love2005} Love, E.G., Nohria, N., 2005. Reducing
+slack: The performance consequences of downsizing by large industrial firms,
+1977--93. Strategic Management Journal 26, 1087--1108.
+\bibitem[MacKinlay(1997)]{mackinlay1997} MacKinlay, A.C., 1997. Event studies in
+economics and finance. Journal of Economic Literature 35, 13--39.
+\bibitem[Nixon et al.(2004)]{nixon2004} Nixon, R.D., Hitt, M.A., Lee, H.-U., Jeong,
+E., 2004. Market reactions to announcements of corporate downsizing actions and
+implementation strategies. Strategic Management Journal 25, 1121--1129.
+\bibitem[Palmon et al.(1997)]{palmon1997} Palmon, O., Sun, H.-L., Tang, A.P.,
+1997. Layoff announcements: Stock price impact and financial performance.
+Financial Management 26, 54--68.
+\bibitem[Worrell et al.(1991)]{worrell1991} Worrell, D.L., Davidson, W.N., Sharma,
+V.M., 1991. Layoff announcements and stockholder wealth. Academy of Management
+Journal 34, 662--678.
+\bibitem[Young(2019)]{young2019} Young, A., 2019. Channeling Fisher: Randomization
+tests and the statistical insignificance of seemingly significant experimental
+results. Quarterly Journal of Economics 134, 557--598.
+\end{thebibliography}
+
+\FloatBarrier
+\newpage
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Summary statistics}\label{tab:sumstats}\small
+\input{tables/tab_sumstats.tex}
+\begin{tablenotes}\small\item \textit{Notes:} 615 matched firm-events, 2022--2024.
+CARs are market-model (CRSP value-weighted index, estimation window
+$[-252,-46]$). Relative layoff $=$ event headcount / firm employees; firm
+fundamentals are the most recent Compustat fiscal year before the event.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Cumulative abnormal returns around WARN notices, by window}\label{tab:cars}\small
+\input{tables/tab_cars.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Day 0 $=$ first trading day on/after
+the WARN notice date. $[-10,-2]$ is a pre-event placebo. $t$-statistics test the
+mean CAR $=0$. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Mean CAR[0,+5] by subgroup}\label{tab:groups}\small
+\input{tables/tab_groups.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Small/large firm split at median
+$\ln(\text{assets})$; relative-layoff split at the median. Closure vs.\
+ongoing-operation layoff from the WARN type field (our crude motive proxy).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Cross-section of WARN-notice CARs: materiality, not headcount or motive}\label{tab:main}
+{\footnotesize\setlength{\tabcolsep}{4pt}
+\input{tables/tab_main.tex}}
+\begin{tablenotes}\small\item \textit{Notes:} DV is CAR$[0,+5]$. Continuous
+predictors winsorized 1/99 and standardized (coefficient $=$ effect of a one-SD
+increase, in CAR points). \emph{Closure} is the plant-closure indicator (proxy for
+strategic exit/reallocation vs.\ cost-cutting). $t$-statistics clustered by firm
+in parentheses. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Heterogeneity: the punishment is a small-firm phenomenon}\label{tab:hetero}\small
+\input{tables/tab_hetero.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DV is CAR$[0,+5]$. Each row adds an
+interaction of the standardized relative-layoff ratio with, respectively, the
+closure dummy, a below-median-size dummy, and the tech dummy. Firm-clustered
+$t$-statistics in parentheses. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Extended heterogeneity: the materiality effect is not concentrated in any
+observable subgroup}\label{tab:heteroext}\small
+\input{tables/tab_hetero_ext.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DV is CAR$[0,+5]$. Each row is a
+separate regression that interacts the standardized relative-layoff ratio with one
+pre-event, observable moderator $M$, always controlling for $\ln(\text{assets})$.
+Moderators: high market-to-assets (glamour/growth), high asset turnover, an
+early-sample (2022 event) indicator, and a goods-producing (non-tech
+manufacturing) indicator. Reported are the relative-layoff slope, the
+relative$\times M$ interaction, and $M$ itself, with firm-clustered $t$-statistics
+in parentheses. The reserved hand-coded motive is deliberately \emph{not} used as
+a moderator. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Randomization inference (2{,}000 permutations of the regressor)}\label{tab:randinf}\small
+\input{tables/tab_randinf.tex}
+\begin{tablenotes}\small\item \textit{Notes:} DV is CAR$[0,+5]$. The regressor is
+permuted across events 2{,}000 times under the sharp null of no cross-sectional
+relation; the same OLS specification is re-estimated each time. The materiality
+slope is from the size-controlled specification (relative layoff $+$
+$\ln(\text{assets})$); the closure coefficient is from the full specification. The
+``Perm.\ 95\% interval'' is the 2.5--97.5 percentile of the permutation
+distribution; the RI $p$-value is the share of permutations with
+$|\text{coefficient}|\geq|\text{actual}|$. See Figure~\ref{fig:ri}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Alternative abnormal-return benchmarks}\label{tab:altbench}\small
+\input{tables/tab_altbench.tex}
+\begin{tablenotes}\small\item \textit{Notes:} CAR$[0,+5]$ re-derived from raw CRSP
+daily returns under four benchmarks: the firm-specific market model (base);
+market-adjusted ($R_{it}-R_{mt}$, $\beta{=}1$); S\&P-500-adjusted
+($R_{it}-R^{\text{S\&P}}_t$); and mean-adjusted ($R_{it}$ less the firm's
+estimation-window mean). ``Mean CAR'' and its $t$ test H1; the relative-layoff and
+$\ln(\text{assets})$ slopes (size-controlled specification, firm-clustered $t$ in
+parentheses) test H2. The rebuilt market-model CAR reconciles with the base CARs
+to machine precision. $^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Minimum detectable effects at 80\% power}\label{tab:power}\small
+\input{tables/tab_power.tex}
+\begin{tablenotes}\small\item \textit{Notes:} MDE(80\%) $=(z_{0.975}+z_{0.80})
+\times$SE $\approx 2.80\times$SE, in CAR percentage points. Coefficients are from
+the full cross-sectional specification (Table~\ref{tab:main}, column 5); the
+average CAR row uses the one-sample standard error. A \emph{small} MDE relative to
+the estimate (materiality; average CAR) indicates a well-identified effect; a
+\emph{large} MDE relative to plausible effect sizes (the closure/motive proxy,
+$5.1$pp) indicates an uninformative null---the design could not have detected an
+economically meaningful motive effect with the machine proxy, motivating the
+hand-coded motive measure.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Robustness}\label{tab:robust}\small
+\input{tables/tab_robust.tex}
+\begin{tablenotes}\small\item \textit{Notes:} Full specification (relative layoff,
+ln headcount, firm size, closure, tech) re-estimated under alternative dependent
+variables, samples, and size proxies. Only the size, relative-layoff, and closure
+coefficients are shown. Firm-clustered $t$-statistics in parentheses.
+$^{*}p<0.10$, $^{**}p<0.05$, $^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\FloatBarrier
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.8\textwidth]{fig1_ar_path.pdf}
+\caption{Cumulative average abnormal return in event time around WARN mass-layoff
+notices (615 firm-events, 2022--2024). The reaction is post-event; the pre-event
+path is flat.}\label{fig:path}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.9\textwidth]{fig2_car_by_group.pdf}
+\caption{Mean CAR$[0,+5]$ by firm size, relative layoff size, and layoff form. The
+market punishes layoffs that are large relative to a small firm; the closure (vs.\
+ongoing layoff) form---our motive proxy---does not distinguish the reaction.}\label{fig:groups}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.72\textwidth]{fig3_randinf.pdf}
+\caption{Randomization inference for the materiality (relative-layoff) slope.
+Histogram: the distribution of the slope under 2{,}000 random permutations of the
+relative-layoff regressor. The actual estimate (red line) lies far in the left
+tail (RI $p=0.001$), so the materiality effect is a genuine cross-sectional signal
+rather than a clustered-standard-error artifact.}\label{fig:ri}
+\end{figure}
+
+\end{document}

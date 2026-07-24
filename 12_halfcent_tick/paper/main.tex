@@ -1,0 +1,761 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}\doublespacing
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\graphicspath{{../output/figures/}}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\usepackage{placeins}
+
+\title{\textbf{Did the 2025 Half-Cent Tick and Access-Fee Cut Tighten Spreads?\\
+A Daily-Data Difference-in-Differences, and Why It Cannot Yet Answer the Question}}
+\author{Kushal Borra \and Lei Gao\thanks{Borra: ASSIP 2026, George Mason University.
+Gao (corresponding author): Costello College of Business, George Mason University,
+\texttt{lgao9@gmu.edu}. This is a student--faculty working paper prepared in the ASSIP 2026
+Empirical Finance research group. All results use public WRDS CRSP daily data
+(\texttt{crsp.dsf\_v2}, CIZ format); every reported number traces to a regression-output CSV
+in \texttt{output/tables/} and is reproduced by the code in \texttt{code/}. No number is
+hand-entered or simulated. We thank the ASSIP 2026 cohort for comments. Any errors are our own.}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent On November 3, 2025, the SEC's amendments to Regulation NMS took effect: a
+\$0.005 (``half-cent'') minimum pricing increment for tick-constrained NMS stocks and a
+cut in the Rule~610 access-fee cap from \$0.0030 to \$0.0010 per share. We ask whether
+tick-constrained (treated) stocks' quoted spreads narrowed relative to wide-spread
+(control) stocks. Because WRDS TAQ intraday NBBO is not available on our account, we use
+the brief's sanctioned fallback---the CRSP daily \emph{closing} consolidated NBBO
+(a Chung--Zhang-style daily spread proxy)---for 150 NMS common stocks (75 tick-constrained,
+75 wide) over four weeks before and after the compliance date (5{,}820 stock-days). The
+difference-in-differences (DiD) estimate for the relative quoted spread is $+0.73$ basis
+points ($t=4.2$; $t=2.9$ double-clustered)---the \emph{wrong} sign, driven entirely by
+wide-spread controls narrowing more than treated names. We do not interpret this as a
+treatment effect, because the design fails its own identifying checks: a placebo
+``event'' inside the pre-period is large and significant ($-0.77$~bps, $t=-5.5$) and the
+event-study shows non-parallel pre-trends. More fundamentally, the daily close is
+\emph{censored to the penny grid} for exactly the stocks the reform targets:
+\textbf{0.0\%} of treated stock-days show a sub-penny closing spread either before or
+after the reform, and the share pinned at exactly \$0.01 \emph{rose} from 81\% to 89\%.
+Both treated and control dollar spreads fell from October to November (treated $-10.7\%$,
+control $-22.6\%$; both $p<0.001$), a market-wide move the daily design cannot separate
+from the reform. Four extensions turn this from ``we found nothing'' into an informative,
+design-based null. \emph{Heterogeneity:} no observable subgroup (by volatility, volume,
+listing venue, or industry) shows the predicted narrowing---the wrong sign is uniform.
+\emph{Overlap:} treated and control stocks are balanced on volatility and relative spread
+but differ by a normalized $2.4$ standard deviations in log price and $1.1$ in log volume,
+so the wide-spread controls are not a counterfactual---motivating a price-matched control.
+\emph{Randomization inference} (500 permutations of treatment) places the actual estimate
+far outside the permutation distribution ($p<0.002$), confirming it reflects the systematic
+price/liquidity structure of \emph{which} stocks are treated, not the reform. \emph{Power:}
+at 80\% power the design detects a $0.49$~bps narrowing, below the $\approx\!1.0$~bps a
+half-cent move would produce at the median treated price---so the effect would be
+detectable \emph{if} the daily close could take half-cent values, which the censoring table
+shows it never does. We report a transparent, measurement-limited \textbf{null} and specify
+the TAQ intraday test required to answer the question. \\[4pt]
+\noindent\textbf{JEL:} G14, G18, G12, G28. \quad
+\textbf{Keywords:} tick size, minimum pricing increment, access fees, bid--ask spread,
+Regulation NMS, difference-in-differences, randomization inference, statistical power,
+market microstructure.
+\end{abstract}
+
+\section{Introduction}
+The size of the ``tick''---the minimum increment in which securities may be quoted---is one
+of the oldest and most consequential design parameters of an equity market. Since
+decimalization in 2001, U.S. NMS stocks priced at or above \$1 have quoted in whole
+pennies. For actively traded, lower-priced stocks the penny is often \emph{binding}: the
+quoted bid--ask spread sits at exactly \$0.01 for most of the day because market makers
+would quote tighter if the rules let them \citep{harris1994,ohara2019}. These stocks are
+called \emph{tick-constrained}. On September 18, 2024 the Securities and Exchange
+Commission adopted amendments to Regulation NMS that, effective November 3, 2025, create a
+\emph{variable} minimum increment: NMS stocks whose time-weighted average quoted spread
+falls at or below \$0.015 may quote in \$0.005 half-cents, while all other stocks remain on
+the penny \citep{sec2024}. The same rulemaking cut the Rule~610 access-fee cap from
+\$0.0030 to \$0.0010 per share. The stated goal is tighter spreads and lower trading costs
+for tick-constrained stocks.
+
+This paper asks the natural first question: \emph{did quoted spreads actually narrow for
+tick-constrained stocks after November 3, 2025, relative to stocks the reform did not
+bind?} We set up a difference-in-differences (DiD) comparison of 150 NMS common stocks---75
+tick-constrained (treated) and 75 wide-spread (control)---over the four weeks either side of
+the compliance date. Our headline is not the answer we hoped to give, and the value of the
+paper is in explaining \emph{why} honestly rather than manufacturing a result.
+
+\paragraph{Preview of results.} First, the DiD point estimate for the relative quoted
+spread is $+0.73$ basis points (bps), statistically significant ($t=4.2$ clustered by
+stock; $t=2.9$ double-clustered by stock and day), and stable across specifications with
+stock and day fixed effects and price/volume controls (Table~\ref{tab:did_main}). The
+positive sign means treated stocks' spreads did \emph{not} narrow relative to controls---if
+anything they widened in relative terms. Second, and decisively, this DiD does not identify
+a causal effect: a placebo test that assigns a fake ``event'' inside the pre-period yields a
+large, significant coefficient of $-0.77$~bps ($t=-5.5$; Table~\ref{tab:placebo}), and the
+event-study (Figure~\ref{fig:eventstudy}) shows the treated--control gap wandering
+significantly \emph{before} November 3. The parallel-trends assumption fails, so the DiD is
+uninformative about causation. Third, we trace the failure to two forces. (i)~The control
+group (high-priced mega-caps, median price \$262) is not a valid counterfactual for
+treated stocks (median price \$44): their prices and spreads move on different macro betas.
+(ii)~More fundamentally, the daily \emph{closing} quote is censored to the penny grid for
+the treated stocks: \textbf{0.0\%} of treated stock-days show a sub-penny closing spread
+either before or after the reform (Table~\ref{tab:censoring}, Figure~\ref{fig:censoring}),
+and the share pinned at exactly one cent actually \emph{rose} from 81.3\% to 89.1\%. The
+half-cent margin on which the rule operates is an \emph{intraday} phenomenon that a
+once-a-day closing snapshot cannot resolve. Fourth, as description (not causal inference),
+both groups' dollar spreads fell from October to November---treated by $-10.7\%$
+($1.33\to1.19$ cents, paired $t=-3.6$) and control by $-22.6\%$ ($20.3\to15.7$ cents,
+paired $t=-4.6$; Table~\ref{tab:withingroup})---a broad late-2025 tightening the daily
+design cannot attribute to the reform.
+
+\paragraph{Beyond ``we found nothing.''} A paper that reported a wrong-signed coefficient and
+stopped would be uninformative. We take four further steps, each using only observable data
+and each a design-based statement a referee can check. First, \emph{heterogeneity}
+(Table~\ref{tab:hetero}): we interact the DiD with four pre-rule moderators that vary within
+both arms---September return volatility, dollar volume, Nasdaq listing, and financial
+industry---and find the DiD is positive and significant in \emph{every} subgroup with
+uniformly insignificant interactions; no observable stratum shows the narrowing H1 predicts,
+so the null is not an average that hides a real effect somewhere. Second, an \emph{overlap
+diagnostic} (Table~\ref{tab:overlap}): normalized differences show the two groups are balanced
+on volatility ($0.06$) and relative spread ($0.11$) but wildly imbalanced on log price
+($-2.42$) and log dollar volume ($-1.15$)---roughly ten times the $0.25$ rule-of-thumb---so the
+wide-spread controls are structurally not a counterfactual, and only $17$ control stocks even
+fall inside the treated price range. This is what a valid design must fix, and it motivates the
+student's price-and-volatility-matched control (deliberately reserved, Section~\ref{sec:conc}).
+Third, we show the wrong-signed DiD survives every reasonable redefinition of the observable
+screen (Table~\ref{tab:altdef}) and, under \emph{randomization inference} with 500 permutations
+of the treatment label (Table~\ref{tab:ri}, Figure~\ref{fig:randinf}), lies far outside the
+permutation distribution ($p<0.002$)---which, because random assignment ignores price and
+liquidity, locates the estimate in the systematic price structure of \emph{which} stocks are
+treated, not in the reform. Fourth, a \emph{minimum-detectable-effect} calculation
+(Table~\ref{tab:power}) shows the null is informative rather than underpowered: at 80\% power
+we could have detected a $0.49$~bps relative narrowing, below the $\approx\!1.0$~bps a
+half-cent quote would produce at the median treated price---so the effect \emph{would} be
+visible if the daily close could represent it, and the censoring result explains why it cannot.
+
+\paragraph{Interpretation.} We therefore report a \emph{measurement-limited null}: using the
+best daily proxy available to us, we find no evidence that the half-cent tick tightened
+tick-constrained spreads relative to controls, and we show precisely why the daily proxy is
+structurally unable to detect the reform's effect. This is an honest and, we think,
+instructive outcome for a student project: it demonstrates the discipline of pre-trend and
+placebo testing, the difference between a \emph{dollar} and a \emph{relative} spread, and the
+gap between a daily liquidity proxy and the intraday reality it approximates
+\citep{holden2014,chung2014}. The definitive test---a time-weighted intraday quoted spread
+and a trade-based effective spread from TAQ, on hand-verified tick-constrained eligibility---is
+laid out as the project's next phase (see \texttt{STUDENT\_TASKS.md}).
+
+\paragraph{Contribution.} We contribute to three literatures. Relative to the classic
+tick-size literature \citep{harris1994,angel1997,goldstein2000,bessembinder2003}, which
+studies moves \emph{up} the price grid (eighths $\to$ sixteenths $\to$ pennies), we study
+the first move \emph{below} the penny for U.S. equities. Relative to the modern tick and
+access-fee literature \citep{ohara2019,comerton2019,albuquerque2020} built on the 2016 Tick
+Size Pilot, we examine the opposite policy---a tick \emph{reduction}---in real time.
+Relative to the liquidity-measurement literature \citep{corwin2012,chung2014,holden2014}, we
+provide a concrete cautionary case in which a widely-used daily spread proxy is, by
+construction, blind to the very margin a reform changes. We do not claim to estimate the
+reform's effect; we claim to have bounded what daily data can and cannot say about it.
+
+The paper proceeds as follows. Section~\ref{sec:inst} describes the rule. Section~\ref{sec:hyp}
+states hypotheses. Section~\ref{sec:lit} places the paper in the literature.
+Section~\ref{sec:data} describes data, the sample, and the design-based checks.
+Section~\ref{sec:res} presents the DiD, event-study, and placebo results.
+Section~\ref{sec:rob} presents robustness and the mechanism (penny-grid censoring).
+Section~\ref{sec:design} presents the four design-based extensions---heterogeneity, overlap,
+randomization inference, and power. Section~\ref{sec:conc} concludes.
+
+\section{Institutional background}\label{sec:inst}
+Regulation NMS Rule~612 (the ``sub-penny rule'') has, since 2005, prohibited displaying,
+ranking, or accepting quotations in NMS stocks priced \$1 or more in increments smaller
+than \$0.01. The 2024 amendments replace the single penny increment with two tiers. A stock
+is assigned the \$0.005 increment for an evaluation period if its \emph{time-weighted
+average quoted spread} (TWAQS) over a prior measurement period is at or below \$0.015;
+otherwise it keeps the \$0.01 increment. Assignments are recomputed periodically, so a
+stock's tier can change over time. In parallel, the Rule~610 cap on access fees (the fee an
+exchange may charge to take displayed liquidity) falls from \$0.0030 to \$0.0010 per share
+for stocks priced \$1 or more. The two changes are complementary: a smaller tick makes
+displayed liquidity cheaper to \emph{provide}, and a smaller access fee makes it cheaper to
+\emph{take}. The SEC's stated first compliance date for these provisions is November 3,
+2025, which we use as the event date throughout.
+
+Two features matter for identification. First, eligibility is defined \emph{on the quoted
+spread itself}, so treatment is mechanically related to the outcome; we address this by
+assigning treatment from a screening window (September 2025) that is separated in time from
+the outcome windows. Second, the exact per-tranche phase-in schedule and the precise list of
+eligible symbols are set by the exchanges in a sequence of notices; hand-verifying those
+dates and the per-stock eligibility against the primary SEC and exchange documents is a
+central manual task for the student (Section~\ref{sec:conc}) and is \emph{not} performed by
+the automated pipeline here.
+
+\section{Hypotheses}\label{sec:hyp}
+Standard microstructure theory predicts that relaxing a binding tick lets competitive
+liquidity suppliers post tighter quotes, reducing quoted and effective spreads for
+constrained stocks, while leaving unconstrained stocks unaffected
+\citep{harris1994,foucault2013}.
+
+\begin{quote}
+\textbf{H1 (quoted spread).} After November 3, 2025, tick-constrained (treated) stocks'
+quoted spreads fall relative to wide-spread (control) stocks: the DiD coefficient is
+\emph{negative}.
+
+\textbf{H2 (effective spread).} The same holds for effective spreads, if the tighter
+quotes are actually traded against.
+
+\textbf{H3 (measurement resolution).} Because the reform's margin (\$0.01 $\to$ \$0.005) is
+sub-penny and intraday, a daily \emph{closing}-quote proxy may be unable to detect
+H1--H2 even if they hold; the closing quote of a constrained stock is pinned to the penny
+grid.
+\end{quote}
+
+\noindent Our results reject H1 in sign (the DiD is positive) but, through the placebo and
+event-study, show that rejection is not credible as a causal statement; the evidence
+instead supports H3---the daily proxy is uninformative about the reform's true margin.
+
+\section{Related literature}\label{sec:lit}
+This paper connects three strands. The first is the microstructure of tick size. Theory holds
+that a binding minimum increment inflates quoted spreads and rations price competition among
+liquidity suppliers, so that relaxing it should tighten spreads for constrained stocks while
+leaving unconstrained stocks unaffected \citep{harris1994,foucault2013}. The empirical
+literature has, until now, almost entirely studied moves \emph{up} the grid---the NYSE's shift
+from eighths to sixteenths \citep{goldstein2000}, decimalization
+\citep{bessembinder2003}, and the 2016--2018 Tick Size Pilot that \emph{widened} the tick for
+small-cap stocks \citep{ohara2019,comerton2019,albuquerque2020}. Findings are mixed but broadly
+consistent with a tick that binds: wider ticks widen spreads and can shift volume across venues,
+while relative tick size shapes the trading environment \citep{ohara2019}. We study the first
+move \emph{below} the penny for U.S. equities and, unusually, in real time around the compliance
+date; our contribution is less a new estimate than a precise account of why the standard daily
+liquidity proxy cannot deliver one.
+
+The second strand is liquidity measurement from low-frequency data. Because intraday TAQ is
+costly and, as here, often unavailable, a large literature builds daily spread proxies
+\citep{corwin2012,chung2014} and benchmarks them against intraday truth \citep{holden2014}. The
+consensus is that daily proxies track intraday spreads \emph{on average} but degrade exactly
+where the microstructure is finest---for low-priced, penny-pinned stocks whose quoted spread is
+a discrete grid variable. Our penny-grid censoring result is a sharp, policy-relevant instance:
+the daily closing quote of a tick-constrained stock is a censored measurement that is, by
+construction, blind to the half-cent margin the reform changes.
+
+The third strand is the credibility of difference-in-differences and the interpretation of null
+results. Recent methodological work stresses that pre-trend tests have limited power and can
+license false confidence \citep{roth2022}, that event-study/DiD estimands are fragile under
+treatment-effect heterogeneity \citep{callaway2021}, and that inference with a moderate number
+of clusters benefits from design-based methods such as randomization inference
+\citep{young2019}. Methodologists further urge that an insignificant estimate be read through
+its confidence interval and power rather than as proof of no effect \citep{abadie2020}, and that
+covariate overlap be assessed with normalized differences before any comparison is trusted
+\citep{imbens2015}. We use these tools diagnostically: a wrong-signed DiD that is statistically
+``significant'' fails a placebo, is uniform across subgroups, rests on groups with no price
+overlap, and---read correctly---is confirmed by randomization inference to be a price-structure
+artifact rather than a treatment effect. Reporting the design's minimum detectable effect then
+converts the null into a bound rather than a shrug.
+
+\section{Data and sample}\label{sec:data}
+\paragraph{Source and the TAQ constraint.} The ideal data are intraday NBBO quotes from
+WRDS TAQ, from which one computes a time-weighted quoted spread and a trade-based effective
+spread. On our WRDS account only the TAQ \emph{sample} libraries are subscribed, and they
+cover a handful of 2008, 2009, and 2021 days---there is no 2025 TAQ. Following the project
+brief, we therefore use the sanctioned fallback: the CRSP daily stock file (CIZ format,
+\texttt{crsp.dsf\_v2}), which records each security's daily \emph{closing} consolidated NBBO
+(\texttt{dlybid}, \texttt{dlyask}) and covers 2025 through year-end. We define the dollar
+quoted spread as $\text{ask}-\text{bid}$ and the relative quoted spread as
+$(\text{ask}-\text{bid})/\text{midpoint}$, the daily proxy analyzed by \citet{chung2014}.
+We also form a crude closing \emph{effective}-spread proxy,
+$2\,|\text{close}-\text{mid}|/\text{mid}$, and report it only as a caveated robustness
+outcome; a true effective spread requires trade prices from TAQ.
+
+\paragraph{Sample construction.} From all NMS common stocks (CRSP share type NS, security
+type EQTY/COM, issuer CORP or REIT) on NYSE, Nasdaq, or NYSE~American with price $\ge\$1$
+and a valid closing quote, we compute each stock's \emph{screening} statistics over
+September 2--30, 2025---a window deliberately separated from the outcome windows so that
+treatment assignment does not mechanically coincide with the measured outcome. A stock is
+\textbf{treated} (tick-constrained) if its September mean dollar quoted spread is
+$\le\$0.015$, the SEC's own TWAQS cutoff, and \textbf{control} if it is $\ge\$0.020$
+(clearly not penny-pinned). To keep the sample small and economically comparable in
+activity, we take the 75 most actively traded (by dollar volume) names in each arm,
+yielding 150 stocks. The daily panel runs August 25--December 19, 2025; the DiD analysis
+window is the four weeks before (October 6--31) and after (November 3--28) the event, giving
+5{,}820 stock-days.
+
+\paragraph{Summary and balance.} Table~\ref{tab:balance} reports pre-period means. By
+construction the groups differ sharply on the assignment variable---the dollar quoted spread
+is 1.33 cents for treated versus 20.31 cents for control---and, because tick-constrained
+stocks are systematically lower-priced, on price ($\ln$ price 3.80 vs.\ 5.75, $t=-68.6$).
+Notably the \emph{relative} spread is only modestly different (3.55 vs.\ 4.07 bps): a
+penny on a \$44 stock and eight cents on a \$262 stock are similar in proportional terms.
+This large level difference in price is the source of the identification problem documented
+below: the two groups are not natural counterfactuals for one another.
+
+\paragraph{Design-based checks.} Beyond the parametric DiD we run four checks that do not lean
+on the parallel-trends null, all using only observable screening and panel data. (1)
+\emph{Heterogeneity}: we interact the DiD with pre-rule moderators that vary within both arms
+(September volatility, dollar volume, listing venue, industry), excluding price because it is
+near-collinear with treatment, to test whether any observable subgroup shows the predicted
+narrowing. (2) \emph{Overlap}: we compute Imbens--Rubin normalized differences
+$(\bar x_T-\bar x_C)/\sqrt{(s_T^2+s_C^2)/2}$ for each screening covariate and count how many
+control stocks fall inside the treated price range, quantifying whether a common-support
+comparison is even possible. (3) \emph{Randomization inference}: we permute the time-invariant
+treatment label across the 150 stocks 500 times, rebuild the DiD, and compare the actual
+coefficient to the permutation distribution. (4) \emph{Power}: we compute the minimum
+detectable effect at 80\% power from the preferred specification's standard error. We do
+\emph{not} construct the price-and-volatility-matched control group and re-estimate on it: that
+hand-curated match, drawn from the full NMS universe rather than only the wide-spread arm, is a
+reserved manual contribution for the student (Section~\ref{sec:conc}), and our overlap
+diagnostic is designed to motivate it, not to preempt it.
+
+\section{Results}\label{sec:res}
+\paragraph{The 2$\times$2.} Table~\ref{tab:did2x2} shows the raw pre/post means. The
+relative quoted spread of \emph{control} stocks fell from 4.07 to 3.37~bps ($-0.70$), while
+\emph{treated} stocks were essentially flat (3.55 to 3.59, $+0.03$). The implied DiD is
+$+0.73$~bps. In dollar terms controls fell 4.57 cents (from 20.31) while treated fell only
+0.14 cents (from 1.33), a DiD of $+4.42$ cents. Both DiDs are positive: the wide-spread
+controls narrowed more than the tick-constrained treated group.
+
+\paragraph{Regression DiD.} Table~\ref{tab:did_main} estimates
+\[
+\text{RelSpread}_{it}=\alpha_i+\delta_t+\beta\,(\text{Treated}_i\times\text{Post}_t)+\gamma' X_{it}+\varepsilon_{it},
+\]
+with stock ($\alpha_i$) and day ($\delta_t$) fixed effects, controls $X$ for $\ln$ price and
+$\ln$ dollar volume, and standard errors clustered by stock. The DiD $\beta$ is
+$+0.73$~bps and highly stable across the five specifications ($+0.73$ to $+0.74$), with
+$t$-statistics of $4.2$ clustered by stock and $2.9$ double-clustered by stock and day. The
+preferred specification (4) has a 95\% confidence interval of $[+0.39,+1.07]$~bps and a
+minimum detectable effect of about $0.49$~bps at 80\% power---so we could have detected a
+narrowing of half a basis point had one existed in this proxy. The estimate is the wrong
+sign for H1.
+
+\paragraph{Event-study and pre-trends.} Table~\ref{tab:eventstudy} and
+Figure~\ref{fig:eventstudy} plot weekly DiD coefficients relative to the week before the
+event. If the design were valid, the pre-event coefficients would be flat near zero and any
+effect would appear as a downward step at week~0. Instead, weeks $-6$, $-5$, and $-4$ are
+significantly \emph{positive} ($0.88$, $0.82$, $0.58$~bps; $t=3.8,3.2,2.7$), the gap closes
+by weeks $-2$ and $-1$, and then re-widens after the event. The treated--control gap is
+wandering for reasons unrelated to November~3.
+
+\paragraph{Placebo.} Table~\ref{tab:placebo} makes the point sharply. We drop the true
+post-period entirely and assign a \emph{fake} event date of October~6 inside the
+pre-period. A valid design would return zero. Instead the fake-DiD is $-0.77$~bps
+($t=-5.5$)---larger in magnitude than, and opposite in sign to, the true-period estimate.
+The parallel-trends assumption is violated, and the DiD cannot be read as causal.
+
+\section{Robustness and mechanism}\label{sec:rob}
+\paragraph{Alternative outcomes.} Table~\ref{tab:altoutcomes} re-estimates the DiD on the
+dollar quoted spread and on the closing effective-spread proxy. The dollar-spread DiD is
+$+4.4$ cents ($t\approx4.5$)---again positive, again driven by controls. The
+effective-spread proxy DiD is small and insignificant ($+0.6$ to $+0.7$~bps,
+$t=1.5$--$1.8$). None supports H1--H2.
+
+\paragraph{Why the daily proxy is blind: penny-grid censoring.} The decisive evidence is in
+Table~\ref{tab:censoring} and Figure~\ref{fig:censoring}. For the treated stocks the
+closing dollar spread is \textbf{never} sub-penny: 0.0\% of treated stock-days show a
+spread below one cent, both before \emph{and} after the reform. The share pinned at exactly
+one cent \emph{rose} from 81.3\% to 89.1\%. A closing quote that is always $\ge\$0.01$
+cannot reveal a half-cent quote, so the reform's margin is invisible in these data by
+construction. The modest within-treated dollar narrowing we do see ($-10.7\%$,
+Table~\ref{tab:withingroup}) is stocks moving from two cents to one cent (penny
+compression), not one cent to a half-cent. This is a clean illustration of H3 and of the
+proxy limits emphasized by \citet{holden2014}.
+
+\paragraph{A market-wide tightening, not a treatment.} Table~\ref{tab:withingroup} reports
+paired within-group changes. Both groups' dollar spreads fell significantly from October to
+November---treated $-10.7\%$ (paired $t=-3.6$) and control $-22.6\%$ (paired $t=-4.6$).
+Whatever narrowed spreads in late 2025 (rising prices, lower volatility, or the access-fee
+cut acting on \emph{all} stocks) hit the unconstrained controls harder than the pinned
+treated group. A DiD that uses these controls as the counterfactual therefore attributes
+\emph{negative} net tightening to the reform---a mechanical artifact of an invalid control
+group, not evidence that the reform backfired.
+
+\paragraph{What we do not claim.} We do not claim the reform failed. We claim that daily
+closing quotes cannot test it: the treated outcome is censored at the penny, the control
+group is not comparable, and the parallel-trends and placebo checks fail. The sign and
+significance of our DiD are real numbers from real data, but they are not a treatment
+effect.
+
+\section{Design-based extensions}\label{sec:design}
+The naive DiD is statistically significant, wrong-signed, and non-causal. This section makes
+that diagnosis rigorous and quantitative with four design-based checks, each on observable data.
+
+\paragraph{No subgroup shows the effect.} If the reform tightened spreads for \emph{some}
+tick-constrained stocks and the pooled test merely averaged it away, the narrowing should
+surface in an observable subgroup. Table~\ref{tab:hetero} interacts the DiD with four pre-rule
+moderators that vary within both arms---above-median September return volatility, above-median
+dollar volume, a Nasdaq-listing indicator, and a financial-industry indicator---reporting the
+base DiD (low-moderator group) and the DiD$\times$moderator interaction for both the relative
+and the dollar spread. Price is deliberately excluded because it is near-collinear with
+treatment. The result is stark: the DiD is \emph{positive and significant in every subgroup}
+(relative-spread base coefficients $+0.73$ to $+1.00$~bps, all $t>2.6$), and every interaction
+is statistically insignificant. No observable stratum exhibits the negative sign H1 predicts;
+the wrong-signed estimate is a uniform feature of the sample, not a diluted true effect hiding
+in a subgroup.
+
+\paragraph{The control group is not a counterfactual.} Table~\ref{tab:overlap} reports
+normalized differences between treated and control on the September screening covariates. The
+groups are well balanced on the two dimensions that plausibly drive spread \emph{dynamics}---
+return volatility ($+0.06$) and the relative spread itself ($+0.11$), both far inside the
+$0.25$ rule-of-thumb---but are grossly imbalanced on price ($\ln$ price normalized difference
+$-2.42$) and dollar volume ($-1.15$), an order of magnitude beyond that threshold. Only $17$ of
+the $75$ control stocks fall anywhere inside the treated price range of \$5.9--\$177.8. A
+difference-in-differences that compares \$44 tick-constrained names to \$262 mega-caps is not
+estimating a treatment effect; it is differencing two populations that share almost no common
+support on price and liquidity. This is precisely the imbalance a matched control must repair,
+and building that match---on price and volatility, drawn from the full universe---is the
+student's reserved task, motivated but deliberately not performed here.
+
+\paragraph{The wrong sign survives every screen redefinition.} One might worry that the result
+depends on where we drew the \$0.015 treated cutoff or the \$0.02 control cutoff.
+Table~\ref{tab:altdef} re-estimates the two-way fixed-effects DiD on subsets of the same 150
+stocks under a tighter treated screen (September dollar spread $\le\$0.012$), a narrower control
+screen ($\ge\$0.03$), a donut that drops names near the \$0.015 boundary, and a sample that
+excludes mega-caps (screen price $>\$500$). The DiD stays positive and significant throughout,
+ranging from $+0.39$~bps ($t=2.6$, dropping mega-caps) to $+1.00$~bps ($t=4.8$, donut). Even
+removing the highest-priced controls---the most obvious source of non-comparability---leaves a
+significant wrong-signed estimate. The pathology cannot be screened away; it requires the
+price-matched control the overlap diagnostic calls for.
+
+\paragraph{Randomization inference locates the estimate in the price structure.}
+Table~\ref{tab:ri} and Figure~\ref{fig:randinf} report design-based inference from 500
+permutations of the treatment label across the 150 stocks. For the relative quoted spread the
+actual DiD ($+0.73$~bps) lies far outside the permutation 95\% interval
+($[-0.37,+0.36]$), randomization $p<0.002$; the dollar-spread estimate is likewise extreme
+($+4.36$ cents versus $[-1.99,+2.03]$, $p<0.002$). This does \emph{not} rescue a causal reading.
+Because random assignment ignores price and liquidity, an estimate this extreme means the
+treated--control spread gap is a \emph{systematic} function of \emph{which} stocks are labeled
+treated---their price and volume---exactly the artifact the placebo, the pre-trends, and the
+overlap diagnostic identify. Randomization inference thus corroborates both halves of the story:
+the estimate is not sampling noise, and it is not the reform.
+
+\paragraph{The null is informative, not underpowered.} Finally, Table~\ref{tab:power} reports the
+minimum detectable effect (MDE) at 80\% power, $\text{MDE}=(z_{0.975}+z_{0.80})\,\widehat{\text{SE}}
+\approx 2.80\,\widehat{\text{SE}}$, for each outcome. For the relative quoted spread the MDE is
+$0.49$~bps---$13.8\%$ of the pre-period treated mean---so a narrowing of half a basis point would
+have been detected had it appeared in the daily close. The economic benchmark makes the point
+decisive: a move from a one-cent to a half-cent quoted spread at the median treated midpoint of
+\$48.90 is a $1.02$~bps relative narrowing, \emph{twice} the MDE. The design is therefore easily
+powerful enough to see the reform's mechanical margin---\emph{if} the daily closing quote could
+represent a half-cent spread. The censoring result (Table~\ref{tab:censoring}) shows it never
+does: $0.0\%$ of treated stock-days are sub-penny. The null is not the symptom of an
+underpowered test; it is the signature of a censored measurement. (The dollar-spread MDE is
+large relative to its small treated mean, so we read that noisy margin cautiously.)
+
+\section{Conclusion}\label{sec:conc}
+Using the CRSP daily closing NBBO for 150 NMS stocks around the November~3, 2025 half-cent
+tick and access-fee reform, we find no credible evidence that tick-constrained stocks'
+spreads narrowed relative to wide-spread controls. The naive DiD is the wrong sign
+($+0.73$~bps, $t=4.2$), but it fails a placebo ($-0.77$~bps, $t=-5.5$) and shows
+non-parallel pre-trends, and---most importantly---the daily close is censored to the penny
+grid for exactly the stocks the reform targets (0.0\% of treated stock-days sub-penny).
+Both groups' dollar spreads fell market-wide (treated $-10.7\%$, control $-22.6\%$), which
+the daily design cannot separate from the reform. The honest conclusion is that this
+question cannot be answered with daily data.
+
+The path to an answer is specific and is the project's next phase. First, obtain TAQ
+intraday NBBO (or a vendor daily-spread product built from it) and compute a time-weighted
+quoted spread and a trade-based effective spread---the measures on which the reform actually
+operates. Second, \emph{hand-verify tick-constrained eligibility per stock} against the SEC
+adopting release and the exchange phase-in notices, and log the exact per-tranche
+compliance dates, since the automated \$0.015 screen is only an approximation of the
+regulatory TWAQS assignment. Third, sharpen identification with a control group matched on
+price and volatility, or a regression-discontinuity design around the \$0.015 cutoff, so
+that treated and control stocks share a counterfactual. With those three pieces the same DiD
+skeleton built here becomes a credible test. Until then, the responsible finding is a
+transparent null with a documented reason.
+
+\paragraph{Limitations.} (i)~Daily closing quotes, not intraday---the central limitation.
+(ii)~A small, deliberately illustrative sample of 150 liquid names, not the full NMS
+universe. (iii)~Treatment assigned by an automated spread screen, pending the student's
+hand-verification of true eligibility. (iv)~The four-week windows are short by design (to
+isolate the event) and cannot speak to longer-run adjustment.
+
+\clearpage
+\bibliographystyle{plainnat}
+\begin{thebibliography}{99}
+\bibitem[Abadie(2020)]{abadie2020} Abadie, A., 2020. Statistical nonsignificance in empirical
+economics. \textit{American Economic Review: Insights} 2(2), 193--208.
+\bibitem[Albuquerque et al.(2020)]{albuquerque2020} Albuquerque, R., Song, S., Yao, C., 2020.
+The price effects of liquidity shocks: A study of the SEC's tick size experiment.
+\textit{Journal of Financial Economics} 138(3), 700--724.
+\bibitem[Angel(1997)]{angel1997} Angel, J.J., 1997. Tick size, share prices, and stock
+splits. \textit{Journal of Finance} 52(2), 655--681.
+\bibitem[Bessembinder(2003)]{bessembinder2003} Bessembinder, H., 2003. Trade execution costs
+and market quality after decimalization. \textit{Journal of Financial and Quantitative
+Analysis} 38(4), 747--777.
+\bibitem[Callaway and Sant'Anna(2021)]{callaway2021} Callaway, B., Sant'Anna, P.H.C., 2021.
+Difference-in-differences with multiple time periods. \textit{Journal of Econometrics} 225(2),
+200--230.
+\bibitem[Chung and Zhang(2014)]{chung2014} Chung, K.H., Zhang, H., 2014. A simple
+approximation of intraday spreads using daily data. \textit{Journal of Financial Markets}
+17, 94--120.
+\bibitem[Comerton-Forde et al.(2019)]{comerton2019} Comerton-Forde, C., Gr\'egoire, V.,
+Zhong, Z., 2019. Inverted fee structures, tick size, and market quality. \textit{Journal of
+Financial Economics} 134(1), 141--164.
+\bibitem[Corwin and Schultz(2012)]{corwin2012} Corwin, S.A., Schultz, P., 2012. A simple way
+to estimate bid--ask spreads from daily high and low prices. \textit{Journal of Finance}
+67(2), 719--760.
+\bibitem[Foucault et al.(2013)]{foucault2013} Foucault, T., Pagano, M., R\"oell, A., 2013.
+\textit{Market Liquidity: Theory, Evidence, and Policy}. Oxford University Press.
+\bibitem[Goldstein and Kavajecz(2000)]{goldstein2000} Goldstein, M.A., Kavajecz, K.A., 2000.
+Eighths, sixteenths, and market depth: changes in tick size and liquidity provision on the
+NYSE. \textit{Journal of Financial Economics} 56(1), 125--149.
+\bibitem[Harris(1994)]{harris1994} Harris, L., 1994. Minimum price variations, discrete
+bid--ask spreads, and quotation sizes. \textit{Review of Financial Studies} 7(1), 149--178.
+\bibitem[Holden and Jacobsen(2014)]{holden2014} Holden, C.W., Jacobsen, S., 2014. Liquidity
+measurement problems in fast, competitive markets: expensive and cheap solutions.
+\textit{Journal of Finance} 69(4), 1747--1785.
+\bibitem[Imbens and Rubin(2015)]{imbens2015} Imbens, G.W., Rubin, D.B., 2015. \textit{Causal
+Inference for Statistics, Social, and Biomedical Sciences: An Introduction}. Cambridge
+University Press.
+\bibitem[O'Hara et al.(2019)]{ohara2019} O'Hara, M., Saar, G., Zhong, Z., 2019. Relative
+tick size and the trading environment. \textit{Review of Asset Pricing Studies} 9(1),
+47--90.
+\bibitem[Petersen(2009)]{petersen2009} Petersen, M.A., 2009. Estimating standard errors in
+finance panel data sets: comparing approaches. \textit{Review of Financial Studies} 22(1),
+435--480.
+\bibitem[Roth(2022)]{roth2022} Roth, J., 2022. Pretest with caution: event-study estimates after
+testing for parallel trends. \textit{American Economic Review: Insights} 4(3), 305--322.
+\bibitem[SEC(2024)]{sec2024} U.S. Securities and Exchange Commission, 2024. Regulation NMS:
+Minimum Pricing Increments, Access Fees, and Transparency of Better Priced Orders. Adopting
+Release No. 34-101070, September 18, 2024.
+\bibitem[Young(2019)]{young2019} Young, A., 2019. Channeling Fisher: randomization tests and the
+statistical insignificance of seemingly significant experimental results. \textit{Quarterly
+Journal of Economics} 134(2), 557--598.
+\end{thebibliography}
+
+\clearpage
+\appendix
+\section*{Tables}
+\addcontentsline{toc}{section}{Tables}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Pre-period covariate balance, treated vs.\ control}\label{tab:balance}
+\small
+\input{tables/tab_balance.tex}
+\begin{tablenotes}\small
+\item \textit{Notes:} Means over the pre-period (Oct 6--31, 2025) across stock-days.
+Treated $=$ tick-constrained (September mean dollar quoted spread $\le\$0.015$); control $=$
+wide-spread ($\ge\$0.020$). Column ``$t$'' is a Welch two-sample $t$ on stock-day
+observations (illustrative; the DiD uses stock-clustered SE). 75 treated, 75 control.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Difference-in-differences 2$\times$2 means}\label{tab:did2x2}
+\small
+\input{tables/tab_did2x2.tex}
+\begin{tablenotes}\small
+\item \textit{Notes:} Cell means of the (winsorized 1/99) relative quoted spread (bps) and
+dollar quoted spread (cents). Pre $=$ Oct 6--31; Post $=$ Nov 3--28, 2025. The bottom row is
+the DiD (treated change $-$ control change).
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Main DiD: relative quoted spread (bps)}\label{tab:did_main}
+\small
+\input{tables/tab_did_main.tex}
+\begin{tablenotes}\small
+\item \textit{Notes:} DV $=$ relative quoted spread (bps, winsorized 1/99). Coefficient on
+Treated$\times$Post. Specs (2)--(4) add stock FE, day FE, and $\ln$ price/$\ln\$$volume
+controls. SE clustered by stock; row (3d) double-clusters by stock and day.
+$^{*}p<0.10,\ ^{**}p<0.05,\ ^{***}p<0.01$. A negative coefficient would support H1; the
+estimate is positive.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Alternative outcomes}\label{tab:altoutcomes}
+\small
+\input{tables/tab_altoutcomes.tex}
+\begin{tablenotes}\small
+\item \textit{Notes:} DiD (Treated$\times$Post) for the dollar quoted spread (cents) and the
+closing effective-spread proxy (bps), TWFE with/without controls, SE clustered by stock.
+The effective-spread proxy $2|\text{close}-\text{mid}|/\text{mid}$ is a crude daily measure
+and is reported only for completeness.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Event-study: weekly DiD coefficients}\label{tab:eventstudy}
+\small
+\input{tables/tab_eventstudy.tex}
+\begin{tablenotes}\small
+\item \textit{Notes:} Coefficients on Treated$\times$(event-week) from a TWFE regression of
+the relative quoted spread (bps), base week $=-1$. Week 0 contains Nov 3, 2025. Significant
+pre-event coefficients (weeks $-6,-5,-4$) indicate non-parallel trends.
+$^{*}p<0.10,\ ^{**}p<0.05,\ ^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Placebo: fake event inside the pre-period}\label{tab:placebo}
+\small
+\input{tables/tab_placebo.tex}
+\begin{tablenotes}\small
+\item \textit{Notes:} The true post-period is dropped; a fake event of Oct 6, 2025 is
+assigned within the pre-period (Sep 8--Oct 31). A valid design would return zero; the large
+significant coefficient shows the parallel-trends assumption fails.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Within-group pre/post changes (description)}\label{tab:withingroup}
+\small
+\input{tables/tab_withingroup.tex}
+\begin{tablenotes}\small
+\item \textit{Notes:} Stock-level pre$\to$post changes, averaged within group, with a paired
+$t$-test across the 75 stocks in each arm. Both groups' dollar spreads fall; the control
+(unconstrained) group falls more.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Penny-grid censoring of the daily closing quote (mechanism)}\label{tab:censoring}
+\small
+\input{tables/tab_censoring.tex}
+\begin{tablenotes}\small
+\item \textit{Notes:} Share of stock-days whose closing dollar spread equals exactly \$0.01
+and whose spread is strictly below \$0.01 (sub-penny). Treated stocks are never sub-penny at
+the close, before or after the reform, so the \$0.005 margin is not observable in daily
+data. ``Mean \$ spread'' is the raw (unwinsorized) closing dollar spread in cents.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Heterogeneity of the DiD by observable pre-rule moderators}\label{tab:hetero}
+\small
+\input{tables/tab_hetero.tex}
+\begin{tablenotes}\small
+\item \textit{Notes:} Each row adds an interaction DiD$\times M$ (and $\text{Post}\times M$) to
+the two-way fixed-effects specification, where $M$ is a pre-rule moderator that varies within
+both arms: above-median September return volatility, above-median dollar volume, a
+Nasdaq-listing indicator, and a financial-industry indicator. Columns report the base DiD
+(low-$M$ group) and the DiD$\times M$ interaction for the relative and dollar quoted spread. SE
+clustered by stock. Price is deliberately excluded as a moderator (near-collinear with
+treatment). No subgroup shows the negative (narrowing) sign H1 predicts.
+$^{*}p<0.10,\ ^{**}p<0.05,\ ^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Covariate overlap: normalized differences (treated vs.\ control)}\label{tab:overlap}
+\small
+\input{tables/tab_overlap.tex}
+\begin{tablenotes}\small
+\item \textit{Notes:} September screening-window means and the Imbens--Rubin normalized
+difference $(\bar x_T-\bar x_C)/\sqrt{(s_T^2+s_C^2)/2}$ for each covariate. Values above
+$\approx0.25$ in absolute terms indicate serious imbalance. The groups are balanced on
+volatility and relative spread but severely imbalanced on price and dollar volume, so the
+wide-spread controls do not provide common support. Only 17 of 75 control stocks fall inside the
+treated price range (\$5.9--\$177.8). A price-and-volatility-matched control is the student's
+reserved next step.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{The DiD under alternative screen definitions}\label{tab:altdef}
+\small
+\input{tables/tab_altdef.tex}
+\begin{tablenotes}\small
+\item \textit{Notes:} DV $=$ relative quoted spread (bps), two-way fixed-effects DiD
+(Treated$\times$Post), SE clustered by stock, re-estimated on subsets of the same 150 stocks
+under the stated observable screen. The wrong-signed, significant estimate survives every
+reasonable redefinition, including dropping mega-caps. $^{*}p<0.10,\ ^{**}p<0.05,\ ^{***}p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Randomization inference (500 permutations of treatment)}\label{tab:ri}
+\small
+\input{tables/tab_ri.tex}
+\begin{tablenotes}\small
+\item \textit{Notes:} The time-invariant treatment label is permuted across the 150 stocks 500
+times and the two-way fixed-effects DiD is re-estimated each time. ``Perm.\ 95\% interval'' is
+the 2.5--97.5 percentile of the permutation distribution; the RI $p$-value is the share of
+permutations with $|\text{coefficient}|\geq|\text{actual}|$. The actual estimate lies far
+outside the permutation distribution: because random assignment ignores price and liquidity,
+this locates the estimate in the size/price structure of \emph{which} stocks are treated, not in
+the reform. See Figure~\ref{fig:randinf}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[htbp]\centering
+\begin{threeparttable}
+\caption{Minimum detectable effects at 80\% power}\label{tab:power}
+\small
+\input{tables/tab_power.tex}
+\begin{tablenotes}\small
+\item \textit{Notes:} MDE(80\%) $=(z_{0.975}+z_{0.80})\times$SE $\approx 2.80\times$SE of the
+preferred-specification DiD, expressed as a share of the pre-period treated mean. For the
+relative spread the MDE is $0.49$~bps; a \$0.01$\to$\$0.005 narrowing at the median treated
+midpoint (\$48.90) is $1.02$~bps---above the MDE---so the reform's margin would be detectable
+\emph{if} the daily close could represent a half-cent spread (Table~\ref{tab:censoring} shows it
+never does). The dollar-spread MDE is large relative to its small treated mean and is read
+cautiously.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\clearpage
+\section*{Figures}
+\addcontentsline{toc}{section}{Figures}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.8\textwidth]{fig1_eventtime_spreads.pdf}
+\caption{Event-time mean relative quoted spread (bps) for treated (tick-constrained) and
+control (wide-spread) stocks, by week relative to the Nov 3, 2025 compliance date. The two
+series do not move in parallel, and neither shows a clean step at week~0.}
+\label{fig:eventtime}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.8\textwidth]{fig2_eventstudy_coefs.pdf}
+\caption{Event-study DiD coefficients (Treated$\times$week) on the relative quoted spread,
+with 95\% confidence intervals, base week $=-1$. Significant pre-event coefficients reveal
+non-parallel pre-trends; there is no downward step at the event.}
+\label{fig:eventstudy}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.75\textwidth]{fig3_censoring.pdf}
+\caption{Penny-grid censoring. Among treated (tick-constrained) stocks, the share of
+stock-days with a sub-penny closing spread is 0.0\% both before and after the reform, while
+the share pinned at exactly one cent rises. The half-cent margin is invisible in daily
+closing quotes.}
+\label{fig:censoring}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.72\textwidth]{fig4_randinf.pdf}
+\caption{Randomization inference for the relative-quoted-spread DiD. Histogram: the distribution
+of the DiD coefficient under 500 random permutations of the treatment label across the 150
+stocks. The actual estimate (red line, $+0.73$~bps) lies far in the right tail (RI $p<0.002$);
+because random assignment ignores price and liquidity, this locates the estimate in the price
+structure of \emph{which} stocks are treated, not in the November~3 reform.}
+\label{fig:randinf}
+\end{figure}
+
+\end{document}
