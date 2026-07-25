@@ -1,5 +1,10 @@
 # Student manual tasks — Aiden Shanyu Chen (Project 03, Clawbacks)
 
+> **Revised timeline (updated 2026-07-25): we start at Week 5.** The program is now in Week 5, so that is your starting line. **Every earlier-week task below (anything labeled Weeks 1–4) is folded into Week 5 — start those now, this week, in the order listed.** The Week 5–8 items keep their timing, and everything still lands by the symposium (Aug 12). Read any "Week 1" or "Weeks 3–4" label below as "begin now, in Week 5."
+>
+> **On authorship:** you are listed as a coauthor on the working paper, but that credit is *provisional and tentative for the ASSIP program at this stage* — it is confirmed when you complete your contribution below (verify the code and data, do your hand-coding, and help push the paper forward). Note too that in finance and economics, published author order is conventionally alphabetical; the student-first order on the draft is a program convention, not a ranking.
+
+
 **The AI has built:** the WRDS data pipeline (Compustat, CRSP, Execucomp, S&P index
 membership), the difference-in-differences, the event-study/placebo diagnostics, the figures,
 and a complete 14-page paper draft. The current honest finding is a **null**: the mandatory

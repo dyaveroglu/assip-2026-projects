@@ -1,5 +1,10 @@
 # Student manual tasks — Alexander Li Tang (Project 11, CHIPS awards)
 
+> **Revised timeline (updated 2026-07-25): we start at Week 5.** The program is now in Week 5, so that is your starting line. **Every earlier-week task below (anything labeled Weeks 1–4) is folded into Week 5 — start those now, this week, in the order listed.** The Week 5–8 items keep their timing, and everything still lands by the symposium (Aug 12). Read any "Week 1" or "Weeks 3–4" label below as "begin now, in Week 5."
+>
+> **On authorship:** you are listed as a coauthor on the working paper, but that credit is *provisional and tentative for the ASSIP program at this stage* — it is confirmed when you complete your contribution below (verify the code and data, do your hand-coding, and help push the paper forward). Note too that in finance and economics, published author order is conventionally alphabetical; the student-first order on the draft is a program convention, not a ranking.
+
+
 **The AI has built:** the full pipeline — a first-pass hand-collected award list, the
 WRDS/CRSP pull, the per-event market-model event study (shared `lib/event_study.py`), the
 cross-sectional "scaling with size" regressions, all tables, both figures, and a complete
