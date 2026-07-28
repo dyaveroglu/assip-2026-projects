@@ -1,0 +1,398 @@
+state,company_raw,notice_date,n_employees,city,county,layoff_type,source
+OR,Coburg Facility,2026-05-13,83.0,Coburg,,Permanent closure,warn_or.json
+OR,"Prineville, OR Facility",2026-04-29,66.0,Prineville,,Large Layoff - 10 or more workers,warn_or.json
+OR,Troutdale Facility,2026-04-02,65.0,Troutdale,,Large Layoff - 10 or more workers,warn_or.json
+OR,Sunstone Way,2026-03-27,175.0,Portland,,Permanent closure,warn_or.json
+OR,Direct Marketing Solutions,2026-04-06,53.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,Sumner St - Portland,2026-04-06,53.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,Horizon Air - Rogue Valley Internationa,2026-03-26,78.0,Medford,,Large Layoff - 10 or more workers,warn_or.json
+OR,Oregon - Remote Employees,2026-02-13,2.0,,,Reduction,warn_or.json
+OR,Albany/Millersburg,2026-02-13,1.0,Albany,,Reduction,warn_or.json
+OR,Riddle Plywood facility,2026-02-04,146.0,Riddle,,Large Layoff - 10 or more workers,warn_or.json
+OR,Kroger-00255,2026-01-29,4.0,Portland,,Permanent closure,warn_or.json
+OR,Kroger-00040,2026-01-29,4.0,Portland,,Permanent closure,warn_or.json
+OR,Kroger-00075-Prime,2026-01-29,4.0,Portland,,Permanent closure,warn_or.json
+OR,Kroger-00063,2026-01-29,4.0,Clackamas,,Permanent closure,warn_or.json
+OR,Kroger-00127-Prime,2026-01-29,4.0,Powell Valley,,Permanent closure,warn_or.json
+OR,Kroger-00153,2026-01-29,4.0,Happy Valley,,Permanent closure,warn_or.json
+OR,Kroger-00128-Prime,2026-01-29,4.0,Portland,,Permanent closure,warn_or.json
+OR,Kroger-00035,2026-01-29,3.0,Beaverton,,Permanent closure,warn_or.json
+OR,Kroger-00360-Prime,2026-01-29,4.0,Portland,,Permanent closure,warn_or.json
+OR,Kroger-00135,2026-01-29,4.0,Portland,,Permanent closure,warn_or.json
+OR,Kroger-00125-Prime,2026-01-29,4.0,North Tabor,,Permanent closure,warn_or.json
+OR,Kroger-00090,2026-01-29,4.0,Salem,,Permanent closure,warn_or.json
+OR,Kroger-00150-Prime,2026-01-29,4.0,Portland,,Permanent closure,warn_or.json
+OR,Kroger-00240,2026-01-29,4.0,Milwaukie,,Permanent closure,warn_or.json
+OR,Kroger-00600-Prime,2026-01-29,4.0,Portland,,Permanent closure,warn_or.json
+OR,"Lincare-Brookings, OR",2026-01-29,3.0,Brookings,,Permanent closure,warn_or.json
+OR,Kroger-00516,2026-01-29,3.0,Wilsonville,,Permanent closure,warn_or.json
+OR,Kroger-00417,2026-01-29,3.0,Eugene,,Permanent closure,warn_or.json
+OR,Kroger-00660,2026-01-29,3.0,Wood Village,,Permanent closure,warn_or.json
+OR,Eugene Location,2026-01-29,39.0,Eugene,,Permanent closure,warn_or.json
+OR,Bend Location,2026-01-29,26.0,Bend,,Permanent closure,warn_or.json
+OR,"Three Pirates, LLC dba Point Blank Dist",2026-01-29,112.0,Portland,,Permanent closure,warn_or.json
+OR,Oregon - Remote Employees,2026-01-08,1.0,,,Permanent closure,warn_or.json
+OR,Vacuum Technique LLC,2025-12-29,78.0,Clackamas,,Permanent closure,warn_or.json
+OR,"Solgen Power, LLC dba Purelight Power",2025-12-23,71.0,Medford,,Permanent closure,warn_or.json
+OR,Administrative Office,2025-12-23,13.0,Medford,,Permanent closure,warn_or.json
+OR,Oregon - Remote Employees,2025-12-23,25.0,,,Permanent closure,warn_or.json
+OR,Wells Fargo and Company - 5th Ave. Port,2025-12-09,3.0,Portland,,Reduction,warn_or.json
+OR,Nordstrom Portland Rack,2025-12-01,37.0,Portland,,Permanent closure,warn_or.json
+OR,Vibra Specialty Hospital of Portland,2025-12-01,310.0,Portland,,Permanent closure,warn_or.json
+OR,Oregon - Remote Employees,2025-11-20,1.0,,,Reduction,warn_or.json
+OR,Aloha Facility,2025-11-13,41.0,Aloha,,Large Layoff - 10 or more workers,warn_or.json
+OR,"Century Blvd., Hillsboro",2025-11-13,510.0,Hillsboro,,Large Layoff - 10 or more workers,warn_or.json
+OR,"25th Ave., Hillsboro",2025-11-13,76.0,Hillsboro,,Large Layoff - 10 or more workers,warn_or.json
+OR,"Elam Young Pkwy., Hillsboro",2025-11-13,42.0,Hillsboro,,Large Layoff - 10 or more workers,warn_or.json
+OR,Pacific Source - Bend,2025-10-24,52.0,Bend,,Reduction,warn_or.json
+OR,Pacific Source - Medford,2025-10-24,1.0,Medford,,Reduction,warn_or.json
+OR,Pacific Source - Portland,2025-10-24,38.0,Portland,,Reduction,warn_or.json
+OR,Pacific Source,2025-10-24,153.0,Springfield,,Large Layoff - 10 or more workers,warn_or.json
+OR,Pacific Source - Salem,2025-10-24,21.0,Salem,,Reduction,warn_or.json
+OR,Wells Fargo and Company - 5th Ave. Port,2025-10-28,34.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,Wells Fargo and Company - Hawthorne Ave,2025-10-28,147.0,Salem,,Large Layoff - 10 or more workers,warn_or.json
+OR,Wells Fargo and Company - Walker Rd. Hi,2025-10-28,2.0,Hillsboro,,Reduction,warn_or.json
+OR,Wells Fargo and Company - Walker Rd. Hi,2025-10-28,263.0,Hillsboro,,Permanent closure,warn_or.json
+OR,Oregon - Remote Employees,2025-10-03,1.0,,,Small Layoff  1 – 10 workers,warn_or.json
+OR,Pacific Source,2025-09-17,56.0,Springfield,,Large Layoff - 10 or more workers,warn_or.json
+OR,"Bags, A Metropolis Company - Portland",2025-10-13,157.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,Wells Fargo Center - Portland,2025-09-30,50.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,Dillard Hardwood Plywood Facility,2025-09-25,7.0,Dillard,,Permanent closure,warn_or.json
+OR,Dillard Hardwood Plywood Facility,2025-09-25,100.0,Dillard,,Large Layoff - 10 or more workers,warn_or.json
+OR,Hillsboro Facility,2025-09-16,128.0,Hillsboro,,Large Layoff - 10 or more workers,warn_or.json
+OR,Oregon - Remote Employees,2025-09-16,1.0,,,Small Layoff  1 – 10 workers,warn_or.json
+OR,Nike World Headquarters,2025-09-15,69.0,Beaverton,,Large Layoff - 10 or more workers,warn_or.json
+OR,Remote Workers - Oregon,2025-08-20,9.0,,,Permanent closure,warn_or.json
+OR,Remote Workers,2025-08-20,16.0,,,Permanent closure,warn_or.json
+OR,Oregon - Remote Employees,2025-08-12,23.0,,,Large Layoff - 10 or more workers,warn_or.json
+OR,Portland - Production Facility,2025-07-29,90.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,Store #128,2025-07-16,249.0,Portland,,Permanent closure,warn_or.json
+OR,Oregon Mutual,2025-07-11,10.0,McMinnville,,Reduction,warn_or.json
+OR,Oregon - Remote Employees,2025-07-11,32.0,,,Reduction,warn_or.json
+OR,"Outside Van, LLC",2025-07-08,56.0,Portland,,Permanent closure,warn_or.json
+OR,"Elam Young Pkwy., Hillsboro",2025-07-07,174.0,Hillsboro,,Reduction,warn_or.json
+OR,Aloha Facility,2025-07-07,194.0,Aloha,,Reduction,warn_or.json
+OR,"Century Blvd., Hillsboro",2025-07-07,1544.0,Hillsboro,,Reduction,warn_or.json
+OR,"25th Ave., Hillsboro",2025-07-07,597.0,Hillsboro,,Reduction,warn_or.json
+OR,Rogue Valley Transportation District,2025-06-23,82.0,Medford,,Large Layoff - 10 or more workers,warn_or.json
+OR,Pilot Rock Sawmill,2025-07-01,62.0,Pilot Rock,,Permanent closure,warn_or.json
+OR,Prineville Facility,2025-06-24,52.0,Prineville,,Permanent closure,warn_or.json
+OR,Prineville Facility,2025-06-24,51.0,Prineville,,Permanent closure,warn_or.json
+OR,Prineville Facility,2025-06-24,81.0,Prineville,,Permanent closure,warn_or.json
+OR,PIVOT Job Corps Center Facility,2025-06-09,12.0,Portland,,Permanent closure,warn_or.json
+OR,Springdale Job Corps Center,2025-06-09,77.0,Troutdale,,Permanent closure,warn_or.json
+OR,Tongue Point Job Corps Center,2025-06-04,168.0,Astoria,,Large Layoff - 10 or more workers,warn_or.json
+OR,"ESS Tech, Inc.",2025-05-27,195.0,Wilsonville,,Permanent closure,warn_or.json
+OR,Powin LLC,2025-05-29,96.0,Tualatin,,Large Layoff - 10 or more workers,warn_or.json
+OR,Remote Workers,2025-05-29,149.0,,,Large Layoff - 10 or more workers,warn_or.json
+OR,Store 0505 - Portland,2025-04-30,87.0,Portland,,Permanent closure,warn_or.json
+OR,Chiloquin Facility,2025-05-01,128.0,Chiloquin,,Permanent closure,warn_or.json
+OR,Oregon - Remote Employees,2025-04-22,16.0,Portand,,Large Layoff - 10 or more workers,warn_or.json
+OR,"Lignetics, Inc. - Cascade Locks Facilit",2025-04-21,11.0,Cascade Locks,,Temporary Layoff,warn_or.json
+OR,"Navajo Incorprated, Portland Facility",2025-04-16,11.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,Safeway Store 4381,2025-03-26,82.0,Baker City,,Permanent closure,warn_or.json
+OR,Oregon - Statewide,2025-03-26,105.0,,,Large Layoff - 10 or more workers,warn_or.json
+OR,"Portland, Oregon Facility",2025-04-08,72.0,Portland,,Permanent closure,warn_or.json
+OR,Portland Facility,2025-04-27,47.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+GA,UPS,2025-03-28,244.0,Atlanta,,Temporary Layoff,warn_or.json
+OR,Portland - Site,2025-02-18,96.0,Portland,,Permanent closure,warn_or.json
+OR,Macy's - Salem Center,2025-01-09,56.0,Salem,,Permanent closure,warn_or.json
+OR,Oregon - Remote Employees,2024-12-20,1.0,,,Reduction,warn_or.json
+CA,"Vimo, Inc. dba GetInsured",2024-12-20,429.0,Mountain View,,Reduction,warn_or.json
+OR,Albertsons Store 0515,2024-12-06,87.0,Roseburg,,Permanent closure,warn_or.json
+IL,"Natural Fiber Welding, Inc.",2024-12-10,90.0,Peoria,,Reduction,warn_or.json
+OR,Remote Workers - Oregon,2024-12-10,1.0,Portland,,Reduction,warn_or.json
+OR,Cabinet Door Service,2024-11-19,60.0,Salem,,Large Layoff - 10 or more workers,warn_or.json
+OR,Wells Fargo N.A. William Barnhart Cente,2024-12-03,500.0,Hillsboro,,Permanent closure,warn_or.json
+OR,Hawthorne Ave - Salem,2024-12-03,221.0,Salem,,Permanent closure,warn_or.json
+OR,The Boeing Company - Oregon Location,2024-11-15,50.0,Portland,,Reduction,warn_or.json
+OR,#4184 - Portland,2024-11-14,13.0,Portland,,Permanent closure,warn_or.json
+OR,#4324 - Sandy,2024-11-14,16.0,Sandy,,Permanent closure,warn_or.json
+OR,#3573 - Gresham,2024-11-14,12.0,Gresham,,Permanent closure,warn_or.json
+OR,#3911 - Milwaukie,2024-11-14,14.0,Milwaukie,,Permanent closure,warn_or.json
+OR,#3113 - Beaverton,2024-11-14,9.0,Beaverton,,Permanent closure,warn_or.json
+OR,#9938 - Portland,2024-11-14,9.0,Portland,,Permanent closure,warn_or.json
+OR,#3574 - Gresham,2024-11-14,9.0,Gresham,,Permanent closure,warn_or.json
+OR,#7866 - Beaverton,2024-11-14,8.0,Beaverton,,Permanent closure,warn_or.json
+OR,#4181 - Portland,2024-11-14,9.0,Portland,,Permanent closure,warn_or.json
+OR,Distribution Center - Portland,2024-11-14,80.0,Portland,,Permanent closure,warn_or.json
+OR,#3612 - Hillsboro,2024-11-14,6.0,Hillsboro,,Permanent closure,warn_or.json
+OR,Hillsboro Client Site,2024-11-05,205.0,Hillsboro,,Large Layoff - 10 or more workers,warn_or.json
+OR,"True Value Company, L.L.C.",2024-10-15,98.0,Springfield,,Permanent closure,warn_or.json
+OR,"Misfits Markets, Inc.",2024-10-30,64.0,Clackamas,,Permanent closure,warn_or.json
+OR,DENNIS Uniform,2024-10-19,111.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,Portland - Production and Maintenance P,2024-10-17,49.0,Portland,,Permanent closure,warn_or.json
+OR,Aloha Facility,2024-10-15,28.0,Aloha,,Large Layoff - 10 or more workers,warn_or.json
+OR,"Century Blvd., Hillsboro",2024-10-15,514.0,Hillsboro,,Large Layoff - 10 or more workers,warn_or.json
+OR,"Elam Young Pkwy., Hillsboro",2024-10-15,124.0,Hillsboro,,Large Layoff - 10 or more workers,warn_or.json
+OR,"25th Ave., Hillsboro",2024-10-15,634.0,Hillsboro,,Large Layoff - 10 or more workers,warn_or.json
+OR,Cornerstone Building Brands,2024-10-15,76.0,Tualatin,,Permanent closure,warn_or.json
+OR,Hillsboro Worksite,2024-09-26,150.0,Hillsboro,,Permanent closure,warn_or.json
+OR,Oregon - Remote Employees,2024-09-06,5.0,,,Reduction,warn_or.json
+WI,"Lost Boys Interactive, LLC",2024-09-06,134.0,Madison,,Large Layoff - 10 or more workers,warn_or.json
+OR,Willamette Falls Paper Company,2024-08-06,158.0,West Linn,,Large Layoff - 10 or more workers,warn_or.json
+OR,Walker Rd - Hillsboro,2024-07-23,37.0,Hillsboro,,Large Layoff - 10 or more workers,warn_or.json
+OR,Walker Rd - Hillsboro,2024-07-23,16.0,Hillsboro,,Large Layoff - 10 or more workers,warn_or.json
+OR,Walker Rd - Hillsboro,2024-07-23,1.0,Hillsboro,,Reduction,warn_or.json
+OR,Walker Rd - Hillsboro,2024-07-23,2.0,Hillsboro,,Reduction,warn_or.json
+OR,Walker Rd - Hillsboro,2024-07-23,95.0,Hillsboro,,Permanent closure,warn_or.json
+OR,Hazelnut Growers of Oregon,2024-07-02,4.0,Aurora,,Permanent closure,warn_or.json
+OR,Hazelnut Growers of Oregon,2024-07-02,65.0,Aurora,,Large Layoff - 10 or more workers,warn_or.json
+OR,OHSU,2024-07-01,297.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,OHSU,2024-06-07,142.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,Oregon - Remote Employees,2024-05-29,37.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,"Campbell Soup Supply Company, LLC",2024-05-28,200.0,Tualatin,,Large Layoff - 10 or more workers,warn_or.json
+OR,"Campbell Soup Supply Company, LLC",2024-05-28,10.0,Tualatin,,Large Layoff - 10 or more workers,warn_or.json
+OR,"Campbell Soup Supply Company, LLC",2024-05-28,120.0,Tualatin,,Large Layoff - 10 or more workers,warn_or.json
+OR,Lignetics,2024-05-10,5.0,Cascade Locks,,Reduction,warn_or.json
+OR,Lignetics,2024-05-10,1.0,Cascade Locks,,Reduction,warn_or.json
+OR,Lignetics,2024-05-10,2.0,Cascade Locks,,Reduction,warn_or.json
+OR,Multnomah University,2024-05-07,88.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,Portland Manufacturing Site,2024-04-22,75.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,"NIKE, Inc.",2024-04-19,740.0,Beaverton,,Reduction,warn_or.json
+CA,"Block, Inc.",2024-04-02,20.0,Oakland,,Large Layoff - 10 or more workers,warn_or.json
+CA,"Volta Charging Industries, LLC",2024-03-29,171.0,San Francisco,,Permanent closure,warn_or.json
+CA,"Osso VR, Inc.",2024-03-28,67.0,San Francisco,,Large Layoff - 10 or more workers,warn_or.json
+CA,"Bionano Genomics, Inc.",2024-03-21,76.0,San Diego,,Reduction,warn_or.json
+OR,"Bornstein Seafoods, Inc - Newport Facil",2024-03-22,50.0,Newport,,Permanent closure,warn_or.json
+OR,Adventist Health of Tillamook,2024-03-07,22.0,Tillamook,,Reduction,warn_or.json
+OR,Wieden + Kennedy,2024-02-23,87.0,Portland,,Reduction,warn_or.json
+OR,Portland Day Sort,2024-02-13,350.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,Philomath Division - Industrial Way Mil,2024-02-15,58.0,Philomath,,Large Layoff - 10 or more workers,warn_or.json
+OR,Interfor U.S. Inc,2024-02-15,42.0,Philomath,,Large Layoff - 10 or more workers,warn_or.json
+OR,Remote Workers - Oregon,2024-01-30,46.0,,,Large Layoff - 10 or more workers,warn_or.json
+OR,RNDC - Bend Location,2024-01-30,4.0,Bend,,Permanent closure,warn_or.json
+OR,RNDC - Medford Location #1,2024-01-30,1.0,Medford,,Permanent closure,warn_or.json
+OR,RNDC - Eugene Location,2024-01-30,3.0,Eugene,,Permanent closure,warn_or.json
+OR,RNDC - Portland Location,2024-01-30,67.0,Portland,,Permanent closure,warn_or.json
+OR,RNDC - Medford Location #2,2024-01-30,3.0,Medford,,Permanent closure,warn_or.json
+OR,Oregon - Remote Employees,2024-01-11,4.0,,,Reduction,warn_or.json
+WI,"Lost Boys Interactive, LLC",2024-01-11,121.0,Madison,,Large Layoff - 10 or more workers,warn_or.json
+OR,Portland - Site,2023-12-01,62.0,Portland,,Permanent closure,warn_or.json
+OR,Yelloh - Salem,2023-10-25,7.0,Salem,,Permanent closure,warn_or.json
+OR,Yelloh - Tualitin,2023-10-25,11.0,Tualitin,,Permanent closure,warn_or.json
+OR,Yelloh -  Central Point,2023-10-25,6.0,Central Point,,Permanent closure,warn_or.json
+OR,Yelloh - Eugene,2023-10-25,8.0,Eugen,,Permanent closure,warn_or.json
+OR,Peace Health,2023-10-19,463.0,Eugene,,Permanent closure,warn_or.json
+OR,Wilsonville Distribution Center,2023-10-18,136.0,Wilsonville,,Permanent closure,warn_or.json
+OR,Grace,2023-10-01,23.0,Albany,,Permanent closure,warn_or.json
+OR,Grace,2023-10-01,11.0,Albany,,Permanent closure,warn_or.json
+OR,Grace,2023-10-01,61.0,Albany,,Permanent closure,warn_or.json
+OR,T3281 Store,2023-09-26,40.0,Portland,,Permanent closure,warn_or.json
+OR,T3358 Store,2023-09-26,56.0,Portland,,Permanent closure,warn_or.json
+OR,T3381 Store,2023-09-26,62.0,Portland,,Permanent closure,warn_or.json
+OR,"American Nursery Services, Inc.",2023-09-05,25.0,Newberg,,Permanent closure,warn_or.json
+CA,"Divvy Homes, Inc",2023-09-07,94.0,San Francisco,,Reduction,warn_or.json
+OR,Walker Rd - Hillsboro,2023-08-22,2.0,Hillsboro,,Reduction,warn_or.json
+OR,Walker Rd - Hillsboro,2023-08-22,2.0,Hillsboro,,Reduction,warn_or.json
+OR,Bennett St. - Hillsboro,2023-08-22,3.0,Hillsboro,,Reduction,warn_or.json
+OR,Walker Rd - Hillsboro,2023-08-22,62.0,Hillsboro,,Large Layoff - 10 or more workers,warn_or.json
+OR,Bennett St. - Hillsboro,2023-08-22,2.0,Hillsboro,,Reduction,warn_or.json
+OR,Walker Rd - Hillsboro,2023-08-22,3.0,Hillsboro,,Reduction,warn_or.json
+OR,Walker Rd - Hillsboro,2023-08-22,1.0,Hillsboro,,Reduction,warn_or.json
+OR,Walker Rd - Hillsboro,2023-08-22,1.0,Hillsboro,,Reduction,warn_or.json
+OR,Bennett St. - Hillsboro,2023-08-22,71.0,Hillsboro,,Large Layoff - 10 or more workers,warn_or.json
+OR,Walker Rd - Hillsboro,2023-08-22,158.0,Hillsboro,,Large Layoff - 10 or more workers,warn_or.json
+OR,BOISE CASCADE ELGIN PLYWOOD MILL,2023-08-16,1.0,ELGIN,,Other,warn_or.json
+VA,Centerra,2023-08-10,52.0,Herndon,,Permanent closure,warn_or.json
+OR,Cascades Tissue Group - St Helens Paper,2023-08-10,72.0,St. Helens,,Permanent closure,warn_or.json
+OR,Medford Plant,2023-07-28,18.0,Medford,,Permanent closure,warn_or.json
+OR,Medford Plant,2023-07-28,56.0,Medford,,Permanent closure,warn_or.json
+OR,Roseburg-509,2023-07-30,72.0,Roseburg,,Permanent closure,warn_or.json
+OR,Eugene-506,2023-07-30,15.0,Eugene,,Permanent closure,warn_or.json
+OR,DC-25 Portland Distribution Center,2023-07-31,23.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,DC-25 Portland Distribution Center,2023-07-31,78.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,"PBS West, LLC",2023-07-07,50.0,Corvallis,,Large Layoff - 10 or more workers,warn_or.json
+OR,"Jacksonville, Remote Employee Location",2023-06-14,1.0,Jacksonville,,Large Layoff - 10 or more workers,warn_or.json
+OR,Owens-Brockway Glass Container Inc.,2023-06-13,81.0,Portland,,Reduction,warn_or.json
+OR,Marquis Spas,2023-06-08,115.0,Independence,,Permanent closure,warn_or.json
+OR,Aimbridge Employee Service Corp AKA Val,2023-06-06,62.0,Eugene,,Large Layoff - 10 or more workers,warn_or.json
+CA,Aspiration Partners,2023-05-24,3.0,Marina Del Rey,,Large Layoff - 10 or more workers,warn_or.json
+OR,Cascades Tissue Group - St Helens Paper,2023-05-09,45.0,St. Helens,,Large Layoff - 10 or more workers,warn_or.json
+OR,"Makita U.S.A., Inc.",2023-04-28,6.0,Portland,,Permanent closure,warn_or.json
+OR,Cascades Tissue Group - Scappoose Conve,2023-04-25,88.0,Scappoose,,Permanent closure,warn_or.json
+OR,"David's Bridal, Store # 216, Eugene",2023-04-14,1.0,Eugene,,Permanent closure,warn_or.json
+OR,"David's Bridal, Store # 160, Beaverton",2023-04-14,1.0,Beaverton,,Permanent closure,warn_or.json
+OR,"David's Bridal, Store # 200, Clackamas",2023-04-14,1.0,Happy Valley,,Permanent closure,warn_or.json
+OR,"David's Bridal, Store # 292 Salem",2023-04-14,1.0,Keizer,,Permanent closure,warn_or.json
+OR,"David's Bridal, Store # 263 Medford",2023-04-14,1.0,Medford,,Permanent closure,warn_or.json
+CA,"Aspiration Partners, Inc",2023-03-24,12.0,Marina Del Rey,,Large Layoff - 10 or more workers,warn_or.json
+OR,Client Facility,2023-03-13,150.0,Beaverton,,Permanent closure,warn_or.json
+OR,Blount Fine Foods,2023-03-13,198.0,Portland,,Permanent closure,warn_or.json
+OR,Walmart Store #2552,2023-02-22,379.0,Portland,,Permanent closure,warn_or.json
+OR,Walmart Store #5899,2023-02-22,201.0,Portland,,Permanent closure,warn_or.json
+OR,Railcar Manufacturing Operations,2023-01-20,101.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+CA,Specialized Bicycle Components,2023-01-11,7.0,Morgan Hill,,Reduction,warn_or.json
+FL,BayFirst Financial,2022-09-23,58.0,St. Petersburg,,Large Layoff - 10 or more workers,warn_or.json
+OR,"Laird Superfood, Inc",2022-10-12,46.0,Sisters,,Large Layoff - 10 or more workers,warn_or.json
+OR,"Beauty Systems Group, LLC, DBA CosmoPro",2022-10-11,60.0,Clackamas,,Large Layoff - 10 or more workers,warn_or.json
+OR,"Tegra, DBA Latitudes LLC",2022-09-08,48.0,Portland,,Permanent closure,warn_or.json
+OR,DENNIS Uniform,2022-08-30,71.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,"Columbia Steel Casting Co., Inc.",2022-08-22,225.0,Portland,,Permanent closure,warn_or.json
+OR,RR Donnelley,2022-07-13,97.0,Medford,,Permanent closure,warn_or.json
+TX,Center for Autism and Related Disorders,2022-06-29,156.0,Plano,,Permanent closure,warn_or.json
+OR,"Dr. Martens Airway USA, LLC - Anchor Pa",2022-05-18,31.0,Portland,,Permanent closure,warn_or.json
+OR,"Dr. Martens Airway USA, LLC - Anchor Pa",2022-05-18,40.0,Portland,,Permanent closure,warn_or.json
+CA,"ARS-Fresno, LLC.",2022-03-30,163.0,Carlsbad,,Large Layoff - 10 or more workers,warn_or.json
+OR,Peloton,2022-02-08,54.0,Portland,,Permanent closure,warn_or.json
+OR,Boyd Corporation,2022-01-17,40.0,Portland,,Permanent closure,warn_or.json
+OR,GP Downs LLC dba The Flying Lark,2022-01-07,226.0,Grants Pass,,Permanent closure,warn_or.json
+OR,GP Downs LLC dba The Flying Lark,2022-01-07,43.0,Grants Pass,,Permanent closure,warn_or.json
+OR,Hematology Oncology Associates PC,2021-10-22,95.0,Medford,,Permanent closure,warn_or.json
+OR,Eclipse Senior Living Support Center,2021-10-01,171.0,Lake Oswego,,Permanent closure,warn_or.json
+OR,Sulzer,2021-09-10,10.0,Portland,,Permanent closure,warn_or.json
+OR,Sulzer,2021-09-10,16.0,Portland,,Permanent closure,warn_or.json
+OR,Sulzer,2021-09-10,5.0,Portland,,Permanent closure,warn_or.json
+OR,Sulzer,2021-09-10,6.0,Portland,,Permanent closure,warn_or.json
+OR,Sulzer,2021-09-10,12.0,Portland,,Permanent closure,warn_or.json
+OR,Sulzer,2021-09-10,14.0,Portland,,Permanent closure,warn_or.json
+OR,4 Leaf LLC,2021-09-17,63.0,Portland,,Permanent closure,warn_or.json
+OR,Lifeways - Umatilla County,2021-08-13,100.0,Pendleton,,Permanent closure,warn_or.json
+OR,First Transit - Portland,2021-07-30,170.0,Portland,,Permanent closure,warn_or.json
+OR,First Transit - Beaverton,2021-07-30,99.0,Beaverton,,Permanent closure,warn_or.json
+OR,First Transit - Multnomah,2021-07-30,127.0,Portland,,Permanent closure,warn_or.json
+TN,Aramark,2021-07-22,402.0,Nashville,,Permanent closure,warn_or.json
+OR,Mentor Oregon,2021-07-06,177.0,Portland,,Permanent closure,warn_or.json
+OR,Thriftbooks - Portland Processing Cente,2021-04-22,70.0,Portland,,Permanent closure,warn_or.json
+OR,DSU-Peterbuilt & GMC Inc,2021-04-05,260.0,Portland,,Other,warn_or.json
+OR,PERFORMANT,2021-02-26,60.0,Grants Pass,,Reduction,warn_or.json
+OR,PERFORMANT,2021-02-26,31.0,Grants Pass,,Reduction,warn_or.json
+OR,Simple,2021-01-29,47.0,Portland,,Permanent closure,warn_or.json
+OR,Simple,2021-01-29,95.0,Portland,,Permanent closure,warn_or.json
+OR,Simple,2021-01-29,1.0,Portland,,Permanent closure,warn_or.json
+OR,Simple,2021-01-29,37.0,Portland,,Permanent closure,warn_or.json
+OR,azlo,2021-01-29,122.0,Portland,,Permanent closure,warn_or.json
+OR,SunPower,2021-01-07,9.0,Hillsboro,,Permanent closure,warn_or.json
+OR,SunPower,2021-01-07,172.0,Hillsboro,,Permanent closure,warn_or.json
+OR,NPL - Central Point - Grants Pass,2020-12-15,67.0,Grants Pass,,Permanent closure,warn_or.json
+OR,Southwest Airlines,2020-12-03,85.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,Villasport,2020-11-25,66.0,Beaverton,,Reduction,warn_or.json
+OR,Providence,2020-11-16,177.0,Portland,,Other,warn_or.json
+OR,Providence,2020-11-16,5.0,Portland,,Reduction,warn_or.json
+OR,Elmer's Restaurants,2020-11-13,280.0,Portland,,Temporary Layoff,warn_or.json
+OR,Macy's Inc,2020-11-16,83.0,Portland,,Permanent closure,warn_or.json
+OR,SYUFY Enterprises - VillaSport,2020-10-23,59.0,Beaverton,,Reduction,warn_or.json
+OR,DoubleTree - Hilton Portland,2020-09-30,59.0,Portland,,Reduction,warn_or.json
+OR,Boise Cascade - Elgin Plywood Facility,2020-11-16,229.0,Elgin,,Permanent closure,warn_or.json
+OR,SP+,2020-09-25,89.0,Portland,,Reduction,warn_or.json
+OR,Sodexo - Gresham-Barlow SD,2020-09-17,85.0,Gresham,,Temporary Layoff,warn_or.json
+OR,Sodexo - Salem-Keizer SD,2020-09-17,358.0,Salem,,Temporary Layoff,warn_or.json
+OR,Sodexo - Medford SD,2020-09-17,111.0,Medford,,Temporary Layoff,warn_or.json
+OR,PF Chang's,2020-09-18,75.0,Hillsboro,,Other,warn_or.json
+OR,PF Chang's - Eugene,2020-09-18,75.0,Eugene,,Other,warn_or.json
+OR,LAGS Medical Center - Portland,2020-09-03,7.0,Portland,,Small Layoff  1 – 10 workers,warn_or.json
+OR,LAGS Medical Center - Salem,2020-09-03,4.0,Salem,,Small Layoff  1 – 10 workers,warn_or.json
+OR,Bon Appetit,2020-09-01,224.0,Portland,,Other,warn_or.json
+OR,Bon Appetit,2020-09-01,170.0,Portland,,Reduction,warn_or.json
+OR,Dave & Buster's,2020-09-08,84.0,Happy Valley,,Reduction,warn_or.json
+OR,PGE - Boardman,2020-09-01,22.0,Boardman,,Permanent closure,warn_or.json
+OR,LAIKA,2020-08-14,50.0,Hillsboro,,Large Layoff - 10 or more workers,warn_or.json
+OR,HMSHost,2020-08-11,51.0,Portland,,Reduction,warn_or.json
+OR,Nike (Lifeworks) - Beaverton,2020-07-20,66.0,Beaverton,,Reduction,warn_or.json
+OR,Nike (Lifeworks) - Hillsboro,2020-07-20,23.0,Hillsboro,,Reduction,warn_or.json
+OR,Nike (Lifeworks) - Beaverton,2020-07-20,355.0,Beaverton,,Reduction,warn_or.json
+OR,Alaska Airlines - Portland Internationa,2020-07-29,277.0,Portland,,Reduction,warn_or.json
+OR,Embassy Suites Portland-Downtown,2020-07-31,70.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,"LSG Group - Sky Chefs, Inc",2020-07-31,193.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,Nike - Childcare,2020-07-23,192.0,Beaverton,,Reduction,warn_or.json
+OR,Nike,2020-07-23,308.0,Beaverton,,Reduction,warn_or.json
+OR,Nike,2020-07-23,700.0,Beaverton,,Reduction,warn_or.json
+IN,American Queen Steamboat Company,2020-07-22,250.0,New Albany,,Large Layoff - 10 or more workers,warn_or.json
+OR,Vesta,2020-07-22,20.0,Lake Oswego,,Permanent closure,warn_or.json
+OR,Pioneer Pacific College,2020-07-21,41.0,Portland,,Permanent closure,warn_or.json
+OR,Pioneer Pacific College - Beaverton,2020-07-21,39.0,Beaverton,,Permanent closure,warn_or.json
+OR,Pioneer Pacific College - Springfield,2020-07-21,51.0,Springfield,,Permanent closure,warn_or.json
+OR,United - PDX,2020-07-08,119.0,Portland,,Reduction,warn_or.json
+OR,United - PDX,2020-07-08,3.0,Portland,,Reduction,warn_or.json
+OR,arauco - Albany,2020-07-06,75.0,Albany,,Reduction,warn_or.json
+OR,Hampton Inn & Suites - Portland,2020-07-06,41.0,Portland,,Reduction,warn_or.json
+OR,Atrium Hospitality - Portland Embassy S,2020-05-13,105.0,Portland,,Other,warn_or.json
+OR,Hilton Portland Downtown,2020-06-30,330.0,Portland,,Other,warn_or.json
+OR,The Coca -Cola Company Odwalla's - Port,2020-06-30,30.0,Portland,,Permanent closure,warn_or.json
+OR,Levy Premium Foodservice...LLC,2020-06-24,54.0,Portland,,Reduction,warn_or.json
+OR,Hyatt Regency - Portland,2020-06-19,2.0,Portland,,Temporary Layoff,warn_or.json
+OR,Hyatt Regency - Portland,2020-06-19,1.0,Portland,,Reduction,warn_or.json
+OR,Hyatt Regency - Portland,2020-06-19,4.0,Portland,,Reduction,warn_or.json
+OR,Hyatt Regency - Portland,2020-06-19,8.0,Portland,,Temporary Layoff,warn_or.json
+OR,Hyatt Regency - Portland,2020-06-19,181.0,Portland,,Temporary Layoff,warn_or.json
+OR,The Bay Company - Portland,2020-06-09,125.0,Tigard,,Other,warn_or.json
+OR,The Bay Company - Portland,2020-06-09,289.0,Tigard,,Large Layoff - 10 or more workers,warn_or.json
+OR,Kimpton Riverplace Hotel,2020-06-12,79.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,Kimpton Hotel Monaco Portland,2020-06-12,147.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,Kimpton Hotel Vintage Portland,2020-06-12,94.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,ATI Albany Operations,2020-06-10,76.0,Albany,,Permanent closure,warn_or.json
+OR,ATI Albany Operations,2020-06-10,135.0,Albany,,Large Layoff - 10 or more workers,warn_or.json
+OR,PCC Structurals - Portland,2020-06-04,94.0,Portland,,Reduction,warn_or.json
+OR,PCC Structurals - Clackamas,2020-06-04,170.0,Clackamas,,Reduction,warn_or.json
+OR,PCC Structurals - Portland,2020-06-04,547.0,Portland,,Reduction,warn_or.json
+OR,PCC Structurals - Redmond,2020-06-04,175.0,Redmond,,Large Layoff - 10 or more workers,warn_or.json
+OR,"Continuum Global Solutions, LLC",2020-06-10,255.0,Portland,,Permanent closure,warn_or.json
+OR,EVRAZ - Portland,2020-06-08,65.0,Portland,,Reduction,warn_or.json
+OR,Marriott Portland Downtown Waterfront,2020-06-05,145.0,Portland,,Reduction,warn_or.json
+OR,Marriott Portland Downtown Waterfront,2020-06-05,248.0,Portland,,Temporary Layoff,warn_or.json
+OR,Benson Hotel,2020-06-01,81.0,Portland,,Reduction,warn_or.json
+OR,Embassy Suites - Portland - Wash Sq,2020-05-31,7.0,Tigard,,Temporary Layoff,warn_or.json
+OR,Embassy Suites - Portland - Wash Sq,2020-05-31,81.0,Tigard,,Temporary Layoff,warn_or.json
+OR,Interfor - Gilchrist Division,2020-05-19,131.0,Gilchrist,,Temporary Layoff,warn_or.json
+OR,Nordstrom - Clackamas Town Center,2020-05-11,189.0,Happy Valley,,Permanent closure,warn_or.json
+OR,Bright Wood - Redmond,2020-05-04,12.0,Redmond,,Large Layoff - 10 or more workers,warn_or.json
+OR,Bright Wood,2020-05-04,199.0,Madras,,Large Layoff - 10 or more workers,warn_or.json
+OR,Multnomah Street Property,2020-04-29,20.0,Portland,,Permanent closure,warn_or.json
+WA,IVI Hotel Management of Oregon - Innven,2020-04-29,350.0,Tukwila,,Reduction,warn_or.json
+WA,IVI Hotel Management of Oregon - Innven,2020-04-29,18.0,Tukwila,,Other,warn_or.json
+OR,DAKINE,2020-05-01,39.0,Hood River,,Permanent closure,warn_or.json
+OR,Portland Art Museum,2020-04-28,96.0,Portland,,Reduction,warn_or.json
+FL,Hertz,2020-04-24,1.0,Estero,,Reduction,warn_or.json
+OR,Hertz - PDX,2020-04-24,17.0,Portland,,Temporary Layoff,warn_or.json
+OR,Hertz - PDX,2020-04-24,67.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,Meggitt - Oregon Inc,2020-04-30,118.0,Mcminnville,,Large Layoff - 10 or more workers,warn_or.json
+OR,Regal - Tigard,2020-04-29,68.0,Tigard,,Other,warn_or.json
+OR,Adventist Health - Tillamook,2020-04-23,7.0,Tillamook,,Reduction,warn_or.json
+OR,Adventist Health - Tillamook,2020-04-23,15.0,Tillamook,,Temporary Layoff,warn_or.json
+OR,Adventist Health - Tillamook,2020-04-23,2.0,Tillamook,,Reduction,warn_or.json
+OR,Enterprise Holdings,2020-04-23,14.0,Tualatin,,Reduction,warn_or.json
+OR,Enterprise Holdings - PDX,2020-04-23,18.0,Portland,,Reduction,warn_or.json
+OR,Enterprise Holdings - PDX,2020-04-23,60.0,Portland,,Temporary Layoff,warn_or.json
+OR,Enterprise Holdings - Admin,2020-04-23,262.0,Tualatin,,Temporary Layoff,warn_or.json
+TX,Visionworks,2020-04-23,103.0,San Antonio,,Other,warn_or.json
+OR,Oksenholt Hospitality Company - Meredit,2020-04-20,94.0,Lincoln City,,Large Layoff - 10 or more workers,warn_or.json
+OR,Oksenholt Hospitality Company - Mojo Re,2020-04-20,2.0,Bend,,Large Layoff - 10 or more workers,warn_or.json
+OR,Oksenholt Hospitality - Meredith Lodgin,2020-04-20,15.0,Bend,,Large Layoff - 10 or more workers,warn_or.json
+OR,Women's Healthcare Associates,2020-04-14,186.0,Portland,,Temporary Layoff,warn_or.json
+OR,Enterprise Holdings - PDX,2020-04-20,62.0,Portland,,Temporary Layoff,warn_or.json
+OR,Augusta Sportswear Brands - Coburg,2020-04-16,25.0,Coburg,,Temporary Layoff,warn_or.json
+OR,Augusta Sportswear Brands - Coburg,2020-04-16,21.0,Coburg,,Temporary Layoff,warn_or.json
+OR,Augusta Sportswear Brands - Coburg,2020-04-16,6.0,Coburg,,Temporary Layoff,warn_or.json
+OR,The Portland Clinic,2020-04-14,101.0,Portland,,Reduction,warn_or.json
+OR,The Portland Clinic,2020-04-14,90.0,Portland,,Temporary Layoff,warn_or.json
+OR,The Portland Clinic,2020-04-14,193.0,Portland,,Other,warn_or.json
+OR,The Portland Clinic,2020-04-14,234.0,Portland,,Other,warn_or.json
+OR,John's Incredible Pizza Company,2020-03-31,74.0,Beaverton,,Temporary Layoff,warn_or.json
+OR,Andale Management Group dba The Country,2020-04-10,48.0,Portland,,Temporary Layoff,warn_or.json
+OR,Eagle Crest Resort,2020-04-09,60.0,Redmond,,Temporary Layoff,warn_or.json
+OR,Multnomah Athletic Club,2020-04-06,635.0,Portland,,Large Layoff - 10 or more workers,warn_or.json
+OR,The Oregon Clinic,2020-04-08,820.0,Portland,,Temporary Layoff,warn_or.json
+OR,Allura - OR,2020-04-08,80.0,White City,,Other,warn_or.json
+OR,Phoenix Inn Suites,2020-04-08,15.0,Salem,,Reduction,warn_or.json
+OR,Phoenix Inn Suites - Lake Oswego,2020-04-08,12.0,Lake Oswego,,Reduction,warn_or.json
+OR,The Grand Hotel in Salem,2020-04-08,26.0,Salem,,Reduction,warn_or.json
+OR,Phoenix Inn Suites - Albany,2020-04-08,13.0,Albany,,Reduction,warn_or.json
+OR,The Grand Hotel at Bridgeport,2020-04-08,28.0,Tigard,,Reduction,warn_or.json
+OR,The Salem Convention Center,2020-04-08,72.0,Salem,,Reduction,warn_or.json
+OR,Phoenix Inn Suites - Eugene,2020-04-08,21.0,Eugene,,Reduction,warn_or.json
+OR,Bentley's Grill,2020-04-08,40.0,Salem,,Reduction,warn_or.json
+OR,Landmark Ford Lincoln,2020-04-03,46.0,Tigard,,Temporary Layoff,warn_or.json
+OR,EVRAZ - Portland,2020-04-06,232.0,Portland,,Reduction,warn_or.json
+CA,Pac-12 Enterprises dba Pac-12 Networks,2020-04-03,531.0,San Francisco,,Other,warn_or.json
+OR,Big Al's II,2020-03-18,120.0,Beaverton,,Temporary Layoff,warn_or.json
+OR,Carr Auto Group,2020-04-03,54.0,Beaverton,,Temporary Layoff,warn_or.json
+OR,Benihana,2020-04-02,57.0,Beaverton,,Reduction,warn_or.json
+OR,RLK Co. Timberline Lodge,2020-04-01,471.0,Government Camp,,Reduction,warn_or.json
+OR,Shamrock Foods Co.,2020-04-01,8.0,Portland,,Temporary Layoff,warn_or.json
+OR,SAS Restaurant Ventures,2020-03-31,32.0,Ontario,,Temporary Layoff,warn_or.json
+OR,Paper Source - Tigard,2020-03-27,13.0,Tigard,,Temporary Layoff,warn_or.json
+OR,Paper Source - Portland,2020-03-27,13.0,Portland,,Temporary Layoff,warn_or.json
+OR,Happy Guests Intl. - Salty's,2020-05-14,,Portland,,Temporary Layoff,warn_or.json
+AZ,"Rise Services, Inc.",2023-07-18,,Mesa,,Permanent closure,warn_or.json
+OR,BOISE CASCADE ELGIN PLYWOOD MILL,2022-12-14,,ELGIN,,Large Layoff - 10 or more workers,warn_or.json
+CA,"Zeco Systems, Inc. dba Shell EV Chargin",2025-08-18,,Los Angeles,,Large Layoff - 10 or more workers,warn_or.json

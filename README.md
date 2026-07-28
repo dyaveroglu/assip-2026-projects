@@ -38,13 +38,19 @@ NN_project/
 ```
 
 ## Data policy (please read)
-The raw inputs for several projects are licensed from **Wharton Research Data Services (WRDS)**
-— Compustat, CRSP, Execucomp — and **may not be redistributed**. Accordingly, **no `data/`
-folder is published here.** Each project's `data/README.md` documents every source so that anyone
-with the appropriate subscription can reproduce the pipeline. Everything downstream of the data
-pull (the analytical panels, all tables, all figures, and each paper) is fully determined by the
-committed `code/`, and the `output/tables/*.csv` are the exact aggregated numbers behind the
-papers.
+Two kinds of data feed these projects:
+
+- **Public-source data is included** in each project's `data/` folder — e.g. PatentsView,
+  FEMA/NRI, Zillow ZHVI, CFPB complaints, state WARN notices, Kalshi/Polymarket, BEA, EDGAR
+  filings/10-Ks, Open-Source Asset Pricing, and FDIC call reports. These carry no redistribution
+  restriction.
+- **WRDS-licensed data is NOT included** — Compustat, CRSP, Execucomp, and CCM links (and any
+  firm-level panel derived from them) are licensed from Wharton Research Data Services and **may
+  not be redistributed**, so they are excluded from this repository. Reproduce them by pulling
+  from WRDS with your **own institutional credentials** using each project's `code/00_*.py`
+  pull script; `data/README.md` documents every source. Everything downstream of the pull (the
+  analytical panels, all tables, all figures, each paper) is fully determined by the committed
+  `code/`, and `output/tables/*.csv` are the exact aggregated numbers behind the papers.
 
 ## Reproducibility
 Each project reproduces with:

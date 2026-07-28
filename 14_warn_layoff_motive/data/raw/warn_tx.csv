@@ -1,0 +1,2369 @@
+state,company_raw,notice_date,n_employees,city,county,layoff_type,source
+TX,Nestle USA,2019-01-04,42.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Nestle USA,2019-01-04,42.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Pier 1 Imports-Mansfield,2019-01-07,65.0,Mansfield,Tarrant,,warn_tx.json
+TX,Pier 1 Imports-Mansfield,2019-01-07,65.0,Mansfield,Tarrant,,warn_tx.json
+TX,R1 RCM Inc.,2019-01-09,65.0,Austin,Travis,,warn_tx.json
+TX,R1 RCM Inc.,2019-01-09,65.0,Austin,Travis,,warn_tx.json
+TX,Chariot Transit Inc.,2019-01-10,79.0,Austin,Travis,,warn_tx.json
+TX,Kohl's-Dallas,2019-01-11,330.0,Dallas,Dallas,,warn_tx.json
+TX,Kohl's-Dallas,2019-01-11,330.0,Dallas,Dallas,,warn_tx.json
+TX,AllianceOne Receivables Management,2019-01-15,236.0,Dallas,Dallas,,warn_tx.json
+TX,AllianceOne Receivables Management,2019-01-15,236.0,Dallas,Dallas,,warn_tx.json
+TX,Sears Fashion Distribution Center2,2019-01-18,84.0,Garland,Dallas,,warn_tx.json
+TX,"Sodexo, Inc.-AA Admirals Club",2019-01-18,98.0,DFW Airport,Tarrant,,warn_tx.json
+TX,Boeing Company,2019-01-29,6.0,Houston,Harris,,warn_tx.json
+TX,Children's Health System of Texas,2019-01-31,93.0,Dallas,Dallas,,warn_tx.json
+TX,Blue Apron- Arlington,2019-01-31,206.0,Arlington,Tarrant,,warn_tx.json
+TX,Kimberly Clark-Holeman Distribution,2019-01-31,126.0,Paris,Lamar,,warn_tx.json
+TX,Yodle.com- Yodle Web.com,2019-02-01,155.0,Austin,Travis,,warn_tx.json
+TX,"Penske Logistics, LLC - Midland",2019-02-04,65.0,Midland,Midland,,warn_tx.json
+TX,"KCI USA, Inc.",2019-02-06,210.0,San Antonio,Bexar,,warn_tx.json
+TX,"Alta Mesa Services, LP",2019-02-08,58.0,Houston,Harris,,warn_tx.json
+TX,VF Jeanswear - El Paso5,2019-02-11,25.0,El Paso,El Paso,,warn_tx.json
+TX,Post Acute Specialty Hospital of Corpus Christi,2019-02-11,162.0,Corpus Ch,Nueces,,warn_tx.json
+TX,Rosenberger N.A.,2019-02-13,74.0,Plano,Collin,,warn_tx.json
+TX,Spectrum Pharmaceuticals,2019-02-13,1.0,Colleyville,Tarrant,,warn_tx.json
+TX,Encana Service Company,2019-02-18,274.0,The Woodlands,Montgomery,,warn_tx.json
+TX,Post Acute Specialty Hospital-PAM Sepcialty Hosptial,2019-02-25,65.0,Corpus Ch,Nueces,,warn_tx.json
+TX,"AmerisourceBergen-H.D. Smith, LLC",2019-02-25,17.0,Flower Mound,Denton,,warn_tx.json
+TX,Payless Shoesource-Dallas Corp. Office,2019-02-25,75.0,Dallas,Dallas,,warn_tx.json
+TX,Petroleum Service Corp.,2019-02-27,151.0,Mont Belvieu,Chambers,,warn_tx.json
+TX,"Natera, Inc.",2019-03-01,92.0,Austin,Travis,,warn_tx.json
+TX,Magni-Fab Southwest,2019-03-01,5.0,Howe,Grayson,,warn_tx.json
+TX,Monogram Foods-Monogram Pet Treats,2019-03-04,65.0,Schulenburg,Fayette,,warn_tx.json
+TX,Magni-Fab,2019-03-04,24.0,Howe,Grayson,,warn_tx.json
+TX,CHI St. Joseph Health- Bellville Hospital,2019-03-05,45.0,Bellville,Austin,,warn_tx.json
+TX,"Verizon Connect, Inc.",2019-03-07,133.0,Austin,Travis,,warn_tx.json
+TX,"Aprima Medical Software, Inc. an eMD's Co.",2019-03-07,149.0,Richardson,Dallas,,warn_tx.json
+TX,General Inoformation Services dba HireRight,2019-03-07,76.0,Dallas,Dallas,,warn_tx.json
+TX,Cypress Fairbanks Medical Center,2019-03-18,586.0,Houston,Harris,,warn_tx.json
+TX,JP Morgan Chase & Co-Consumer Banking & Card,2019-03-18,368.0,Arlington,Tarrant,,warn_tx.json
+TX,Signet Jewelers-Dallas,2019-03-25,122.0,Dallas,Dallas,,warn_tx.json
+TX,Avella Specialty Pharmacy,2019-03-26,161.0,Houston,Harris,,warn_tx.json
+TX,Avella Specialty Pharmacy-Bissonet,2019-03-26,1.0,Houston,Harris,,warn_tx.json
+TX,Hart-Hanks-Texarkana,2019-03-28,73.0,Texarkana,Bowie,,warn_tx.json
+TX,"Teleperformance USA-FHCS, Inc.",2019-03-28,390.0,Dallas,Dallas,,warn_tx.json
+TX,Yodle.com- Yodle Web.com,2019-03-29,10.0,Austin,Travis,,warn_tx.json
+TX,"Legacy Measurement Solutions, Inc.",2019-03-29,59.0,Tyler,Smith,,warn_tx.json
+TX,Signet Jewelers-Rombaur Rd.,2019-04-01,58.0,Dallas,Dallas,,warn_tx.json
+TX,Ware Industries dba Marino Ware-Norbet Trucking,2019-04-02,69.0,Pasadena,Harris,,warn_tx.json
+TX,Walmart #949,2019-04-03,415.0,Dallas,Dallas,,warn_tx.json
+TX,La Torretta Lake Resort,2019-04-04,241.0,Montgomery,Montgomery,,warn_tx.json
+TX,Sitel-Amarillo,2019-04-04,327.0,Amarillo,Potter,,warn_tx.json
+TX,Aramark-American Airlines,2019-04-05,70.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Aramark-Highway 360,2019-04-05,12.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Aramark-American Blvd,2019-04-05,6.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Aramark-Airport Frwy,2019-04-05,10.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Aramark-John Carpenter Fwy,2019-04-05,3.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Aramark-Amon Carter Blvd,2019-04-05,19.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Volt Management Corp.,2019-04-08,42.0,San Antonio,Bexar,,warn_tx.json
+TX,Kohler Co.,2019-04-08,223.0,Brownwood,Brown,,warn_tx.json
+TX,"Alta Mesa Services, LP",2019-04-09,13.0,Houston,Harris,,warn_tx.json
+TX,Vesuvius USA-Tyler,2019-04-18,9.0,Tyler,Smith,,warn_tx.json
+TX,First Transit-Transit Management of Denton Co.,2019-04-23,160.0,Denton,Denton,,warn_tx.json
+TX,Boeing - El Paso,2019-04-24,2.0,El Paso,El Paso,,warn_tx.json
+TX,"P3I, Inc.",2019-04-24,85.0,Lackland AFB,Bexar,,warn_tx.json
+TX,United Services Automobile Association (USAA),2019-04-25,53.0,San Antonio,Bexar,,warn_tx.json
+TX,"Wise Foods, Inc.",2019-04-29,80.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Falcon Transport Co.-Cedar Hill,2019-04-30,12.0,Cedar Hill,Dallas,,warn_tx.json
+TX,Falcon Transport Co.,2019-04-30,19.0,Hutchins,Dallas,,warn_tx.json
+TX,Mitratech Holdings,2019-05-01,83.0,Austin,Travis,,warn_tx.json
+TX,Product & Logistics-Monahans,2019-05-08,124.0,Monahans,Ward,,warn_tx.json
+TX,"United Airlines, Inc.-Passanger Revenue Accounting",2019-05-13,100.0,Houston,Harris,,warn_tx.json
+TX,"Dolce International Fort Worth, Inc.-American Airlines Training Ctr.",2019-05-13,56.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Pine Creek Medical Center,2019-05-20,113.0,Dallas,Dallas,,warn_tx.json
+TX,Holiday Inn-San Antonio,2019-05-24,61.0,San Antonio,Bexar,,warn_tx.json
+TX,Hard Rock Café International,2019-05-31,27.0,Dallas,Dallas,,warn_tx.json
+TX,"Aprima Medical Software, Inc. an eMD's Co.",2019-06-04,19.0,Richardson,Dallas,,warn_tx.json
+TX,Syngenta Crop Protection LLC-GBB Facility,2019-06-10,135.0,Houston,Harris,,warn_tx.json
+TX,Siemens Energy Inc-Houston Service Center,2019-06-14,14.0,Houston,Harris,,warn_tx.json
+TX,Albertsons #3933,2019-06-21,90.0,El Paso,El Paso,,warn_tx.json
+TX,Sodexo-Northwest Texas Hospital,2019-06-25,95.0,Amarillo,Potter,,warn_tx.json
+TX,Aramark-University of Houston,2019-06-27,115.0,Houston,Harris,,warn_tx.json
+TX,BGIS-San Antonio Data Center,2019-07-02,45.0,San Antonio,Bexar,,warn_tx.json
+TX,Tramontina USA,2019-07-09,108.0,Sugar Land,Fort Bend,,warn_tx.json
+TX,Centrica,2019-07-22,54.0,Houston,Harris,,warn_tx.json
+TX,Boeing - El Paso,2019-07-22,2.0,El Paso,El Paso,,warn_tx.json
+TX,FutureWei-Plano Facility,2019-07-22,38.0,Plano,Collin,,warn_tx.json
+TX,Siemens Energy Inc-Houston Service Center,2019-07-24,10.0,Houston,Harris,,warn_tx.json
+TX,"True Health Diagnostics, LLC",2019-07-29,16.0,Frisco,Denton,,warn_tx.json
+TX,"MV Transportation, Inc-Dallas",2019-07-30,129.0,Dallas,Dallas,,warn_tx.json
+TX,Southwest Key Programs-Conroe,2019-07-30,197.0,Conroe,Montgomery,,warn_tx.json
+TX,Anjinomoto Foods - Fort Worth Facility,2019-07-30,117.0,Fort Worth,Tarrant,,warn_tx.json
+TX,UPS General Services Co.,2019-08-08,64.0,Coppell,Dallas,,warn_tx.json
+TX,Centrica,2019-08-09,23.0,Houston,Harris,,warn_tx.json
+TX,"SpiceWorks, Inc.",2019-08-14,59.0,Austin,Travis,,warn_tx.json
+TX,Welocalize,2019-08-16,100.0,Houston,Harris,,warn_tx.json
+TX,Teleperformance USA-Dallas,2019-08-16,44.0,Dallas,Dallas,,warn_tx.json
+TX,"Epic Companies, LLC",2019-08-21,8.0,Houston,Harris,,warn_tx.json
+TX,United Structures of America,2019-08-21,73.0,Houston,Harris,,warn_tx.json
+TX,Nix Home Care Facility,2019-08-23,585.0,San Antonio,Bexar,,warn_tx.json
+TX,AECON-Flint Energy Services-Pecos,2019-08-27,50.0,Pecos,Reeves,,warn_tx.json
+TX,AECOM-Flint Energy Services-Odessa,2019-08-27,77.0,Odessa,Ector,,warn_tx.json
+TX,New LifeCare Management Services dba LifeCare Health Partners,2019-08-30,13.0,Plano,Collin,,warn_tx.json
+TX,El Rio Grande Facility,2019-09-03,116.0,Garland,Dallas,,warn_tx.json
+TX,"O-I (Owens-Illinois, Inc./Owens-Brockway Glass Container, Inc.)",2019-09-05,81.0,Waco,McLennan,,warn_tx.json
+TX,Concentrix CVG CORP,2019-09-10,177.0,Longview,Gregg,,warn_tx.json
+TX,State Street Financial Services-Alterra Pkwy,2019-09-12,51.0,Austin,Travis,,warn_tx.json
+TX,"State Street Financial Services, Inc",2019-09-12,9.0,Austin,Travis,,warn_tx.json
+TX,Nestle USA-Supply Chain Frozen DSD,2019-09-16,51.0,Houston,Harris,,warn_tx.json
+TX,Nobilis Health Corp.,2019-09-20,9.0,Houston,Harris,,warn_tx.json
+TX,New LifeCare Management Services dba LifeCare Health Partners,2019-09-25,33.0,Plano,Collin,,warn_tx.json
+TX,Stevens Tanker Division,2019-09-26,71.0,Dallas,Dallas,,warn_tx.json
+TX,Nobilis Health Corp.-Sugarland,2019-09-26,36.0,Sugar Land,Fort Bend,,warn_tx.json
+TX,Finisar Corporation,2019-09-26,104.0,Allen,Collin,,warn_tx.json
+TX,Dry Van Business dba Rich Logistics-Dallas,2019-09-27,98.0,Dallas,Dallas,,warn_tx.json
+TX,Dry Van Business dba Rich Logistics-Laredo,2019-09-27,111.0,Laredo,Webb,,warn_tx.json
+TX,Walmart #3506,2019-09-30,80.0,Cypress,Harris,,warn_tx.json
+TX,Inpax Final Mile Delivery-Farmers Branch,2019-10-01,109.0,Farmers Branch,Dallas,,warn_tx.json
+TX,Inpax Final Mile Delivery-Garland,2019-10-01,119.0,Garland,Dallas,,warn_tx.json
+TX,Letter Ride-Howard Ln.,2019-10-04,91.0,Austin,Travis,,warn_tx.json
+TX,Letter Ride-W. Fuqua,2019-10-04,87.0,Houston,Harris,,warn_tx.json
+TX,Letter Ride-N. Stemmons,2019-10-04,64.0,Farmers Branch,Dallas,,warn_tx.json
+TX,Letter Ride-Gold Spike Dr.,2019-10-04,71.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Letter Ride-Evergreen Oak,2019-10-04,12.0,Conroe,Montgomery,,warn_tx.json
+TX,Letter Ride-North Gessner,2019-10-04,98.0,Houston,Harris,,warn_tx.json
+TX,Nix Specialty Health-Behavioral Facility,2019-10-04,156.0,San Antonio,Bexar,,warn_tx.json
+TX,Hotel Valencia Corp.-Hotel Sorella,2019-10-11,121.0,Houston,Harris,,warn_tx.json
+TX,HRP Brownsville LLC dba Steel Coast,2019-10-15,100.0,Brownsville,Cameron,,warn_tx.json
+TX,"Ultrafryer Systems, LLC",2019-10-17,70.0,San Antonio,Bexar,,warn_tx.json
+TX,"Arconic, Inc.",2019-10-17,67.0,Elmendorf,Bexar,,warn_tx.json
+TX,"Arconic, Inc.",2019-10-18,67.0,Elmendorf,Bexar,,warn_tx.json
+TX,Vesuvius USA-Tyler,2019-10-21,9.0,Tyler,Smith,,warn_tx.json
+TX,Harte-Hanks,2019-10-23,146.0,Austin,Travis,,warn_tx.json
+TX,Cudd Energy Services,2019-10-23,117.0,San Antonio,Bexar,,warn_tx.json
+TX,Oakwood Worldwide,2019-10-29,1.0,Carrollton,Dallas,,warn_tx.json
+TX,Samsung Austin Semiconductors LLC-Central Processing Unit,2019-10-29,290.0,Austin,Travis,,warn_tx.json
+TX,Nix Hospital-Nix Behavioral Health Center,2019-11-06,972.0,San Antonio,Bexar,,warn_tx.json
+TX,Geo Secure Services LLC,2019-11-06,158.0,San Antonio,Bexar,,warn_tx.json
+TX,"Convergent Outsourcing, Inc.",2019-11-07,40.0,San Antonio,Bexar,,warn_tx.json
+TX,"Range Production Company, LLC.",2019-11-14,57.0,Houston,Harris,,warn_tx.json
+TX,"NortonLifeLock, Inc.",2019-11-19,34.0,Plano,Collin,,warn_tx.json
+TX,"TimkenSteel Material Services, LLC",2019-11-19,94.0,Houston,Harris,,warn_tx.json
+TX,Nuvectra Corporation,2019-11-20,14.0,Plano,Collin,,warn_tx.json
+TX,National Oilwell Varco -Galena Park,2019-11-22,85.0,Galena Park,Harris,,warn_tx.json
+TX,Pumpco Energy Services-Odessa,2019-11-22,112.0,Odessa,Ector,,warn_tx.json
+TX,New LifeCare Management Services dba LifeCare Health Partners,2019-11-26,9.0,Plano,Collin,,warn_tx.json
+TX,Pumpco Energy Services-Cleburne,2019-12-10,5.0,Cleburne,Johnson,,warn_tx.json
+TX,Stewart and Stevenson,2019-12-13,55.0,Houston,Harris,,warn_tx.json
+TX,Yauatcha Houston,2019-12-18,80.0,Houston,Harris,,warn_tx.json
+TX,Car2go,2019-12-19,47.0,Austin,Travis,,warn_tx.json
+TX,"Event Solutions International, Inc. dba Motus One (ESI)",2019-12-20,18.0,Carrollton,Dallas,,warn_tx.json
+TX,"NortonLifeLock, Inc.",2019-12-23,8.0,Plano,Collin,,warn_tx.json
+TX,Ambit Energy - Call Center & Sales Support Office,2019-12-30,50.0,Plano,Collin,,warn_tx.json
+TX,"Fleetwood Transportation Services, Inc.& Fleetwood Logistics",2020-01-03,49.0,Burke,Angelina,,warn_tx.json
+TX,Apache Corp-San Antonio,2020-01-06,272.0,San Antonio,Bexar,,warn_tx.json
+TX,"Valerus Field Solutions, LP",2020-01-06,250.0,Sealy,Austin,,warn_tx.json
+TX,Kindred Hospital-Bay Area,2020-01-08,137.0,Pasadena,Harris,,warn_tx.json
+TX,Kindred Hospital-Tomball,2020-01-08,147.0,Tomball,Harris,,warn_tx.json
+TX,Triumph Hospital - The Heights,2020-01-08,138.0,Houston,Harris,,warn_tx.json
+TX,Fluor - Glen Rose,2020-01-13,70.0,Glen Rose,Somervell,,warn_tx.json
+TX,Comcast-Technician Logistics Center,2020-01-15,58.0,Houston,Harris,,warn_tx.json
+TX,Belk-Dallas Galleria,2020-01-15,68.0,Dallas,Dallas,,warn_tx.json
+TX,Kindred Hospital Spring,2020-01-15,160.0,Houston,Harris,,warn_tx.json
+TX,Kindred Hospital-Ft. Worth,2020-01-15,180.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Kindred Hospital-Dallas,2020-01-15,201.0,Dallas,Dallas,,warn_tx.json
+TX,Concentrix CVG CORP,2020-01-21,127.0,Longview,Gregg,,warn_tx.json
+TX,Sheridan Production Co.-Houston,2020-01-27,130.0,Houston,Harris,,warn_tx.json
+TX,At Home with Shanel,2020-01-28,1.0,Plano,Collin,,warn_tx.json
+TX,"Sheridan Production Company, LLC",2020-01-29,116.0,Andrews,Andrews,,warn_tx.json
+TX,Coca Cola-Southwest Beverages-Nacogdoches,2020-01-30,74.0,Nacogdoches,Nacogdoches,,warn_tx.json
+TX,TTEC - Ennis,2020-01-31,50.0,Ennis,Ellis,,warn_tx.json
+TX,Gulf Stream Marine - Industrial Terminal Facility,2020-01-31,210.0,Houston,Harris,,warn_tx.json
+TX,Waitr and Bite Squad,2020-02-03,219.0,Beaumont,Jefferson,,warn_tx.json
+TX,Transform SR LLC #01377-and #06222 Formally Sears,2020-02-04,77.0,Houston,Harris,,warn_tx.json
+TX,Watson Grinding and Manufacturing,2020-02-05,88.0,Houston,Harris,,warn_tx.json
+TX,Railcrew Xpress-RCX Logistics-Austin,2020-02-12,88.0,Austin,Travis,,warn_tx.json
+TX,XPO Logistics-Ft Worth,2020-02-12,304.0,Ft. Worth,Denton,,warn_tx.json
+TX,Railcrew Express-RCX Logistics,2020-02-12,110.0,Houston,Harris,,warn_tx.json
+TX,"Alta Mesa Services, LP",2020-02-18,91.0,Houston,Harris,,warn_tx.json
+TX,AmerisourceBergen-PharMedium Healthcare,2020-02-19,365.0,Sugar Land,Fort Bend,,warn_tx.json
+TX,Blue Apron- Arlington,2020-02-21,254.0,Arlington,Tarrant,,warn_tx.json
+TX,TPC Group's,2020-02-25,100.0,Port Neches,Jefferson,,warn_tx.json
+TX,Bellaire Medical Center-Cornerstone Specialty Hospitals,2020-02-25,126.0,Houston,Harris,,warn_tx.json
+TX,King's Manor Methodist Retirement System-Westgate Nursing Home,2020-02-25,70.0,Hereford,Deaf Smith,,warn_tx.json
+TX,Windhaven Insurance-Austin,2020-02-25,35.0,Austin,Travis,,warn_tx.json
+TX,Windhaven Insurance-Dallas,2020-02-26,96.0,Dallas,Dallas,,warn_tx.json
+TX,"NortonLifeLock, Inc.",2020-02-28,2.0,Plano,Collin,,warn_tx.json
+TX,USAA - San Antonio,2020-03-03,26.0,San Antonio,Bexar,,warn_tx.json
+TX,Concentrix CVG,2020-03-05,135.0,Laredo,Webb,,warn_tx.json
+TX,"Aryzta, LLC",2020-03-06,95.0,Austin,Travis,,warn_tx.json
+TX,"Cargo Leasing Services, LLC",2020-03-09,60.0,San Antonio,Bexar,,warn_tx.json
+TX,SXSW,2020-03-10,60.0,Austin,Travis,,warn_tx.json
+TX,"Hohmann & Barnard, Inc.",2020-03-13,13.0,Fort Worth,Tarrant,,warn_tx.json
+TX,M&M Manufacturing,2020-03-13,43.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Schulte Companies-NE Loop 410,2020-03-16,27.0,San Antonio,Bexar,,warn_tx.json
+TX,Alamo Drafthouse-Katy,2020-03-16,121.0,Katy,Fort Bend,,warn_tx.json
+TX,Alamo Drafthouse-Lubbock,2020-03-16,121.0,Lubbock,Lubbock,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 04,2020-03-16,100.0,Houston,Harris,,warn_tx.json
+TX,Aramark Educational Services of TX,2020-03-16,420.0,San Antonio,Bexar,,warn_tx.json
+TX,Alamo Drafthouse - El Paso,2020-03-16,116.0,El Paso,El Paso,,warn_tx.json
+TX,FTS International Services,2020-03-17,35.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Four Seasons Resort,2020-03-17,100.0,Irving,Dallas,,warn_tx.json
+TX,Ra Sushi Addison Corp,2020-03-17,36.0,Addison,Dallas,,warn_tx.json
+TX,Haliburton Energy Services-N. Sam Houston,2020-03-18,3500.0,Houston,Harris,,warn_tx.json
+TX,Marriott Austin South,2020-03-19,69.0,Austin,Travis,,warn_tx.json
+TX,El Fenix,2020-03-19,70.0,Dallas,Dallas,,warn_tx.json
+TX,Apache Corp.-Midland,2020-03-19,85.0,Midland,Midland,,warn_tx.json
+TX,Punch Bowl Social,2020-03-19,93.0,Dallas,Dallas,,warn_tx.json
+TX,Punch Bowl Social-Domain,2020-03-19,92.0,Austin,Travis,,warn_tx.json
+TX,Tenaris-IPSCO Koppel Tubulars,2020-03-19,223.0,Baytown,Harris,,warn_tx.json
+TX,Texas Central School Bus,2020-03-19,309.0,Keller,Tarrant,,warn_tx.json
+TX,Sheraton Suites Market Center,2020-03-19,56.0,Dallas,Dallas,,warn_tx.json
+TX,Punch Bowl Social-Congress,2020-03-19,130.0,Austin,Travis,,warn_tx.json
+TX,FTS International Services-Pleasnton,2020-03-19,207.0,Pleasanton,Atascosa,,warn_tx.json
+TX,Uncle Julio's-Dallas,2020-03-19,82.0,Dallas,Dallas,,warn_tx.json
+TX,Warwick Melrose Hotel,2020-03-20,113.0,Dallas,Dallas,,warn_tx.json
+TX,Sheraton Ft. Worth,2020-03-20,164.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Virgin Hotels Dallas,2020-03-20,199.0,Dallas,Dallas,,warn_tx.json
+TX,FTS International Services-Odessa,2020-03-20,207.0,Odessa,Ector,,warn_tx.json
+TX,Sydell Hotels LLC,2020-03-20,181.0,Austin,Travis,,warn_tx.json
+TX,Hilton Lincoln Center,2020-03-20,97.0,Dallas,Dallas,,warn_tx.json
+TX,Tapatio Springs Resort,2020-03-20,58.0,Boerne,Kendall,,warn_tx.json
+TX,Sport Clips,2020-03-20,66.0,Georgetown,Williamson,,warn_tx.json
+TX,Benchmark Hospitality of Corpus Christi,2020-03-20,115.0,Corpus Ch,Nueces,,warn_tx.json
+TX,SA Burger,2020-03-20,5.0,San Marcos,Hays,,warn_tx.json
+TX,Rio Plaza,2020-03-20,3.0,San Antonio,Bexar,,warn_tx.json
+TX,Mule Restaurant Group,2020-03-20,147.0,San Antonio,Bexar,,warn_tx.json
+TX,Four Seasons Hotel-Austin,2020-03-20,369.0,Austin,Travis,,warn_tx.json
+TX,Hilton-Arlington,2020-03-20,83.0,Arlington,Tarrant,,warn_tx.json
+TX,Wyndham San Antonio Riverwalk,2020-03-21,141.0,San Antonio,Bexar,,warn_tx.json
+TX,Embassy Suites-San Antonio,2020-03-21,41.0,San Antonio,Bexar,,warn_tx.json
+TX,Marriott Dallas Addison Quorum by the Galleria,2020-03-21,79.0,Dallas,Dallas,,warn_tx.json
+TX,Marriott Odessa Hotel,2020-03-21,127.0,Odessa,Ector,,warn_tx.json
+TX,Austin Hotel and Residences,2020-03-21,210.0,Austin,Travis,,warn_tx.json
+TX,Vacation Publications dba Vacations To,2020-03-22,325.0,Houston,Harris,,warn_tx.json
+TX,CBC Restaurant Corp. dba Corner Bakery Café,2020-03-22,67.0,Dallas,Dallas,,warn_tx.json
+TX,Take 5 Department 548,2020-03-23,4.0,Webster,Harris,,warn_tx.json
+TX,Take 5 Department 511,2020-03-23,7.0,Irving,Dallas,,warn_tx.json
+TX,Schulte Companies-Richland Hills,2020-03-23,19.0,San Antonio,Bexar,,warn_tx.json
+TX,Schulte Companies-Loop 1604,2020-03-23,13.0,San Antonio,Bexar,,warn_tx.json
+TX,Schulte Companies-Navarro St.,2020-03-23,21.0,San Antonio,Bexar,,warn_tx.json
+TX,Schulte Companies-Houston,2020-03-23,18.0,Houston,Harris,,warn_tx.json
+TX,Schulte Companies-Dallas,2020-03-23,2.0,Dallas,Dallas,,warn_tx.json
+TX,Schulte Companies-E. Houston,2020-03-23,22.0,San Antonio,Bexar,,warn_tx.json
+TX,Schulte Companies-Cinema Ridge,2020-03-23,19.0,San Antonio,Bexar,,warn_tx.json
+TX,Take 5 Department 527,2020-03-23,7.0,Dallas,Dallas,,warn_tx.json
+TX,Take 5 Department 512,2020-03-23,5.0,Irving,Dallas,,warn_tx.json
+TX,Take 5 Department 51,2020-03-23,7.0,Garland,Dallas,,warn_tx.json
+TX,Take 5 Department 203,2020-03-23,3.0,Garland,Dallas,,warn_tx.json
+TX,Take 5 Department 204,2020-03-23,8.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Take 5 Department 533,2020-03-23,6.0,Sachse,Dallas,,warn_tx.json
+TX,Take 5 Department 107,2020-03-23,4.0,Huntsville,Walker,,warn_tx.json
+TX,Hilton Houston Galeria,2020-03-23,35.0,Houston,Harris,,warn_tx.json
+TX,Take 5 Department 558,2020-03-23,4.0,Houston,Harris,,warn_tx.json
+TX,Take 5 Department 560,2020-03-23,3.0,Houston,Harris,,warn_tx.json
+TX,Take 5 Department 561,2020-03-23,6.0,Humble,Harris,,warn_tx.json
+TX,Take 5 Department 562,2020-03-23,6.0,Channelview,Harris,,warn_tx.json
+TX,Take 5 Department 608,2020-03-23,3.0,Houston,Harris,,warn_tx.json
+TX,Take 5 Department 101,2020-03-23,5.0,Spring,Harris,,warn_tx.json
+TX,Take 5 Department 566,2020-03-23,3.0,Houston,Harris,,warn_tx.json
+TX,Take 5 Department 109,2020-03-23,4.0,College Station,Brazos,,warn_tx.json
+TX,Take 5 Department 117,2020-03-23,7.0,Missouri City,Fort Bend,,warn_tx.json
+TX,Take 5 Department 507,2020-03-23,2.0,Hudson Oaks,Parker,,warn_tx.json
+TX,Take 5 Department 540,2020-03-23,3.0,Houston,Harris,,warn_tx.json
+TX,Take 5 Department 541,2020-03-23,7.0,Houston,Harris,,warn_tx.json
+TX,Take 5 Department 103,2020-03-23,4.0,Pasadena,Harris,,warn_tx.json
+TX,Take 5 Department 543,2020-03-23,4.0,Houston,Harris,,warn_tx.json
+TX,Dyn365 dba Restaurant365,2020-03-23,95.0,Austin,Travis,,warn_tx.json
+TX,Collegiate Hotel Group,2020-03-23,35.0,Dallas,Dallas,,warn_tx.json
+TX,Take 5 Department 171,2020-03-23,4.0,San Antonio,Bexar,,warn_tx.json
+TX,Take 5 Department 173,2020-03-23,5.0,San Antonio,Bexar,,warn_tx.json
+TX,Take 5 Department 174,2020-03-23,6.0,San Antonio,Bexar,,warn_tx.json
+TX,Take 5 Department 176,2020-03-23,4.0,San Antonio,Bexar,,warn_tx.json
+TX,Take 5 Department 557,2020-03-23,3.0,Houston,Harris,,warn_tx.json
+TX,Alsco - Houston,2020-03-23,128.0,Houston,Fort Bend,,warn_tx.json
+TX,Hard Rock Café,2020-03-23,39.0,Houston,Harris,,warn_tx.json
+TX,Maines Paper & Food Service,2020-03-23,41.0,Terrell,Kaufman,,warn_tx.json
+TX,Take 5 Department 82,2020-03-23,4.0,Houston,Harris,,warn_tx.json
+TX,Take 5 Department 81,2020-03-23,9.0,Houston,Harris,,warn_tx.json
+TX,Take 5 Department 83,2020-03-23,5.0,Spring,Montgomery,,warn_tx.json
+TX,Take 5 Department 86,2020-03-23,5.0,Houston,Harris,,warn_tx.json
+TX,Take 5 Department 97,2020-03-23,6.0,Cypress,Harris,,warn_tx.json
+TX,Cantina Del Rio,2020-03-23,52.0,New Braunfels,Comal,,warn_tx.json
+TX,Take 5 Department 431,2020-03-23,6.0,Lake Worth,Tarrant,,warn_tx.json
+TX,Take 5 Department 245,2020-03-23,6.0,Houston,Harris,,warn_tx.json
+TX,Take 5 Department 246,2020-03-23,6.0,Hale Center,Hale,,warn_tx.json
+TX,Take 5 Department 253,2020-03-23,5.0,Houston,Harris,,warn_tx.json
+TX,Take 5 Department 414,2020-03-23,3.0,La Porte,Harris,,warn_tx.json
+TX,Take 5 Department 415,2020-03-23,3.0,Houston,Harris,,warn_tx.json
+TX,Take 5 Department 104,2020-03-23,5.0,Spring,Montgomery,,warn_tx.json
+TX,Take 5 Deaprtment 427,2020-03-23,4.0,Houston,Fort Bend,,warn_tx.json
+TX,Take 5 Department 233,2020-03-23,6.0,Pearland,Brazoria,,warn_tx.json
+TX,Take 5 Department 555,2020-03-23,7.0,Katy,Fort Bend,,warn_tx.json
+TX,Take 5 Department 556,2020-03-23,6.0,Houston,Harris,,warn_tx.json
+TX,Take 5 Department 564,2020-03-23,5.0,Crosby,Harris,,warn_tx.json
+TX,Take 5 Department 565,2020-03-23,5.0,League City,Galveston,,warn_tx.json
+TX,Take 5 Department 64,2020-03-23,8.0,Dallas,Dallas,,warn_tx.json
+TX,Take 5 Department 66,2020-03-23,9.0,Mesquite,Dallas,,warn_tx.json
+TX,Take 5 Department 416,2020-03-23,7.0,Tomball,Harris,,warn_tx.json
+TX,Take 5 Department 172,2020-03-23,2.0,San Antonio,Bexar,,warn_tx.json
+TX,Take 5 Department 73,2020-03-23,5.0,Duncanville,Dallas,,warn_tx.json
+TX,Take 5 Department 542,2020-03-23,4.0,Katy,Harris,,warn_tx.json
+TX,Take 5 Department 544,2020-03-23,9.0,Humble,Harris,,warn_tx.json
+TX,Take 5 Department 545,2020-03-23,3.0,Houston,Harris,,warn_tx.json
+TX,Take 5 Department 547,2020-03-23,5.0,Deer Park,Harris,,warn_tx.json
+TX,Take 5 Department 105,2020-03-23,6.0,Spring,Montgomery,,warn_tx.json
+TX,Take 5 Department 238,2020-03-23,4.0,Missouri City,Fort Bend,,warn_tx.json
+TX,Eviti Gaming Headquarters,2020-03-23,183.0,Austin,Travis,,warn_tx.json
+TX,Take 5 Department 235,2020-03-23,6.0,Houston,Harris,,warn_tx.json
+TX,Take 5 Department 205,2020-03-23,6.0,Houston,Harris,,warn_tx.json
+TX,Take 5 Department 217,2020-03-23,4.0,Pasadena,Harris,,warn_tx.json
+TX,Take 5 Department 226,2020-03-23,3.0,Conroe,Montgomery,,warn_tx.json
+TX,Take 5 Department 230,2020-03-23,2.0,Pasadena,Harris,,warn_tx.json
+TX,Take 5 Department 231,2020-03-23,9.0,Baytown,Harris,,warn_tx.json
+TX,Take 5 Department 106,2020-03-23,4.0,Conroe,Montgomery,,warn_tx.json
+TX,Eveti Production Facility,2020-03-23,48.0,Austin,Travis,,warn_tx.json
+TX,Hooters - Beltline Rd.,2020-03-23,36.0,Addison,Dallas,,warn_tx.json
+TX,Take 5 Department 549,2020-03-23,3.0,Rosenberg,Fort Bend,,warn_tx.json
+TX,Hooters - Ingram Rd.,2020-03-23,59.0,San Antonio,Bexar,,warn_tx.json
+TX,Hooters - San Pedro,2020-03-23,46.0,San Antonio,Bexar,,warn_tx.json
+TX,Hooters - Commerce St.,2020-03-23,35.0,San Antonio,Bexar,,warn_tx.json
+TX,Hooters -  Selma,2020-03-23,36.0,Selma,Bexar,,warn_tx.json
+TX,Hooters - Rudder Fwy,2020-03-23,53.0,Bryan,Brazos,,warn_tx.json
+TX,Hooters - Bass Pro Dr.,2020-03-23,61.0,Harlingen,Cameron,,warn_tx.json
+TX,Take 5 Department 530,2020-03-23,8.0,Murphy,Collin,,warn_tx.json
+TX,Hooters - S. Padre Island Dr,2020-03-23,51.0,Corpus Christi,Nueces,,warn_tx.json
+TX,Hooters - Wurbach Rd.,2020-03-23,40.0,San Antonio,Bexar,,warn_tx.json
+TX,Hooters - N. Lamar,2020-03-23,80.0,Dallas,Dallas,,warn_tx.json
+TX,Hooters - N. Bass Pro Dr.,2020-03-23,42.0,Garland,Dallas,,warn_tx.json
+TX,Hooters - IH 20 West,2020-03-23,66.0,Grand Prairie,Dallas,,warn_tx.json
+TX,Hooters - N. Beltline,2020-03-23,50.0,Irving,Dallas,,warn_tx.json
+TX,Hooters - Market Place Blvd.,2020-03-23,36.0,Irving,Dallas,,warn_tx.json
+TX,Hooters - Towne Crossing Blvd.,2020-03-23,58.0,Mesquite,Dallas,,warn_tx.json
+TX,Take 5 Department 184,2020-03-23,5.0,San Antonio,Bexar,,warn_tx.json
+TX,Hooters - Sherwood Way,2020-03-23,47.0,San Angelo,Tom Green,,warn_tx.json
+TX,Take 5 Department 194,2020-03-23,6.0,Schertz,Bexar,,warn_tx.json
+TX,Take 5 Department 185,2020-03-23,7.0,Universal City,Bexar,,warn_tx.json
+TX,Take 5 Department 186,2020-03-23,5.0,Live Oak,Bexar,,warn_tx.json
+TX,Take 5 Department 187,2020-03-23,4.0,Converse,Bexar,,warn_tx.json
+TX,Take 5 Department 188,2020-03-23,4.0,San Antonio,Bexar,,warn_tx.json
+TX,Take 5 Department 189,2020-03-23,8.0,New Braunfels,Comal,,warn_tx.json
+TX,Take 5 Department 190,2020-03-23,5.0,San Antonio,Bexar,,warn_tx.json
+TX,Take 5 Department 191,2020-03-23,6.0,San Antonio,Bexar,,warn_tx.json
+TX,Take 5 Department 49,2020-03-23,5.0,Dallas,Dallas,,warn_tx.json
+TX,Take 5 Department 193,2020-03-23,9.0,Canyon Lake,Comal,,warn_tx.json
+TX,Hooters - Heards Ln.,2020-03-23,63.0,Galveston,Galveston,,warn_tx.json
+TX,Take 5 Department 195,2020-03-23,1.0,Boerne,Kendall,,warn_tx.json
+TX,Take 5 Department 196,2020-03-23,6.0,San Antonio,Bexar,,warn_tx.json
+TX,Take 5 Department 197,2020-03-23,5.0,Helotes,Bexar,,warn_tx.json
+TX,Take 5 Department 505,2020-03-23,3.0,Burleson,Johnson,,warn_tx.json
+TX,Hooters,2020-03-23,52.0,Kirby,Bexar,,warn_tx.json
+TX,Take 5 Department 506,2020-03-23,5.0,Cedar Hill,Dallas,,warn_tx.json
+TX,Take 5 Department 509,2020-03-23,5.0,Mineral Wells,Palo Pinto,,warn_tx.json
+TX,Take 5 Department 192,2020-03-23,5.0,San Antonio,Bexar,,warn_tx.json
+TX,Hooters - Preston Rd.,2020-03-23,26.0,Frisco,Collin,,warn_tx.json
+TX,Hooters - FM 1960,2020-03-23,28.0,Houston,Fort Bend,,warn_tx.json
+TX,Hooters - SW Blvd.,2020-03-23,20.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Hooters - Throckmorton,2020-03-23,50.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Hooters - Crossroads,2020-03-23,49.0,Grapevine,Tarrant,,warn_tx.json
+TX,Hooters - Grapevine Hwy,2020-03-23,50.0,Richland Hills,Tarrant,,warn_tx.json
+TX,Hooters - Sunmount,2020-03-23,75.0,El Paso,El Paso,,warn_tx.json
+TX,Hooters - State Line,2020-03-23,33.0,Texarkana,Bowie,,warn_tx.json
+TX,Hooters - N. Collins,2020-03-23,64.0,Arlington,Tarrant,,warn_tx.json
+TX,Hooters - Uptown,2020-03-23,45.0,Cedar Hill,Dallas,,warn_tx.json
+TX,Hooters - Overland Trl,2020-03-23,40.0,Abilene,Jones,,warn_tx.json
+TX,Hooters - Plano,2020-03-23,36.0,Plano,Collin,,warn_tx.json
+TX,Hooters - Call Field Rd.,2020-03-23,31.0,Wichita Falls,Archer,,warn_tx.json
+TX,Hooters - Denton,2020-03-23,54.0,Denton,Denton,,warn_tx.json
+TX,Hooters - S. Stemmons,2020-03-23,51.0,Lewisville,Denton,,warn_tx.json
+TX,Hooters - N. Central Exwy,2020-03-23,37.0,McKinney,Collin,,warn_tx.json
+TX,Alsco-Center Branch,2020-03-23,1.0,Houston,Harris,,warn_tx.json
+TX,Holiday Inn-Austin,2020-03-23,67.0,Austin,Travis,,warn_tx.json
+TX,Hooters - East Expressway,2020-03-23,50.0,McAllen,Hidalgo,,warn_tx.json
+TX,Hooters - Jack Kultgen Fwy,2020-03-23,36.0,Waco,McLennan,,warn_tx.json
+TX,Hooters - Tombail Fwy,2020-03-23,37.0,Houston,Fort Bend,,warn_tx.json
+TX,Hooters - Katy Fwy,2020-03-23,531.0,Katy,Fort Bend,,warn_tx.json
+TX,Hooters - Hwy 59 North,2020-03-23,53.0,Humble,Harris,,warn_tx.json
+TX,Hooters - Sam Houston,2020-03-23,62.0,Pasadena,Harris,,warn_tx.json
+TX,Hooters - South Fwy,2020-03-23,51.0,Pearland,Brazoria,,warn_tx.json
+TX,Hooters - NASA Rd.,2020-03-23,44.0,Seabrook,Harris,,warn_tx.json
+TX,Hooters - Gulf Fwy,2020-03-23,46.0,Webster,Harris,,warn_tx.json
+TX,Hooters - West I-20,2020-03-23,60.0,Arlington,Tarrant,,warn_tx.json
+TX,Take 5 Department 110,2020-03-23,4.0,Bryan,Brazos,,warn_tx.json
+TX,Hooters - 4710 I-0 East,2020-03-23,46.0,Baytown,Harris,,warn_tx.json
+TX,Hooters - 40 West,2020-03-23,47.0,Amarillo,Potter,,warn_tx.json
+TX,Hooters - S.W. Fwy,2020-03-23,45.0,Stafford,Fort Bend,,warn_tx.json
+TX,Hooters - 850 I-10,2020-03-23,37.0,Beaumont,Jefferson,,warn_tx.json
+TX,Hooters - San Bernardo,2020-03-23,39.0,Laredo,Webb,,warn_tx.json
+TX,Hooters - John Ben Shepperd Pkwy.,2020-03-23,69.0,Odessa,Ector,,warn_tx.json
+TX,Hooters - 27001 H35,2020-03-23,80.0,Round Rock,Williamson,,warn_tx.json
+TX,Hooters - San Marcos,2020-03-23,61.0,San Marcos,Hays,,warn_tx.json
+TX,Houston Marriott Westchase,2020-03-23,175.0,Houston,Harris,,warn_tx.json
+TX,Take 5 Department 503,2020-03-23,3.0,Burleson,Johnson,,warn_tx.json
+TX,Tske 5 Department 510,2020-03-23,3.0,Bedford,Tarrant,,warn_tx.json
+TX,Take 5 Department 435,2020-03-23,7.0,Saginaw,Tarrant,,warn_tx.json
+TX,Take 5 Department 436,2020-03-23,3.0,Magnolia,Montgomery,,warn_tx.json
+TX,Take 5 Department 441,2020-03-23,5.0,Lubbock,Lubbock,,warn_tx.json
+TX,Take 5 Department 442,2020-03-23,10.0,Lubbock,Lubbock,,warn_tx.json
+TX,Take 5 Department 444,2020-03-23,6.0,Lubbock,Lubbock,,warn_tx.json
+TX,Take 5 Department 433,2020-03-23,4.0,Tomball,Harris,,warn_tx.json
+TX,Take 5 Department 502,2020-03-23,4.0,Arlington,Tarrant,,warn_tx.json
+TX,Take 5 Department 425,2020-03-23,9.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Take 5 Department 57,2020-03-23,5.0,Dallas,Dallas,,warn_tx.json
+TX,Chalk Mountain Services of Texas LLC,2020-03-23,46.0,Kermit,Winkler,,warn_tx.json
+TX,Take 5 Department 61,2020-03-23,7.0,Dallas,Dallas,,warn_tx.json
+TX,Take 5 Department 500,2020-03-23,3.0,Aledo,Parker,,warn_tx.json
+TX,Rabalais I & E,2020-03-23,110.0,Texas City,Galveston,,warn_tx.json
+TX,US Steel Tubular - Lone Star Tubualr,2020-03-23,593.0,Lone Star,Morris,,warn_tx.json
+TX,OTG Management,2020-03-23,353.0,Houston,Harris,,warn_tx.json
+TX,Take 5 Department 501,2020-03-23,4.0,Arlington,Tarrant,,warn_tx.json
+TX,Take 5 Department 206,2020-03-23,7.0,Pflugerville,Travis,,warn_tx.json
+TX,Take 5 Department 58,2020-03-23,8.0,Dallas,Dallas,,warn_tx.json
+TX,Hooters - Hwy 6 South,2020-03-23,31.0,Houston,Fort Bend,,warn_tx.json
+TX,Take 5 Department 183,2020-03-23,5.0,San Antonio,Bexar,,warn_tx.json
+TX,Take 5 Department 62,2020-03-23,6.0,Garland,Dallas,,warn_tx.json
+TX,Take 5 Deaprtment 63,2020-03-23,8.0,Dallas,Dallas,,warn_tx.json
+TX,Take 5 Department 68,2020-03-23,5.0,Richardson,Dallas,,warn_tx.json
+TX,Take 5 Department 554,2020-03-23,6.0,Katy,Harris,,warn_tx.json
+TX,Take 5 Department 96,2020-03-23,8.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Chalk Montain Services of Texas LLC - Pleasanton,2020-03-23,219.0,Pleasanton,Atascosa,,warn_tx.json
+TX,Take 5 Department 209,2020-03-23,8.0,San Marcos,Hays,,warn_tx.json
+TX,Take 5 Department 212,2020-03-23,3.0,Temple,Bell,,warn_tx.json
+TX,Take 5 Department 276,2020-03-23,8.0,Killeen,Bell,,warn_tx.json
+TX,Take 5 Department 241,2020-03-23,5.0,Austin,Travis,,warn_tx.json
+TX,Take 5 Department 244,2020-03-23,7.0,Austin,Travis,,warn_tx.json
+TX,Take 5 Department 405,2020-03-23,4.0,San Antonio,Bexar,,warn_tx.json
+TX,Take 5 Department 421,2020-03-23,6.0,Plano,Collin,,warn_tx.json
+TX,Take 5 Department 79,2020-03-23,3.0,Spring,Harris,,warn_tx.json
+TX,Take 5 Department 550,2020-03-23,4.0,Houston,Harris,,warn_tx.json
+TX,Take 5 Department 598,2020-03-23,4.0,Amarillo,Potter,,warn_tx.json
+TX,Take 5 Department 513,2020-03-23,3.0,Andrews,Andrews,,warn_tx.json
+TX,Take 5 Department 70,2020-03-23,6.0,Plano,Denton,,warn_tx.json
+TX,Take 5 Department 504,2020-03-23,6.0,Burleson,Johnson,,warn_tx.json
+TX,Take 5 Department 72,2020-03-23,4.0,Texarkana,Bowie,,warn_tx.json
+TX,Take 5 Department 208,2020-03-23,4.0,Lewisville,Denton,,warn_tx.json
+TX,Take 5 Department 202,2020-03-23,6.0,San Marcos,Hays,,warn_tx.json
+TX,Take 5 Department 596,2020-03-23,3.0,San Antonio,Bexar,,warn_tx.json
+TX,Take 5 Department 201,2020-03-23,4.0,San Antonio,Bexar,,warn_tx.json
+TX,Take 5 Department 69,2020-03-23,4.0,Plano,Denton,,warn_tx.json
+TX,Take 5 Department 177,2020-03-23,5.0,San Antonio,Bexar,,warn_tx.json
+TX,America's Auto Auction,2020-03-23,17.0,Conroe,Montgomery,,warn_tx.json
+TX,America's Auto Auction - Almeda-Genoa Rd,2020-03-23,58.0,Houston,Fort Bend,,warn_tx.json
+TX,America's Auton Auction - Almed-Genoa Rd.,2020-03-23,10.0,Irving,Dallas,,warn_tx.json
+TX,Take 5 Department 178,2020-03-23,2.0,San Antonio,Bexar,,warn_tx.json
+TX,Take 5 Department 180,2020-03-23,5.0,San Antonio,Bexar,,warn_tx.json
+TX,Take 5 Department 181,2020-03-23,10.0,San Antonio,Bexar,,warn_tx.json
+TX,Take 5 Department 182,2020-03-23,5.0,San Antonio,Bexar,,warn_tx.json
+TX,Take 5 Department 200,2020-03-23,4.0,Spring Branch,Comal,,warn_tx.json
+TX,Take 5 Department 519,2020-03-23,9.0,Odessa,Ector,,warn_tx.json
+TX,Take 5 Department 514,2020-03-23,4.0,Big Spring,Howard,,warn_tx.json
+TX,Take 5 Department 515,2020-03-23,5.0,Midland,Midland,,warn_tx.json
+TX,Take 5 Department 516,2020-03-23,7.0,Midland,Midland,,warn_tx.json
+TX,Take 5 Department 517,2020-03-23,6.0,Midland,Midland,,warn_tx.json
+TX,Take 5 Department 518,2020-03-23,5.0,Odessa,Ector,,warn_tx.json
+TX,Take 5 Department 59,2020-03-23,5.0,Dallas,Dallas,,warn_tx.json
+TX,Take 5 Department 520,2020-03-23,5.0,Canyon,Randall,,warn_tx.json
+TX,Take 5 Department 521,2020-03-23,4.0,Hereford,Deaf Smith,,warn_tx.json
+TX,Take 5 Department 522,2020-03-23,6.0,Lubbock,Lubbock,,warn_tx.json
+TX,Take 5 Department 523,2020-03-23,4.0,Plainview,Hale,,warn_tx.json
+TX,Take 5 Department 524,2020-03-23,6.0,Abilene,Taylor,,warn_tx.json
+TX,Take 5 Department 525,2020-03-23,3.0,Lubbock,Lubbock,,warn_tx.json
+TX,Take 5 Department 526,2020-03-23,4.0,Lubbock,Lubbock,,warn_tx.json
+TX,Take 5 Department 529,2020-03-23,4.0,Lubbock,Lubbock,,warn_tx.json
+TX,Take 5 Department 552,2020-03-23,6.0,Baytown,Harris,,warn_tx.json
+TX,Marriott City Place-Spicewood Village,2020-03-24,73.0,Spring,Harris,,warn_tx.json
+TX,Four Seasons Hotel-Houston,2020-03-24,344.0,Houston,Harris,,warn_tx.json
+TX,Jostens,2020-03-24,142.0,Denton,Denton,,warn_tx.json
+TX,Cameron Mitchell Restaurants,2020-03-24,125.0,Dallas,Dallas,,warn_tx.json
+TX,Autobahn Imports,2020-03-24,124.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Quick Weight Loss Centers - Conroe,2020-03-25,4.0,Conroe,Montgomery,,warn_tx.json
+TX,Quick Weight Loss Centers - Cinco Ranch,2020-03-25,4.0,Houston,Fort Bend,,warn_tx.json
+TX,Alsco - Kyle,2020-03-25,3.0,Kyle,Hays,,warn_tx.json
+TX,Quick Weight Loss Centers - FM 1960,2020-03-25,4.0,Houston,Harris,,warn_tx.json
+TX,The St. Anthony Hotel,2020-03-25,208.0,San Antonio,Bexar,,warn_tx.json
+TX,Legacy West,2020-03-25,82.0,Plano,Collin,,warn_tx.json
+TX,FTS International Services-Aledo,2020-03-25,72.0,Aledo,Parker,,warn_tx.json
+TX,Quick Weight Loss Centers - Humble,2020-03-25,3.0,Humble,Harris,,warn_tx.json
+TX,Quick Weight Loss Centers - Pasadene,2020-03-25,4.0,Pasadena,Harris,,warn_tx.json
+TX,Quick Weight Loss Centers - HWY 6,2020-03-25,4.0,Houston,Harris,,warn_tx.json
+TX,Pappasito's 11,2020-03-25,137.0,San Antonio,Bexar,,warn_tx.json
+TX,Hyatt Regency Houston,2020-03-25,67.0,Houston,Harris,,warn_tx.json
+TX,Quick Weight Loss Centers - Spring Stuebner Rd,2020-03-25,4.0,Spring,Harris,,warn_tx.json
+TX,Alsco-Oliver St,2020-03-25,58.0,Houston,Harris,,warn_tx.json
+TX,Quick Weight Loss Centers - Katy,2020-03-25,4.0,Spring,Harris,,warn_tx.json
+TX,Saint Arnold Brewing Co.,2020-03-25,135.0,Houston,Harris,,warn_tx.json
+TX,Hyatt Regency Houston Galeria,2020-03-25,110.0,Houston,Harris,,warn_tx.json
+TX,Quick Weight Loss Centers - Pearland,2020-03-25,4.0,Webster,Harris,,warn_tx.json
+TX,Quick Weight Loss Center - 9000 SW Frwy,2020-03-25,5.0,Houston,Harris,,warn_tx.json
+TX,Quick Weight Loss Centers - Westheimer,2020-03-25,4.0,Houston,Harris,,warn_tx.json
+TX,Quick Weight Loss Centers - Cypress,2020-03-25,4.0,Cypress,Harris,,warn_tx.json
+TX,Quick Weight Loss Centers - Webster,2020-03-25,5.0,Webster,Harris,,warn_tx.json
+TX,Quick Weight Loss Centers - 2615 SW Frwy,2020-03-25,4.0,Houston,Harris,,warn_tx.json
+TX,Quick Weight Loss Centers - Spring Sawdust,2020-03-25,4.0,Spring,Harris,,warn_tx.json
+TX,Quick Weight Loss Centers - Rosenberg,2020-03-25,4.0,Rosenberg,Fort Bend,,warn_tx.json
+TX,Pappasito's 24,2020-03-26,42.0,Dallas,Tarrant,,warn_tx.json
+TX,Pappasito's 01,2020-03-26,86.0,Houston,Harris,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 34,2020-03-26,201.0,Pharr,Hidalgo,,warn_tx.json
+TX,Pappas Delta Blues,2020-03-26,75.0,Plano,Collin,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 35,2020-03-26,88.0,Dallas,Tarrant,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 42,2020-03-26,113.0,Dallas,Tarrant,,warn_tx.json
+TX,Pappasito's 02,2020-03-26,106.0,Houston,Harris,,warn_tx.json
+TX,Tinseltown USA El Paso,2020-03-26,108.0,El Paso,El Paso,,warn_tx.json
+TX,Pappas Bar-B-Q 24,2020-03-26,62.0,Duncanville,Dallas,,warn_tx.json
+TX,Cinemark 12 Pearland,2020-03-26,37.0,Pearland,Brazoria,,warn_tx.json
+TX,Pappasito's 10,2020-03-26,169.0,Houston,Harris,,warn_tx.json
+TX,Pappasito's 12,2020-03-26,128.0,Houston,Harris,,warn_tx.json
+TX,Pappas Catering Dallas,2020-03-26,11.0,Richardson,Dallas,,warn_tx.json
+TX,Spitzer Industries-Brookshire,2020-03-26,53.0,Brookshire,Waller,,warn_tx.json
+TX,Pappasito's 06,2020-03-26,150.0,Humble,Harris,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 03,2020-03-26,125.0,Austin,Travis,,warn_tx.json
+TX,The Pearl South Padre,2020-03-26,105.0,South Padre Is.,Cameron,,warn_tx.json
+TX,Tinseltown Movies 17,2020-03-26,70.0,Grapevine,Tarrant,,warn_tx.json
+TX,Pappas Bar-B-Q 05,2020-03-26,35.0,Dallas,Dallas,,warn_tx.json
+TX,Pappasito's 20,2020-03-26,91.0,Dallas,Tarrant,,warn_tx.json
+TX,Pappas Bros. Steakhouse 2,2020-03-26,101.0,Dallas,Dallas,,warn_tx.json
+TX,Pappasito's 07,2020-03-26,95.0,Houston,Harris,,warn_tx.json
+TX,Pappasito's 08,2020-03-26,151.0,Houston,Harris,,warn_tx.json
+TX,Cinemark 12 Sherman,2020-03-26,39.0,Sherman,Grayson,,warn_tx.json
+TX,Little Pappasito's,2020-03-26,109.0,Houston,Harris,,warn_tx.json
+TX,Century 12 Abilene,2020-03-26,23.0,Abilene,Jones,,warn_tx.json
+TX,Pappasito's 15,2020-03-26,136.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 27,2020-03-26,186.0,Shenandoah,Montgomery,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 22,2020-03-26,99.0,Houston,Harris,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 10,2020-03-26,167.0,Houston,Harris,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 11,2020-03-26,165.0,Dallas,Dallas,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 07,2020-03-26,180.0,Richardson,Dallas,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 32,2020-03-26,78.0,Houston,Harris,,warn_tx.json
+TX,Pappas Catering Austin,2020-03-26,17.0,Austin,Travis,,warn_tx.json
+TX,Cinemark Montana 14,2020-03-26,74.0,El Paso,El Paso,,warn_tx.json
+TX,Pappasito's 09,2020-03-26,128.0,Austin,Travis,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 09,2020-03-26,184.0,Houston,Harris,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 12,2020-03-26,213.0,San Antonio,Bexar,,warn_tx.json
+TX,Cinemark West,2020-03-26,66.0,El Paso,El Paso,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 1,2020-03-26,95.0,Houston,Harris,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 39,2020-03-26,123.0,Austin,Travis,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 05,2020-03-26,178.0,Stafford,Harris,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 06,2020-03-26,146.0,Dallas,Dallas,,warn_tx.json
+TX,Pappasito's 13,2020-03-26,121.0,Dallas,Dallas,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 16,2020-03-26,186.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 18,2020-03-26,90.0,Bedford,Tarrant,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 36,2020-03-26,154.0,Grapevine,Tarrant,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 29,2020-03-26,161.0,Duncanville,Dallas,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 41,2020-03-26,113.0,Houston,Harris,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 37,2020-03-26,140.0,Houston,Harris,,warn_tx.json
+TX,Cinemark Movie Bistro,2020-03-26,35.0,El Paso,El Paso,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 02,2020-03-26,100.0,Houston,Harris,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 08,2020-03-26,155.0,Arlington,Tarrant,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 40,2020-03-26,231.0,San Antonio,Bexar,,warn_tx.json
+TX,Cinemark Abilene,2020-03-26,36.0,Abilene,Jones,,warn_tx.json
+TX,Pappasito's 05,2020-03-26,116.0,Richardson,Dallas,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 28,2020-03-26,74.0,Houston,Harris,,warn_tx.json
+TX,Cielo Vista Mall 14,2020-03-26,53.0,El Paso,El Paso,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 21,2020-03-26,165.0,Dallas,Collin,,warn_tx.json
+TX,Pappas Catering San Antonio,2020-03-26,27.0,San Antonio,Bexar,,warn_tx.json
+TX,Pappasito's 16,2020-03-26,127.0,Arlington,Tarrant,,warn_tx.json
+TX,Pappas Delta Blues - Houston,2020-03-26,97.0,Webster,Harris,,warn_tx.json
+TX,Cornerstone Community-Weatherford,2020-03-26,4.0,Weatherford,Parker,,warn_tx.json
+TX,Cornerstone Community-Mulberry,2020-03-26,7.0,Decatur,Wise,,warn_tx.json
+TX,Cornerstone Community-Mineral Wells,2020-03-26,10.0,Mineral Wells,Palo Pinto,,warn_tx.json
+TX,Cornerstone Community-Boyd,2020-03-26,4.0,Boyd,Wise,,warn_tx.json
+TX,Cornerstone Community-Decatur,2020-03-26,2.0,Decatur,Wise,,warn_tx.json
+TX,Pappasito's 03,2020-03-26,135.0,Sugarland,Fort Bend,,warn_tx.json
+TX,Tinseltown Lubbock,2020-03-26,67.0,Lubbock,Lubbock,,warn_tx.json
+TX,Cinemark Pharr 16,2020-03-26,54.0,Pharr,Hidalgo,,warn_tx.json
+TX,Pappas Burger 1,2020-03-26,90.0,Houston,Harris,,warn_tx.json
+TX,Cinemark - Allen 16,2020-03-26,53.0,Allen,Collin,,warn_tx.json
+TX,Movies 12  Texas City,2020-03-26,26.0,Texas City,Galveston,,warn_tx.json
+TX,Tinseltown Jacinto City,2020-03-26,50.0,Houston,Harris,,warn_tx.json
+TX,Ridgmar 13,2020-03-26,56.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Tinseltown The Woodlands,2020-03-26,71.0,The Woodlands,Montgomery,,warn_tx.json
+TX,Cinemark San Antonio 16,2020-03-26,21.0,San Antonio,Bexar,,warn_tx.json
+TX,Tinseltown USA 290,2020-03-26,78.0,Houston,Harris,,warn_tx.json
+TX,Cinemark 14 Wichita Falls,2020-03-26,46.0,Wichita Falls,Archer,,warn_tx.json
+TX,Pappas Bar-B-Q 14,2020-03-26,40.0,Houston,Harris,,warn_tx.json
+TX,Pappas Bros. Steakhouse 3,2020-03-26,94.0,Houston,Harris,,warn_tx.json
+TX,Cinemark Frisco Square,2020-03-26,64.0,Frisco,Collin,,warn_tx.json
+TX,Pappas Bar-B-Q 15,2020-03-26,19.0,Houston,Harris,,warn_tx.json
+TX,Movies 14 McKinney,2020-03-26,45.0,McKinney,Collin,,warn_tx.json
+TX,Pappas Bar-B-Q 19,2020-03-26,29.0,Houston,Harris,,warn_tx.json
+TX,Pappas Bar-B-Q 20,2020-03-26,40.0,Houston,Harris,,warn_tx.json
+TX,Pappas Bar-B-Q 21,2020-03-26,17.0,Houston,Harris,,warn_tx.json
+TX,CUT! by Cinemark,2020-03-26,172.0,Frisco,Collin,,warn_tx.json
+TX,Cinemark West Plano,2020-03-26,165.0,Plano,Collin,,warn_tx.json
+TX,Pappas Bar-B-Q 22,2020-03-26,40.0,Houston,Harris,,warn_tx.json
+TX,Cinema 6 Cleburn,2020-03-26,15.0,Cleburne,Johnson,,warn_tx.json
+TX,Subway - (Pappas HOU Airport),2020-03-26,85.0,Houston,Harris,,warn_tx.json
+TX,Cinema 6 Stephenville,2020-03-26,20.0,Stephenville,Erath,,warn_tx.json
+TX,Cinemark Central Plano,2020-03-26,52.0,Plano,Collin,,warn_tx.json
+TX,Pappas Bros. Steakhouse 1,2020-03-26,110.0,Houston,Harris,,warn_tx.json
+TX,Cinemark 15 @ Vista,2020-03-26,39.0,Lewisville,Denton,,warn_tx.json
+TX,Cinemark 14 Roanoke,2020-03-26,69.0,Roanoke,Denton,,warn_tx.json
+TX,Cinemark 14 Denton,2020-03-26,52.0,Denton,Denton,,warn_tx.json
+TX,Cinemark 14 Cedar Hill,2020-03-26,29.0,Cedar Hill,Dallas,,warn_tx.json
+TX,Cinemark (The Legacy),2020-03-26,96.0,Plano,Collin,,warn_tx.json
+TX,Main Place 6,2020-03-26,17.0,McAllen,Hidalgo,,warn_tx.json
+TX,Pappas Bar-B-Q 23,2020-03-26,47.0,Pasadena,Harris,,warn_tx.json
+TX,Barry's Pizza (Pappas),2020-03-26,23.0,Houston,Harris,,warn_tx.json
+TX,Dot Coffee Shop (Pappas -Woodridge),2020-03-26,88.0,Houston,Harris,,warn_tx.json
+TX,Dot Coffee Shop (Pappas -Federal),2020-03-26,80.0,Houston,Harris,,warn_tx.json
+TX,Yia Yia Mary's Greek Kitchen (Pappas - San Felipe),2020-03-26,83.0,Houston,Harris,,warn_tx.json
+TX,Yia Yia Mary's Greek Kitchen (Pappas - Airport),2020-03-26,18.0,Houston,Harris,,warn_tx.json
+TX,Chick-fll-A (Pappas),2020-03-26,33.0,Houston,Harris,,warn_tx.json
+TX,Dunkin Donuts/Baskin Robbins (Pappas),2020-03-26,23.0,Houston,Harris,,warn_tx.json
+TX,Gordon's Galley (Pappas),2020-03-26,24.0,Houston,Harris,,warn_tx.json
+TX,Cinemark Edinburg,2020-03-26,64.0,Edinburg,Hidalgo,,warn_tx.json
+TX,Ruby's (Pappas),2020-03-26,87.0,Houston,Harris,,warn_tx.json
+TX,Pappas Seafood House (NASA),2020-03-26,149.0,Webster,Harris,,warn_tx.json
+TX,Pappas Restaurants Corporate,2020-03-26,124.0,Houston,Harris,,warn_tx.json
+TX,Pappas Distribution/Trades Offices - 1,2020-03-26,129.0,Houston,Harris,,warn_tx.json
+TX,Pappas Distribution/Trades Offices - 2,2020-03-26,23.0,Houston,Harris,,warn_tx.json
+TX,Pappas Distribution/Trades Offices - 3,2020-03-26,60.0,Houston,Harris,,warn_tx.json
+TX,Pappas Bread and Dessert Bakeries,2020-03-26,99.0,Houston,Harris,,warn_tx.json
+TX,Pappas Pappas Bar-B-Q Catering,2020-03-26,20.0,Houston,Harris,,warn_tx.json
+TX,Pappas Catering Houston,2020-03-26,25.0,Houston,Harris,,warn_tx.json
+TX,Pappas Confectionary/ Delivery,2020-03-26,107.0,Houston,Harris,,warn_tx.json
+TX,Hunan (Pappas),2020-03-26,19.0,Houston,Harris,,warn_tx.json
+TX,Movies 4,2020-03-26,11.0,Big Spring,Howard,,warn_tx.json
+TX,Movies 10 Weslaco,2020-03-26,32.0,Weslaco,Hidalgo,,warn_tx.json
+TX,Movies 17,2020-03-26,28.0,McAllen,Hidalgo,,warn_tx.json
+TX,Little Pappas Seafood House,2020-03-26,52.0,Houston,Harris,,warn_tx.json
+TX,Town Centre Cinema 6,2020-03-26,12.0,Plainview,Hale,,warn_tx.json
+TX,Movies 16,2020-03-26,30.0,Lubbock,Lubbock,,warn_tx.json
+TX,Cinemark Cedar Park 12,2020-03-26,72.0,Cedar Park,Williamson,,warn_tx.json
+TX,Pappas Burger 2,2020-03-26,112.0,Houston,Harris,,warn_tx.json
+TX,Tinseltown USA Beaumont,2020-03-26,68.0,Beaumont,Jefferson,,warn_tx.json
+TX,Pappas Shrimp Shack,2020-03-26,46.0,Houston,Harris,,warn_tx.json
+TX,Cinemark 14 Round Rock,2020-03-26,52.0,Round Rock,Williamson,,warn_tx.json
+TX,Mall de Las Aguilas 7,2020-03-26,23.0,Eagle Pass,Maverick,,warn_tx.json
+TX,Century 12 Odessa,2020-03-26,24.0,Odessa,Ector,,warn_tx.json
+TX,Hollywood USA - Amarillo,2020-03-26,35.0,Amarillo,Potter,,warn_tx.json
+TX,Movies 8 Paris,2020-03-26,15.0,Paris,Lamar,,warn_tx.json
+TX,Cinemark 14 Texarkana,2020-03-26,48.0,Texarkana,Bowie,,warn_tx.json
+TX,Movies 8 Del Rio,2020-03-26,21.0,Del Rio,Val Verde,,warn_tx.json
+TX,Pappas Seafood House (FM 1960),2020-03-26,152.0,Humble,Harris,,warn_tx.json
+TX,Tinseltown Mission,2020-03-26,23.0,Mission,Hidalgo,,warn_tx.json
+TX,Cinemark Rockwall 14 and XD,2020-03-26,54.0,Rockwall,Rockwall,,warn_tx.json
+TX,Movies 8 Round Rock,2020-03-26,23.0,Round Rock,Williamson,,warn_tx.json
+TX,Pappas Bar-B-Q 06,2020-03-26,39.0,Houston,Harris,,warn_tx.json
+TX,Cinemark Southpark Meadows,2020-03-26,58.0,Austin,Travis,,warn_tx.json
+TX,Fossil Group,2020-03-26,222.0,Dallas,Dallas,,warn_tx.json
+TX,Kirchhoff Automotive,2020-03-26,148.0,Garland,Dallas,,warn_tx.json
+TX,Hollywood USA Movies 15,2020-03-26,20.0,Garland,Dallas,,warn_tx.json
+TX,Pappas Bar-B-Q 02,2020-03-26,50.0,Houston,Harris,,warn_tx.json
+TX,Cinemark Grand Prairie,2020-03-26,54.0,Grand Prairie,Dallas,,warn_tx.json
+TX,Pappas Bar-B-Q 03,2020-03-26,32.0,Houston,Harris,,warn_tx.json
+TX,Lewis Energy-Encinal,2020-03-26,187.0,Encinal,La Salle,,warn_tx.json
+TX,Cinemark McKinney,2020-03-26,67.0,McKinney,Collin,,warn_tx.json
+TX,"Tincup Water Solutions, LLC",2020-03-26,127.0,Stockdale,Wilson,,warn_tx.json
+TX,McCreless Mall 10,2020-03-26,21.0,San Antonio,Bexar,,warn_tx.json
+TX,North East Mall 18,2020-03-26,62.0,Hurst,Tarrant,,warn_tx.json
+TX,Tinseltown San Angelo,2020-03-26,47.0,San Angelo,Tom Green,,warn_tx.json
+TX,Harker Heights 16,2020-03-26,48.0,Harker Heights,Bell,,warn_tx.json
+TX,Cinemark Temple 12,2020-03-26,43.0,Temple,Bell,,warn_tx.json
+TX,Cinemark Stone Hill Town Center,2020-03-26,29.0,Pflugerville,Travis,,warn_tx.json
+TX,Cinemark 12 and XD,2020-03-26,53.0,Mansfield,Johnson,,warn_tx.json
+TX,Pappas Bar-B-Q 04,2020-03-26,58.0,Houston,Harris,,warn_tx.json
+TX,Pappasito's 19,2020-03-26,28.0,Houston,Harris,,warn_tx.json
+TX,Pappasito's 18,2020-03-26,29.0,Houston,Harris,,warn_tx.json
+TX,Suitsupply-Houston,2020-03-26,15.0,Houston,Harris,,warn_tx.json
+TX,Suitsupply-The Woodlands,2020-03-26,6.0,The Woodlands,Montgomery,,warn_tx.json
+TX,Cinemark 12 Cypress,2020-03-26,67.0,Cypress,Harris,,warn_tx.json
+TX,Brazos Town Center 12,2020-03-26,34.0,Rosenberg,Fort Bend,,warn_tx.json
+TX,Pappasito's 14,2020-03-26,128.0,Houston,Harris,,warn_tx.json
+TX,Victoria Mall,2020-03-26,23.0,Victoria,Victoria,,warn_tx.json
+TX,Hydraulic Fracturing Facility,2020-03-26,388.0,Midland,Midland,,warn_tx.json
+TX,Suitsupply-Plano,2020-03-26,9.0,Plano,Collin,,warn_tx.json
+TX,Pappas Bar-B-Q 08,2020-03-26,43.0,Houston,Harris,,warn_tx.json
+TX,Pappasito's 21,2020-03-26,117.0,Houston,Harris,,warn_tx.json
+TX,Cinemark Lufkin 12,2020-03-26,28.0,Lufkin,Angelina,,warn_tx.json
+TX,Pappasito's 22,2020-03-26,117.0,Houston,Harris,,warn_tx.json
+TX,Movies 14 Lancaster,2020-03-26,54.0,Lancaster,Dallas,,warn_tx.json
+TX,Pappasito's 23,2020-03-26,180.0,Shenandoah,Montgomery,,warn_tx.json
+TX,Pappas Bar-B-Q 01,2020-03-26,44.0,Houston,Harris,,warn_tx.json
+TX,MicroStar Quality Services,2020-03-26,74.0,Eagle Pass,Maverick,,warn_tx.json
+TX,Athens Cinema 4,2020-03-26,9.0,Athens,Henderson,,warn_tx.json
+TX,Cinemark Webster,2020-03-26,77.0,Webster,Harris,,warn_tx.json
+TX,Cinemark at Market Street,2020-03-26,15.0,The Woodlands,Montgomery,,warn_tx.json
+TX,Cinemark Brownsville,2020-03-26,57.0,Brownsville,Cameron,,warn_tx.json
+TX,Cinemark Houston,2020-03-26,53.0,Houston,Harris,,warn_tx.json
+TX,Movies 10 Brownsville,2020-03-26,30.0,Brownsville,Cameron,,warn_tx.json
+TX,Cinemark New Caney and XD,2020-03-26,43.0,New Caney,Montgomery,,warn_tx.json
+TX,Cinemark 17,2020-03-26,58.0,Dallas,Dallas,,warn_tx.json
+TX,Cinemark 19,2020-03-26,61.0,Katy,Fort Bend,,warn_tx.json
+TX,Tinseltown USA Pflugerville,2020-03-26,97.0,Pflugerville,Travis,,warn_tx.json
+TX,Cinemark Harlingen,2020-03-26,68.0,Harlingen,Cameron,,warn_tx.json
+TX,Cinemark Spring Town Center,2020-03-26,27.0,Spring,Harris,,warn_tx.json
+TX,Movies 18,2020-03-26,69.0,College Station,Brazos,,warn_tx.json
+TX,Pappas Bar-B-Q 09,2020-03-26,59.0,Humble,Harris,,warn_tx.json
+TX,Century 16 XD and IMAX,2020-03-26,88.0,Corpus Christi,Nueces,,warn_tx.json
+TX,Cinemark Hill Country Galleria,2020-03-26,44.0,Austin,Travis,,warn_tx.json
+TX,Pappas Bar-B-Q 10,2020-03-26,31.0,Webster,Harris,,warn_tx.json
+TX,Movies 12 Laredo,2020-03-26,29.0,Laredo,Webb,,warn_tx.json
+TX,Cinemark Mall Del Norte,2020-03-26,54.0,Laredo,Webb,,warn_tx.json
+TX,Movies 10 Harlingen,2020-03-26,22.0,Harlingen,Cameron,,warn_tx.json
+TX,Pappas Bar-B-Q 12,2020-03-26,46.0,Houston,Harris,,warn_tx.json
+TX,Hollywood USA,2020-03-26,64.0,Pasadena,Harris,,warn_tx.json
+TX,Pappas Bar-B-Q 13,2020-03-26,39.0,Houston,Harris,,warn_tx.json
+TX,Cinemark @ Alliance Towne Center,2020-03-26,64.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Paper Source-N. Lamar,2020-03-27,12.0,Austin,Travis,,warn_tx.json
+TX,Down on Grayson,2020-03-27,75.0,San Antonio,Bexar,,warn_tx.json
+TX,DriveTime Automotive-Houston,2020-03-27,61.0,Houston,Harris,,warn_tx.json
+TX,Westin Stonbriar Hotel,2020-03-27,123.0,Frisco,Collin,,warn_tx.json
+TX,Paper Source-Southlake,2020-03-27,6.0,Southlake,Denton,,warn_tx.json
+TX,"Charbonneau Industries, Inc.",2020-03-27,60.0,Houston,Harris,,warn_tx.json
+TX,Paper Source-Palm Way,2020-03-27,10.0,Austin,Travis,,warn_tx.json
+TX,Charbonneau Ind.-Warehouse,2020-03-27,20.0,Houston,Harris,,warn_tx.json
+TX,Trico Products,2020-03-27,212.0,Brownsville,Cameron,,warn_tx.json
+TX,Paper Source,2020-03-27,11.0,Dallas,Dallas,,warn_tx.json
+TX,Pinnacle Logistics,2020-03-27,134.0,Dallas,Dallas,,warn_tx.json
+TX,Dorman Milano Hat Co.,2020-03-27,20.0,Dallas,Dallas,,warn_tx.json
+TX,Paper Source-Cole Ave,2020-03-27,10.0,Dallas,Dallas,,warn_tx.json
+TX,Paper Source-Town and Country,2020-03-27,10.0,Houston,Harris,,warn_tx.json
+TX,Paper Source-Plano,2020-03-27,8.0,Plano,Collin,,warn_tx.json
+TX,Rosewood Mansion,2020-03-27,1.0,Dallas,Dallas,,warn_tx.json
+TX,Paper Source-Westheimer,2020-03-27,17.0,Houston,Harris,,warn_tx.json
+TX,"Compeat, Inc.",2020-03-27,56.0,Austin,Travis,,warn_tx.json
+TX,Ahern Rentals-El Paso,2020-03-28,1.0,El Paso,El Paso,,warn_tx.json
+TX,Ahern Rentals-Corpus Christi.,2020-03-28,1.0,Corpus Ch,Nueces,,warn_tx.json
+TX,Ahern Rentals-Irving,2020-03-28,12.0,Irving,Dallas,,warn_tx.json
+TX,Ahern Rentals-Lubbock,2020-03-28,1.0,Lubbock,Lubbock,,warn_tx.json
+TX,Ahern Rentals-Houston,2020-03-28,12.0,Houston,Harris,,warn_tx.json
+TX,Ahern Rentals-Ft Worth,2020-03-28,3.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Ahern Rentals-San Antonio,2020-03-28,2.0,San Antonio,Bexar,,warn_tx.json
+TX,Suitssupply-Dallas,2020-03-29,19.0,Dallas,Dallas,,warn_tx.json
+TX,Suitsupply-Austin,2020-03-29,7.0,Austin,Travis,,warn_tx.json
+TX,Sport Clips - FM620,2020-03-30,6.0,Austin,Travis,,warn_tx.json
+TX,Sport Clips - Trimmier Rd,2020-03-30,10.0,Killeen,Bell,,warn_tx.json
+TX,Sport Clips - Hwy 190,2020-03-30,9.0,Copperas Cove,Coryell,,warn_tx.json
+TX,Sport Clips - Town Center,2020-03-30,12.0,Pflugerville,Travis,,warn_tx.json
+TX,Sport Clips - Frontage Rd.,2020-03-30,13.0,Austin,Travis,,warn_tx.json
+TX,Sport Clips - Shops Pkwy,2020-03-30,13.0,Austin,Travis,,warn_tx.json
+TX,Sport Clips - S. IH-35 Round Rock,2020-03-30,6.0,Round Rock,Williamson,,warn_tx.json
+TX,Sport Clips - Walton Way,2020-03-30,8.0,Cedar Park,Williamson,,warn_tx.json
+TX,Veritas Shop Fabrication,2020-03-30,67.0,Whitehouse,Smith,,warn_tx.json
+TX,Holiday Inn Army Hotels,2020-03-30,61.0,San Antonio,Bexar,,warn_tx.json
+TX,Sport Clips - Palm Valley,2020-03-30,8.0,Round Rock,Williamson,,warn_tx.json
+TX,Sport Clips - University Oaks,2020-03-30,9.0,Round Rock,Williamson,,warn_tx.json
+TX,Sport Clips - Whitestone Blvd,2020-03-30,10.0,Cedar Park,Williamson,,warn_tx.json
+TX,Sport Clips - Kyle Parkway,2020-03-30,12.0,Kyle,Hays,,warn_tx.json
+TX,Sports Clips - San Antonio Rd,2020-03-30,7.0,Buda,Hays,,warn_tx.json
+TX,Double Tree by Hilton Hotel,2020-03-30,63.0,Austin,Travis,,warn_tx.json
+TX,Sport Clips - Agnes St.,2020-03-30,11.0,Bastrop,Bastrop,,warn_tx.json
+TX,Sport Clips - Rivery Blvd.,2020-03-30,17.0,Georgetown,Williamson,,warn_tx.json
+TX,Drive Time - Houston,2020-03-30,61.0,Houston,Fort Bend,,warn_tx.json
+TX,Hilton Houston Westchase,2020-03-30,50.0,Houston,Harris,,warn_tx.json
+TX,IKO Southwest LLC,2020-03-30,31.0,Hillsboro,Hill,,warn_tx.json
+TX,"EMI Industries, LLC",2020-03-30,30.0,Arlington,Tarrant,,warn_tx.json
+TX,Sport Clips - N. Mopac,2020-03-30,12.0,Austin,Travis,,warn_tx.json
+TX,Sport clips - Bee Caves,2020-03-30,6.0,Austin,Travis,,warn_tx.json
+TX,Sport Clips - Lakeline,2020-03-30,9.0,Austin,Travis,,warn_tx.json
+TX,Sport Clips - Hwy. 290,2020-03-30,13.0,Austin,Travis,,warn_tx.json
+TX,Fixbrewhouse-El Paso,2020-03-31,127.0,El Paso,El Paso,,warn_tx.json
+TX,El Gallo,2020-03-31,10.0,Houston,Harris,,warn_tx.json
+TX,Guadalajara Hacienda-,2020-03-31,42.0,Shenandoah,Montgomery,,warn_tx.json
+TX,HMS Host-Lubbock Airport,2020-03-31,15.0,Lubbock,Lubbock,,warn_tx.json
+TX,HMS Host-El Paso Airport,2020-03-31,70.0,El Paso,El Paso,,warn_tx.json
+TX,Pioneer Frozen Foods-Dallas,2020-03-31,70.0,Dallas,Dallas,,warn_tx.json
+TX,Guadalajara Hacienda,2020-03-31,37.0,Katy,Fort Bend,,warn_tx.json
+TX,InterContinental-Stephen F Austin,2020-03-31,99.0,Austin,Travis,,warn_tx.json
+TX,Guadalajara Grille,2020-03-31,36.0,Houston,Harris,,warn_tx.json
+TX,Step Energy Services-Floresville,2020-03-31,69.0,Floresville,Wilson,,warn_tx.json
+TX,Justin Brands-Ft Worth,2020-03-31,10.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Fixbrewhouse-San Antonio,2020-03-31,164.0,San Antonio,Bexar,,warn_tx.json
+TX,Justin Brands-Childress,2020-03-31,7.0,Childress,Childress,,warn_tx.json
+TX,Great American Products Ltd.,2020-03-31,1.0,New Braunfels,Comal,,warn_tx.json
+TX,Justin Brands-El Paso,2020-03-31,179.0,El Paso,El Paso,,warn_tx.json
+TX,Holiday Inn-Riverwalk,2020-03-31,61.0,San Antonio,Bexar,,warn_tx.json
+TX,Guadalajara Del Centro,2020-03-31,71.0,Houston,Harris,,warn_tx.json
+TX,SiteMinder Hospitality-Colonnade,2020-03-31,36.0,Addison,Dallas,,warn_tx.json
+TX,Drive Time,2020-03-31,108.0,Ft. Worth,Johnson,,warn_tx.json
+TX,"Flixbrewhouse-Cinema Breweries,Inc.",2020-03-31,168.0,Round Rock,Williamson,,warn_tx.json
+TX,Fixbrewhouse-Frisco,2020-03-31,137.0,Frisco,Collin,,warn_tx.json
+TX,"uShip, Inc.",2020-03-31,65.0,Austin,Travis,,warn_tx.json
+TX,Justin Brands-N. Desert,2020-03-31,5.0,El Paso,El Paso,,warn_tx.json
+TX,Justin Brands--Gateway W,2020-03-31,6.0,El Paso,El Paso,,warn_tx.json
+TX,Justin Brands-1756 Gateway,2020-03-31,6.0,El Paso,El Paso,,warn_tx.json
+TX,Justin Brands-7100 Gateway E,2020-03-31,6.0,El Paso,El Paso,,warn_tx.json
+TX,"DynaEnergetics US, Inc.",2020-03-31,85.0,Blum,Hill,,warn_tx.json
+TX,Avis Car Rental,2020-04-01,901.0,Dallas,Dallas,,warn_tx.json
+TX,Avis Car Rental-3937 26th Ave,2020-04-01,12.0,Dallas,Dallas,,warn_tx.json
+TX,Zachary Industrial-LyndellBaseII,2020-04-01,288.0,Houston,Harris,,warn_tx.json
+TX,Hampton Inn-Frisco,2020-04-01,11.0,Frisco,Collin,,warn_tx.json
+TX,Courtyard by Marriott Austin,2020-04-01,53.0,Pflugerville,Travis,,warn_tx.json
+TX,Hyatt Place-Cedar Park,2020-04-01,12.0,Cedar Park,Williamson,,warn_tx.json
+TX,Avis Car Rental-Cedar Springs,2020-04-01,33.0,Dallas,Dallas,,warn_tx.json
+TX,Avis Car Rental-3850 26th,2020-04-01,8.0,Dallas,Dallas,,warn_tx.json
+TX,Kinsel Ford-Toyota,2020-04-02,8.0,Beaumont,Jefferson,,warn_tx.json
+TX,Martin-Brower Co. LLC,2020-04-02,44.0,Conroe,Montgomery,,warn_tx.json
+TX,Tandy Leather Co.,2020-04-02,14.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,"UTLX Manufacturing, Inc.",2020-04-02,81.0,Houston,Harris,,warn_tx.json
+TX,Turner Industries,2020-04-02,500.0,Paris,Lamar,,warn_tx.json
+TX,"Watson & Chalin Manufacturing, Inc. - McKinney",2020-04-02,103.0,McKinney,Collin,,warn_tx.json
+TX,Pioneer Frozen Foods,2020-04-02,90.0,Duncanville,Dallas,,warn_tx.json
+TX,Palmer of Texas,2020-04-02,50.0,Andrews,Andrews,,warn_tx.json
+TX,Fairfield Inn & Suites Dallas,2020-04-02,56.0,Dallas,Dallas,,warn_tx.json
+TX,"Kinsel Ford, Inc.",2020-04-02,19.0,Beaumont,Jefferson,,warn_tx.json
+TX,David McDavid Acura,2020-04-03,13.0,Austin,Travis,,warn_tx.json
+TX,David McDavid Acura-Plano,2020-04-03,42.0,Plano,Collin,,warn_tx.json
+TX,David McDavid- Lincoln,2020-04-03,27.0,Plano,Collin,,warn_tx.json
+TX,JW Marriott Austin,2020-04-03,166.0,Austin,Travis,,warn_tx.json
+TX,National Credit Services,2020-04-03,141.0,Dallas,Dallas,,warn_tx.json
+TX,David McDavid- Ford,2020-04-03,50.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,David McDavid- Honda,2020-04-03,50.0,Irving,Dallas,,warn_tx.json
+TX,South Texas Eye Institute,2020-04-03,21.0,San Antonio,Bexar,,warn_tx.json
+TX,US Silica-Crane Facility,2020-04-03,71.0,Crane,Crane,,warn_tx.json
+TX,David McDavid Honda-Frisco,2020-04-03,67.0,Frisco,Collin,,warn_tx.json
+TX,"Roquemore Holdings, LLC",2020-04-03,37.0,Garland,Dallas,,warn_tx.json
+TX,Global Investigative Services,2020-04-03,11.0,Garland,Dallas,,warn_tx.json
+TX,Turner Industries-Pasadena,2020-04-03,105.0,Pasadena,Harris,,warn_tx.json
+TX,Justin Brands-W. Daggett,2020-04-04,121.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Ra Sushi-Austin,2020-04-05,55.0,Austin,Travis,,warn_tx.json
+TX,Ra Sushi-Southlake,2020-04-05,33.0,Southlake,Tarrant,,warn_tx.json
+TX,Benihana Las Colinas,2020-04-05,53.0,Irving,Dallas,,warn_tx.json
+TX,Benihana Dallas,2020-04-05,72.0,Dallas,Dallas,,warn_tx.json
+TX,Ra Sushi-Houston,2020-04-05,67.0,Houston,Harris,,warn_tx.json
+TX,Benihana-The Woodlands,2020-04-05,38.0,The Woodlands,Montgomery,,warn_tx.json
+TX,Benihana-Westhiemer,2020-04-05,52.0,Houston,Harris,,warn_tx.json
+TX,Ra Sushi-Plano,2020-04-05,44.0,Plano,Collin,,warn_tx.json
+TX,Benihana-Houston,2020-04-05,41.0,Houston,Harris,,warn_tx.json
+TX,Benihana-Sugarland,2020-04-05,41.0,Sugar Land,Fort Bend,,warn_tx.json
+TX,Haliburton Energy Services-Brownfield,2020-04-06,41.0,Brownfield,Terry,,warn_tx.json
+TX,Questo Beso,2020-04-06,42.0,Dallas,Dallas,,warn_tx.json
+TX,Scholastic Book Faris-Houston,2020-04-06,86.0,Houston,Harris,,warn_tx.json
+TX,Haliburton Energy Services-Odessa,2020-04-06,237.0,Odessa,Ector,,warn_tx.json
+TX,Traffic Los Angeles--Joule Hotel,2020-04-06,4.0,Dallas,Dallas,,warn_tx.json
+TX,Forty Five Ten,2020-04-06,10.0,Dallas,Dallas,,warn_tx.json
+TX,Scholastic Book Fairs-Waco,2020-04-06,43.0,Waco,McLennan,,warn_tx.json
+TX,Tango Room,2020-04-06,2.0,Dallas,Dallas,,warn_tx.json
+TX,"Wheelhouse, Sassetta",2020-04-06,82.0,Dallas,Dallas,,warn_tx.json
+TX,The Porch,2020-04-06,69.0,Dallas,Dallas,,warn_tx.json
+TX,The Joule Hotel,2020-04-06,432.0,Dallas,Dallas,,warn_tx.json
+TX,Forty Five Ten-Highland Park,2020-04-06,34.0,Dallas,Dallas,,warn_tx.json
+TX,Benihana-Plano,2020-04-06,56.0,Plano,Collin,,warn_tx.json
+TX,"Vallourec Sta, LP",2020-04-06,144.0,Houston,Harris,,warn_tx.json
+TX,The Commisary,2020-04-06,19.0,Dallas,Dallas,,warn_tx.json
+TX,Scholastic Book Fairs-Arlington,2020-04-06,85.0,Arlington,Tarrant,,warn_tx.json
+TX,Paul Martin's-Dallas,2020-04-06,57.0,Dallas,Dallas,,warn_tx.json
+TX,North American Dental Group,2020-04-07,12.0,Allen,Collin,,warn_tx.json
+TX,Universal Pressure Pumping-Pearsall,2020-04-07,200.0,Pearsall,Frio,,warn_tx.json
+TX,North American Dental - Roanoke,2020-04-07,8.0,Roanoke,Denton,,warn_tx.json
+TX,North American Dental - Tyler,2020-04-07,32.0,Tyler,Smith,,warn_tx.json
+TX,"Huhtamaki, Inc.",2020-04-07,60.0,Paris,Lamar,,warn_tx.json
+TX,Halliburton-Elmendorf,2020-04-07,384.0,Elmendorf,Bexar,,warn_tx.json
+TX,Leggette & Pratt Inc.,2020-04-07,192.0,Ennis,Ellis,,warn_tx.json
+TX,El Gallo-,2020-04-07,9.0,Houston,Harris,,warn_tx.json
+TX,Epic Piping LLC,2020-04-07,73.0,San Marcos,Hays,,warn_tx.json
+TX,Avianca-Houston,2020-04-07,1.0,Houston,Harris,,warn_tx.json
+TX,Avianca-DFW Airport,2020-04-07,1.0,DFW Airport,Dallas,,warn_tx.json
+TX,Frontier Enterp;rise,2020-04-07,1000.0,San Antonio,Bexar,,warn_tx.json
+TX,YMCA-San Antonio,2020-04-07,1679.0,San Antonio,Bexar,,warn_tx.json
+TX,"Exeter Finance, LLC",2020-04-07,29.0,Irving,Dallas,,warn_tx.json
+TX,ProPetro-Cement Operations Facility,2020-04-07,39.0,Midland,Midland,,warn_tx.json
+TX,Medieval Times,2020-04-08,190.0,Dallas,Dallas,,warn_tx.json
+TX,Prospect Airport Services-DFW Airport,2020-04-08,201.0,DFW Airport,Tarrant,,warn_tx.json
+TX,Turner Industries-Corpus Christi,2020-04-09,40.0,Corpus Ch,Nueces,,warn_tx.json
+TX,Universal Pressure Pumping,2020-04-09,70.0,Midland,Midland,,warn_tx.json
+TX,Black Bear Diner-Sugarland,2020-04-09,46.0,Sugarland,Fort Bend,,warn_tx.json
+TX,Black Bear Diner-Shenandoah,2020-04-09,71.0,Shenandoah,Montgomery,,warn_tx.json
+TX,Black Bear Diner-Katy,2020-04-09,47.0,Katy,Fort Bend,,warn_tx.json
+TX,Black Bear Diner-Humble,2020-04-09,56.0,Humble,Harris,,warn_tx.json
+TX,Black Bear Diner-15720 N Frwy,2020-04-09,42.0,Houston,Harris,,warn_tx.json
+TX,Black Bear Diner-19823 NW Frwy,2020-04-09,2.0,Houston,Harris,,warn_tx.json
+TX,Embassy Suites-Dallas Love Field,2020-04-09,58.0,Dallas,Dallas,,warn_tx.json
+TX,InterContinental Houston Medical Center,2020-04-09,75.0,Houston,Fort Bend,,warn_tx.json
+TX,Gristmill River Restaurant and Bar,2020-04-09,305.0,New Braunfels,Comal,,warn_tx.json
+TX,Step Energy Services,2020-04-09,76.0,Midland,Midland,,warn_tx.json
+TX,Capital Sand Permian,2020-04-09,50.0,Monahans,Ward,,warn_tx.json
+TX,VSPOne Dallas,2020-04-09,133.0,Lewisville,Denton,,warn_tx.json
+TX,Willie's Grill & Icehouse - I35 South,2020-04-10,40.0,San Antonio,Bexar,,warn_tx.json
+TX,Willie's Grill & Icehouse -  College Station,2020-04-10,28.0,College Station,Brazos,,warn_tx.json
+TX,Willie's Grill & Icehouse - Conroe,2020-04-10,51.0,Conroe,Montgomery,,warn_tx.json
+TX,Willie's Grill & Icehouse.,2020-04-10,45.0,San Antonio,Bexar,,warn_tx.json
+TX,Willie's Grill & Icehouse - Spring,2020-04-10,41.0,Spring,Harris,,warn_tx.json
+TX,Willie's Grill & Icehouse - Leon Springs,2020-04-10,38.0,Leon Springs,Bexar,,warn_tx.json
+TX,Willie's Grill & Icehouse - New Braunfels,2020-04-10,45.0,New Braunfels,Comal,,warn_tx.json
+TX,Willie's Grill &  Icehouse - North Loop,2020-04-10,35.0,San Antonio,Bexar,,warn_tx.json
+TX,Willie's Grill & Icehouse,2020-04-10,32.0,San Antonio,Bexar,,warn_tx.json
+TX,Willie's Grill & Icehouse - Katy Fwy,2020-04-10,40.0,Houston,Fort Bend,,warn_tx.json
+TX,Willie's Grill & Icehouse - Cypress,2020-04-10,51.0,Cypress,Harris,,warn_tx.json
+TX,Pacific Drilling - Pacific Sharav,2020-04-10,82.0,Houston,Fort Bend,,warn_tx.json
+TX,Willie's Grill & Icehouse - Georgetown,2020-04-10,69.0,Georgetown,Williamson,,warn_tx.json
+TX,Hilton Garden Inn - Dallas Market Center,2020-04-10,61.0,Dallas,Dallas,,warn_tx.json
+TX,"Yazaki North America dba Elcom, Inc.",2020-04-10,43.0,El Paso,El Paso,,warn_tx.json
+TX,Willie's Grill & Icehouse - Hwy 6 N,2020-04-10,77.0,Houston,Fort Bend,,warn_tx.json
+TX,Willie's Grill & Icehouse - 1960 RD,2020-04-10,29.0,Houston,Fort Bend,,warn_tx.json
+TX,Willie's Grill & Icehouse - NW FWY,2020-04-10,35.0,Houston,Fort Bend,,warn_tx.json
+TX,NexTier Completion Solutions Inc. - San Angelo,2020-04-10,53.0,San Angelo,Tom Green,,warn_tx.json
+TX,Willie's Grill & Icehouse - Sugar Land,2020-04-10,37.0,Sugar Land,Fort Bend,,warn_tx.json
+TX,Avis Budget Car Rental-Airport Blvd,2020-04-10,47.0,Houston,Harris,,warn_tx.json
+TX,Willie's Grill & Icehouse - HWY 249,2020-04-10,39.0,Houston,Fort Bend,,warn_tx.json
+TX,Signing Day One-D1 Training,2020-04-13,3.0,Boerne,Kendall,,warn_tx.json
+TX,At Home Corporate,2020-04-13,147.0,Plano,Collin,,warn_tx.json
+TX,Take 5 Department 199,2020-04-13,7.0,San Antonio,Bexar,,warn_tx.json
+TX,US Silica-Sandbox Logistics,2020-04-13,105.0,Midland,Midland,,warn_tx.json
+TX,Take 5 Department 179,2020-04-13,11.0,San Antonio,Bexar,,warn_tx.json
+TX,Beyond Finance,2020-04-13,302.0,Houston,Harris,,warn_tx.json
+TX,America's Auto Auction Texas,2020-04-13,1.0,Buda,Hays,,warn_tx.json
+TX,Guess?,2020-04-13,30.0,Laredo,Webb,,warn_tx.json
+TX,Covia-Kermit,2020-04-13,82.0,Kermit,Winkler,,warn_tx.json
+TX,Dog and Pony Grill,2020-04-13,29.0,Boerne,Kendall,,warn_tx.json
+TX,Alamo Drafthouse-Corpus Christi,2020-04-13,128.0,Corpus Ch,Nueces,,warn_tx.json
+TX,Alamo Drafthouse-Laredo,2020-04-13,112.0,Laredo,Webb,,warn_tx.json
+TX,Allied Aviation Fueling Co,2020-04-13,6.0,San Antonio,Bexar,,warn_tx.json
+TX,Yazaki North America,2020-04-13,83.0,El Paso,El Paso,,warn_tx.json
+TX,MCD Innovations,2020-04-13,25.0,McKinney,Collin,,warn_tx.json
+TX,Pappadeaux Seafood Kitchen 33,2020-04-13,120.0,Houston,Harris,,warn_tx.json
+TX,NexTier Completion Solutions Inc. - Onyx Dr,2020-04-14,60.0,Midland,Midland,,warn_tx.json
+TX,NexTier Completion Solutions Inc. - FM 1788,2020-04-14,133.0,Midland,Midland,,warn_tx.json
+TX,NexTier Completion Solutions Inc. - E IH 20,2020-04-14,58.0,Midland,Midland,,warn_tx.json
+TX,NexTier Completion Solutions Inc. - Pecos,2020-04-14,49.0,Pecos,Reeves,,warn_tx.json
+TX,NexTier Completion Solutions Inc. - Odessa,2020-04-14,197.0,Odessa,Ector,,warn_tx.json
+TX,Paul Martin's American Grill,2020-04-14,81.0,Austin,Travis,,warn_tx.json
+TX,NexTier Completion Solutions Inc. - Westpark Dr.,2020-04-14,85.0,Houston,Fort Bend,,warn_tx.json
+TX,NexTier Completion Solutions Inc.- Rogerdale,2020-04-14,196.0,Houston,Fort Bend,,warn_tx.json
+TX,Titan Production Equipment-Alleyton,2020-04-14,56.0,Alleyton,Colorado,,warn_tx.json
+TX,"Titan Production Equipment, LLC",2020-04-14,10.0,Woodlands,Montgomery,,warn_tx.json
+TX,NexTier Completion Solutions Inc.,2020-04-14,64.0,Pleasanton,Atascosa,,warn_tx.json
+TX,Pappasito's 04,2020-04-14,142.0,Webster,Harris,,warn_tx.json
+TX,FTS International Services-Longview,2020-04-14,58.0,Longview,Gregg,,warn_tx.json
+TX,"Sun Coast Resources, Inc.",2020-04-14,50.0,Midland,Midland,,warn_tx.json
+TX,Vroom-Houston,2020-04-14,36.0,Houston,Harris,,warn_tx.json
+TX,Vroom-Stafford,2020-04-14,59.0,Stafford,Harris,,warn_tx.json
+TX,Pier 1 Imports - Tarrant,2020-04-14,585.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Pier 1 Imports-Mansfield,2020-04-14,67.0,Mansfield,Tarrant,,warn_tx.json
+TX,Signal Peak Silica,2020-04-14,37.0,Monahans,Ward,,warn_tx.json
+TX,Chalk Montain Services of Texas LLC - Pleasanton,2020-04-15,14.0,Pleasanton,Atascosa,,warn_tx.json
+TX,CalFrac Well Services,2020-04-15,134.0,San Antonio,Bexar,,warn_tx.json
+TX,Ahern Rentals,2020-04-15,3.0,Odessa,Ector,,warn_tx.json
+TX,Baker Hughes-Houston,2020-04-15,184.0,Houston,Harris,,warn_tx.json
+TX,Shawcor Pipe Protection,2020-04-15,65.0,Pearland,Brazoria,,warn_tx.json
+TX,Diamond Offshore Drilling Corporate,2020-04-15,102.0,Houston,Harris,,warn_tx.json
+TX,Pappas Bar-B-Q 11,2020-04-16,29.0,Conroe,Montgomery,,warn_tx.json
+TX,Discovery Natural Resources,2020-04-16,36.0,Barnhart,Irion,,warn_tx.json
+TX,Vroom-Meadows Place,2020-04-16,136.0,Sugar Land,Fort Bend,,warn_tx.json
+TX,Discovery Natual Resources- Ozona,2020-04-16,4.0,Ozona,Crockett,,warn_tx.json
+TX,ProPetro-Hydraulic Fracturing,2020-04-16,566.0,Midfield,Matagorda,,warn_tx.json
+TX,"Black Mountain Management, LLC",2020-04-16,87.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Electro Rent,2020-04-16,7.0,Roanoke,Denton,,warn_tx.json
+TX,ProPetro-Coil Tubing Operations,2020-04-17,18.0,Midland,Midland,,warn_tx.json
+TX,Capital Sand Permian,2020-04-17,36.0,Monahans,Ward,,warn_tx.json
+TX,National Oilwell - Pampa,2020-04-17,91.0,Pampa,Gray,,warn_tx.json
+TX,Hilton Garden Inn-Willowbrook,2020-04-20,44.0,Houston,Harris,,warn_tx.json
+TX,Haliburton Energy Services-Monahans,2020-04-20,15.0,Monahans,Ward,,warn_tx.json
+TX,"Applied Aerodynamics, Inc.",2020-04-20,25.0,Dallas,Dallas,,warn_tx.json
+TX,US Silica-Lamesa,2020-04-20,49.0,Lamesa,Dawson,,warn_tx.json
+TX,Southwestern & Pacific #6736,2020-04-21,1.0,San Antonio,Bexar,,warn_tx.json
+TX,Epi Breads,2020-04-21,238.0,Dallas,Dallas,,warn_tx.json
+TX,"Energy Transfer, LP-SEC Energy Products",2020-04-21,95.0,Houston,Harris,,warn_tx.json
+TX,Enterprise Offshore-White Fleet Drilling,2020-04-21,76.0,Houston,Harris,,warn_tx.json
+TX,"Magic Leap, LLc",2020-04-22,8.0,McKinney,Collin,,warn_tx.json
+TX,ATCO Structures,2020-04-22,90.0,Diboll,Angelina,,warn_tx.json
+TX,Pappas Seafood House (Aldine Bender),2020-04-22,113.0,Houston,Harris,,warn_tx.json
+TX,"Magic Leap, LLC-Austin",2020-04-22,15.0,Austin,Travis,,warn_tx.json
+TX,Cactus Wellhead,2020-04-22,184.0,Odessa,Ector,,warn_tx.json
+TX,Haliburton Energy-Burleson,2020-04-23,36.0,Burleson,Tarrant,,warn_tx.json
+TX,Go Rentals,2020-04-23,4.0,Houston,Fort Bend,,warn_tx.json
+TX,Signal Peak Silica -Poteet,2020-04-23,72.0,Poteet,Atascosa,,warn_tx.json
+TX,Go Rentals - Austin,2020-04-23,7.0,Austin,Travis,,warn_tx.json
+TX,Go Rentals - Atlantic,2020-04-23,1.0,Addison,Collin,,warn_tx.json
+TX,CP Energy-S County Rd 1200,2020-04-23,15.0,Midland,Midland,,warn_tx.json
+TX,CP Energy-Hwy 285,2020-04-23,9.0,Midland,Midland,,warn_tx.json
+TX,Go Rentals - Monroe Rd,2020-04-23,1.0,Houston,Fort Bend,,warn_tx.json
+TX,Go Rentals - Westgrove,2020-04-23,4.0,Addison,Collin,,warn_tx.json
+TX,Nextier Completion-Robston,2020-04-23,82.0,Robstown,Nueces,,warn_tx.json
+TX,Go Rentals - McKinney,2020-04-23,1.0,McKinney,Collin,,warn_tx.json
+TX,Go Rentals - Ft. Worth,2020-04-23,4.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,North American Dental Group - Flower Mound,2020-04-24,12.0,Flower Mound,Denton,,warn_tx.json
+TX,Liberty Oilfield,2020-04-24,89.0,Cibolo,Guadalupe,,warn_tx.json
+TX,CP Energy-N. Big Spring,2020-04-25,2.0,Midland,Midland,,warn_tx.json
+TX,Carrabba's #9416,2020-04-27,76.0,Houston,Fort Bend,,warn_tx.json
+TX,Carrabba's #9415,2020-04-27,66.0,Houston,Fort Bend,,warn_tx.json
+TX,Carrabba's #4407,2020-04-27,75.0,Webster,Harris,,warn_tx.json
+TX,Carrabba's #4406,2020-04-27,74.0,The Woodlands,Montgomery,,warn_tx.json
+TX,Outback #4420,2020-04-27,70.0,Stafford,Fort Bend,,warn_tx.json
+TX,Carrabba's #4401,2020-04-27,63.0,Houston,Fort Bend,,warn_tx.json
+TX,Outback #4460,2020-04-27,74.0,Tyler,Smith,,warn_tx.json
+TX,Outback #4434,2020-04-27,56.0,Shenandoah,Montgomery,,warn_tx.json
+TX,Carrabba's #4404,2020-04-27,69.0,Sugar Land,Fort Bend,,warn_tx.json
+TX,Carrabba's #4402,2020-04-27,62.0,Houston,Fort Bend,,warn_tx.json
+TX,Carrabba's #9421,2020-04-27,86.0,Katy,Fort Bend,,warn_tx.json
+TX,Fleming's #5403,2020-04-27,42.0,Houston,Fort Bend,,warn_tx.json
+TX,Fleming's #5404,2020-04-27,49.0,The Woodlands,Montgomery,,warn_tx.json
+TX,Outback #4413,2020-04-27,77.0,Houston,Fort Bend,,warn_tx.json
+TX,Outback #4430,2020-04-27,62.0,Baytown,Harris,,warn_tx.json
+TX,Outback #4435,2020-04-27,70.0,Houston,Fort Bend,,warn_tx.json
+TX,Outback #4410,2020-04-27,61.0,Humble,Harris,,warn_tx.json
+TX,Outback #4412,2020-04-27,64.0,Webster,Harris,,warn_tx.json
+TX,Outback #4467,2020-04-27,67.0,Longview,Gregg,,warn_tx.json
+TX,Outback #4418,2020-04-27,61.0,College Station,Brazos,,warn_tx.json
+TX,Outback #4414,2020-04-27,57.0,Conroe,Montgomery,,warn_tx.json
+TX,Fleming's #5407,2020-04-27,53.0,Houston,Fort Bend,,warn_tx.json
+TX,Outback #4469,2020-04-27,73.0,Killeen,Bell,,warn_tx.json
+TX,Cardone Industries-Robstown,2020-04-27,183.0,Brownsville,Cameron,,warn_tx.json
+TX,Cameron International-Corpus Christi,2020-04-27,6.0,Corpus Ch,Nueces,,warn_tx.json
+TX,Cameron International-Kennedy,2020-04-27,45.0,Kenney,Austin,,warn_tx.json
+TX,Outback #4416,2020-04-27,79.0,Katy,Fort Bend,,warn_tx.json
+TX,Carrabba's #4405,2020-04-27,79.0,San Antonio,Bexar,,warn_tx.json
+TX,Outback #4423,2020-04-27,61.0,San Antonio,Bexar,,warn_tx.json
+TX,Outback #4426,2020-04-27,65.0,San Antonio,Bexar,,warn_tx.json
+TX,Outback #4442,2020-04-27,76.0,Selma,Bexar,,warn_tx.json
+TX,"Total Airport Services, LLC",2020-04-27,68.0,Houston,Harris,,warn_tx.json
+TX,Fleming's #5402,2020-04-27,37.0,Austin,Travis,,warn_tx.json
+TX,Outback #4425,2020-04-27,59.0,Corpus Christi,Nueces,,warn_tx.json
+TX,Outback #4422,2020-04-27,56.0,Austin,Travis,,warn_tx.json
+TX,Outback #4433,2020-04-27,55.0,Lufkin,Angelina,,warn_tx.json
+TX,Fleming's #5405,2020-04-27,54.0,San Antonio,Bexar,,warn_tx.json
+TX,Outback #4473,2020-04-27,72.0,San Angelo,Tom Green,,warn_tx.json
+TX,Carrabba's #9412,2020-04-27,52.0,Dallas,Dallas,,warn_tx.json
+TX,Outback #4453,2020-04-27,56.0,Irving,Dallas,,warn_tx.json
+TX,Outback #4428,2020-04-27,64.0,Pasadena,Harris,,warn_tx.json
+TX,Carrabba's #4403,2020-04-27,53.0,Austin,Travis,,warn_tx.json
+TX,Outback #4454,2020-04-27,57.0,Mesquite,Dallas,,warn_tx.json
+TX,Outback #4456,2020-04-27,60.0,Dallas,Dallas,,warn_tx.json
+TX,Outback #4458,2020-04-27,63.0,Addison,Dallas,,warn_tx.json
+TX,Outback #4476,2020-04-27,64.0,Garland,Dallas,,warn_tx.json
+TX,Fleming's #5406,2020-04-27,59.0,Austin,Travis,,warn_tx.json
+TX,Outback #4464,2020-04-27,67.0,Lubbock,Lubbock,,warn_tx.json
+TX,Outback #4457,2020-04-27,60.0,Plano,Collin,,warn_tx.json
+TX,Outback #4461,2020-04-27,56.0,Lewisville,Denton,,warn_tx.json
+TX,Outback #4466,2020-04-27,74.0,Denton,Denton,,warn_tx.json
+TX,Outback #4477,2020-04-27,82.0,Frisco,Collin,,warn_tx.json
+TX,Outback #4478,2020-04-27,69.0,Burleson,Johnson,,warn_tx.json
+TX,Outback #4471,2020-04-27,56.0,Texarkana,Bowie,,warn_tx.json
+TX,Outback #4463,2020-04-27,76.0,Amarillo,Potter,,warn_tx.json
+TX,Outback #4429,2020-04-27,72.0,San Marcos,Hays,,warn_tx.json
+TX,Fleming's #5408,2020-04-27,57.0,Plano,Collin,,warn_tx.json
+TX,Outback #4441,2020-04-27,44.0,Round Rock,Williamson,,warn_tx.json
+TX,Outback #4462,2020-04-27,75.0,Midland,Midland,,warn_tx.json
+TX,Outback #4475,2020-04-27,63.0,DeSoto,Dallas,,warn_tx.json
+TX,Carrabba's #9410,2020-04-27,79.0,Beaumont,Jefferson,,warn_tx.json
+TX,Outback #4451,2020-04-27,67.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Outback #4452,2020-04-27,79.0,Hurst,Tarrant,,warn_tx.json
+TX,Outback #4459,2020-04-27,76.0,Arlington,Tarrant,,warn_tx.json
+TX,Outback #4474,2020-04-27,51.0,Abilene,Jones,,warn_tx.json
+TX,Outback #4455,2020-04-27,75.0,Euless,Tarrant,,warn_tx.json
+TX,Carrabba's #9419,2020-04-27,49.0,Hurst,Tarrant,,warn_tx.json
+TX,Bonefish #904,2020-04-27,40.0,Southlake,Denton,,warn_tx.json
+TX,Carrabba's #9414,2020-04-27,43.0,Plano,Collin,,warn_tx.json
+TX,Bonefish #912,2020-04-27,50.0,Allen,Collin,,warn_tx.json
+TX,Core Laboratories-Owen Oil Tools,2020-04-27,244.0,Godley,Johnson,,warn_tx.json
+TX,Outback #4468,2020-04-27,62.0,Waco,McLennan,,warn_tx.json
+TX,Halliburton-Interwood,2020-04-28,9.0,Houston,Harris,,warn_tx.json
+TX,Southwestern & Pacific #2969,2020-04-28,1.0,Livingston,Polk,,warn_tx.json
+TX,Southwestern & Pacific #6772,2020-04-28,1.0,Harlingen,Cameron,,warn_tx.json
+TX,Easy Gardener Products Inc.,2020-04-28,50.0,Waco,McLennan,,warn_tx.json
+TX,SW & Pacific # 6741,2020-04-28,1.0,San Antonio,Bexar,,warn_tx.json
+TX,"Jet Specialty, Inc.",2020-04-28,75.0,Corpus Ch,Nueces,,warn_tx.json
+TX,Haliburton Energy-Interwood Pkwy,2020-04-28,9.0,Houston,Harris,,warn_tx.json
+TX,Hailburton Energy-Heathrow Forest,2020-04-28,8.0,Houston,Harris,,warn_tx.json
+TX,"IPC Industries, LP",2020-04-28,109.0,Santa Fe,Galveston,,warn_tx.json
+TX,Southwestern & Pacific #6925,2020-04-28,1.0,Hillsboro,Hill,,warn_tx.json
+TX,Enterprise Holdings-Airport,2020-04-28,135.0,San Antonio,Bexar,,warn_tx.json
+TX,Enterprise Holdings-Eastern St,2020-04-28,146.0,San Antonio,Bexar,,warn_tx.json
+TX,"Enterprise Holdings, LLC",2020-04-28,30.0,San Antonio,Bexar,,warn_tx.json
+TX,Outback Steakhouse #4470,2020-04-28,59.0,El Paso,El Paso,,warn_tx.json
+TX,Southwestern & Pacific #3014,2020-04-28,1.0,Houston,Fort Bend,,warn_tx.json
+TX,Southwestern & Pacific #6749,2020-04-28,1.0,San Antonio,Bexar,,warn_tx.json
+TX,Southwestern & Pacific #6812,2020-04-28,1.0,Houston,Fort Bend,,warn_tx.json
+TX,Southwestern & Pacific #6800,2020-04-28,1.0,Humble,Harris,,warn_tx.json
+TX,Southwestern & Pacific #6787,2020-04-28,1.0,Pasadena,Harris,,warn_tx.json
+TX,Southwestern & Pacific #6786,2020-04-28,1.0,Houston,Fort Bend,,warn_tx.json
+TX,Southwestern & Pacific #6851,2020-04-28,1.0,Victoria,Victoria,,warn_tx.json
+TX,Southwestern & Pacific #6915,2020-04-28,1.0,Marshall,Harrison,,warn_tx.json
+TX,Southwestern & Pacific #6884,2020-04-28,1.0,Gun Barrel City,Henderson,,warn_tx.json
+TX,Southwestern & Pacific #6757,2020-04-28,1.0,Athens,Henderson,,warn_tx.json
+TX,Southwestern & Pacific #6969,2020-04-28,1.0,Longview,Gregg,,warn_tx.json
+TX,Southwestern & Pacific #6886,2020-04-28,1.0,Dallas,Dallas,,warn_tx.json
+TX,Southwestern & Pacific   #6825,2020-04-28,1.0,Huntsville,Walker,,warn_tx.json
+TX,Southwestern & Pacific #6979,2020-04-28,1.0,Lake Jackson,Brazoria,,warn_tx.json
+TX,Southwestern & Pacific #6836,2020-04-28,1.0,San Benito,Cameron,,warn_tx.json
+TX,Southwestern & Pacific #6883,2020-04-28,1.0,Kerrville,Kerr,,warn_tx.json
+TX,Southwestern & Pacific #6829,2020-04-28,1.0,Garland,Dallas,,warn_tx.json
+TX,Southwestern & Pacific #6839,2020-04-28,1.0,New Braunfels,Comal,,warn_tx.json
+TX,Southwestern & Pacific #6810,2020-04-28,1.0,Brownsville,Cameron,,warn_tx.json
+TX,Southwestern & Pacific #2995,2020-04-28,1.0,Brownsville,Cameron,,warn_tx.json
+TX,Southwestern & Pacific #6926,2020-04-28,1.0,Bryan,Brazos,,warn_tx.json
+TX,Southwestern & Pacific #6815,2020-04-28,1.0,Lancaster,Dallas,,warn_tx.json
+TX,Southwestern & Pacific #6761,2020-04-28,1.0,Corpus Christi,Nueces,,warn_tx.json
+TX,Southwestern & Pacific #6818,2020-04-28,1.0,Alice,Jim Wells,,warn_tx.json
+TX,Southwestern & Pacific #6765,2020-04-28,1.0,Grand Prairie,Dallas,,warn_tx.json
+TX,Southwestern & Pacific #6745,2020-04-28,1.0,Mexia,Limestone,,warn_tx.json
+TX,Southwestern & Pacific #6981,2020-04-28,1.0,San Angelo,Tom Green,,warn_tx.json
+TX,Halliburton,2020-04-29,233.0,Kilgore,Gregg,,warn_tx.json
+TX,Regal Cinema-Richmond,2020-04-29,91.0,Richmond,Fort Bend,,warn_tx.json
+TX,TechnipFMC CO. - Odessa,2020-04-29,140.0,Odessa,Ector,,warn_tx.json
+TX,Regal Cinema-Tomball,2020-04-29,88.0,Tomball,Harris,,warn_tx.json
+TX,Regal Cinema-Katy Frwy,2020-04-29,86.0,Houston,Harris,,warn_tx.json
+TX,Regal Cinema-Houston,2020-04-29,82.0,Houston,Harris,,warn_tx.json
+TX,Havertys Furniture-Coppell,2020-04-30,57.0,Coppell,Dallas,,warn_tx.json
+TX,Carpenter Tech-Amega West,2020-04-30,79.0,Houston,Harris,,warn_tx.json
+TX,Cactus Wellhead,2020-05-01,32.0,Odessa,Ector,,warn_tx.json
+TX,US Steel Tubular Products - Hughes Springs,2020-05-01,55.0,Hughes Springs,Cass,,warn_tx.json
+TX,Haliburton Energy Services-N. Sam Houston,2020-05-04,984.0,Houston,Harris,,warn_tx.json
+TX,Outback #4424,2020-05-04,65.0,Beaumont,Jefferson,,warn_tx.json
+TX,Covia-Crane,2020-05-04,23.0,Crane,Crane,,warn_tx.json
+TX,Covia Corp-Kermit,2020-05-04,83.0,Kermit,Winkler,,warn_tx.json
+TX,Southwestern & Pacific #6972,2020-05-05,1.0,Spring,Harris,,warn_tx.json
+TX,Saulsbury Industries-Odessa,2020-05-07,3.0,Odessa,Ector,,warn_tx.json
+TX,"Saulsbury Industries, Inc.",2020-05-07,12.0,Odessa,Ector,,warn_tx.json
+TX,Saulsbury Industries-Henderson,2020-05-07,58.0,Henderson,Rusk,,warn_tx.json
+TX,"UTLX Manufacturing, Inc.",2020-05-11,278.0,Houston,Harris,,warn_tx.json
+TX,Hydraulic Fracturing Facility,2020-05-12,392.0,Midland,Midland,,warn_tx.json
+TX,James Avery -Fredericksburg,2020-05-12,82.0,Fredericksburg,Gillespie,,warn_tx.json
+TX,Cactus Wellhead,2020-05-14,14.0,Odessa,Ector,,warn_tx.json
+TX,Allied Aviation-Houston,2020-05-14,77.0,Houston,Harris,,warn_tx.json
+TX,St Edwards University,2020-05-14,95.0,Austin,Travis,,warn_tx.json
+TX,XPO Logistics-Jacomson Warehouse,2020-05-18,243.0,Dallas,Dallas,,warn_tx.json
+TX,"Texas Steel Conversion, Inc.",2020-05-21,491.0,Houston,Harris,,warn_tx.json
+TX,Marriott City Place-Spicewood Village,2020-05-21,33.0,Spring,Harris,,warn_tx.json
+TX,Sheraton Austin,2020-05-22,99.0,Austin,Travis,,warn_tx.json
+TX,ProPetro-Coil Tubing Operations,2020-05-22,32.0,Midland,Midland,,warn_tx.json
+TX,"Laz Parking Texas, LLC",2020-05-22,310.0,Dallas,Dallas,,warn_tx.json
+TX,The Moran at City Center,2020-05-22,47.0,Houston,Harris,,warn_tx.json
+TX,First Texas Hospital Cy-Fair,2020-05-26,62.0,Houston,Harris,,warn_tx.json
+TX,ECFMG-Clinical Skills Exam,2020-05-27,103.0,Houston,Harris,,warn_tx.json
+TX,Benchmark Electronics,2020-05-28,190.0,Angleton,Brazoria,,warn_tx.json
+TX,Renaissance Hotel,2020-05-29,243.0,Austin,Travis,,warn_tx.json
+TX,Collins Aerospace,2020-05-29,144.0,Houston,Harris,,warn_tx.json
+TX,Allied Aviation-Southlake,2020-05-29,50.0,Southlake,Tarrant,,warn_tx.json
+TX,85C Bakery-Katy,2020-05-29,1.0,Katy,Harris,,warn_tx.json
+TX,Live by Loews,2020-05-29,153.0,Arlington,Tarrant,,warn_tx.json
+TX,Holiday Inn Club Vacations-Pantego,2020-05-29,307.0,Pantego,Tarrant,,warn_tx.json
+TX,85 C Bakery Café,2020-05-29,9.0,Friendswood,Harris,,warn_tx.json
+TX,Jim's Formal Wear,2020-05-31,44.0,Seguin,Guadalupe,,warn_tx.json
+TX,Sound Inpatient Physicians Inc.,2020-06-01,33.0,Westlake,Tarrant,,warn_tx.json
+TX,Echo Locum Tenens Inc.,2020-06-01,13.0,Westlake,Tarrant,,warn_tx.json
+TX,"GE Engine Services, L.P.",2020-06-01,257.0,McAllen,Hidalgo,,warn_tx.json
+TX,Turner Industries-Corpus Christi,2020-06-01,40.0,Corpus Ch,Nueces,,warn_tx.json
+TX,St. Regis Houston,2020-06-01,180.0,Houston,Fort Bend,,warn_tx.json
+TX,Gaylord - Grapevine,2020-06-04,1426.0,Grapevine,Tarrant,,warn_tx.json
+TX,"Seadrill Americas, Inc.",2020-06-05,135.0,Houston,Harris,,warn_tx.json
+TX,Hyatt Regency - Houston,2020-06-08,260.0,Houston,Fort Bend,,warn_tx.json
+TX,Ritz Carlton - Dallas,2020-06-08,365.0,Dallas,Dallas,,warn_tx.json
+TX,Grand Hyatt San Antonio,2020-06-11,271.0,San Antonio,Bexar,,warn_tx.json
+TX,Owens-Corning - Amarillo,2020-06-11,205.0,Amarillo,Randall,,warn_tx.json
+TX,Hotel Contessa,2020-06-11,84.0,San Antonio,Bexar,,warn_tx.json
+TX,Hyatt Corp dba Miraval Austin Wellness Resort & Spa,2020-06-12,137.0,Austin,Travis,,warn_tx.json
+TX,Hyatt Regency - Austin,2020-06-12,224.0,Austin,Travis,,warn_tx.json
+TX,Adeputs Health dba FCER Management LLC,2020-06-15,96.0,Irving,Dallas,,warn_tx.json
+TX,Hyatt Regency DFW,2020-06-15,210.0,DFW Airport,Tarrant,,warn_tx.json
+TX,Pounds Photo Lab,2020-06-17,61.0,Dallas,Dallas,,warn_tx.json
+TX,Van Vleck Paint Shop,2020-06-22,10.0,Bay City,Matagorda,,warn_tx.json
+TX,Clute Fabrication Shop,2020-06-22,46.0,Clute,Brazoria,,warn_tx.json
+TX,Bradshaw State Jail,2020-06-22,229.0,Henderson,Rusk,,warn_tx.json
+TX,PV Fluid Products Inc.,2020-06-25,113.0,Houston,Harris,,warn_tx.json
+TX,Kimpton Hotel,2020-06-25,180.0,Austin,Travis,,warn_tx.json
+TX,Spire Hospitality-Embassy Suites,2020-06-26,58.0,Laredo,Webb,,warn_tx.json
+TX,Hard Rock Café-San Antonio,2020-06-29,138.0,San Antonio,Bexar,,warn_tx.json
+TX,The Lycra Co.,2020-06-30,79.0,La Porte,Harris,,warn_tx.json
+TX,PCC Wyman Gordon,2020-06-30,10.0,Houston,Harris,,warn_tx.json
+TX,Electro Rent,2020-07-01,3.0,Roanoke,Denton,,warn_tx.json
+TX,Brident-Westheimer Rd,2020-07-02,6.0,Houston,Harris,,warn_tx.json
+TX,Brident-Broadway,2020-07-02,4.0,Houston,Harris,,warn_tx.json
+TX,Brident-Long Point RD,2020-07-02,3.0,Houston,Harris,,warn_tx.json
+TX,Brident-Tidwell Rd,2020-07-02,3.0,Houston,Harris,,warn_tx.json
+TX,Brident-Edgebrook Dr,2020-07-02,2.0,Houston,Harris,,warn_tx.json
+TX,Brident-E. Fwy,2020-07-02,2.0,Houston,Harris,,warn_tx.json
+TX,Brident-W Camp Widsom,2020-07-02,4.0,Dallas,Dallas,,warn_tx.json
+TX,Brident-Crosstimbers,2020-07-02,2.0,Houston,Harris,,warn_tx.json
+TX,Brident-Greens Rd,2020-07-02,1.0,Houston,Harris,,warn_tx.json
+TX,Brident-Airline Dr.,2020-07-02,3.0,Houston,Harris,,warn_tx.json
+TX,Brident-Gulf Fwy,2020-07-02,5.0,Houston,Harris,,warn_tx.json
+TX,Brident-SW Military,2020-07-02,5.0,San Antonio,Bexar,,warn_tx.json
+TX,Brident-W. Bellfort Ave,2020-07-02,5.0,Houston,Harris,,warn_tx.json
+TX,Brident-8706 Fredericksburg,2020-07-02,1.0,San Antonio,Bexar,,warn_tx.json
+TX,Brident-W Commerce,2020-07-02,3.0,San Antonio,Bexar,,warn_tx.json
+TX,Brident-3655 Fredericksburg,2020-07-02,1.0,San Antonio,Bexar,,warn_tx.json
+TX,Brident-2000 SE. Loop,2020-07-02,1.0,San Antonio,Bexar,,warn_tx.json
+TX,Brident-Bellaire bBlvd,2020-07-02,5.0,Houston,Harris,,warn_tx.json
+TX,"GSC Wholesale, LLC dba Grocers Supply",2020-07-03,90.0,Houston,Harris,,warn_tx.json
+TX,Transocean Deepwater Inc.- Discover Inspiration,2020-07-07,110.0,Houston,Fort Bend,,warn_tx.json
+TX,Dallas Fort Worth International,2020-07-08,71.0,Dallas,Dallas,,warn_tx.json
+TX,"Borusan Mannesmann Pipe U.S., Inc.",2020-07-08,114.0,Baytown,Harris,,warn_tx.json
+TX,C. Baldwin Hotel - Curio Collection by Hilton,2020-07-09,144.0,Houston,Fort Bend,,warn_tx.json
+TX,Visionworks #120,2020-07-09,2.0,Katy,Fort Bend,,warn_tx.json
+TX,Pilot Thomas Logistics - Midland,2020-07-09,56.0,Midland,Midland,,warn_tx.json
+TX,C. Baldwin Hotel - Curio Collection by Hilton,2020-07-09,144.0,Houston,Fort Bend,,warn_tx.json
+TX,Visionworks #120,2020-07-09,2.0,Katy,Fort Bend,,warn_tx.json
+TX,Pilot Thomas Logistics - Midland,2020-07-09,56.0,Midland,Midland,,warn_tx.json
+TX,Basic Energy Services-Denver City,2020-07-10,102.0,Denver City,Yoakum,,warn_tx.json
+TX,"Basic Energy Services - Big Spring, TX",2020-07-10,114.0,Big Spring,Howard,,warn_tx.json
+TX,Transform SR LLC #45446,2020-07-10,57.0,Dallas,Dallas,,warn_tx.json
+TX,Electro Rent,2020-07-13,2.0,Roanoke,Denton,,warn_tx.json
+TX,Spirit AeroSystems Inc.,2020-07-16,72.0,San Antonio,Bexar,,warn_tx.json
+TX,ASARCO- Amarillo Refinery,2020-07-16,213.0,Amarillo,Potter,,warn_tx.json
+TX,Visionworks #262,2020-07-16,8.0,Round Rock,Williamson,,warn_tx.json
+TX,"Exterran Energy Solutions, LP - Houston",2020-07-16,174.0,Houston,Harris,,warn_tx.json
+TX,JC Penney - Plano,2020-07-16,717.0,Plano,Collin,,warn_tx.json
+TX,JC Penney - Lewisville,2020-07-17,87.0,Lewisville,Denton,,warn_tx.json
+TX,Jc Penney-Dallas,2020-07-17,89.0,Dallas,Dallas,,warn_tx.json
+TX,Hilton Anatole,2020-07-17,620.0,Dallas,Dallas,,warn_tx.json
+TX,BJ Services - San Antonio,2020-07-19,195.0,San Antonio,Bexar,,warn_tx.json
+TX,Sodexo - San Antonio,2020-07-20,319.0,San Antonio,Bexar,,warn_tx.json
+TX,Printpack,2020-07-21,58.0,Orange,Orange,,warn_tx.json
+TX,Hector Garza Center,2020-07-23,140.0,San Antonio,Bexar,,warn_tx.json
+TX,Hilton - Plano,2020-07-23,105.0,Plano,Collin,,warn_tx.json
+TX,Visionworks #86,2020-07-23,9.0,San Antonio,Bexar,,warn_tx.json
+TX,Visionworks #32,2020-07-23,3.0,Midland,Midland,,warn_tx.json
+TX,Wyndhgam Vacation Ownership,2020-07-27,81.0,Austin,Travis,,warn_tx.json
+TX,Brennan's of Houston,2020-07-27,90.0,Houston,Harris,,warn_tx.json
+TX,CWT,2020-07-28,102.0,San Antonio,Bexar,,warn_tx.json
+TX,"Wyndham Revere, LLC",2020-07-29,52.0,Dallas,Dallas,,warn_tx.json
+TX,Spirit,2020-07-30,238.0,DFW Airport,Dallas,,warn_tx.json
+TX,Wyndham - San Antonio,2020-07-30,139.0,San Antonio,Bexar,,warn_tx.json
+TX,Hudson Group-Airport Mgt Services,2020-07-31,81.0,Dallas,Dallas,,warn_tx.json
+TX,"Expedia Group, Inc.",2020-08-04,116.0,Dallas,Dallas,,warn_tx.json
+TX,JC Penney - McAllen,2020-08-05,137.0,McAllen,Hidalgo,,warn_tx.json
+TX,The Briar Club,2020-08-05,23.0,Houston,Harris,,warn_tx.json
+TX,"Seadrill Americas, Inc.",2020-08-11,168.0,Houston,Harris,,warn_tx.json
+TX,Yoga Works - Uptown,2020-08-12,24.0,Houston,Fort Bend,,warn_tx.json
+TX,HMS Host - San Antonio,2020-08-12,121.0,San Antonio,Bexar,,warn_tx.json
+TX,Rex Staffing LLC-Country Fresh Products,2020-08-13,310.0,Houston,Harris,,warn_tx.json
+TX,"IPIC Theaters, LLC",2020-08-13,37.0,Austin,Travis,,warn_tx.json
+TX,"Smith Industries, LLC",2020-08-18,72.0,Midland,Midland,,warn_tx.json
+TX,Hilton-Austin,2020-08-20,77.0,Austin,Travis,,warn_tx.json
+TX,"Exela Enterprise Solutions, LLC",2020-08-20,81.0,Austin,Travis,,warn_tx.json
+TX,Sheraton Gunter San Antonio,2020-08-25,38.0,San Antonio,Bexar,,warn_tx.json
+TX,Renaissance Dallas at Plano Legacy West Hotel,2020-08-26,66.0,Plano,Collin,,warn_tx.json
+TX,SW Hotels-Westin Galleria,2020-08-27,89.0,Dallas,Dallas,,warn_tx.json
+TX,GEO Secure Services - Eagle Pass,2020-08-27,174.0,Eagle Pass,Maverick,,warn_tx.json
+TX,JW Marriot Resort and SPA - San Antonio,2020-08-27,461.0,San Antonio,Bexar,,warn_tx.json
+TX,Marriott Rivercenter Hotel,2020-08-27,237.0,San Antonio,Bexar,,warn_tx.json
+TX,Marriott Riverwalk,2020-08-27,45.0,San Antonio,Bexar,,warn_tx.json
+TX,Equinor US,2020-08-28,228.0,Austin,Travis,,warn_tx.json
+TX,Scoobeez Inc-Farmers Branch,2020-08-28,45.0,Farmers Branch,Dallas,,warn_tx.json
+TX,"Scoobeez, Inc.-Ft. Worth",2020-08-28,89.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,"Scoobeez, Inc.-Garland",2020-08-28,69.0,Garland,Dallas,,warn_tx.json
+TX,"Scoobeez, Inc.-Austin",2020-08-28,71.0,Austin,Travis,,warn_tx.json
+TX,Avis Budget Car Rental-El Paso,2020-08-28,12.0,El Paso,El Paso,,warn_tx.json
+TX,"CEC Entertainment, Inc.",2020-08-28,95.0,Irving,Dallas,,warn_tx.json
+TX,Scoobeez - San Antonio,2020-08-30,63.0,San Antonio,Bexar,,warn_tx.json
+TX,Avis Budget Car Rental,2020-08-31,3.0,Austin,Travis,,warn_tx.json
+TX,Live Nation-Austin,2020-09-01,43.0,Austin,Travis,,warn_tx.json
+TX,Live Nation-Pharr,2020-09-01,253.0,Pharr,Hidalgo,,warn_tx.json
+TX,Live Nation-Dallas,2020-09-01,77.0,Dallas,Dallas,,warn_tx.json
+TX,Live Nation-W Loop St,2020-09-01,51.0,Houston,Harris,,warn_tx.json
+TX,Live Nation-Caroline St,2020-09-01,85.0,Houston,Harris,,warn_tx.json
+TX,HPC Developer - Wild Oak Ranch Resort,2020-09-02,34.0,San Antonio,Bexar,,warn_tx.json
+TX,HV Global Mgmt Corp. - Wild Oak Ranch Resort,2020-09-02,66.0,San Antonio,Bexar,,warn_tx.json
+TX,HV Global Marketing Corp. - Wild Oak Ranch Resort,2020-09-02,1.0,San Antonio,Bexar,,warn_tx.json
+TX,Z Gallerie Store #68,2020-09-04,9.0,Houston,Harris,,warn_tx.json
+TX,Z Gallerie Store #51,2020-09-04,6.0,Dallas,Dallas,,warn_tx.json
+TX,JC Penney - Plano2     (Collin Creek Mall),2020-09-04,144.0,Plano,Collin,,warn_tx.json
+TX,SeaWorld of Texas LLC dba SeaWorld San Antonio dba Aquatica San Antonio,2020-09-04,242.0,San Antonio,Bexar,,warn_tx.json
+TX,Z Gallerie Store #17,2020-09-04,5.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Sur La Table Store 17,2020-09-17,10.0,Houston,Harris,,warn_tx.json
+TX,P.F. Chang's -McAllen,2020-09-17,75.0,McAllen,Hidalgo,,warn_tx.json
+TX,P.F. Chang's -Waco,2020-09-17,75.0,Waco,McLennan,,warn_tx.json
+TX,"P.F. Chang's -Colony,TX",2020-09-17,75.0,The Colony,Denton,,warn_tx.json
+TX,"P.F. Chang's -Allen,TX",2020-09-17,75.0,Allen,Collin,,warn_tx.json
+TX,P.F. Chang's -Basse Rd,2020-09-17,75.0,San Antonio,Bexar,,warn_tx.json
+TX,Freeman Company-Davis St.,2020-09-18,33.0,Dallas,Dallas,,warn_tx.json
+TX,Freeman Audio Visual -San Antonio,2020-09-18,1.0,San Antonio,Bexar,,warn_tx.json
+TX,Freeman Company -San Antonio,2020-09-18,15.0,San Antonio,Bexar,,warn_tx.json
+TX,"Freeman Corporate, LLC",2020-09-18,28.0,Dallas,Dallas,,warn_tx.json
+TX,Freeman Digi Ventures,2020-09-18,3.0,Dallas,Dallas,,warn_tx.json
+TX,Freeman Digi Ventures-Davis St.,2020-09-18,2.0,Dallas,Dallas,,warn_tx.json
+TX,"Freeman Expositions, LLC",2020-09-18,21.0,Dallas,Dallas,,warn_tx.json
+TX,Freeman Expositions-Davis St.,2020-09-18,20.0,Dallas,Dallas,,warn_tx.json
+TX,Freeman Audio Visual,2020-09-18,57.0,Dallas,Dallas,,warn_tx.json
+TX,Freeman Company,2020-09-18,83.0,Dallas,Dallas,,warn_tx.json
+TX,Freeman Expositions,2020-09-18,34.0,San Antonio,Bexar,,warn_tx.json
+TX,The Expo Group Inc.,2020-09-29,114.0,Irving,Dallas,,warn_tx.json
+TX,"Securitas Critical Infrastructure Services, Inc.",2020-10-05,142.0,Glen Rose,Somervell,,warn_tx.json
+TX,Wyndham - Riverside Suites Sales,2020-10-13,3.0,San Antonio,Bexar,,warn_tx.json
+TX,Turner Industries,2020-10-13,190.0,Paris,Lamar,,warn_tx.json
+TX,Transocean Offshore Deepwater Drilling-Deepwater Asgard,2020-10-15,100.0,Houston,Harris,,warn_tx.json
+TX,Aramark-Whataburger Field,2020-10-16,86.0,Corpus Ch,Nueces,,warn_tx.json
+TX,Aramark-Minute Maid Park,2020-10-16,751.0,Houston,Harris,,warn_tx.json
+TX,Aramark-Cynthia Woods Mitchell Pavillion,2020-10-16,75.0,The Woodlands,Montgomery,,warn_tx.json
+TX,Hyatt Regency Hotel,2020-10-16,101.0,Dallas,Dallas,,warn_tx.json
+TX,Aramark - AT&T Center,2020-10-16,287.0,San Antonio,Bexar,,warn_tx.json
+TX,Transform SR LLC - Round Rock,2020-10-20,170.0,Round Rock,Williamson,,warn_tx.json
+TX,Methodist Southlake Hospital,2020-10-20,153.0,Southlake,Denton,,warn_tx.json
+TX,"Remedy Applications, Inc.",2020-10-22,82.0,Austin,Travis,,warn_tx.json
+TX,Grand Hyatt Dallas-Ft Worth,2020-10-23,75.0,DFW Airport,Tarrant,,warn_tx.json
+TX,Regal Cinema-Tomball,2020-10-27,51.0,Tomball,Harris,,warn_tx.json
+TX,Regal Cinema-Houston,2020-10-27,49.0,Houston,Harris,,warn_tx.json
+TX,VillaSport - Katy,2020-10-27,43.0,Katy,Fort Bend,,warn_tx.json
+TX,VillaSport - Cypress,2020-10-27,47.0,Cypress,Harris,,warn_tx.json
+TX,VillaSport,2020-10-27,48.0,The Woodlands,Montgomery,,warn_tx.json
+TX,Cheddar's Scratch Kitchen - McAllen,2020-10-28,52.0,McAllen,Hidalgo,,warn_tx.json
+TX,Alorica-Austin,2020-10-29,712.0,Austin,Travis,,warn_tx.json
+TX,CDI HS - Muleshoe Center,2020-11-02,9.0,Muleshoe,Bailey,,warn_tx.json
+TX,CDI HS - Central Office Admin,2020-11-02,13.0,Laredo,Webb,,warn_tx.json
+TX,CDI HS - Alice Center,2020-11-02,13.0,Alice,Jim Wells,,warn_tx.json
+TX,CDI HS - Crystal City Satellite,2020-11-02,10.0,Crystal City,Zavala,,warn_tx.json
+TX,CDI HS - Eagle Pass II Center,2020-11-02,20.0,Eagle Pass,Maverick,,warn_tx.json
+TX,CDI HS - Eagle Pass I/T Center,2020-11-02,25.0,Eagle Pass,Maverick,,warn_tx.json
+TX,CDI HS - Falfurrias Center,2020-11-02,14.0,Falfurrias,Brooks,,warn_tx.json
+TX,CDI HS - Floydada Center,2020-11-02,9.0,Floydada,Floyd,,warn_tx.json
+TX,CDI HS - Henry Bonilla Center,2020-11-02,13.0,Laredo,Webb,,warn_tx.json
+TX,CDI HS - Laredo Norton Admin,2020-11-02,19.0,Laredo,Webb,,warn_tx.json
+TX,CDI HS - Mathis Center,2020-11-02,15.0,Mathis,San Patricio,,warn_tx.json
+TX,CDI HS - Pearsall Center,2020-11-02,10.0,Pearsall,Frio,,warn_tx.json
+TX,CDI HS - Plainview Center,2020-11-02,5.0,Plainview,Hale,,warn_tx.json
+TX,CDI HS - Rio Grande City Center,2020-11-02,25.0,Rio Grande City,Starr,,warn_tx.json
+TX,CDI HS - Roma Center,2020-11-02,23.0,Roma,Starr,,warn_tx.json
+TX,CDI HS - Uvalde Center,2020-11-02,12.0,Uvalde,Uvalde,,warn_tx.json
+TX,CDI HS - Lubbock Center,2020-11-02,14.0,Lubbock,Lubbock,,warn_tx.json
+TX,Sodexo-El Paso,2020-11-06,177.0,El Paso,El Paso,,warn_tx.json
+TX,Southwest - Dallas Lovefield Airport,2020-11-06,8.0,Dallas,Dallas,,warn_tx.json
+TX,Southwest - William P. Hobby Airport,2020-11-06,8.0,Houston,Harris,,warn_tx.json
+TX,Sodexo-Austin,2020-11-06,80.0,Austin,Travis,,warn_tx.json
+TX,Electronic Transaction Consultants,2020-11-12,68.0,Richardson,Dallas,,warn_tx.json
+TX,XPO Logistics Supply-Lancaster,2020-11-13,53.0,Lancaster,Dallas,,warn_tx.json
+TX,Tailored Shared Services,2020-11-18,61.0,Houston,Harris,,warn_tx.json
+TX,Southwest-Hobby Airport,2020-11-18,35.0,Houston,Harris,,warn_tx.json
+TX,Southwest - Dallas Lovefield Airport,2020-11-18,82.0,Dallas,Dallas,,warn_tx.json
+TX,Compass Group Eurest - Airport FWY,2020-11-24,2.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Compass Group Eurest - Hwy 360,2020-11-24,12.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Compass Group Eurest - American Blvd.,2020-11-24,2.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Compass Group Eurest - One Transformation Way,2020-11-24,4.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Compass Group Eurest,2020-11-24,32.0,Fort Worth,Tarrant,,warn_tx.json
+TX,"Hilite Industries-Automotive, LLC",2020-11-24,139.0,Carrollton,Dallas,,warn_tx.json
+TX,Compass Group Eurest - 4501 Hwy 360,2020-11-24,37.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Stork  (A FLUOR Company),2020-11-30,18.0,Dayton,Liberty,,warn_tx.json
+TX,Fluor - Port Neches,2020-11-30,113.0,Port Neches,Jefferson,,warn_tx.json
+TX,ConocoPhillips - 935 N.,2020-11-30,,Houston,Harris,,warn_tx.json
+TX,ConocoPhillips - Park Row,2020-11-30,,Houston,Harris,,warn_tx.json
+TX,Exxon Mobil Campus,2020-12-02,677.0,Spring,Harris,,warn_tx.json
+TX,ExxonMobil Hughes Landing - 1735,2020-12-02,35.0,The Woodlands,Montgomery,,warn_tx.json
+TX,ExxonMobil Hughes Landing - 1725,2020-12-02,10.0,The Woodlands,Montgomery,,warn_tx.json
+TX,Southwest - Customer Service & Support,2020-12-03,106.0,San Antonio,Bexar,,warn_tx.json
+TX,Southwest - San Antonio Int'l Airport,2020-12-03,36.0,San Antonio,Bexar,,warn_tx.json
+TX,Southwest - Customer Service and Support,2020-12-03,79.0,Houston,Harris,,warn_tx.json
+TX,Southwest-Dallas Love Field,2020-12-03,465.0,Dallas,Dallas,,warn_tx.json
+TX,Southwest-ABA,2020-12-03,77.0,Austin,Travis,,warn_tx.json
+TX,Southwest-Dallas,2020-12-03,10.0,Dallas,Dallas,,warn_tx.json
+TX,Southwest - William P. Hobby,2020-12-03,54.0,Houston,Harris,,warn_tx.json
+TX,Francesca's Holdings Corp - Clay Rd.,2020-12-04,223.0,Houston,Harris,,warn_tx.json
+TX,"Sable Permian Resourcces Operating, LLC - Big Lake",2020-12-04,81.0,Big Lake,Reagan,,warn_tx.json
+TX,"Sable Permian Resources Operating, LLC",2020-12-04,100.0,Houston,Harris,,warn_tx.json
+TX,"Parsley Energy, Inc.-Congress Ave",2020-12-07,85.0,Austin,Travis,,warn_tx.json
+TX,"Parsley Energy, Inc.-ABA",2020-12-07,2.0,Austin,Travis,,warn_tx.json
+TX,"Parsley Energy, Inc.-Colorado St.",2020-12-07,147.0,Austin,Travis,,warn_tx.json
+TX,Morrison Healthcare - University of Texas Medical Branch,2020-12-08,149.0,Galveston,Galveston,,warn_tx.json
+TX,Angleton Danbury Hospital,2020-12-08,12.0,Angleton,Brazoria,,warn_tx.json
+TX,League City Campus Hospital,2020-12-08,15.0,League City,Galveston,,warn_tx.json
+TX,Clear Lake Campus Hospital,2020-12-08,27.0,Webster,Harris,,warn_tx.json
+TX,LEH-S Presa St,2020-12-08,33.0,San Antonio,Bexar,,warn_tx.json
+TX,LEH -BDA Crossing,2020-12-08,50.0,San Antonio,Bexar,,warn_tx.json
+TX,LEH-Elmendorf,2020-12-08,5.0,Elmendorf,Bexar,,warn_tx.json
+TX,LEH-Falls City,2020-12-08,4.0,Falls City,Karnes,,warn_tx.json
+TX,Allied Universal Security Services,2020-12-08,88.0,Arlington,Tarrant,,warn_tx.json
+TX,Tom Thumb #2574,2020-12-08,11.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Tom Thumb #2642,2020-12-08,17.0,Dallas,Dallas,,warn_tx.json
+TX,Tom Thumb #1788,2020-12-08,17.0,Plano,Collin,,warn_tx.json
+TX,Tom Thumb #1786,2020-12-08,16.0,Grand Prairie,Dallas,,warn_tx.json
+TX,Tom Thumb #2578,2020-12-08,10.0,Garland,Dallas,,warn_tx.json
+TX,Tom Thumb #3658,2020-12-08,16.0,Arlington,Tarrant,,warn_tx.json
+TX,Tom Thumb #1781,2020-12-08,10.0,Coppell,Dallas,,warn_tx.json
+TX,"Patrician Window Coverings, Inc.",2020-12-10,95.0,Webster,Harris,,warn_tx.json
+TX,Hyatt Regency DFW,2020-12-14,111.0,DFW Airport,Tarrant,,warn_tx.json
+TX,Manitou Equipment America,2020-12-14,149.0,Waco,McLennan,,warn_tx.json
+TX,"Laz Parking Texas, LLC",2020-12-14,135.0,Dallas,Dallas,,warn_tx.json
+TX,"Halliburton Energy Services, Inc. - Carrollton",2020-12-15,216.0,Carrollton,Dallas,,warn_tx.json
+TX,"Parsley Energy, Inc. - Midland",2020-12-15,100.0,Midland,Midland,,warn_tx.json
+TX,EVO Transportation,2020-12-15,104.0,Austin,Travis,,warn_tx.json
+TX,ACCC Insurance Company,2020-12-21,122.0,Houston,Harris,,warn_tx.json
+TX,IBEX,2020-12-22,248.0,New Braunfels,Comal,,warn_tx.json
+TX,BoomerangTube LLC - FM 3361,2020-12-22,150.0,Liberty,Liberty,,warn_tx.json
+TX,DHL - Baytown,2021-01-05,97.0,Baytown,Harris,,warn_tx.json
+TX,"VT Industries, Inc.",2021-01-06,104.0,Universal City,Bexar,,warn_tx.json
+TX,Transform SR LLC-San Antonio,2021-01-06,67.0,San Antonio,Bexar,,warn_tx.json
+TX,"Par-Pak, Inc.",2021-01-08,1.0,Houston,Harris,,warn_tx.json
+TX,Albertsons #3064,2021-01-08,67.0,Bellaire,Harris,,warn_tx.json
+TX,ADS Alliance Data Systems,2021-01-13,50.0,San Antonio,Bexar,,warn_tx.json
+TX,Johnson Controls-Ruskin Rooftop Systems,2021-01-14,151.0,Carrollton,Dallas,,warn_tx.json
+TX,Alliance Data Card Services,2021-01-14,50.0,San Antonio,Bexar,,warn_tx.json
+TX,Gibraltar US,2021-01-21,96.0,San Benito,Cameron,,warn_tx.json
+TX,Lucite International,2021-01-25,99.0,Nederland,Jefferson,,warn_tx.json
+TX,Baylor Scott & White Health-Elm St,2021-01-27,46.0,Dallas,Dallas,,warn_tx.json
+TX,Baylor Scott & White Health-Main St,2021-01-27,25.0,Dallas,Dallas,,warn_tx.json
+TX,Baylor Scott & White Health-Round Rock,2021-01-27,83.0,Round Rock,Williamson,,warn_tx.json
+TX,Baylor Scott & White Health-Austin,2021-01-27,62.0,Austin,Travis,,warn_tx.json
+TX,"Trinity Rail Maintenance Services, Inc.",2021-01-28,59.0,Vidor,Orange,,warn_tx.json
+TX,CACI-ISS,2021-01-28,73.0,San Antonio,Bexar,,warn_tx.json
+TX,Columbia Commercial Building Products,2021-02-01,59.0,Rockwall,Rockwall,,warn_tx.json
+TX,American Airlines-DFW Hangar,2021-02-05,50.0,DFW Airport,Tarrant,,warn_tx.json
+TX,American Airlines-DFW Admin Bldg,2021-02-05,16.0,DFW Airport,Tarrant,,warn_tx.json
+TX,American Airlines-HDQ,2021-02-05,229.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,American Airlines-HDQ2,2021-02-05,41.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,American Airlines - Ft Worth,2021-02-05,9.0,Fort Worth,Tarrant,,warn_tx.json
+TX,American Airlines-Flight Training,2021-02-05,103.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,American Airlines-Delta Hanger,2021-02-05,38.0,DFW Airport,Dallas,,warn_tx.json
+TX,American Airlines-SRO,2021-02-05,2.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Seadrill Americas-West Neptune,2021-02-08,162.0,Houston,Harris,,warn_tx.json
+TX,CBRE,2021-02-08,193.0,Dallas,Dallas,,warn_tx.json
+TX,Hilton Anatole,2021-02-10,206.0,Dallas,Dallas,,warn_tx.json
+TX,Coca Cola North America,2021-02-15,76.0,Grand Prairie,Dallas,,warn_tx.json
+TX,American Airlines-DFW,2021-02-21,2475.0,DFW Airport,Tarrant,,warn_tx.json
+TX,West Texas Medical Associates,2021-02-25,114.0,San Angelo,Tom Green,,warn_tx.json
+TX,"Relyant Global, LLC",2021-03-02,70.0,San Juan,Hidalgo,,warn_tx.json
+TX,"Wonderful Citrus Packing, LLC",2021-03-05,141.0,Mission,Hidalgo,,warn_tx.json
+TX,Walmart #5931,2021-03-09,217.0,Dallas,Dallas,,warn_tx.json
+TX,Hilton-Austin,2021-03-12,64.0,Austin,Travis,,warn_tx.json
+TX,"Thyssenkrupp Supply Chain Services, Inc.",2021-03-18,30.0,Houston,Harris,,warn_tx.json
+TX,Renaissance Dallas Addison Hotel,2021-03-18,134.0,Addison,Dallas,,warn_tx.json
+TX,Dallas Marriott Las Colinas,2021-03-18,59.0,Irving,Dallas,,warn_tx.json
+TX,Renaisance Dallas Addison Hotel - Ft. Worth,2021-03-18,53.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,"CSG Systems, Inc.",2021-03-23,57.0,Austin,Travis,,warn_tx.json
+TX,Ovintive USA Inc.,2021-03-25,95.0,Karnes City,Karnes,,warn_tx.json
+TX,"Fresenius Health Partners, I c.",2021-03-31,121.0,Austin,Travis,,warn_tx.json
+TX,Furr's Fresh Buffet-McAllen,2021-03-31,71.0,McAllen,Hidalgo,,warn_tx.json
+TX,GDC Technics,2021-04-09,56.0,San Antonio,Bexar,,warn_tx.json
+TX,GDC Technics - Ft. Worth,2021-04-09,120.0,Fort Worth,Denton,,warn_tx.json
+TX,Union Pacific Palestine Car Facility,2021-04-15,57.0,Palestine,Anderson,,warn_tx.json
+TX,Frontier Communications Corp.-Citizens Telecom Services,2021-04-15,33.0,Allen,Collin,,warn_tx.json
+TX,Kindred Hospital - Mansfield,2021-04-15,156.0,Mansfield,Tarrant,,warn_tx.json
+TX,Leidos-VA Austin IT Center,2021-04-16,140.0,Austin,Travis,,warn_tx.json
+TX,Sodexo-Texoma Medical Center,2021-04-19,105.0,Denison,Grayson,,warn_tx.json
+TX,Five Star Senior Living Inc.,2021-04-20,63.0,San Antonio,Bexar,,warn_tx.json
+TX,"Texas Capital Bank, NA - MCA",2021-04-23,95.0,Richardson,Dallas,,warn_tx.json
+TX,Art Asset-Dallas,2021-04-26,7.0,Grand Prairie,Dallas,,warn_tx.json
+TX,Art Asset-Austin 1,2021-04-26,5.0,Austin,Travis,,warn_tx.json
+TX,Art Asset-Houston,2021-04-26,12.0,Houston,Harris,,warn_tx.json
+TX,Art Asset-San Antonio North,2021-04-26,3.0,San Antonio,Bexar,,warn_tx.json
+TX,Art Asset-San Antonio Central,2021-04-26,2.0,San Antonio,Bexar,,warn_tx.json
+TX,Art Asset-Austin Corporate,2021-04-26,9.0,Austin,Williamson,,warn_tx.json
+TX,Art Asset-El Paso,2021-04-26,1.0,El Paso,El Paso,,warn_tx.json
+TX,Art Asset-Killeen,2021-04-26,2.0,Killeen,Bell,,warn_tx.json
+TX,Art Asset-Brownsville,2021-04-26,2.0,Weslaco,Hidalgo,,warn_tx.json
+TX,"Conduit Global-kgb USA, Inc.",2021-04-26,245.0,San Antonio,Bexar,,warn_tx.json
+TX,Concentrix CVG,2021-04-28,422.0,Laredo,Webb,,warn_tx.json
+TX,EnerVest Ltd.,2021-04-29,111.0,Houston,Harris,,warn_tx.json
+TX,Reliant Transportation,2021-05-03,259.0,Justin,Denton,,warn_tx.json
+TX,Reliant Transportation-West Lot,2021-05-03,98.0,Haslet,Tarrant,,warn_tx.json
+TX,Aramark Educational Services - SFASU,2021-05-06,215.0,Nacogdoches,Nacogdoches,,warn_tx.json
+TX,Legend Energy Service-Longview,2021-05-12,118.0,Longview,Gregg,,warn_tx.json
+TX,The Children's Shelter-Family Tapestry,2021-05-14,93.0,San Antonio,Bexar,,warn_tx.json
+TX,"AIG Technologies, Inc.",2021-05-20,63.0,Fort Worth,Tarrant,,warn_tx.json
+TX,U.S. Well Services,2021-05-24,63.0,San Angelo,Tom Green,,warn_tx.json
+TX,U.S. Well Services - Pleasanton,2021-05-24,108.0,Pleasanton,Atascosa,,warn_tx.json
+TX,Probe Group North America LLC,2021-05-25,150.0,Lewisville,Denton,,warn_tx.json
+TX,"Progenity, Inc.-Riverside Dr.",2021-06-01,9.0,Irving,Dallas,,warn_tx.json
+TX,"Mattison Pathology, LLP dba Avero Diagnotics",2021-06-01,5.0,Irving,Dallas,,warn_tx.json
+TX,Mattison Pathollogy dba Avero Diagnotics-Fuller Dr.,2021-06-01,7.0,Irving,Dallas,,warn_tx.json
+TX,Katerra Inc.,2021-06-01,82.0,Carrollton,Dallas,,warn_tx.json
+TX,Texas Golden Peanut -ADM,2021-06-01,86.0,El Paso,El Paso,,warn_tx.json
+TX,"Progenity, Inc.-Fuller Dr.",2021-06-04,51.0,Irving,Dallas,,warn_tx.json
+TX,Electronic Transaction Consultants,2021-06-07,34.0,Richardson,Dallas,,warn_tx.json
+TX,TT Electronics (IRC),2021-06-16,73.0,Corpus Christi,Nueces,,warn_tx.json
+TX,"XPO Logistics Supply Chain, LLC",2021-07-01,29.0,San Antonio,Bexar,,warn_tx.json
+TX,Turner Industries,2021-07-01,250.0,Paris,Lamar,,warn_tx.json
+TX,"Cubic ITS, Inc.",2021-07-01,80.0,Sugar Land,Fort Bend,,warn_tx.json
+TX,Fusion Logistics Inc. - Farmers Branch,2021-07-03,57.0,Farmers Branch,Dallas,,warn_tx.json
+TX,Fusion Logistics Inc. - Garland,2021-07-03,50.0,Garland,Dallas,,warn_tx.json
+TX,Fusion Logistics  Inc. - Coppell,2021-07-03,62.0,Coppell,Dallas,,warn_tx.json
+TX,Fusion Logistics Inc. - Ft. Worth,2021-07-03,53.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Fusion Logistics Inc. - Houston,2021-07-03,81.0,Houston,Harris,,warn_tx.json
+TX,Tranter Inc.,2021-07-07,78.0,Wichita Falls,Wichita,,warn_tx.json
+TX,U.S. Well Services - Pleasanton,2021-07-09,66.0,Pleasanton,Atascosa,,warn_tx.json
+TX,Crothall Healthcare-DeTar Healthcare,2021-07-27,53.0,Victoria,Victoria,,warn_tx.json
+TX,Management & Training-Willacy County Regional Correction,2021-07-27,186.0,Raymondville,Willacy,,warn_tx.json
+TX,Interim Healthcare-San Antonio,2021-08-02,366.0,San Antonio,Bexar,,warn_tx.json
+TX,Garland Behvaioral Hospital,2021-08-09,119.0,Garland,Dallas,,warn_tx.json
+TX,Basic Energy Services-Denver City,2021-08-17,57.0,Denver City,Yoakum,,warn_tx.json
+TX,Basic Energy Services-Andrews2,2021-08-17,63.0,Andrews,Andrews,,warn_tx.json
+TX,Basic Energy Services-Big Springs2,2021-08-17,135.0,Big Spring,Howard,,warn_tx.json
+TX,Basic Energy Services-Ft Worth-ALM Regent,2021-08-17,120.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Basic Energy Services-Andrews,2021-08-17,63.0,Andrews,Andrews,,warn_tx.json
+TX,Basic Energy Services-Kennedy,2021-08-17,56.0,Kenedy,Karnes,,warn_tx.json
+TX,Amentum,2021-08-30,92.0,New Boston,Bowie,,warn_tx.json
+TX,Leidos-Killeen,2021-08-30,60.0,Killeen,Bell,,warn_tx.json
+TX,CEVA Logistics - Raytheon Facility,2021-09-09,87.0,Carrollton,Denton,,warn_tx.json
+TX,Disney Streaming Technology LLC,2021-09-09,63.0,The Woodlands,Montgomery,,warn_tx.json
+TX,The Woodlands Enterprises LLC,2021-09-09,181.0,The Woodlands,Montgomery,,warn_tx.json
+TX,The Children's Shelter-Family Tapestry,2021-09-22,41.0,San Antonio,Bexar,,warn_tx.json
+TX,NPL,2021-09-27,60.0,Garland,Dallas,,warn_tx.json
+TX,NPL - Shiloh Rd.,2021-09-27,6.0,Garland,Dallas,,warn_tx.json
+TX,InterContinental-Stephen F Austin,2021-09-30,35.0,Austin,Travis,,warn_tx.json
+TX,Luminant Mining Co.-Martin Lake Liberty Mine,2021-10-11,160.0,Tatum,Rusk,,warn_tx.json
+TX,"Odle Management Group, LLC",2021-10-29,134.0,El Paso,El Paso,,warn_tx.json
+TX,Zillow Group,2021-11-04,32.0,Coppell,Dallas,,warn_tx.json
+TX,YMCA - Waco,2021-11-04,127.0,Waco,McLennan,,warn_tx.json
+TX,Cypress Creek Emergency Medical Services,2021-11-13,102.0,Spring,Montgomery,,warn_tx.json
+TX,"Marshal S. Frumin, M.D.",2021-11-23,6.0,Sugar Land,Fort Bend,,warn_tx.json
+TX,Laredo Transit Management-El Metro Transit,2021-11-30,168.0,Laredo,Webb,,warn_tx.json
+TX,"Change Healthcare Operations, LLC",2021-12-06,145.0,Greenville,Hunt,,warn_tx.json
+TX,Central Freight Lines - San Antonio,2021-12-13,66.0,San Antonio,Bexar,,warn_tx.json
+TX,Central Freight Lines,2021-12-13,153.0,Waco,McLennan,,warn_tx.json
+TX,Central Freight Lines - Houston,2021-12-13,162.0,Houston,Harris,,warn_tx.json
+TX,"Central Freight Lines, Inc.",2021-12-13,292.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,"Monitronics International, Inc. dba Brinks Home",2021-12-16,42.0,Dallas,Dallas,,warn_tx.json
+TX,"Stearns Lending, LLC - Corporate Dr.",2022-01-06,348.0,Lewisville,Denton,,warn_tx.json
+TX,Dynamic Foods,2022-01-24,80.0,Lubbock,Lubbock,,warn_tx.json
+TX,Amentum,2022-01-28,178.0,New Boston,Bowie,,warn_tx.json
+TX,"Cognosante, LLC",2022-02-15,84.0,McAllen,Hidalgo,,warn_tx.json
+TX,Management & Training Corp. - MTC Medical LLC  (Giles W. Dalby Correctional Facility),2022-03-01,206.0,Post,Garza,,warn_tx.json
+TX,Sev1Tech,2022-03-07,62.0,Fort Hood,Bell,,warn_tx.json
+TX,"Master Brand Home Products, LLC",2022-03-08,109.0,Weslaco,Hidalgo,,warn_tx.json
+TX,"ABM Industries Groups, LLC - Houston 1",2022-03-15,31.0,Houston,Harris,,warn_tx.json
+TX,"ABM Industries Groups, LLC - Houston 2",2022-03-15,26.0,Houston,Harris,,warn_tx.json
+TX,"ABM Industries Groups, LLC - Fulbright Tower",2022-03-15,18.0,Houston,Harris,,warn_tx.json
+TX,"ABM Industries Groups, LLC - Houston 4",2022-03-15,19.0,Houston,Harris,,warn_tx.json
+TX,Devereux Advanced Behavioral Health,2022-03-28,122.0,Victoria,Victoria,,warn_tx.json
+TX,"Michaels Stores Procurement Company, Inc.",2022-04-27,202.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Dillard's - Wichita Falls,2022-05-12,81.0,Wichita Falls,Wichita,,warn_tx.json
+TX,"Schenker, Inc. - Kraft",2022-06-06,45.0,Fort Worth,Tarrant,,warn_tx.json
+TX,"Schenker, Inc. - Kraft, 1006 Railhead",2022-06-06,85.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Zillow Group,2022-06-17,32.0,Coppell,Dallas,,warn_tx.json
+TX,The Coleman Company-Newell Brand,2022-06-23,47.0,New Braunfels,Comal,,warn_tx.json
+TX,First Guaranty Mortgage Corp.,2022-06-24,428.0,Plano,Collin,,warn_tx.json
+TX,ABM@Avis DFW,2022-06-28,143.0,Irving,Dallas,,warn_tx.json
+TX,KeHe Distributors Inc.-Flower Mound,2022-06-30,313.0,Flower Mound,Denton,,warn_tx.json
+TX,General Information Services dba HireRight,2022-07-01,36.0,Dallas,Dallas,,warn_tx.json
+TX,Multi Color Corporation,2022-07-05,45.0,Dallas,Dallas,,warn_tx.json
+TX,"S&B Fabrication Services,Ltd.",2022-07-06,83.0,Baytown,Chambers,,warn_tx.json
+TX,ION Geophysical Corporation,2022-07-19,125.0,Houston,Harris,,warn_tx.json
+TX,Pearl South Padre Island Hotel and Resort,2022-07-19,115.0,South Padre Is.,Cameron,,warn_tx.json
+TX,Food City Supermarkets,2022-07-19,90.0,El Paso,El Paso,,warn_tx.json
+TX,"Captel Service Specialists, LLC",2022-07-20,110.0,Arlington,Tarrant,,warn_tx.json
+TX,Seville Farms @ Mansfield,2022-07-25,64.0,Mansfield,Tarrant,,warn_tx.json
+TX,Seville Farms @ Tyler,2022-07-25,72.0,Winona,Smith,,warn_tx.json
+TX,Seville Farms @ Los Fresnos,2022-07-25,92.0,Los Fresnos,Cameron,,warn_tx.json
+TX,F 45 Training Inc.,2022-07-26,78.0,Austin,Travis,,warn_tx.json
+TX,Plano Enterprise Mobility Facility,2022-07-27,69.0,Plano,Collin,,warn_tx.json
+TX,"GXO Logistics of Texas, LLC",2022-07-28,116.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Signify Health LLC - Dallas,2022-08-09,29.0,Dallas,Dallas,,warn_tx.json
+TX,Signify Health LLC - Austin,2022-08-10,9.0,Austin,Travis,,warn_tx.json
+TX,Spirit Airlines,2022-08-19,134.0,Dallas,Dallas,,warn_tx.json
+TX,ABM Industries - 902,2022-08-23,13.0,Houston,Harris,,warn_tx.json
+TX,ABM Industries - 909,2022-08-23,5.0,Houston,Harris,,warn_tx.json
+TX,ABM Industries - 920,2022-08-23,9.0,Houston,Harris,,warn_tx.json
+TX,ABM Industries - 915 Gessner,2022-08-23,13.0,Houston,Harris,,warn_tx.json
+TX,ABM Industries - 1120,2022-08-23,9.0,Houston,Harris,,warn_tx.json
+TX,ABM Industries - 1140,2022-08-23,8.0,Houston,Harris,,warn_tx.json
+TX,Southern Star Express LLC - Fort Worth,2022-08-24,39.0,Fort Worth,Denton,,warn_tx.json
+TX,"Southern Star Express, LLC (DDF8)",2022-08-24,55.0,Arlington,Tarrant,,warn_tx.json
+TX,"Merit Medical Systems, Inc.",2022-08-25,117.0,Houston,Harris,,warn_tx.json
+TX,ASARCO Amarillo Refinery,2022-08-29,57.0,Amarillo,Potter,,warn_tx.json
+TX,Home Point Financial Corporation,2022-08-31,526.0,Dallas,Collin,,warn_tx.json
+TX,"S&B Fabrication Services,Ltd.",2022-09-09,53.0,Baytown,Chambers,,warn_tx.json
+TX,Sealed Air Corporation,2022-09-13,49.0,Carrollton,Denton,,warn_tx.json
+TX,Rubbermaid Commercial Products LLc,2022-09-14,64.0,El Paso,El Paso,,warn_tx.json
+TX,Sodexo - CHI Saint Luke's McNair,2022-09-19,15.0,Houston,Harris,,warn_tx.json
+TX,Sodexo - CHI St Luke's Baylor Medical Center,2022-09-19,99.0,Houston,Harris,,warn_tx.json
+TX,The James Skinner Company,2022-09-22,179.0,Paris,Lamar,,warn_tx.json
+TX,Quarter North Energy LLC,2022-10-01,43.0,Houston,Harris,,warn_tx.json
+TX,Valley International Cold Storage LLC,2022-10-04,64.0,Harlingen,Cameron,,warn_tx.json
+TX,"Rev.com, Inc",2022-10-07,85.0,Austin,Travis,,warn_tx.json
+TX,Hill Defense and Federal Solutions,2022-10-11,134.0,San Antonio,Bexar,,warn_tx.json
+TX,"GXO Logistics of Texas, LLC (Lancaster)",2022-10-13,206.0,Lancaster,Dallas,,warn_tx.json
+TX,"GXO Logistics of Texas, LLC (Dallas)",2022-10-13,56.0,Dallas,Dallas,,warn_tx.json
+TX,"Westex Security Services, Inc.",2022-10-14,7.0,Houston,Harris,,warn_tx.json
+TX,DXP Enterprises,2022-10-14,4.0,Houston,Harris,,warn_tx.json
+TX,HJH Houston 1,2022-10-14,1.0,Houston,Harris,,warn_tx.json
+TX,Jacob Engineering,2022-10-14,3.0,Houston,Harris,,warn_tx.json
+TX,"Sutton Court Homeowner's Association, Inc.",2022-10-14,2.0,Houston,Harris,,warn_tx.json
+TX,Third Coast Terminals,2022-10-14,3.0,Pearland,Brazoria,,warn_tx.json
+TX,Center Point Towers,2022-10-14,204.0,Houston,Harris,,warn_tx.json
+TX,Center Point Platinum,2022-10-14,5.0,Houston,Harris,,warn_tx.json
+TX,Center Point Harrisburg Service Center,2022-10-14,5.0,Houston,Harris,,warn_tx.json
+TX,Center Point South Houston Center Complex,2022-10-14,6.0,Houston,Harris,,warn_tx.json
+TX,Centerpoint Addicks Operation Center,2022-10-14,10.0,Houston,Harris,,warn_tx.json
+TX,Center Point Energy Control Data Center,2022-10-14,10.0,Houston,Harris,,warn_tx.json
+TX,"Argo AI, LLC. (Austin Congress)",2022-10-27,10.0,Austin,Travis,,warn_tx.json
+TX,"Argo AI, LLC. (Austin 7th Street)",2022-10-27,68.0,Austin,Travis,,warn_tx.json
+TX,iBio CDMO,2022-10-31,50.0,Bryan,Brazos,,warn_tx.json
+TX,"COSMAX NBT USA, INC #1",2022-11-11,36.0,Garland,Dallas,,warn_tx.json
+TX,Hallmark Financial Services,2022-11-11,83.0,Dallas,Dallas,,warn_tx.json
+TX,Catalent Cell Therapy,2022-11-15,77.0,Webster,Harris,,warn_tx.json
+TX,"Bedding Acquisition, LLC",2022-11-16,95.0,Grand Prairie,Tarrant,,warn_tx.json
+TX,"Meta Platforms, Inc. (West 3rd)",2022-11-16,154.0,Austin,Travis,,warn_tx.json
+TX,"Meta Platforms, Inc, (Alterra Pkwy.)",2022-11-16,7.0,Austin,Travis,,warn_tx.json
+TX,"Meta Platforms, Inc. (Mcallen Pass)",2022-11-16,11.0,Austin,Travis,,warn_tx.json
+TX,"Meta Platforms, Inc.(W,6th)",2022-11-16,50.0,Austin,Travis,,warn_tx.json
+TX,Home Point Financial Corporation,2022-11-18,49.0,Dallas,Collin,,warn_tx.json
+TX,American General Life Insurance Company,2022-12-02,461.0,Amarillo,Potter,,warn_tx.json
+TX,HII Mission Technologies,2022-12-21,68.0,San Antonio,Bexar,,warn_tx.json
+TX,Information Technology Coalition Inc. (Irving),2023-01-05,370.0,Irving,Dallas,,warn_tx.json
+TX,"Monitronics International, Inc. dba Brinks Home",2023-01-06,20.0,Dallas,Dallas,,warn_tx.json
+TX,Southwest Key Programs-Casa Blanca,2023-01-09,85.0,San Antonio,Bexar,,warn_tx.json
+TX,TUSimple,2023-01-10,76.0,Dallas,Dallas,,warn_tx.json
+TX,Ryder Inc.,2023-01-11,801.0,Austin,Travis,,warn_tx.json
+TX,"RateGenius Loan Services, Inc.",2023-01-12,139.0,Austin,Travis,,warn_tx.json
+TX,The Pictsweet Company,2023-01-16,77.0,San Antonio,Bexar,,warn_tx.json
+TX,Genpact LLC,2023-01-19,964.0,Richardson,Collin,,warn_tx.json
+TX,Sumitomo Electric Wiring Systems,2023-01-20,110.0,El Paso,El Paso,,warn_tx.json
+TX,State Farm at City Line Building 1-4,2023-01-24,125.0,Richardson,Collin,,warn_tx.json
+TX,Service Experts,2023-01-25,76.0,Richardson,Dallas,,warn_tx.json
+TX,Bed Bath and Beyond (Lewisville),2023-01-25,374.0,Lewisville,Denton,,warn_tx.json
+TX,"ABM Texas General Services, Inc",2023-01-27,255.0,Austin,Travis,,warn_tx.json
+TX,"Transde,v Inc,",2023-01-31,83.0,Lancaster,Dallas,,warn_tx.json
+TX,"Bedding Acquisition, LLC",2023-01-31,74.0,Grand Prairie,Dallas,,warn_tx.json
+TX,Owens-Brockway Glass Container Inc.,2023-01-31,90.0,Waco,McLennan,,warn_tx.json
+TX,Georgia Pacific Gypsum,2023-02-02,158.0,Quanah,Hardeman,,warn_tx.json
+TX,"PTW Energy Services, Inc.",2023-02-02,9.0,Midland,Midland,,warn_tx.json
+TX,Eddy Foods,2023-02-02,140.0,Yoakum,Dewitt,,warn_tx.json
+TX,"Misfits Market Technologies, INC (Fullfillment Center)",2023-02-07,121.0,Fort Worth,Tarrant,,warn_tx.json
+TX,"Skorpios Technologies, Inc.",2023-02-07,60.0,Austin,Travis,,warn_tx.json
+TX,Packaging Corporation of America (Woodway),2023-02-07,65.0,Woodway,McLennan,,warn_tx.json
+TX,Owens Corning Amarillo Facility,2023-02-07,200.0,Amarillo,Potter,,warn_tx.json
+TX,Walmart Store #7310,2023-02-08,92.0,Katy,Fort Bend,,warn_tx.json
+TX,St. Mark's Medical Center,2023-02-15,64.0,La Grange,Fayette,,warn_tx.json
+TX,Deer Park Nursing and Rehab Center LLC,2023-02-16,40.0,Deer Park,Harris,,warn_tx.json
+TX,TaskUs (San Antonio),2023-02-16,186.0,San Antonio,Bexar,,warn_tx.json
+TX,"Wix.com, Inc.",2023-02-21,100.0,Austin,Travis,,warn_tx.json
+TX,Boston Scientific Corporation,2023-02-23,120.0,Houston,Harris,,warn_tx.json
+TX,Interceramic Corporate Office and Distribution Center,2023-02-27,118.0,Carrollton,Dallas,,warn_tx.json
+TX,Interceramic Houston Showroom (Clay Road),2023-02-27,35.0,Houston,Harris,,warn_tx.json
+TX,Interceramic Houston-Spring Showroom,2023-02-27,7.0,Spring,Harris,,warn_tx.json
+TX,Interceramic Plano Showroom,2023-02-27,4.0,Plano,Collin,,warn_tx.json
+TX,Interceramic San Antonio Showroom,2023-02-27,19.0,San Antonio,Bexar,,warn_tx.json
+TX,SNL Distribution Services Corporation,2023-02-27,60.0,Denton,Denton,,warn_tx.json
+TX,"TuSimple, Inc. (Fort Worth)",2023-02-27,10.0,Fort Worth,Denton,,warn_tx.json
+TX,"TuSimple, Inc. (Hutchins)",2023-02-27,10.0,Hutchins,Dallas,,warn_tx.json
+TX,Interceramic Austin Showroom,2023-02-28,17.0,Austin,Travis,,warn_tx.json
+TX,Interceramic Fort Worth Showroom,2023-02-28,12.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Interceramic Manufacturing Facility,2023-02-28,161.0,Garland,Dallas,,warn_tx.json
+TX,Interceramic Tile & Stone Gallery,2023-02-28,15.0,Dallas,Dallas,,warn_tx.json
+TX,EP Lamination,2023-03-02,53.0,El Paso,El Paso,,warn_tx.json
+TX,"Southwest General Hospital, LP",2023-03-03,827.0,San Antonio,Bexar,,warn_tx.json
+TX,"Security Specialists, Inc (Austin)",2023-03-08,240.0,Austin,Travis,,warn_tx.json
+TX,Trellis Company,2023-03-14,105.0,Round Rock,Williamson,,warn_tx.json
+TX,Ibase Operations Corporation,2023-03-15,81.0,Austin,Williamson,,warn_tx.json
+TX,"Penske Logistics, LLC-Keller",2023-03-20,152.0,Keller,Tarrant,,warn_tx.json
+TX,"Saten, Inc.",2023-03-22,54.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Walmart #1258,2023-03-31,1047.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Ibex Global Solutions (San Antonio),2023-04-03,227.0,San Antonio,Bexar,,warn_tx.json
+TX,"Molecular Templates, Inc. (MTEM)",2023-04-04,84.0,Austin,Williamson,,warn_tx.json
+TX,Aramark Campus LLC Trininty University (San Antonio),2023-04-05,120.0,San Antonio,Bexar,,warn_tx.json
+TX,Chalk Mountain Services of Texas LLC,2023-04-05,98.0,Kermit,Winkler,,warn_tx.json
+TX,Hunter Douglas Fabrication Company (Custom Brands Group),2023-04-05,100.0,McKinney,Collin,,warn_tx.json
+TX,nan,2023-04-06,12.0,El Paso,El Paso,,warn_tx.json
+TX,"Packers Sanitation Services- Cactus, Texas",2023-04-18,113.0,Cactus,Moore,,warn_tx.json
+TX,"HCS Renewable Energy, LLC",2023-04-19,62.0,El Campo,Wharton,,warn_tx.json
+TX,Walmart #4795 Grapevine,2023-04-20,133.0,Grapevine,Tarrant,,warn_tx.json
+TX,Stanley Black & Decker-Fort Worth,2023-04-25,175.0,Fort Worth,Tarrant,,warn_tx.json
+TX,DHL Supply Chain - Missouri City,2023-05-03,123.0,Missouri City,Fort Bend,,warn_tx.json
+TX,DHL Supply Chain - Sugar Land,2023-05-03,29.0,Sugar Land,Fort Bend,,warn_tx.json
+TX,"Makita U.S.A., Inc. Distribution Center",2023-05-03,4.0,Wilmer,Dallas,,warn_tx.json
+TX,"Makita U.S.A., Inc. Factory Service Center",2023-05-03,7.0,Houston,Harris,,warn_tx.json
+TX,Aventi Technologies,2023-05-08,272.0,Carrollton,Denton,,warn_tx.json
+TX,"Bedding Acquisition, LLC (Grand Prairie Plant)",2023-05-10,23.0,Grand Prairie,Dallas,,warn_tx.json
+TX,"GXO Logistics of Texas, LLC (Fort Worth) Comcast Facility",2023-05-10,105.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Village Farms,2023-05-10,27.0,Monahans,Ward,,warn_tx.json
+TX,ABM Industries at the University of Texas San Antonio,2023-05-15,86.0,San Antonio,Bexar,,warn_tx.json
+TX,USAA - (San Antonio) Fredericksburg Rd.,2023-05-16,235.0,San Antonio,Bexar,,warn_tx.json
+TX,Accenture LLP (Austin),2023-05-16,549.0,Austin,Travis,,warn_tx.json
+TX,Durham School Services-Brenham,2023-05-16,81.0,Brenham,Washington,,warn_tx.json
+TX,[24]7.ai,2023-05-17,69.0,Dallas,Collin,,warn_tx.json
+TX,Wipro,2023-05-18,64.0,Austin,Travis,,warn_tx.json
+TX,Central Garden & Pet (Manufacturing),2023-05-22,80.0,Athens,Henderson,,warn_tx.json
+TX,Scribe Media LLC,2023-05-25,90.0,Austin,Travis,,warn_tx.json
+TX,"Diversified Technical Services, INC. (San Antonio)",2023-05-30,137.0,San Antonio,Bexar,,warn_tx.json
+TX,Attala Steele Industries (Hilsboro Plant),2023-06-01,126.0,Hillsboro,Hill,,warn_tx.json
+TX,Chartwells (Midland ISD),2023-06-07,74.0,Midland,Midland,,warn_tx.json
+TX,Federal Express Corporation (Temple),2023-06-08,58.0,Temple,Bell,,warn_tx.json
+TX,Nucor (Longview),2023-06-14,173.0,Longview,Gregg,,warn_tx.json
+TX,Accenture Austin),2023-06-15,218.0,Austin,Williamson,,warn_tx.json
+TX,"Neilsen and Bainbridge, LLC",2023-06-15,116.0,Austin,Williamson,,warn_tx.json
+TX,Southeast Service Corporation (Bastrop Independent School District),2023-06-15,91.0,Bastrop,Bastrop,,warn_tx.json
+TX,Cognizant Technology Solutions,2023-06-23,56.0,Austin,Travis,,warn_tx.json
+TX,"Packers Sanitation Services, Inc. (PSSI) Center, Texas",2023-06-27,93.0,Center,Shelby,,warn_tx.json
+TX,Management & Training Corporation (Cleveland TX),2023-06-27,107.0,Cleveland,Liberty,,warn_tx.json
+TX,"Federal Heath Sign Company, LLC",2023-06-27,47.0,Euless,Tarrant,,warn_tx.json
+TX,Management & Training Corporation (MTC) - Diboll,2023-06-27,101.0,Diboll,Angelina,,warn_tx.json
+TX,AAC Holding Corporation,2023-06-29,188.0,Dallas,Dallas,,warn_tx.json
+TX,Management Training Corporation (Sanders Estes Unit),2023-06-29,120.0,Venus,Johnson,,warn_tx.json
+TX,"Aramark Campus, LLC at New Braunfels ISD",2023-06-29,59.0,New Braunfels,Comal,,warn_tx.json
+TX,S&B Industry Inc.,2023-07-05,115.0,Fort Worth,Tarrant,,warn_tx.json
+TX,"David's Bridal, LLC (Frisco)",2023-07-17,53.0,Frisco,Collin,,warn_tx.json
+TX,"David's Bridal, LLC (Arlington)",2023-07-17,27.0,Arlington,Tarrant,,warn_tx.json
+TX,"David's Bridal, LLC (Friendswood)",2023-07-17,35.0,Friendswood,Harris,,warn_tx.json
+TX,"David's Bridal, LLC (610 & San Felipe Shop Center)",2023-07-17,39.0,Houston,Harris,,warn_tx.json
+TX,"David's Bridal, LLC (San Antonio)",2023-07-17,38.0,San Antonio,Bexar,,warn_tx.json
+TX,"David's Bridal, LLC (Houston North The Woodlands)",2023-07-17,41.0,Woodlands,Montgomery,,warn_tx.json
+TX,"David's Bridal, LLC (Hurst)",2023-07-17,25.0,Hurst,Tarrant,,warn_tx.json
+TX,"David's Bridal, LLC (North Dallas)",2023-07-17,33.0,Dallas,Tarrant,,warn_tx.json
+TX,"David's Bridal, LLC (Mesquite)",2023-07-17,27.0,Mesquite,Dallas,,warn_tx.json
+TX,"David's Bridal, LLC (Beaumont)",2023-07-17,21.0,Beaumont,Jefferson,,warn_tx.json
+TX,"David's Bridal, LLC (Lewisville)",2023-07-17,28.0,Lewisville,Denton,,warn_tx.json
+TX,"David's Bridal, LLC (Tyler)",2023-07-17,31.0,Tyler,Smith,,warn_tx.json
+TX,"David's Bridal, LLC (McAllen)",2023-07-17,31.0,McAllen,Hidalgo,,warn_tx.json
+TX,"David's Bridal, LLC (Sugar Land)",2023-07-17,38.0,Sugar Land,Fort Bend,,warn_tx.json
+TX,"David's Bridal, LLC (North Austin)",2023-07-17,43.0,Austin,Travis,,warn_tx.json
+TX,"David's Bridal, LLC (Waco)",2023-07-17,30.0,Waco,McLennan,,warn_tx.json
+TX,"David's Bridal, LLC (Corpus Christie)",2023-07-17,21.0,Corpus Christi,Nueces,,warn_tx.json
+TX,"David's Bridal, LLC (Fort Worth)",2023-07-17,29.0,Fort Worth,Tarrant,,warn_tx.json
+TX,"David's Bridal, LLC (Abilene)",2023-07-17,19.0,Abilene,Taylor,,warn_tx.json
+TX,"David's Bridal, LLC (San Antonio Bexar County)",2023-07-17,25.0,San Antonio,Bexar,,warn_tx.json
+TX,"David's Bridal, LLC (College Station)",2023-07-17,14.0,College Station,Brazos,,warn_tx.json
+TX,"David's Bridal, LLC (El Paso)",2023-07-17,26.0,El Paso,El Paso,,warn_tx.json
+TX,"David's Bridal, LLC (Austin South)",2023-07-17,26.0,Austin,Travis,,warn_tx.json
+TX,"David's Bridal, LLC (Lubbock)",2023-07-17,31.0,Lubbock,Lubbock,,warn_tx.json
+TX,Ventra Health,2023-07-19,64.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Vibra Hospital of Desoto,2023-07-27,76.0,DeSoto,Dallas,,warn_tx.json
+TX,Yellow Freight (Dallas),2023-08-01,530.0,Dallas,Dallas,,warn_tx.json
+TX,"Ericsson, Inc.",2023-08-01,64.0,Plano,Collin,,warn_tx.json
+TX,FedEx Supply Chain Logistics & Electronics (Ft. Worth),2023-08-02,280.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Regal Rexnord,2023-08-03,78.0,Mission,Hidalgo,,warn_tx.json
+TX,Compass Group,2023-08-03,153.0,Sugar Land,Fort Bend,,warn_tx.json
+TX,Yellow Freight (Abilene),2023-08-03,4.0,Abilene,Taylor,,warn_tx.json
+TX,Yellow Freight (Fort Worth},2023-08-03,84.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Yellow Freight (El Paso),2023-08-03,45.0,El Paso,El Paso,,warn_tx.json
+TX,Yellow Freight (Sherman),2023-08-03,25.0,Sherman,Grayson,,warn_tx.json
+TX,Yellow Freight (Waco),2023-08-03,17.0,Waco,McLennan,,warn_tx.json
+TX,"PSW Real Estate, LLC",2023-08-04,87.0,Austin,Travis,,warn_tx.json
+TX,Honeywell Intelligrated,2023-08-08,80.0,Arlington,Tarrant,,warn_tx.json
+TX,"Babylon, Inc",2023-08-08,94.0,Austin,Travis,,warn_tx.json
+TX,TATA Consultancy Services,2023-08-08,85.0,Austin,Williamson,,warn_tx.json
+TX,"Wayforth, LLC (Cedar Park)",2023-08-17,10.0,Cedar Park,Williamson,,warn_tx.json
+TX,"Wayforth, LLC (Grapevine)",2023-08-17,15.0,Grapevine,Tarrant,,warn_tx.json
+TX,"Wayforth, LLC (Houston)",2023-08-17,16.0,Houston,Harris,,warn_tx.json
+TX,"S&B Plant Services, LTD. (Deer Park)",2023-08-18,163.0,Deer Park,Harris,,warn_tx.json
+TX,"S&B Plant Services, LTD (Pasadena)",2023-08-18,32.0,Pasadena,Harris,,warn_tx.json
+TX,"S&B Plant Service, LTD (La Porte)",2023-08-18,3.0,La Porte,Harris,,warn_tx.json
+TX,"Appfolio, Inc.",2023-08-18,38.0,Richardson,Dallas,,warn_tx.json
+TX,Harland Clarke Corp,2023-08-23,130.0,Grapevine,Tarrant,,warn_tx.json
+TX,CVS Health (Richardson),2023-08-23,167.0,Richardson,Dallas,,warn_tx.json
+TX,VSPOne Dallas,2023-08-24,15.0,Lewisville,Denton,,warn_tx.json
+TX,Carling Technologies,2023-08-25,83.0,Brownsville,Cameron,,warn_tx.json
+TX,Freedom Graphic Systems Inc.,2023-08-29,59.0,Grand Prairie,Dallas,,warn_tx.json
+TX,Holiday Inn Club Vacations-Pantego,2023-08-29,56.0,Pantego,Tarrant,,warn_tx.json
+TX,"GXO Logistics of Texas Supply Chain, Inc",2023-08-31,92.0,Wilmer,Dallas,,warn_tx.json
+TX,ED Tucker Powersports,2023-09-07,165.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Watts Regulators Co.,2023-09-08,31.0,San Antonio,Bexar,,warn_tx.json
+TX,Raytheon Technologies,2023-09-12,27.0,Dallas,Dallas,,warn_tx.json
+TX,Aramark @Trinity Mother Frances Hospital,2023-09-18,163.0,Tyler,Smith,,warn_tx.json
+TX,Aramark Christus Children's Hospital,2023-09-18,71.0,San Antonio,Bexar,,warn_tx.json
+TX,Aramark Christus Santa Rosa Westover Hills,2023-09-18,73.0,San Antonio,Bexar,,warn_tx.json
+TX,Aramark Christus Hospital St.Elizabeth,2023-09-18,87.0,Beaumont,Jefferson,,warn_tx.json
+TX,Aramark Christus St. Michael HospitL,2023-09-18,87.0,Texarkana,Bowie,,warn_tx.json
+TX,Aramark Christus Spohn Shoreline,2023-09-18,116.0,Corpus Christi,Nueces,,warn_tx.json
+TX,Aramark @ Christus Good Shepard Medical Center,2023-09-18,97.0,Longview,Gregg,,warn_tx.json
+TX,Off Lease LLC,2023-09-19,103.0,Katy,Harris,,warn_tx.json
+TX,Compass United,2023-09-19,104.0,San Antonio,Bexar,,warn_tx.json
+TX,Owens-Brockway Glass Container Inc.,2023-09-21,300.0,Waco,McLennan,,warn_tx.json
+TX,Stitch Fix,2023-10-02,558.0,Dallas,Dallas,,warn_tx.json
+TX,Parker Hannifan-HVAC Division,2023-10-04,76.0,Mesquite,Dallas,,warn_tx.json
+TX,Invista-Nylon Chemicals Americas,2023-10-06,239.0,Orange,Orange,,warn_tx.json
+TX,"Reata Pharmaceuticals, Inc.(Legacy)",2023-10-09,113.0,Plano,Collin,,warn_tx.json
+TX,L3Harris Technologies,2023-10-09,268.0,Rockwall,Rockwall,,warn_tx.json
+TX,Fluor Enterprises-M&G Jumbo Project,2023-10-09,66.0,Corpus Ch,Nueces,,warn_tx.json
+TX,American Medical Response (Fort Worth#2),2023-10-09,156.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Raytheon Technologies,2023-10-09,38.0,Dallas,Dallas,,warn_tx.json
+TX,"Mittera Group, Inc.",2023-10-10,136.0,Carrollton,Dallas,,warn_tx.json
+TX,Accenture LLP (Austin),2023-10-10,351.0,Austin,Travis,,warn_tx.json
+TX,LegalZoom.com,2023-10-12,122.0,Austin,Williamson,,warn_tx.json
+TX,Southwestern Health Resources,2023-10-18,288.0,Farmers Branch,Dallas,,warn_tx.json
+TX,"GulfMark Energy, Inc.(Chico)",2023-10-19,6.0,Chico,Wise,,warn_tx.json
+TX,"GulfMark Energy, Inc.(Electra)",2023-10-19,18.0,Electra,Wichita,,warn_tx.json
+TX,"GulfMark Energy, Inc. (Bowie)",2023-10-19,15.0,Bowie,Montague,,warn_tx.json
+TX,"GulfMark Energy, Inc.",2023-10-19,7.0,Gainesville,Cooke,,warn_tx.json
+TX,XTO Energy Inc. (Franklin),2023-10-20,15.0,Franklin,Robertson,,warn_tx.json
+TX,XTO Energy Inc. (Jewett),2023-10-20,18.0,Jewett,Leon,,warn_tx.json
+TX,XTO Energy Inc. (Donie),2023-10-20,20.0,Donie,Freestone,,warn_tx.json
+TX,"Ericsson, Inc.",2023-10-23,6.0,Plano,Collin,,warn_tx.json
+TX,XTO Energy Inc. (Tyler),2023-10-23,1.0,Tyler,Smith,,warn_tx.json
+TX,XTO Energy Inc. (Jewett #2),2023-10-23,9.0,Jewett,Leon,,warn_tx.json
+TX,XTO Energy Inc. (Teague #2),2023-10-23,11.0,Teague,Freestone,,warn_tx.json
+TX,XTO Energy Inc. (Donie #2),2023-10-23,46.0,Donie,Freestone,,warn_tx.json
+TX,MV-Transportation Austin (North Yard),2023-10-25,400.0,Austin,Travis,,warn_tx.json
+TX,MV- Transportation Austin (South Yard),2023-10-25,778.0,Austin,Travis,,warn_tx.json
+TX,Cygnus Home Service LLC. (Abilene),2023-10-26,5.0,Abilene,Taylor,,warn_tx.json
+TX,Cygnus Home Service LLC (Alvin),2023-10-26,6.0,Alvin,Brazoria,,warn_tx.json
+TX,Cygnus Home Service LLC. (Conroe),2023-10-26,9.0,Conroe,Montgomery,,warn_tx.json
+TX,Cygnus Home Service LLC. (Houston),2023-10-26,13.0,Houston,Harris,,warn_tx.json
+TX,Cygnus Home Services LLC. (Lubbock),2023-10-26,8.0,Lubbock,Lubbock,,warn_tx.json
+TX,Cygnus Home Services LLC. (Mt. Pleasant),2023-10-26,10.0,Mt Pleasant,Titus,,warn_tx.json
+TX,Cygnus Home Services LLC. (Nacogdoches),2023-10-26,8.0,Nacogdoches,Nacogdoches,,warn_tx.json
+TX,Cygnus Home Services LLC. (Odessa),2023-10-26,8.0,Odessa,Ector,,warn_tx.json
+TX,Cygnus Home Services LLC. (Pampa),2023-10-26,7.0,Pampa,Gray,,warn_tx.json
+TX,Cygnus Home Services LLC. (Round Rock),2023-10-26,11.0,Round Rock,Williamson,,warn_tx.json
+TX,Cygnus Home Services LLC. (San Angelo),2023-10-26,5.0,San Angelo,Tom Green,,warn_tx.json
+TX,Cygnus Home Services LLC. (Schertz),2023-10-26,6.0,Schertz,Bexar,,warn_tx.json
+TX,Cygnus Home Services LLC. (Sherman),2023-10-26,7.0,Sherman,Grayson,,warn_tx.json
+TX,Cygnus Home Services LLC. (Waco),2023-10-26,6.0,Waco,McLennan,,warn_tx.json
+TX,PVA Downtown,2023-10-31,20.0,San Antonio,Bexar,,warn_tx.json
+TX,PVA Medical Center,2023-10-31,10.0,San Antonio,Bexar,,warn_tx.json
+TX,Builders FirstSource (Grandview),2023-10-31,76.0,Grandview,Johnson,,warn_tx.json
+TX,Walmart #1258,2023-11-06,363.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Raytheon Technologies,2023-11-06,34.0,Dallas,Dallas,,warn_tx.json
+TX,CVS Health (Irving),2023-11-08,2.0,Irving,Dallas,,warn_tx.json
+TX,Whole Food Market (Midtown Houston),2023-11-08,110.0,Houston,Harris,,warn_tx.json
+TX,CVS Health (Richardson),2023-11-08,2.0,Richardson,Dallas,,warn_tx.json
+TX,CMA CGM (America) LLC,2023-11-08,64.0,Dallas,Tarrant,,warn_tx.json
+TX,10 Roads Express LLC.,2023-11-08,66.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Hyliion Inc,2023-11-10,150.0,Cedar Park,Williamson,,warn_tx.json
+TX,ADT Solar (Dallas),2023-11-13,53.0,Dallas,Dallas,,warn_tx.json
+TX,Bandier Texas LLC.,2023-11-27,9.0,Dallas,Dallas,,warn_tx.json
+TX,Covenant Aviation Security(George Bush Airport),2023-11-27,64.0,Houston,Harris,,warn_tx.json
+TX,Covenant Aviation Security (Hobby Airport),2023-11-27,39.0,Houston,Harris,,warn_tx.json
+TX,Cognizant Technology Solutions (Riata),2023-11-27,65.0,Austin,Travis,,warn_tx.json
+TX,Bandier Texas LLC.,2023-11-27,9.0,Dallas,Dallas,,warn_tx.json
+TX,Vmware Inc. River Place),2023-12-01,577.0,Austin,Travis,,warn_tx.json
+TX,Granite Peak Fabrication,2023-12-04,89.0,Midland,Midland,,warn_tx.json
+TX,DHL Supply Chain - Sugar Land,2023-12-04,10.0,Sugar Land,Fort Bend,,warn_tx.json
+TX,DHL Supply Chain - Missouri City,2023-12-04,50.0,Missouri City,Fort Bend,,warn_tx.json
+TX,"Matheson Flight Extenders, Inc.",2023-12-04,92.0,Grapevine,Tarrant,,warn_tx.json
+TX,Masonite Coorporation,2023-12-07,75.0,Greenville,Hunt,,warn_tx.json
+TX,The International Paper Company Sabine Railroad,2023-12-11,12.0,Orange,Orange,,warn_tx.json
+TX,Custom Ink,2023-12-18,256.0,Flower Mound,Denton,,warn_tx.json
+TX,Randalls #2490,2024-01-04,76.0,Austin,Travis,,warn_tx.json
+TX,Genpact US Services LLC,2024-01-05,365.0,Richardson,Collin,,warn_tx.json
+TX,Technica Corporation,2024-01-05,60.0,San Antonio,Bexar,,warn_tx.json
+TX,Masonite Corporation (Greenville),2024-01-08,75.0,Greenville,Hunt,,warn_tx.json
+TX,"Packers Sanitation Services, Inc. (PSSI) Friona",2024-01-08,103.0,Friona,Parmer,,warn_tx.json
+TX,"ABM Industries, Inc. Flowers Baking Company",2024-01-09,176.0,San Antonio,Bexar,,warn_tx.json
+TX,Tom Thumb Store #3854,2024-01-09,71.0,Grapevine,Tarrant,,warn_tx.json
+TX,GDI Services - Coppell,2024-01-12,44.0,Coppell,Dallas,,warn_tx.json
+TX,GDI Services Dallas,2024-01-12,44.0,Dallas,Dallas,,warn_tx.json
+TX,Unity Technologies-Austin,2024-01-12,92.0,Austin,Travis,,warn_tx.json
+TX,"WWL Vehicle Services Americas, Inc.",2024-01-16,63.0,Houston,Harris,,warn_tx.json
+TX,Jumbo Beverages,2024-01-17,109.0,Grapevine,Tarrant,,warn_tx.json
+TX,Versum Materials US LLC,2024-01-18,51.0,Austin,Travis,,warn_tx.json
+TX,HMS Host-DFW Airport,2024-01-19,334.0,Grapevine,Tarrant,,warn_tx.json
+TX,Horton Automatics,2024-01-22,63.0,Corpus Christi,Nueces,,warn_tx.json
+TX,Vroom-Sam Houston Parkway,2024-01-23,178.0,Houston,Harris,,warn_tx.json
+TX,"Panera, LLC Fresh Dough Facility",2024-01-24,84.0,Houston,Harris,,warn_tx.json
+TX,Longwood Elastomers,2024-01-24,52.0,Brenham,Washington,,warn_tx.json
+TX,Hollingsworth LLC,2024-01-25,153.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Vroom-Meadows Place #2,2024-01-25,54.0,Stafford,Fort Bend,,warn_tx.json
+TX,Vroom-Stafford,2024-01-25,283.0,Stafford,Harris,,warn_tx.json
+TX,American Airlines-SRO,2024-01-30,321.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,"Mattison Pathology, LLP dba Avero Diagnotics",2024-02-01,103.0,Irving,Dallas,,warn_tx.json
+TX,Shearer's Foods LLC,2024-02-02,176.0,Lubbock,Lubbock,,warn_tx.json
+TX,"WFS Express, Inc. Kelley Field",2024-02-12,65.0,San Antonio,Bexar,,warn_tx.json
+TX,NexTier Completion Solutions Inc. - San Angelo II,2024-02-15,104.0,San Angelo,Tom Green,,warn_tx.json
+TX,"Kasasa, LTD",2024-02-22,59.0,Austin,Travis,,warn_tx.json
+TX,Rio Grande Valley Sugar Growers 2024,2024-02-22,435.0,Santa Rosa,Cameron,,warn_tx.json
+TX,Oldcastle Infrastructure,2024-02-23,64.0,Kennedale,Tarrant,,warn_tx.json
+TX,Daifuku Services America Corp.,2024-02-26,38.0,Carrollton,Dallas,,warn_tx.json
+TX,Frontpoint LLC. (Primary Home Health Care),2024-02-26,53.0,Arlington,Tarrant,,warn_tx.json
+TX,Expedia Group Inc. (Austin),2024-02-27,64.0,Austin,Travis,,warn_tx.json
+TX,"Ironhorse Funding, LLC.",2024-02-29,9.0,Irving,Dallas,,warn_tx.json
+TX,Denbury Inc,2024-02-29,111.0,Plano,Collin,,warn_tx.json
+TX,"Gulf Stevedoring Services, LLC",2024-03-04,29.0,Galveston,Galveston,,warn_tx.json
+TX,Phoenix Assurance,2024-03-06,25.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Artic Slope Mission Services',2024-03-06,70.0,El Paso,El Paso,,warn_tx.json
+TX,"Tramontina USA, Inc.",2024-03-08,62.0,Sugar Land,Fort Bend,,warn_tx.json
+TX,"Rooster Teeth Production, LLC",2024-03-11,133.0,Austin,Travis,,warn_tx.json
+TX,Signify North America Corporation - Genlyte Thomas LLC,2024-03-14,109.0,San Marcos,Hays,,warn_tx.json
+TX,Stanley Black and Decker,2024-03-14,127.0,Mission,Hidalgo,,warn_tx.json
+TX,Kroger Fulfillment Network LLC-Austin,2024-03-26,52.0,Austin,Travis,,warn_tx.json
+TX,Kroger Fulfillment Network LLC-San Antonio,2024-03-27,73.0,San Antonio,Bexar,,warn_tx.json
+TX,Davies UC LLC,2024-03-28,3.0,Austin,Travis,,warn_tx.json
+TX,"Nosco, Inc.",2024-04-03,51.0,Carrollton,Dallas,,warn_tx.json
+TX,"Rooster Teeth Productions, LLC II",2024-04-04,6.0,Austin,Travis,,warn_tx.json
+TX,Kohler Co.,2024-04-16,93.0,Brownwood,Brown,,warn_tx.json
+TX,Joyson Safety Systems,2024-04-17,108.0,San Antonio,Bexar,,warn_tx.json
+TX,Tesla,2024-04-23,2688.0,Austin,Travis,,warn_tx.json
+TX,Expedia Group Inc. (Austin),2024-04-23,84.0,Austin,Travis,,warn_tx.json
+TX,"Soil Organic, Inc.",2024-04-25,61.0,Rice,Navarro,,warn_tx.json
+TX,"Arnold Transportation Services, Inc",2024-04-30,157.0,Grand Prairie,Dallas,,warn_tx.json
+TX,Denbury Inc.,2024-05-02,3.0,Plano,Collin,,warn_tx.json
+TX,Baylor Scott & White Institute for Rehabilitation-Home Health,2024-05-02,81.0,Flower Mound,Denton,,warn_tx.json
+TX,Select Specialty Hospital Longview-Select Medical Corporation,2024-05-02,94.0,Longview,Gregg,,warn_tx.json
+TX,TATA Consultancy Services Limited 2024,2024-05-02,94.0,Irving,Dallas,,warn_tx.json
+TX,"Careismatic Brands, Inc.",2024-05-02,202.0,Dallas,Dallas,,warn_tx.json
+TX,Aramark Baylor (2100 River Street),2024-05-02,64.0,Waco,McLennan,,warn_tx.json
+TX,Aramark Baylor(1919 S.First Street),2024-05-02,691.0,Waco,McLennan,,warn_tx.json
+TX,GoldStar Transit(Robinson Independent School District),2024-05-02,500.0,Robinson,McLennan,,warn_tx.json
+TX,TATA Consultancy Services Limited 2024(Austin),2024-05-02,21.0,Austin,Williamson,,warn_tx.json
+TX,E4D Technologies,2024-05-02,67.0,Richardson,Collin,,warn_tx.json
+TX,Westlake Royal Building Products,2024-05-02,260.0,Carrollton,Dallas,,warn_tx.json
+TX,Allied Universal Security Services (Wadsworth),2024-05-03,173.0,Wadsworth,Matagorda,,warn_tx.json
+TX,"Arkane Studios, LLC.",2024-05-07,96.0,Austin,Travis,,warn_tx.json
+TX,"Rarefied Atmosphere, Inc",2024-05-14,106.0,Austin,Travis,,warn_tx.json
+TX,GoldStar Transit (Waco ISD),2024-05-15,94.0,Waco,McLennan,,warn_tx.json
+TX,VSPOne Dallas,2024-05-17,14.0,Lewisville,Denton,,warn_tx.json
+TX,Walmart (Munger Blvd.),2024-05-20,1266.0,Dallas,Dallas,,warn_tx.json
+TX,Walmart (Carrollton),2024-05-21,206.0,Carrollton,Dallas,,warn_tx.json
+TX,Unleashed Brands (Towson),2024-05-23,48.0,Bedford,Tarrant,,warn_tx.json
+TX,Dallas Morning News North Plant,2024-05-30,85.0,Plano,Collin,,warn_tx.json
+TX,Southwest Airlines  (Terminal Rd),2024-05-31,97.0,Houston,Harris,,warn_tx.json
+TX,"Zachry Industrial, Inc. (Sabine Pass)",2024-06-03,4072.0,Sabine Pass,Jefferson,,warn_tx.json
+TX,"Zachry Industrial, Inc.(Orange)",2024-06-03,16.0,Orange,Orange,,warn_tx.json
+TX,"Zachry Industrial, Inc.(Beaumont)",2024-06-03,15.0,Beaumont,Jefferson,,warn_tx.json
+TX,"Zachry Industrial, Inc. (Baytown)",2024-06-03,307.0,Baytown,Harris,,warn_tx.json
+TX,99 Cents Only Store LLC. (Conroe),2024-06-03,20.0,Conroe,Montgomery,,warn_tx.json
+TX,99 Cents Only Store LLC (El Paso),2024-06-03,20.0,El Paso,El Paso,,warn_tx.json
+TX,99 Cents Only Store LLC (Katy),2024-06-03,20.0,Katy,Harris,,warn_tx.json
+TX,Kaiser Aluminum - Sherman,2024-06-04,75.0,Sherman,Grayson,,warn_tx.json
+TX,99 Cents Only Store LLC (Waco),2024-06-04,20.0,Waco,McLennan,,warn_tx.json
+TX,99 Cents Only Stores - Houston - 4,2024-06-04,20.0,Houston,Harris,,warn_tx.json
+TX,99 Cents Only Stores - San Antonio,2024-06-04,20.0,San Antonio,Bexar,,warn_tx.json
+TX,99 Cents Only Store LLC (Pasadena),2024-06-04,20.0,Pasadena,Harris,,warn_tx.json
+TX,99 Cents Only Store LLC (Mcallen),2024-06-04,20.0,McAllen,Hidalgo,,warn_tx.json
+TX,99 Cents Only Store LLC (Rosenberg),2024-06-04,20.0,Rosenberg,Fort Bend,,warn_tx.json
+TX,99 Cents Only Store LLC (Walzem),2024-06-04,20.0,San Antonio,Bexar,,warn_tx.json
+TX,99 Cents Only Store LLC (Katy#2),2024-06-04,20.0,Katy,Harris,,warn_tx.json
+TX,"Intrepid U.S.A., Inc.",2024-06-10,102.0,Dallas,Dallas,,warn_tx.json
+TX,Hunter Douglas Fabrication Company (Custom Brands Group) Updated,2024-06-11,53.0,McKinney,Collin,,warn_tx.json
+TX,Coach USA (Kerrvile Bus Company),2024-06-12,50.0,San Antonio,Bexar,,warn_tx.json
+TX,Target Hospitality (Dilley South Texas Family Residential Center),2024-06-13,95.0,Dilley,Frio,,warn_tx.json
+TX,Charter Communications (Austin),2024-06-14,230.0,Austin,Travis,,warn_tx.json
+TX,CoreCivic (South Texas Family Residential Center),2024-06-14,433.0,Dilley,Frio,,warn_tx.json
+TX,Compass Group / Fresh & Ready Foods,2024-06-17,65.0,Dallas,Dallas,,warn_tx.json
+TX,HII Mission Technologies (HII Defense and Federal Solutions),2024-06-20,57.0,San Antonio,Bexar,,warn_tx.json
+TX,"Ardagh Glass Packaging, Inc.",2024-06-24,220.0,Houston,Harris,,warn_tx.json
+TX,Southeast Service Corporation Services For Education,2024-06-25,95.0,Kingsville,Kleberg,,warn_tx.json
+TX,New Options Sports,2024-06-27,45.0,Farmers Branch,Dallas,,warn_tx.json
+TX,"Zachry Industrial, Inc. (Baytown) Updated",2024-06-30,28.0,Baytown,Chambers,,warn_tx.json
+TX,"Zachry Industrial, Inc. (Sabine Pass) Updated",2024-06-30,33.0,Sabine Pass,Jefferson,,warn_tx.json
+TX,"Zachry Industrial, Inc. (Orange) Updated",2024-06-30,32.0,Orange,Orange,,warn_tx.json
+TX,"Zachry Industrial, Inc. (Beaumont) Updated",2024-06-30,33.0,Beaumont,Jefferson,,warn_tx.json
+TX,"ISS Action, Inc.",2024-07-03,197.0,Harlingen,Cameron,,warn_tx.json
+TX,ShipBob Inc. (Grapevine),2024-07-05,48.0,Grapevine,Dallas,,warn_tx.json
+TX,ShipBob Inc. (Dallas Hub),2024-07-05,3.0,Dallas,Dallas,,warn_tx.json
+TX,DHL Supply Chain (Carrollton),2024-07-17,104.0,Carrollton,Dallas,,warn_tx.json
+TX,"RXO Last Mile, Inc. (Greens Parkway)",2024-07-17,27.0,Houston,Harris,,warn_tx.json
+TX,Vectrus Systems Corporation(V2X) Sheppard Air Force Base,2024-07-17,123.0,Wichita Falls,Archer,,warn_tx.json
+TX,Master WoodCraft Cabinetry (Marshall),2024-07-18,298.0,Marshall,Harrison,,warn_tx.json
+TX,Master WoodCraft Cabinetry (Jefferson),2024-07-18,76.0,Jefferson,Marion,,warn_tx.json
+TX,Golden Pass LNG Export Terminal (Sunbelt Rentals),2024-07-18,277.0,Port Arthur,Jefferson,,warn_tx.json
+TX,"STG International, Inc.",2024-07-18,107.0,Dilley,Frio,,warn_tx.json
+TX,Pitney Bowes Inc.(Austin),2024-07-23,12.0,Austin,Travis,,warn_tx.json
+TX,Pitney Bowes Inc.(Irving),2024-07-23,2.0,Irving,Dallas,,warn_tx.json
+TX,"GEODIS Logistics, LLC (Casestack)",2024-07-25,76.0,Grand Prairie,Tarrant,,warn_tx.json
+TX,Quality Custom Distribution,2024-07-25,57.0,Schertz,Bexar,,warn_tx.json
+TX,"BIMBO Bakeries USA, Inc.",2024-07-26,138.0,San Antonio,Bexar,,warn_tx.json
+TX,Holiday Inn Club Vacations Incorporated,2024-07-26,54.0,Galveston,Galveston,,warn_tx.json
+TX,SunPower Corporation (Waterford),2024-07-29,6.0,Austin,Travis,,warn_tx.json
+TX,Exxon Mobile (Las Colinas Office),2024-08-01,39.0,Irving,Dallas,,warn_tx.json
+TX,Exxon Mobil (Big Lake),2024-08-01,2.0,Big Lake,Reagan,,warn_tx.json
+TX,Exxon Mobil (Midland #1),2024-08-05,1.0,Midland,Midland,,warn_tx.json
+TX,Exxon Mobil (Midland #2),2024-08-05,7.0,Midland,Midland,,warn_tx.json
+TX,Exxon Mobil (Midland #3),2024-08-05,10.0,Midland,Midland,,warn_tx.json
+TX,MII Technologies (AOUSC),2024-08-06,57.0,San Antonio,Bexar,,warn_tx.json
+TX,Conn's Appliances (Beaumont Site),2024-08-07,32.0,Beaumont,Jefferson,,warn_tx.json
+TX,Conn's Appliances (Woodlands Site),2024-08-07,183.0,Beaumont,Jefferson,,warn_tx.json
+TX,Conn's Appliances (San Antonio),2024-08-07,36.0,San Antonio,Bexar,,warn_tx.json
+TX,"Fleco Industries, LLC",2024-08-07,174.0,Carrollton,Dallas,,warn_tx.json
+TX,The Gunter Hotel San Antonio,2024-08-07,75.0,San Antonio,Bexar,,warn_tx.json
+TX,Seton Medical Center,2024-08-08,15.0,Austin,Travis,,warn_tx.json
+TX,Seton Medical Center Hays,2024-08-08,16.0,Kyle,Hays,,warn_tx.json
+TX,Seton Highland Lakes Hospital,2024-08-08,15.0,Burnet,Burnet,,warn_tx.json
+TX,Seton Northwest Hospital,2024-08-08,16.0,Austin,Travis,,warn_tx.json
+TX,Seton Medical Center Williams,2024-08-08,15.0,Round Rock,Williamson,,warn_tx.json
+TX,Seton Southwest Medical Center,2024-08-08,15.0,Austin,Travis,,warn_tx.json
+TX,Texas Children's Hosptal (Texas Medical Center),2024-08-08,997.0,Houston,Harris,,warn_tx.json
+TX,ABM Texas (TCC Northeast),2024-08-08,23.0,Hurst,Tarrant,,warn_tx.json
+TX,ABM Texas (TCC Northwest),2024-08-08,23.0,Fort Worth,Tarrant,,warn_tx.json
+TX,ABM Texas (TCC South),2024-08-08,23.0,Fort Worth,Tarrant,,warn_tx.json
+TX,ABM Texas (TCC Southeast),2024-08-08,23.0,Arlington,Tarrant,,warn_tx.json
+TX,ABM Texas (TCC Trinity),2024-08-08,23.0,Fort Worth,Tarrant,,warn_tx.json
+TX,"Arbor E & T, LLC Equus Workforce Solutions San Marcos Office",2024-08-12,17.0,San Marcos,Hays,,warn_tx.json
+TX,"Arbor E & T, LLC Equus Workforce Solutions Lockhart Office",2024-08-12,3.0,Lockhart,Caldwell,,warn_tx.json
+TX,"Arbor E & T, LLC Equus Workforce Solutions Bastrop Office",2024-08-12,8.0,Bastrop,Bastrop,,warn_tx.json
+TX,"Arbor E & T, LLC Equus Workforce Solutions Giddings Office",2024-08-12,3.0,Giddings,Lee,,warn_tx.json
+TX,"Arbor E & T, LLC Equus Workforce Solutions La Grange Office",2024-08-12,1.0,La Grange,Fayette,,warn_tx.json
+TX,"Arbor E&T, LLC Equus Workforce Solutions Round Rock",2024-08-12,26.0,Round Rock,Williamson,,warn_tx.json
+TX,"Arbor E & T, LLC Equus Workforce Solutions Burnet",2024-08-12,6.0,Burnet,Burnet,,warn_tx.json
+TX,"Arbor E & T, LLC Equus Workforce Solutions Llano Satellite Office",2024-08-12,1.0,Llano,Llano,,warn_tx.json
+TX,"Arbor E & T, LLC Equus Workforce Solutions Johnson City Satellite Office",2024-08-12,1.0,Johnson City,Blanco,,warn_tx.json
+TX,"Arbor E & T, LLC Equus Workforce Solutions Bartlett Satellite Office",2024-08-12,1.0,Bartlett,Williamson,,warn_tx.json
+TX,"Arbor E & T, LLC Equus Workforce Solutions Taylor Satellite Office",2024-08-12,1.0,Taylor,Williamson,,warn_tx.json
+TX,"INVISTA (Orange) Nylon Chemicals Americas, LLC",2024-08-12,75.0,Orange,Orange,,warn_tx.json
+TX,Landshark Bar & Grill,2024-08-12,18.0,San Antonio,Bexar,,warn_tx.json
+TX,Conn's HomePlus (Grand Prairie),2024-08-14,16.0,Grand Prairie,Dallas,,warn_tx.json
+TX,VSPOne Dallas (VSP Optical Group),2024-08-21,69.0,Lewisville,Denton,,warn_tx.json
+TX,Callaway Golf Interactive Inc,2024-08-27,28.0,Austin,Travis,,warn_tx.json
+TX,Signify North America Corporation-Genlyte Thomas LLC (Updated),2024-08-28,109.0,San Marcos,Hays,,warn_tx.json
+TX,"HCL America, Inc. (HCL Tech)",2024-08-30,43.0,Frisco,Collin,,warn_tx.json
+TX,Steward Health Care System,2024-09-04,43.0,Texarkana,Bowie,,warn_tx.json
+TX,"Basler Plastics, LLC",2024-09-04,41.0,San Marcos,Hays,,warn_tx.json
+TX,"Steward Medical Group, Inc.",2024-09-06,40.0,Richardson,Dallas,,warn_tx.json
+TX,Management & Training Corp. - MTC Medical LLC  (Giles W. Dalby Facility),2024-09-10,218.0,Post,Garza,,warn_tx.json
+TX,Southwestern Health Resources,2024-09-11,129.0,Farmers Branch,Dallas,,warn_tx.json
+TX,Southwest Key Program (Casa Trail House),2024-09-12,666.0,El Paso,El Paso,,warn_tx.json
+TX,Compass Group / Fresh & Ready Foods,2024-09-13,,Dallas,Dallas,,warn_tx.json
+TX,Laboratory Corporation of America Holdings,2024-09-16,132.0,Houston,Harris,,warn_tx.json
+TX,Expedia Group Inc. (Austin),2024-09-19,57.0,Austin,Travis,,warn_tx.json
+TX,Cygnus Home Services LLC. (San Antonio) Yelloh,2024-09-23,11.0,San Antonio,Bexar,,warn_tx.json
+TX,Cygnus Home Services LLC. (Lewisville) Yelloh,2024-09-23,25.0,Lewisville,Denton,,warn_tx.json
+TX,"Jabil, Inc.",2024-10-10,136.0,Richardson,Collin,,warn_tx.json
+TX,International Paper Company San Antonio,2024-10-10,89.0,San Antonio,Bexar,,warn_tx.json
+TX,Intel Corporation,2024-10-16,251.0,Austin,Travis,,warn_tx.json
+TX,"National Fire & Safety, Inc",2024-10-16,99.0,Dallas,Dallas,,warn_tx.json
+TX,MP2 Energy LLC (Shell Energy),2024-10-16,103.0,Houston,Harris,,warn_tx.json
+TX,DENNIS Uniform,2024-10-22,139.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Wolfspeed,2024-10-23,73.0,Farmers Branch,Dallas,,warn_tx.json
+TX,"True Value Company, L.L.C.",2024-10-23,107.0,Corsicana,Navarro,,warn_tx.json
+TX,Sodexo (Alcon Labs),2024-10-24,70.0,Fort Worth,Tarrant,,warn_tx.json
+TX,DHL Supply Chain (Missouri City 2024),2024-10-29,43.0,Missouri City,Fort Bend,,warn_tx.json
+TX,DHL Supply Chain (Sugar Land 2024),2024-10-29,10.0,Sugar Land,Fort Bend,,warn_tx.json
+TX,Marathon Oil Corporation,2024-10-29,500.0,Houston,Harris,,warn_tx.json
+TX,Alcom LLC,2024-10-30,83.0,Waco,McLennan,,warn_tx.json
+TX,"WIT Services Co., LLC",2024-11-05,15.0,Stephenville,Erath,,warn_tx.json
+TX,"Paragon Industries, Inc.",2024-11-05,70.0,Stephenville,Erath,,warn_tx.json
+TX,Exxon Mobile (Las Colinas Office),2024-11-12,376.0,Irving,Dallas,,warn_tx.json
+TX,Kuehne + Nagel (KN),2024-11-12,68.0,Lewisville,Denton,,warn_tx.json
+TX,Exxon Mobil (Midland #1),2024-11-12,9.0,Midland,Midland,,warn_tx.json
+TX,Exxon Mobil (Midland #3),2024-11-12,9.0,Midland,Midland,,warn_tx.json
+TX,Advanced Auto Parts# 7776 (Plano),2024-11-18,12.0,Plano,Collin,,warn_tx.json
+TX,Advanced Auto Parts #7912 (Plano),2024-11-18,10.0,Plano,Collin,,warn_tx.json
+TX,Advanced Auto Parts# 7734 (Burleson),2024-11-18,1.0,Burleson,Johnson,,warn_tx.json
+TX,Advanced Auto Parts (Grand Prairie),2024-11-19,10.0,Grand Prairie,Dallas,,warn_tx.json
+TX,Advanced Auto Parts (Forest Hill),2024-11-19,9.0,Forest Hill,Tarrant,,warn_tx.json
+TX,Advanced Auto Parts (Mccart Ave.),2024-11-19,9.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Advanced Auto Parts (Josey Ln),2024-11-19,10.0,Dallas,Dallas,,warn_tx.json
+TX,Advanced Auto Parts (Camp Bowie),2024-11-19,11.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Advanced Auto Parts (Carroll Avenue),2024-11-19,8.0,Dallas,Dallas,,warn_tx.json
+TX,Advanced Auto Parts #6855 (Pearland),2024-11-19,10.0,Pearland,Brazoria,,warn_tx.json
+TX,Advanced Auto Parts (Garland),2024-11-19,10.0,Garland,Dallas,,warn_tx.json
+TX,Advanced Auto Parts # 8054 (Cypress),2024-11-19,12.0,Cypress,Harris,,warn_tx.json
+TX,Advanced Auto Parts # 8169 (Houston),2024-11-19,8.0,Houston,Harris,,warn_tx.json
+TX,Advanced Auto Parts # 7993 (Conroe),2024-11-19,6.0,Conroe,Montgomery,,warn_tx.json
+TX,Advanced Auto Parts # 8046 (Spring),2024-11-19,11.0,Spring,Montgomery,,warn_tx.json
+TX,Advanced Auto Parts # 8489 (Houston II),2024-11-19,7.0,Houston,Harris,,warn_tx.json
+TX,"SDH Service East, LLC",2024-11-25,166.0,San Antonio,Bexar,,warn_tx.json
+TX,Exxon Mobil Corporation (Big Lake) #1,2024-11-25,1.0,Big Lake,Reagan,,warn_tx.json
+TX,Exxon Mobil Corporation (Big Lake) #2,2024-11-25,2.0,Big Lake,Reagan,,warn_tx.json
+TX,TTEC Government Solutions,2024-12-04,650.0,Austin,Travis,,warn_tx.json
+TX,"Get Fresh Produce, LLC",2024-12-11,44.0,Houston,Harris,,warn_tx.json
+TX,United Language Group,2024-12-11,60.0,San Antonio,Bexar,,warn_tx.json
+TX,DallasNews Corporation,2024-12-11,75.0,Plano,Collin,,warn_tx.json
+TX,Stealth Monitoring,2024-12-18,29.0,Addison,Collin,,warn_tx.json
+TX,"Tenneco, Inc.",2024-12-27,140.0,El Paso,El Paso,,warn_tx.json
+TX,"ICON Technology, Inc.",2025-01-07,114.0,Austin,Travis,,warn_tx.json
+TX,Commanche Peak Nuclear Power Plant,2025-01-08,86.0,Glen Rose,Somervell,,warn_tx.json
+TX,Crothall Healthcare-Houston,2025-01-08,69.0,Houston,Harris,,warn_tx.json
+TX,"Scentsy, Inc.",2025-01-09,94.0,Coppell,Dallas,,warn_tx.json
+TX,RR Donnelley,2025-01-14,88.0,Nacogdoches,Nacogdoches,,warn_tx.json
+TX,"COSMAX NBT USA, INC #1",2025-01-14,80.0,Garland,Dallas,,warn_tx.json
+TX,Macy's - Houston (Almeda),2025-01-15,72.0,Houston,Harris,,warn_tx.json
+TX,"Chalk Mountain Services of Texas of Texas, LLC (Pleasanton)",2025-01-21,1.0,Pleasanton,Atascosa,,warn_tx.json
+TX,"Construction Specialties Platforn Holdings, LLC",2025-01-27,89.0,Denton,Denton,,warn_tx.json
+TX,S & B Engineers and Constructors (Eastman),2025-01-29,43.0,Longview,Gregg,,warn_tx.json
+TX,Allied Aviation-Southlake,2025-01-29,362.0,Southlake,Tarrant,,warn_tx.json
+TX,Manpower Group (Irving),2025-01-29,173.0,Irving,Dallas,,warn_tx.json
+TX,One TouchPoint,2025-01-30,43.0,Austin,Travis,,warn_tx.json
+TX,Syzygy Plasmonics,2025-02-05,58.0,Houston,Harris,,warn_tx.json
+TX,Syzygy Plasmonics (Kirby),2025-02-05,10.0,Houston,Harris,,warn_tx.json
+TX,"LX Pantos America, Inc.",2025-02-05,131.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Pathlight Property Management (OPVHHJV LLC),2025-02-05,192.0,Plano,Collin,,warn_tx.json
+TX,Hll Mission Technologies(Administrative Office of the US Courts (AOUSC),2025-02-05,56.0,San Antonio,Bexar,,warn_tx.json
+TX,Catholic Charities Archdiocese Of Galveston-Houston (Louisiana Street),2025-02-10,11.0,Houston,Harris,,warn_tx.json
+TX,Catholic Charities Archdiocese Of Galveston-Houston (Smith Street),2025-02-10,43.0,Houston,Harris,,warn_tx.json
+TX,Catholic Charities Archdiocese Of Galveston-Houston (Bering Drive),2025-02-10,58.0,Houston,Harris,,warn_tx.json
+TX,Catholic Charities Archdiocese Of Galveston-Houston (San Felipe),2025-02-10,8.0,Houston,Harris,,warn_tx.json
+TX,Animal Supply Co. LLC,2025-02-11,145.0,Grand Prairie,Tarrant,,warn_tx.json
+TX,Catholic Charities of Dallas (Refuge Resettlement Program),2025-02-11,63.0,Dallas,Dallas,,warn_tx.json
+TX,Propio Language Services,2025-02-11,40.0,San Antonio,Bexar,,warn_tx.json
+TX,Raices,2025-02-18,61.0,San Antonio,Bexar,,warn_tx.json
+TX,Southwest - Dallas Lovefield Airport,2025-02-19,626.0,Dallas,Dallas,,warn_tx.json
+TX,Neiman Marcus-One Marcus Square,2025-02-19,1.0,Dallas,Dallas,,warn_tx.json
+TX,Christus Health Santa Rosa Medical Center,2025-02-24,479.0,San Antonio,Bexar,,warn_tx.json
+TX,L3Harris Technologies (JAVA MAN Program),2025-02-24,179.0,Rockwall,Rockwall,,warn_tx.json
+TX,Houston Refining LP (2025),2025-02-25,345.0,Houston,Harris,,warn_tx.json
+TX,MVM,2025-02-26,247.0,El Paso,El Paso,,warn_tx.json
+TX,"MVM, Inc. (McAllen)",2025-02-26,132.0,McAllen,Hidalgo,,warn_tx.json
+TX,JELD -WEN -Coppell,2025-03-03,56.0,Coppell,Dallas,,warn_tx.json
+TX,"LUKE Holdings, Inc.(Laredo)",2025-03-03,73.0,Laredo,Webb,,warn_tx.json
+TX,"LUKE Holdings, Inc. (El Paso)",2025-03-03,227.0,El Paso,El Paso,,warn_tx.json
+TX,Pure Safety Group Inc. DBA Guardian Fall,2025-03-05,59.0,Houston,Harris,,warn_tx.json
+TX,"LUKE Holdings, Inc. (Del Rio)",2025-03-05,36.0,Del Rio,Val Verde,,warn_tx.json
+TX,"LUKE Holdings, Inc. (Donna)",2025-03-05,201.0,Donna,Hidalgo,,warn_tx.json
+TX,"LUKE Holdings, Inc (Eagle Pass)",2025-03-05,129.0,Eagle Pass,Maverick,,warn_tx.json
+TX,Ryder -Hutchins,2025-03-06,110.0,Hutchins,Dallas,,warn_tx.json
+TX,"Hatco, Inc",2025-03-06,68.0,Longview,Gregg,,warn_tx.json
+TX,"Catholic Charities, Diocese of Fort Worth, INC",2025-03-10,169.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Interfaith Ministries Of Greater Houston (Refugee Services Program),2025-03-11,101.0,Houston,Harris,,warn_tx.json
+TX,"De La Paz Cleaning and Rental Services, LLC (North Eagle Pass)",2025-03-11,60.0,Eagle Pass,Maverick,,warn_tx.json
+TX,"De La Paz Cleaning and Rental Services, LLC (Donna)",2025-03-11,125.0,Donna,Hidalgo,,warn_tx.json
+TX,"Centerra (Constellis, LLC)",2025-03-11,23.0,McAllen,Hidalgo,,warn_tx.json
+TX,Grocery Delivery E Services USA DBA Hello Fresh (Tarrant),2025-03-12,273.0,Grand Prairie,Tarrant,,warn_tx.json
+TX,Constellis LLC (Laredo Border Station),2025-03-12,121.0,Laredo,Webb,,warn_tx.json
+TX,Constellis LLC (Laredo #2),2025-03-12,30.0,Laredo,Webb,,warn_tx.json
+TX,Chewy Inc. Fullfillment Center,2025-03-12,674.0,Dallas,Dallas,,warn_tx.json
+TX,"De La Paz Cleaning and Rental Services, LLC (Laredo)",2025-03-12,142.0,Laredo,Webb,,warn_tx.json
+TX,Country Pure Foods,2025-03-12,60.0,Houston,Harris,,warn_tx.json
+TX,"C&S Family of Companies (GSC Wholesale, LLC)",2025-03-17,21.0,Houston,Harris,,warn_tx.json
+TX,"Church World Service, Inc.",2025-03-18,63.0,Houston,Harris,,warn_tx.json
+TX,"BH Security, LLC DBA Brinks Home",2025-03-19,61.0,Dallas,Dallas,,warn_tx.json
+TX,VF's Dickies Headquarters,2025-03-26,125.0,Fort Worth,Tarrant,,warn_tx.json
+TX,American Bar Association (ProBAR),2025-03-26,191.0,Harlingen,Cameron,,warn_tx.json
+TX,Waco Family Medicine (Meyer Center),2025-03-26,52.0,Waco,McLennan,,warn_tx.json
+TX,SouthState Bank,2025-03-26,141.0,McKinney,Collin,,warn_tx.json
+TX,Durhan School Services-Wichita Falls,2025-03-26,1.0,Wichita Falls,Archer,,warn_tx.json
+TX,Waco Family Medicine (Bell's Hill),2025-03-26,52.0,Waco,McLennan,,warn_tx.json
+TX,Waco Familly Medicine (MCC),2025-03-26,52.0,Waco,McLennan,,warn_tx.json
+TX,Southeast Service Corporation Services for Education (Georgetown ISD),2025-04-02,60.0,Georgetown,Williamson,,warn_tx.json
+TX,Envision Physician Services LLC,2025-04-02,120.0,San Antonio,Bexar,,warn_tx.json
+TX,Denali,2025-04-02,28.0,Plano,Collin,,warn_tx.json
+TX,Catholic Charities Archdiocese Of Galveston-Houston (Cabrini CFLA)San Felipe,2025-04-08,36.0,Houston,Harris,,warn_tx.json
+TX,Catholic Charities Archdiocese Of Galveston-Houston (Cabrini CFLA)Louisiana Street,2025-04-08,6.0,Houston,Harris,,warn_tx.json
+TX,Catholic Charities Archdiocese Of Galveston-Houston (Cabrini CFLA)Collins Road,2025-04-08,2.0,Richmond,Fort Bend,,warn_tx.json
+TX,Catholic Charities Archdiocese Of Galveston-Houston (Cabrini CFLA)South Loop West,2025-04-08,1.0,Houston,Harris,,warn_tx.json
+TX,US Cellular Corporation,2025-04-08,1.0,Wichita Falls,Archer,,warn_tx.json
+TX,"Movate, Inc.",2025-04-08,51.0,Temple,Bell,,warn_tx.json
+TX,Raices (April 2025),2025-04-08,159.0,San Antonio,Bexar,,warn_tx.json
+TX,MedStar Mobile Healthcare,2025-04-16,589.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Virtex Enterprises LP,2025-04-16,84.0,Austin,Travis,,warn_tx.json
+TX,"Graphic Solutions, Inc. (Spring Valley)",2025-04-23,64.0,Dallas,Dallas,,warn_tx.json
+TX,"Graphic Solutions, Inc (Welch Rd)",2025-04-23,2.0,Dallas,Dallas,,warn_tx.json
+TX,Graphic Solutuions Inc. (Farmers Branch),2025-04-23,5.0,Farmers Branch,Dallas,,warn_tx.json
+TX,PULAU Corporation,2025-04-30,64.0,Killeen,Bell,,warn_tx.json
+TX,Texas Central School Bus (Purnell),2025-04-30,174.0,Lewisville,Denton,,warn_tx.json
+TX,Texas Central School Bus (Mill),2025-04-30,131.0,Lewisville,Denton,,warn_tx.json
+TX,Texas Central School Bus (Cougar Alley),2025-04-30,155.0,The Colony,Denton,,warn_tx.json
+TX,Chick-Fil-A (N. Collins St. Plant),2025-05-01,10.0,Arlington,Tarrant,,warn_tx.json
+TX,Smurfikt Westrock Facility (ForneyTexas),2025-05-06,200.0,Forney,Kaufman,,warn_tx.json
+TX,Tom Thumb Store #3579,2025-05-06,75.0,Allen,Collin,,warn_tx.json
+TX,TRIGO (Tesla),2025-05-07,50.0,Austin,Travis,,warn_tx.json
+TX,Museum of Ice Cream,2025-05-08,38.0,Austin,Travis,,warn_tx.json
+TX,WSS (Foot Locker),2025-05-08,57.0,Houston,Harris,,warn_tx.json
+TX,International Paper Company(Edinburg),2025-05-14,63.0,Edinburg,Hidalgo,,warn_tx.json
+TX,International Paper Company (Edinburg W. Chapin),2025-05-14,64.0,Edinburg,Hidalgo,,warn_tx.json
+TX,International Paper Company (McAllen),2025-05-14,5.0,McAllen,Hidalgo,,warn_tx.json
+TX,Atria Wealth Solutions,2025-05-14,55.0,Houston,Fort Bend,,warn_tx.json
+TX,Chevron (Deauville Blvd),2025-05-16,185.0,Midland,Midland,,warn_tx.json
+TX,Chevron (S. County Rd.),2025-05-16,1.0,Midland,Midland,,warn_tx.json
+TX,Chevron (N. FM 1788),2025-05-16,14.0,Midland,Midland,,warn_tx.json
+TX,FedEx Supply Chain Logistics & Electronics (Ft. Worth),2025-05-20,305.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Child Care Associates,2025-05-21,93.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,Child Care Associates (Tucker),2025-05-21,7.0,Arlington,Tarrant,,warn_tx.json
+TX,Child Care Associates (Linda Kay),2025-05-21,15.0,Hurst,Tarrant,,warn_tx.json
+TX,Child Care Associates (Mansfield),2025-05-21,15.0,Mansfield,Tarrant,,warn_tx.json
+TX,Child Care Associates (Carson),2025-05-21,14.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Child Care Associates (Meachum),2025-05-21,15.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Child Care Associates (Reagan),2025-05-21,14.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Child Care Associates (Rosedale V),2025-05-21,16.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Child Care Associates (Diamond Road),2025-05-21,13.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Child Care Associates (Morris Foundation),2025-05-21,17.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Child Care Associates(North Fort Worth),2025-05-21,16.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Child Care Associates (Blanche),2025-05-21,17.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Child Care Associates (Arlington 2),2025-05-21,22.0,Arlington,Tarrant,,warn_tx.json
+TX,Child Care Associates (JA Hargrave),2025-05-21,19.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Child Care Associates (Everman),2025-05-21,9.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Sodexo (International Leadership TX),2025-05-21,165.0,Irving,Dallas,,warn_tx.json
+TX,F&S Produce West LLC,2025-05-21,225.0,Houston,Harris,,warn_tx.json
+TX,LACROIX,2025-05-27,7.0,El Paso,El Paso,,warn_tx.json
+TX,Texana Center (Building A) Airport Service Center,2025-05-28,27.0,Rosenberg,Fort Bend,,warn_tx.json
+TX,Texana Center (Building B) Airport Service Center,2025-05-28,25.0,Rosenberg,Fort Bend,,warn_tx.json
+TX,Texana Center El Campo Learning Center,2025-05-28,9.0,El Campo,Wharton,,warn_tx.json
+TX,Texana Center Glenn Lakes Group Home,2025-05-28,7.0,Missouri City,Fort Bend,,warn_tx.json
+TX,Texana Center North Street Group Home,2025-05-28,7.0,Rosenberg,Fort Bend,,warn_tx.json
+TX,Texana Center Aqua Vista Group,2025-05-28,4.0,Rosenberg,Fort Bend,,warn_tx.json
+TX,Texana Center Russeff Filed  Home,2025-05-28,5.0,Rosenberg,Fort Bend,,warn_tx.json
+TX,Texana Center Dovecoft Group Home,2025-05-28,6.0,Rosenberg,Fort Bend,,warn_tx.json
+TX,Texana Center Camden Landing Group Home,2025-05-28,5.0,Rosenberg,Fort Bend,,warn_tx.json
+TX,Texana Center Sunset Group Home,2025-05-28,8.0,Wharton,Wharton,,warn_tx.json
+TX,Texana Center Willowbend Group Home,2025-05-28,6.0,Wharton,Wharton,,warn_tx.json
+TX,Texana Center University Group Home,2025-05-28,5.0,Wharton,Wharton,,warn_tx.json
+TX,Texana Center Maude Group Home,2025-05-28,4.0,Wharton,Wharton,,warn_tx.json
+TX,Sunnova Energy Corporation,2025-06-03,,Houston,Harris,,warn_tx.json
+TX,JC Penney (Allaince Supply Chain),2025-06-03,296.0,Haslet,Tarrant,,warn_tx.json
+TX,XiFin,2025-06-04,87.0,Austin,Travis,,warn_tx.json
+TX,Eckerd Connects (David Carrasco Job Corps),2025-06-04,77.0,El Paso,El Paso,,warn_tx.json
+TX,Tom Thumb Store #3645 Plano,2025-06-11,75.0,Plano,Collin,,warn_tx.json
+TX,Randalls Store #1041,2025-06-11,102.0,Houston,Harris,,warn_tx.json
+TX,Movate Inc. (The Genesis Project),2025-06-11,26.0,Temple,Bell,,warn_tx.json
+TX,Lockheed Martin Corp. -Fort Bliss ATMP,2025-06-17,17.0,Fort Bliss,El Paso,,warn_tx.json
+TX,"Encino Energy, LLC",2025-06-18,121.0,Houston,Harris,,warn_tx.json
+TX,Tyson Foods (Fort Worth Distribution Center),2025-06-18,275.0,Fort Worth,Tarrant,,warn_tx.json
+TX,"Khoros, LLC.",2025-06-18,116.0,Austin,Travis,,warn_tx.json
+TX,Management & Training Corp. (Billy Moore Correctional Center),2025-06-20,109.0,Overton,Rusk,,warn_tx.json
+TX,Management & Training Corp. (Bradshaw State Jail),2025-06-20,172.0,Henderson,Rusk,,warn_tx.json
+TX,"Compass Group, Inc.d.b.a.Chartwells (Lancaster ISD)",2025-06-24,83.0,Lancaster,Dallas,,warn_tx.json
+TX,Management & Training Corporation (Willacy County State Jail),2025-06-24,166.0,Raymondville,Willacy,,warn_tx.json
+TX,Management & Training Corporation (Lindsey State Jail),2025-06-24,117.0,Jacksboro,Jack,,warn_tx.json
+TX,Management & Training Corporation (Kyle Correctional Center),2025-06-24,98.0,Kyle,Hays,,warn_tx.json
+TX,Management & Training Corporation (Gregory S. Coleman Unit),2025-06-24,135.0,Lockhart,Caldwell,,warn_tx.json
+TX,Management & Training Corporation (Bridgeport Correctional Facility),2025-06-24,103.0,Bridgeport,Wise,,warn_tx.json
+TX,International Business Machines-Coppell,2025-07-02,59.0,Coppell,Dallas,,warn_tx.json
+TX,Fed Ex Corporation (Garland),2025-07-02,81.0,Garland,Dallas,,warn_tx.json
+TX,Santa Maria Hostel,2025-07-02,41.0,Houston,Harris,,warn_tx.json
+TX,FedEx Corporation (Plano),2025-07-02,50.0,Plano,Collin,,warn_tx.json
+TX,Memorial Herman Health System Skilled Nursing Facility,2025-07-02,83.0,Houston,Harris,,warn_tx.json
+TX,TT Electronics Facility IRC (Plano),2025-07-02,75.0,Plano,Collin,,warn_tx.json
+TX,"Movate, Inc. (AT&T Project)",2025-07-08,71.0,Temple,Bell,,warn_tx.json
+TX,"GI Alliance Management, LLC",2025-07-09,25.0,Southlake,Denton,,warn_tx.json
+TX,Intel Corporation,2025-07-09,110.0,Austin,Travis,,warn_tx.json
+TX,Management & Training Corporation (Dominguez State Jail),2025-07-09,8.0,San Antonio,Bexar,,warn_tx.json
+TX,Management & Training Corporation (Gist State Jail),2025-07-09,6.0,Beaumont,Jefferson,,warn_tx.json
+TX,Management & Training Corporation (Hutchins State Jail),2025-07-09,8.0,Dallas,Dallas,,warn_tx.json
+TX,Management & Training Corporation (Lychner State Jail),2025-07-09,17.0,Humble,Harris,,warn_tx.json
+TX,Management & Training Corporation (Plane State Jail),2025-07-09,8.0,Dayton,Liberty,,warn_tx.json
+TX,Management & Training Corporation (Travis County State Jail),2025-07-09,4.0,Austin,Travis,,warn_tx.json
+TX,"Sodexo, Inc.and Affiliates (Texas Southern University)",2025-07-10,81.0,Houston,Harris,,warn_tx.json
+TX,International Paper Company(N. Closner Blvd.),2025-07-10,66.0,Edinburg,Hidalgo,,warn_tx.json
+TX,International Paper Company(W. Chaplin),2025-07-10,66.0,Edinburg,Hidalgo,,warn_tx.json
+TX,International Paper Company(N. 26th),2025-07-10,5.0,Edinburg,Hidalgo,,warn_tx.json
+TX,"AMERICA, INC., d/b/a LIXIL",2025-07-16,65.0,Grand Prairie,Tarrant,,warn_tx.json
+TX,SM Cargo,2025-07-21,194.0,Houston,Harris,,warn_tx.json
+TX,Chevron Corporation (HESS Corporation),2025-07-21,575.0,Houston,Harris,,warn_tx.json
+TX,Peraton Balloon Operations (NASA),2025-07-23,81.0,Palestine,Anderson,,warn_tx.json
+TX,Trinity Rail-Trinity Tank Car-Jordan Valley,2025-07-30,170.0,Longview,Gregg,,warn_tx.json
+TX,"Equus Workforce Solutions Arlington (Arbor E&T, LLC)",2025-07-30,4.0,Arlington,Tarrant,,warn_tx.json
+TX,"Equus Workforce Solutions Denton (Arbor E&T, LLC)",2025-07-30,27.0,Denton,Denton,,warn_tx.json
+TX,"Equus Workforce Solutions Greenville (Arbor E&T, LLC)",2025-07-30,9.0,Greenville,Hunt,,warn_tx.json
+TX,"Equus Workforce Solutions McKinney (Arbor E&T, LLC)",2025-07-30,15.0,McKinney,Collin,,warn_tx.json
+TX,"Equus Workforce Solutions Stephenville (Arbor E&T, LLC)",2025-07-30,2.0,Stephenville,Erath,,warn_tx.json
+TX,"Equus Workforce Solutions Terrell  (Arbor E&T, LLC)",2025-07-30,8.0,Terrell,Kaufman,,warn_tx.json
+TX,"Equus Workforce Solutions Weatherford (Arbor E&T, LLC)",2025-07-30,16.0,Weatherford,Parker,,warn_tx.json
+TX,"Equus Workforce Solutions-Camp Wisdom (Arbor E&T, LLC)",2025-07-31,1.0,Dallas,Dallas,,warn_tx.json
+TX,"Equus Workforce Solutions-N.Tenth St. (Arbor E&T, LLC)",2025-07-31,10.0,Garland,Dallas,,warn_tx.json
+TX,"Equus Workforce Solutions-Highway 161. (Arbor E&T, LLC)",2025-07-31,71.0,Grand Prairie,Dallas,,warn_tx.json
+TX,"Equus Workforce Solutions-Greenville Ave. (Arbor E&T, LLC)",2025-07-31,10.0,Dallas,Dallas,,warn_tx.json
+TX,"Equus Workforce Solutions-Irving Blvd. (Arbor E&T, LLC)",2025-07-31,13.0,Irving,Dallas,,warn_tx.json
+TX,"Equus Workforce Solutions-Alpha Rd.(Arbor E&T, LLC)",2025-07-31,17.0,Dallas,Dallas,,warn_tx.json
+TX,"Equus Workforce Solutions-Malcolm X Blvd.(Arbor E&T, LLC)",2025-07-31,16.0,Dallas,Dallas,,warn_tx.json
+TX,"Equus Workforce Solutions-Buckner Blvd.(Arbor E&T, LLC)",2025-07-31,16.0,Dallas,Dallas,,warn_tx.json
+TX,"Turner Industries (Paris, Texas September 2025)",2025-07-31,211.0,Paris,Lamar,,warn_tx.json
+TX,Planned Parenthood Gulf Coast (Prevention Park Facility),2025-07-31,114.0,Houston,Harris,,warn_tx.json
+TX,"Southwest Key Programs, Inc. (Casa Houston Reliant)",2025-07-31,211.0,Houston,Harris,,warn_tx.json
+TX,"Southwest Key Programs, Inc. (Houston HQ)",2025-07-31,11.0,Houston,Harris,,warn_tx.json
+TX,"Southwest Key Programs, Inc. (Casa Quetzal)",2025-07-31,309.0,Houston,Harris,,warn_tx.json
+TX,"Southwest Key Programs, Inc. (Casa Sunzal)",2025-07-31,223.0,Houston,Harris,,warn_tx.json
+TX,"Southwest Key Programs, Inc. (Casa Oasis)",2025-07-31,128.0,McAllen,Hidalgo,,warn_tx.json
+TX,"Southwest Key Programs, Inc. (Casa Sueno)",2025-07-31,93.0,Weslaco,Hidalgo,,warn_tx.json
+TX,"Southwest Key Programs, Inc. (Casa Montezuma)",2025-07-31,238.0,Channelview,Harris,,warn_tx.json
+TX,"Equus Workforce Solutions Houston Opertions- Acres Home (Arbor E&T, LLC)",2025-08-01,12.0,Houston,Harris,,warn_tx.json
+TX,"Equus Workforce Solutions Houston Opertions- Pearland (Arbor E&T, LLC)",2025-08-01,13.0,Pearland,Brazoria,,warn_tx.json
+TX,"Equus Workforce Solutions Houston Opertions- Westheimer Rd. (Arbor E&T, LLC)",2025-08-01,28.0,Houston,Harris,,warn_tx.json
+TX,UPS (Dallas Facility),2025-08-06,62.0,Dallas,Dallas,,warn_tx.json
+TX,"Solarcycle, Inc.",2025-08-06,70.0,Odessa,Ector,,warn_tx.json
+TX,"Southwest Key Programs, Inc. (SWK National Headquarters)",2025-08-06,45.0,Austin,Travis,,warn_tx.json
+TX,"Southwest Key Programs, Inc. La Esperanza)",2025-08-06,4.0,Brownsville,Cameron,,warn_tx.json
+TX,"Southwest Key Programs, Inc.(Casa Nueva Esperanza)",2025-08-06,9.0,Brownsville,Cameron,,warn_tx.json
+TX,"Southwest Key Programs, Inc.(South Texas HQ)",2025-08-06,13.0,Brownsville,Cameron,,warn_tx.json
+TX,"Southwest Key Programs, Inc. (Casa Franklin)",2025-08-06,1.0,El Paso,El Paso,,warn_tx.json
+TX,"Southwest Key Programs, Inc. (Casa Norma Linda)",2025-08-06,3.0,Los Fresnos,Cameron,,warn_tx.json
+TX,"Southwest Key Programs, Inc. (Casa Rio Grande)",2025-08-06,3.0,San Benito,Cameron,,warn_tx.json
+TX,"Southwest Key Programs, Inc. (Casa Canutillo)",2025-08-06,3.0,Canutillo,El Paso,,warn_tx.json
+TX,"CarOffer, LLC",2025-08-13,101.0,Addison,Dallas,,warn_tx.json
+TX,"Promises Behavioral Health, LLC",2025-08-18,58.0,Wimberley,Hays,,warn_tx.json
+TX,"Tech Werks, LLC (San Antonio)",2025-08-20,87.0,San Antonio,Bexar,,warn_tx.json
+TX,MPW Services,2025-08-27,82.0,Austin,Travis,,warn_tx.json
+TX,"Condair Operations, LLC",2025-09-03,51.0,Center,Shelby,,warn_tx.json
+TX,"Essendant Management Services, LLC",2025-09-04,92.0,Houston,Harris,,warn_tx.json
+TX,CyraCom International Inc.,2025-09-04,327.0,Houston,Harris,,warn_tx.json
+TX,"Hill & Smith, Inc.",2025-09-10,46.0,Garland,Dallas,,warn_tx.json
+TX,Accelore Group-Amazon Logistics (DDA9- Fort Worth),2025-09-17,107.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Accelore Group-Amazon Logistics (DDF2-Balch Springs),2025-09-17,107.0,Mesquite,Dallas,,warn_tx.json
+TX,Sunny Glen Children's Home,2025-09-18,424.0,Raymondville,Willacy,,warn_tx.json
+TX,Cottonwood Creek Healthcare Community,2025-09-24,70.0,Richardson,Dallas,,warn_tx.json
+TX,Spirit Airlines (IAH),2025-09-24,173.0,Houston,Harris,,warn_tx.json
+TX,"Kira Aerospace, LLC. (NBOC)",2025-09-25,6.0,Palestine,Anderson,,warn_tx.json
+TX,Spirit Airlines (W PGL Warehouse),2025-09-25,51.0,Irving,Dallas,,warn_tx.json
+TX,Texas Instruments  (DFAB),2025-09-29,163.0,Dallas,Dallas,,warn_tx.json
+TX,"DTSV, Inc. (ITC Federal)",2025-09-30,169.0,Irving,Dallas,,warn_tx.json
+TX,"Seatrium AmFELS, Inc.",2025-09-30,91.0,Brownsville,Cameron,,warn_tx.json
+TX,Urban Alchemy (Arch Shelter),2025-09-30,55.0,Austin,Travis,,warn_tx.json
+TX,Holiday Inn Club Vacations Incorporated-The Villages Resort,2025-09-30,82.0,Flint,Smith,,warn_tx.json
+TX,Urban Alchemy (8th Street Shelter),2025-09-30,54.0,Austin,Travis,,warn_tx.json
+TX,Memorial Hermann Health System Senior Living Facility,2025-10-01,26.0,Houston,Harris,,warn_tx.json
+TX,Yang Ming (America) Corporation,2025-10-01,118.0,Houston,Harris,,warn_tx.json
+TX,J & J Maintenance,2025-10-02,279.0,San Antonio,Bexar,,warn_tx.json
+TX,Southwest Key Programs-Casa Canutillo,2025-10-02,2.0,Canutillo,El Paso,,warn_tx.json
+TX,Southwest Key Programs-Casita Del Valle,2025-10-02,5.0,Clint,El Paso,,warn_tx.json
+TX,Southwest Key Programs-Casa Houston Reliant,2025-10-02,1.0,Houston,Harris,,warn_tx.json
+TX,Southwest Key Programs-Casa Montezuma,2025-10-02,1.0,Channelview,Harris,,warn_tx.json
+TX,Southwest Key Programs-Casa Norma Linda,2025-10-02,3.0,Los Fresnos,Cameron,,warn_tx.json
+TX,Southwest Key Programs-Casa Nueva Esperanza,2025-10-02,8.0,Brownsville,Cameron,,warn_tx.json
+TX,Southwest Key Programs-Casa Rio Grande,2025-10-02,3.0,San Benito,Cameron,,warn_tx.json
+TX,Southwest Key Programs-National Headquarters (Austin),2025-10-02,3.0,Austin,Travis,,warn_tx.json
+TX,Southwest Key Programs-STX Regional Headquarters,2025-10-02,12.0,Brownsville,Cameron,,warn_tx.json
+TX,Southwest Key Programs-Houston Headquarters,2025-10-02,10.0,Houston,Harris,,warn_tx.json
+TX,"Meadow Burke, LLC d/b/a Leviat",2025-10-08,75.0,Fort Worth,Tarrant,,warn_tx.json
+TX,"Lion Elastomers Orange, LLC (Orange Plant)",2025-10-08,113.0,Orange,Orange,,warn_tx.json
+TX,Creative Testing Solutions,2025-10-09,91.0,Austin,Travis,,warn_tx.json
+TX,"M & M Manufacturing, Inc.",2025-10-13,75.0,Houston,Harris,,warn_tx.json
+TX,Texas Instruments - Sherman,2025-10-15,19.0,Sherman,Grayson,,warn_tx.json
+TX,Eden Green Technology,2025-10-15,102.0,Cleburne,Johnson,,warn_tx.json
+TX,"Flagstone Foods, LLC (El Paso Plant)",2025-10-22,225.0,El Paso,El Paso,,warn_tx.json
+TX,Job1 USA (San Antonio),2025-10-23,18.0,San Antonio,Bexar,,warn_tx.json
+TX,Job1 USA (Houston),2025-10-23,13.0,Houston,Harris,,warn_tx.json
+TX,Job1 USA (Arlington),2025-10-28,31.0,Arlington,Tarrant,,warn_tx.json
+TX,Job1 USA (Fort Worth),2025-10-28,25.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Job1 USA (Haslet),2025-10-28,25.0,Haslet,Tarrant,,warn_tx.json
+TX,"Congo, LLC",2025-10-28,155.0,Lewisville,Denton,,warn_tx.json
+TX,Tekni-Plex (Dallas Facility),2025-10-29,64.0,Dallas,Dallas,,warn_tx.json
+TX,"Colonial Savings, F.A.",2025-10-29,130.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Wells Fargo & Co. (Lubbock),2025-10-29,225.0,Lubbock,Lubbock,,warn_tx.json
+TX,"Cherokee Nation System Solutions, L.L.C.",2025-10-29,87.0,Austin,Travis,,warn_tx.json
+TX,"Firebird Bulk Carriers, Inc. (Carrizo Springs)",2025-10-30,31.0,Carrizo Springs,Dimmit,,warn_tx.json
+TX,"Firebird Bulk Carriers, Inc. (Bryan)",2025-10-30,10.0,Bryan,Brazos,,warn_tx.json
+TX,Pure Hothouse Foods LLC,2025-10-30,80.0,San Antonio,Bexar,,warn_tx.json
+TX,"Firebird Bulk Carriers, Inc.(Dilley)",2025-10-31,6.0,Dilley,Frio,,warn_tx.json
+TX,"Firebird Bulk Carriers, Inc (Dayton)",2025-10-31,2.0,Dayton,Liberty,,warn_tx.json
+TX,"Natura PCR, LLC",2025-10-31,88.0,Waller,Harris,,warn_tx.json
+TX,"Firebird Bulk Carriers, Inc. (Victoria)",2025-11-04,3.0,Victoria,Victoria,,warn_tx.json
+TX,"Firebird Bulk Carriers, Inc. (George West)",2025-11-04,21.0,George West,Live Oak,,warn_tx.json
+TX,"Firebird Bulk Carriers, Inc.(Tarzan)",2025-11-04,1.0,Tarzan,Martin,,warn_tx.json
+TX,Apogee Architectural Metals,2025-11-05,58.0,Mesquite,Dallas,,warn_tx.json
+TX,AI Fleet,2025-11-06,56.0,Austin,Travis,,warn_tx.json
+TX,"Dillard's Inc.(Dillard's Texas Central, LLC)",2025-11-08,93.0,Plano,Collin,,warn_tx.json
+TX,DLH Solutions (Dallas CMOP),2025-11-12,298.0,Lancaster,Dallas,,warn_tx.json
+TX,Dometic Corporation,2025-11-14,54.0,Grand Prairie,Dallas,,warn_tx.json
+TX,"Couchbase, Inc.",2025-11-17,11.0,Austin,Travis,,warn_tx.json
+TX,Wood Group USA Inc.,2025-11-18,180.0,Freeport,Brazoria,,warn_tx.json
+TX,United Supermarkets,2025-11-19,126.0,Lubbock,Lubbock,,warn_tx.json
+TX,Huntington National Bank,2025-11-21,63.0,Dallas,Dallas,,warn_tx.json
+TX,"FedEx Supply Chain Logistics & Electrronics, Inc. (Coppell)",2025-11-25,856.0,Coppell,Dallas,,warn_tx.json
+TX,"Tyson Foods, Inc. (Amarillo B-Shift Operations",2025-11-26,1761.0,Amarillo,Potter,,warn_tx.json
+TX,Yang Ming (America) Corporation Updated,2025-12-02,105.0,Houston,Harris,,warn_tx.json
+TX,The Sheraton Arlington Hotel (Urbana Varro Hospitality Management),2025-12-02,110.0,Arlington,Tarrant,,warn_tx.json
+TX,"CRST Expedited, Inc. d/b/a CRST The Transportation Solution, Inc.",2025-12-03,1.0,Mansfield,Tarrant,,warn_tx.json
+TX,Grand Lux Café LLC,2025-12-03,83.0,Houston,Harris,,warn_tx.json
+TX,LeeMAH Electronics. Inc.,2025-12-10,84.0,Richardson,Dallas,,warn_tx.json
+TX,S&S Activewear,2025-12-10,146.0,Irving,Dallas,,warn_tx.json
+TX,ABM Texas General Services (SMU),2025-12-22,211.0,Dallas,Dallas,,warn_tx.json
+TX,"Telvista, Inc.",2025-12-26,110.0,Dallas,Tarrant,,warn_tx.json
+TX,FedEx Corporation Facility (Ft. Worth),2025-12-29,89.0,Ft. Worth,Tarrant,,warn_tx.json
+TX,ComericA Frisco Star Tower Facility,2026-01-07,184.0,Frisco,Denton,,warn_tx.json
+TX,Tessera Therapeutics,2026-01-07,2.0,Friendswood,Harris,,warn_tx.json
+TX,"Congo, LLC (Updated March 2026)",2026-01-09,31.0,Lewisville,Denton,,warn_tx.json
+TX,Francesca's (Houston),2026-01-14,202.0,Houston,Harris,,warn_tx.json
+TX,"Tyson Foods, Inc (Amarillo B-Shift Operations) Updated",2026-01-20,1761.0,Amarillo,Potter,,warn_tx.json
+TX,Future Proof Brands LLC (Austin),2026-01-21,158.0,Austin,Travis,,warn_tx.json
+TX,Power Plug Inc. (Houston Manufacturing Company),2026-01-23,74.0,Houston,Harris,,warn_tx.json
+TX,Cardone Industries-Harlingen,2026-01-28,41.0,Harlingen,Cameron,,warn_tx.json
+TX,Cardone Industries-Arlington,2026-01-28,87.0,Arlington,Tarrant,,warn_tx.json
+TX,Fresenius USA Manufacturing,2026-01-28,67.0,Coppell,Dallas,,warn_tx.json
+TX,Compass Connections,2026-01-29,148.0,Harlingen,Cameron,,warn_tx.json
+TX,Janus International Group,2026-02-02,113.0,Houston,Harris,,warn_tx.json
+TX,Helpful Hands Inc. Joint Base San Antonio-Lackland,2026-02-02,96.0,San Antonio,Bexar,,warn_tx.json
+TX,Expedia Group Inc. (Austin),2026-02-03,100.0,Austin,Travis,,warn_tx.json
+TX,HGS Solutions,2026-02-04,92.0,El Paso,El Paso,,warn_tx.json
+TX,"First Brands Group, LLC",2026-02-04,87.0,Arlington,Tarrant,,warn_tx.json
+TX,"Empower Clinic Services, LLC",2026-02-04,57.0,Houston,Harris,,warn_tx.json
+TX,Randalls #3067,2026-02-09,94.0,Houston,Harris,,warn_tx.json
+TX,Comerica Bank(Frisco Star Tower Facility),2026-02-11,54.0,Frisco,Denton,,warn_tx.json
+TX,Walgreens (Greens Rd.),2026-02-18,159.0,Houston,Harris,,warn_tx.json
+TX,Stockyards Hotel and H3 Ranch,2026-02-19,120.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Bluum USA Inc.,2026-02-19,60.0,Irving,Dallas,,warn_tx.json
+TX,"Main Street Sports Group, LLC.",2026-02-19,18.0,The Woodlands,Montgomery,,warn_tx.json
+TX,"Campbell Soup Supply Company, LLC",2026-03-03,205.0,Paris,Lamar,,warn_tx.json
+TX,"First Brands Group, LLC(Billy Mitchell)",2026-03-04,345.0,Brownsville,Cameron,,warn_tx.json
+TX,"First Brands Group, LLC. (Titan Dist. Center)",2026-03-04,183.0,Brownsville,Cameron,,warn_tx.json
+TX,First Brands Group LLC. (ASC Facility),2026-03-04,43.0,Brownsville,Cameron,,warn_tx.json
+TX,Ashley Furniture Industries (Mesquite),2026-03-05,266.0,Mesquite,Dallas,,warn_tx.json
+TX,Saks & Company LLC (Saks Fifth Avenue - San Antonio),2026-03-06,71.0,San Antonio,Bexar,,warn_tx.json
+TX,Albertsons #106 (Euless),2026-03-25,82.0,Euless,Tarrant,,warn_tx.json
+TX,Albertsons #4286 (W. Freeway),2026-03-25,56.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Tempus Holding INC. d/b/a The Lodge Card Club,2026-03-26,144.0,Round Rock,Travis,,warn_tx.json
+TX,Endeavors Eagle Lake Children's Center (Eagle Lake),2026-03-26,88.0,Eagle Lake,Colorado,,warn_tx.json
+TX,"CPLC Texas, Inc. (Magnolia ORR Site)",2026-03-26,56.0,Los Fresnos,Cameron,,warn_tx.json
+TX,"Compass Group USA, Inc. (d/b/a Chartwell's Higher Education (Texas State University)",2026-03-31,183.0,San Marcos,Hays,,warn_tx.json
+TX,Hyatt Regency (South Congress Hotel),2026-03-31,126.0,Austin,Travis,,warn_tx.json
+TX,DSV Contract Logistics (3PL Logistics Facility),2026-04-02,391.0,Wilmer,Dallas,,warn_tx.json
+TX,"Sodexo (SDH Services East, LLC) HCA Kingwood",2026-04-06,81.0,Kingwood,Harris,,warn_tx.json
+TX,"Sodexo (SDH Services East, LLC) HCA Clear Lake",2026-04-06,86.0,Webster,Harris,,warn_tx.json
+TX,"Sodexo (SDH Services East, LLC) HCA Women's Hospital of Texas",2026-04-06,66.0,Houston,Harris,,warn_tx.json
+TX,"Sodexo (SDH Services East, LLC) HCA Southeast Texas Medical Center",2026-04-06,63.0,Pasadena,Harris,,warn_tx.json
+TX,"Ampac Mobile Holdings, LLC (ProAmpac)",2026-04-08,52.0,Grand Prairie,Tarrant,,warn_tx.json
+TX,"T-Mobile USA, Inc.",2026-04-14,74.0,Austin,Travis,,warn_tx.json
+TX,Saddle Creek Corporation,2026-04-15,168.0,New Caney,Montgomery,,warn_tx.json
+TX,"Southern Mail Service, Inc.",2026-04-21,50.0,Houston,Harris,,warn_tx.json
+TX,"Republic National Distributing Company, LLC (Reyes Holdings, L.L.C) Austin",2026-04-23,164.0,Austin,Travis,,warn_tx.json
+TX,"Republic National Distributing Company, LLC (Reyes Holdings, L.L.C) Corpus Christie",2026-04-23,90.0,Corpus Ch,Nueces,,warn_tx.json
+TX,"Republic National Distributing Company, LLC (Reyes Holdings, L.L.C) Grand Prairie",2026-04-23,689.0,Grand Prairie,Tarrant,,warn_tx.json
+TX,"Republic National Distributing Company, LLC (Reyes Holdings, L.L.C) Houston",2026-04-23,588.0,Houston,Harris,,warn_tx.json
+TX,"Republic National Distributing Company, LLC (Reyes Holdings, L.L.C) San Antonio",2026-04-23,372.0,Schertz,Bexar,,warn_tx.json
+TX,"National Safety Apparel, LLC",2026-04-23,50.0,San Antonio,Bexar,,warn_tx.json
+TX,"FreshRealm, Inc.",2026-04-27,176.0,Lancaster,Dallas,,warn_tx.json
+TX,Laurel Ridge Treatment Center (Laurel Ridge),2026-04-27,648.0,San Antonio,Bexar,,warn_tx.json
+TX,"Sodexo (SDH Services East, LLC) Fort Worth Independent School District",2026-04-30,291.0,Fort Worth,Tarrant,,warn_tx.json
+TX,"Amcor Rigid Packaging USA, LLC",2026-05-01,56.0,Fort Worth,Tarrant,,warn_tx.json
+TX,Spirit Airlines (IAH) May 2026,2026-05-02,515.0,Houston,Harris,,warn_tx.json
+TX,Spirit Airlines (DFW) May 2026,2026-05-02,444.0,Dallas,Dallas,,warn_tx.json
+TX,"Compass Group USA, Inc. (d/b/a Chartwell's Higher Education (Texas Southern Univ.)",2026-05-14,88.0,Houston,Harris,,warn_tx.json
+TX,"Auzmet Architectural, LLC",2026-05-19,152.0,Dallas,Dallas,,warn_tx.json
+TX,Toshiba International Corporation,2026-05-29,67.0,Houston,Harris,,warn_tx.json
+TX,MW Components (Matthew Warren Inc's USA Fastner Facility),2026-06-04,53.0,Houston,Harris,,warn_tx.json
+TX,El Paso Independent School District,2026-06-08,250.0,El Paso,El Paso,,warn_tx.json
+TX,Alan Ritchey Incorporated,2026-06-08,232.0,Irving,Dallas,,warn_tx.json
+TX,"Remington Lodging and Hospitality, LLC (Hilton Houston NASA Clear Lake)",2026-06-09,65.0,Houston,Harris,,warn_tx.json
+TX,SAKS GLOBAL (Neiman Marcus),2026-06-12,67.0,Dallas,Dallas,,warn_tx.json
+TX,First Student (DeSoto I.S.D.),2026-06-12,74.0,De Soto,Dallas,,warn_tx.json
+TX,"Fortrex (John Soules Foods, Inc.)",2026-06-12,85.0,Tyler,Smith,,warn_tx.json
+TX,KUEHNE + NAGEL (KN) 2026,2026-06-16,90.0,Lewisville,Denton,,warn_tx.json
+TX,JPMorgan Chase & Co.,2026-06-23,244.0,Plano,Collin,,warn_tx.json

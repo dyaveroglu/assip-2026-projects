@@ -1,0 +1,247 @@
+naics4,industry,aiie,bucket
+1133,Logging,-1.360161,user
+1151,Support Activities for Crop Production,-2.165304,user
+1152,Support Activities for Animal Production,-1.149307,user
+2111,Oil and Gas Extraction,0.6686154,user
+2121,Coal Mining,-1.146242,user
+2122,Metal Ore Mining,-0.8924032,user
+2123,Nonmetallic Mineral Mining and Quarrying,-1.037903,user
+2131,Support Activities for Mining,-0.9810408,user
+2211,"Electric Power Generation, Transmission and Distribution",0.2096187,user
+2212,Natural Gas Distribution,0.3453538,user
+2213,"Water, Sewage and Other Systems",-0.1564226,user
+2361,Residential Building Construction,-0.7602519,user
+2362,Nonresidential Building Construction,-0.6632232,user
+2371,Utility System Construction,-1.176381,user
+2372,Land Subdivision,0.5814018,user
+2373,"Highway, Street, and Bridge Construction",-1.296256,user
+2379,Other Heavy and Civil Engineering Construction,-1.104619,user
+2381,"Foundation, Structure, and Building Exterior Contractors",-1.757023,user
+2382,Building Equipment Contractors,-0.8320791,user
+2383,Building Finishing Contractors,-1.602616,user
+2389,Other Specialty Trade Contractors,-1.358564,user
+3111,Animal Food Manufacturing,-0.78914,user
+3112,Grain and Oilseed Milling,-0.7206286,user
+3113,Sugar and Confectionery Product Manufacturing,-0.7729946,user
+3114,Fruit and Vegetable Preserving and Specialty Food Manufacturing,-0.980808,user
+3115,Dairy Product Manufacturing,-0.8435335,user
+3116,Animal Slaughtering and Processing,-1.662866,user
+3117,Seafood Product Preparation and Packaging,-1.258223,user
+3118,Bakeries and Tortilla Manufacturing,-0.8015609,user
+3119,Other Food Manufacturing,-0.8538909,user
+3121,Beverage Manufacturing,-0.6586424,user
+3122,Tobacco Manufacturing,-0.8843057,user
+3131,"Fiber, Yarn, and Thread Mills",-1.587852,user
+3132,Fabric Mills,-1.114104,user
+3133,Textile and Fabric Finishing and Fabric Coating Mills,-0.4358472,user
+3141,Textile Furnishings Mills,-1.067818,user
+3149,Other Textile Product Mills,-0.561571,user
+3151,Apparel Knitting Mills,-1.272213,user
+3152,Cut and Sew Apparel Manufacturing,-0.6520287,user
+3159,Apparel Accessories and Other Apparel Manufacturing,-0.7916203,user
+3161,Leather and Hide Tanning and Finishing,-1.103977,user
+3162,Footwear Manufacturing,-0.5300771,user
+3169,Other Leather and Allied Product Manufacturing,-0.6799067,user
+3211,Sawmills and Wood Preservation,-1.421037,user
+3212,"Veneer, Plywood, and Engineered Wood Product Manufacturing",-1.13457,user
+3219,Other Wood Product Manufacturing,-1.146,user
+3221,"Pulp, Paper, and Paperboard Mills",-0.9502621,user
+3222,Converted Paper Product Manufacturing,-0.8241846,user
+3231,Printing and Related Support Activities,-0.2099964,user
+3241,Petroleum and Coal Products Manufacturing,-0.1959436,user
+3250,Chemical Manufacturing (3255 and 3256 only),-0.1203409,user
+3254,Pharmaceutical and Medicine Manufacturing,0.4637086,user
+3261,Plastics Product Manufacturing,-0.8657592,user
+3262,Rubber Product Manufacturing,-1.077709,user
+3270,Nonmetallic Mineral Product Manufacturing,-0.9656745,user
+3311,Iron and Steel Mills and Ferroalloy Manufacturing,-0.9913391,user
+3312,Steel Product Manufacturing from Purchased Steel,-0.9156145,user
+3313,Alumina and Aluminum Production and Processing,-1.022397,user
+3314,Nonferrous Metal (except Aluminum) Production and Processing,-0.7421725,user
+3315,Foundries,-1.078051,user
+3320,Fabricated Metal Product Manufacturing (3323 and 3324 only),-0.5005816,user
+3327,"Machine Shops; Turned Product; and Screw, Nut, and Bolt Manufacturing",-0.6099281,user
+3328,"Coating, Engraving, Heat Treating, and Allied Activities",-0.7753809,user
+3330,"Machinery Manufacturing (3331, 3332, 3334, and 3339 only)",-0.0746392,user
+3333,Commercial and Service Industry Machinery Manufacturing,0.3308995,user
+3335,Metalworking Machinery Manufacturing,-0.346932,user
+3336,"Engine, Turbine, and Power Transmission Equipment Manufacturing",0.1307197,user
+3341,Computer and Peripheral Equipment Manufacturing,1.596084,supplier
+3342,Communications Equipment Manufacturing,1.181725,user
+3343,Audio and Video Equipment Manufacturing,1.161132,user
+3344,Semiconductor and Other Electronic Component Manufacturing,0.6828295,supplier
+3345,"Navigational, Measuring, Electromedical, and Control Instruments Manufacturing",1.113945,user
+3346,Manufacturing and Reproducing Magnetic and Optical Media,0.1490236,user
+3351,Electric Lighting Equipment Manufacturing,0.5806971,user
+3352,Household Appliance Manufacturing,0.0281708,user
+3353,Electrical Equipment Manufacturing,0.332973,user
+3359,Other Electrical Equipment and Component Manufacturing,-0.0384073,user
+3361,Motor Vehicle Manufacturing,-0.3023474,user
+3362,Motor Vehicle Body and Trailer Manufacturing,-0.8058288,user
+3363,Motor Vehicle Parts Manufacturing,-0.5860924,user
+3364,Aerospace Product and Parts Manufacturing,0.5189539,user
+3365,Railroad Rolling Stock Manufacturing,-0.6623871,user
+3366,Ship and Boat Building,-0.6675431,user
+3369,Other Transportation Equipment Manufacturing,-0.1676746,user
+3370,Furniture and Related Product Manufacturing (3371 and 3372 only),-1.000794,user
+3379,Other Furniture Related Product Manufacturing,-0.5724769,user
+3391,Medical Equipment and Supplies Manufacturing,0.2301883,user
+3399,Other Miscellaneous Manufacturing,-0.068744,user
+4230,"Merchant Wholesalers, Durable Goods (4232, 4233, 4235, 4236, 4237, and 4239 only)",0.2424777,user
+4231,Motor Vehicle and Motor Vehicle Parts and Supplies Merchant Wholesalers,-0.1601646,user
+4234,Professional and Commercial Equipment and Supplies Merchant Wholesalers,1.041147,user
+4238,"Machinery, Equipment, and Supplies Merchant Wholesalers",0.2607571,user
+4240,"Merchant Wholesalers, Nondurable Goods (4244 and 4248 only)",-0.358483,user
+4243,"Apparel, Piece Goods, and Notions Merchant Wholesalers",0.6573116,user
+4245,Farm Product Raw Material Merchant Wholesalers,-0.7109669,user
+4251,Wholesale Electronic Markets and Agents and Brokers,0.9876717,user
+4411,Automobile Dealers,-0.1668894,user
+4412,Other Motor Vehicle Dealers,-0.1300993,user
+4413,"Automotive Parts, Accessories, and Tire Stores",-0.6871853,user
+4421,Furniture Stores,-0.0112289,user
+4422,Home Furnishings Stores,0.049807,user
+4431,Electronics and Appliance Stores,0.3619018,user
+4441,Building Material and Supplies Dealers,0.1045359,user
+4442,Lawn and Garden Equipment and Supplies Stores,-0.4641636,user
+4450,Food and Beverage Stores (4451 and 4452 only),-0.4066956,user
+4453,"Beer, Wine, and Liquor Stores",-0.0185797,user
+4461,Health and Personal Care Stores,0.3257251,user
+4471,Gasoline Stations,-0.3108229,user
+4481,Clothing Stores,0.2268381,user
+4482,Shoe Stores,0.2810808,user
+4483,"Jewelry, Luggage, and Leather Goods Stores",0.3828857,user
+4511,"Sporting Goods, Hobby, and Musical Instrument Stores",0.2090943,user
+4512,Book Stores and News Dealers,0.2499871,user
+4520,General Merchandise Stores,-0.007219,user
+4530,Miscellaneous Store Retailers (4532 and 4533 only),0.1663383,user
+4531,Florists,-0.3690017,user
+4539,Other Miscellaneous Store Retailers,0.00781,user
+4541,Electronic Shopping and Mail-Order Houses,0.6046838,user
+4542,Vending Machine Operators,-0.6646855,user
+4543,Direct Selling Establishments,-0.0433316,user
+4811,Scheduled Air Transportation,-0.4555449,user
+4812,Nonscheduled Air Transportation,0.1134526,user
+4821,Rail Transportation,-0.5922358,user
+4831,"Deep Sea, Coastal, and Great Lakes Water Transportation",-0.3280049,user
+4832,Inland Water Transportation,-0.8718479,user
+4840,Truck Transportation,-1.282191,user
+4851,Urban Transit Systems,-0.1201694,user
+4852,Interurban and Rural Bus Transportation,-0.0462207,user
+4853,Taxi and Limousine Service,1.369857,user
+4854,School and Employee Bus Transportation,0.076602,user
+4855,Charter Bus Industry,0.0093568,user
+4859,Other Transit and Ground Passenger Transportation,0.9623069,user
+4861,Pipeline Transportation of Crude Oil,-0.1340503,user
+4862,Pipeline Transportation of Natural Gas,-0.0901119,user
+4869,Other Pipeline Transportation,-0.0393555,user
+4871,"Scenic and Sightseeing Transportation, Land",0.4042215,user
+4872,"Scenic and Sightseeing Transportation, Water",-0.6679308,user
+4879,"Scenic and Sightseeing Transportation, Other",0.1866125,user
+4881,Support Activities for Air Transportation,-0.3353398,user
+4882,Support Activities for Rail Transportation,-1.474989,user
+4883,Support Activities for Water Transportation,-1.411064,user
+4884,Support Activities for Road Transportation,-0.9504591,user
+4885,Freight Transportation Arrangement,1.024609,user
+4889,Other Support Activities for Transportation,-1.105623,user
+4911,Postal Service (federal government),-1.314742,user
+4921,Couriers and Express Delivery Services,-1.150431,user
+4922,Local Messengers and Local Delivery,-1.182829,user
+4931,Warehousing and Storage,-1.59126,user
+5111,"Newspaper, Periodical, Book, and Directory Publishers",1.337831,substitution
+5112,Software Publishers,1.966309,supplier
+5121,Motion Picture and Video Industries,0.4026041,user
+5122,Sound Recording Industries,1.43428,user
+5151,Radio and Television Broadcasting,1.429625,user
+5152,Cable and Other Subscription Programming,1.098212,user
+5170,Telecommunications,0.2466103,user
+5182,"Data Processing, Hosting, and Related Services",1.74286,supplier
+5191,Other Information Services,1.749664,substitution
+5211,Monetary Authorities-Central Bank,1.770347,user
+5220,Credit Intermediation and Related Activities (5221 And 5223 only),1.888684,user
+5222,Nondepository Credit Intermediation,2.113345,user
+5230,"Securities, Commodity Contracts, and Other Financial Investments and Related Activities",2.218665,user
+5241,Insurance Carriers,2.058794,user
+5242,"Agencies, Brokerages, and Other Insurance Related Activities",2.120996,user
+5251,Insurance and Employee Benefit Funds,2.180309,user
+5259,Other Investment Pools and Funds,2.07022,user
+5310,Real Estate,0.5238351,user
+5320,"Rental and Leasing Services (5322, 5323, and 5324 only)",-0.2705971,user
+5321,Automotive Equipment Rental and Leasing,-0.1278947,user
+5331,Lessors of Nonfinancial Intangible Assets (except Copyrighted Works),1.911472,user
+5411,Legal Services,2.156741,substitution
+5412,"Accounting, Tax Preparation, Bookkeeping, and Payroll Services",2.215628,user
+5413,"Architectural, Engineering, and Related Services",1.492814,user
+5414,Specialized Design Services,1.280983,user
+5415,Computer Systems Design and Related Services,1.860226,user
+5416,"Management, Scientific, and Technical Consulting Services",1.8047,substitution
+5417,Scientific Research and Development Services,1.635407,user
+5418,"Advertising, Public Relations, and Related Services",1.305607,substitution
+5419,"Other Professional, Scientific, and Technical Services",0.6022445,user
+5511,Management of Companies and Enterprises,1.69871,user
+5611,Office Administrative Services,1.753769,user
+5612,Facilities Support Services,-1.008228,user
+5613,Employment Services,-0.7234654,substitution
+5614,Business Support Services,1.704965,user
+5615,Travel Arrangement and Reservation Services,1.68347,user
+5616,Investigation and Security Services,-0.3442498,user
+5617,Services to Buildings and Dwellings,-1.998597,user
+5619,Other Support Services,-0.4762704,user
+5621,Waste Collection,-1.332496,user
+5622,Waste Treatment and Disposal,-0.7965308,user
+5629,Remediation and Other Waste Management Services,-0.7835333,user
+6111,Elementary and Secondary Schools,1.315956,user
+6112,Junior Colleges,1.530079,user
+6113,"Colleges, Universities, and Professional Schools",1.456562,substitution
+6114,Business Schools and Computer and Management Training,1.741192,substitution
+6115,Technical and Trade Schools,0.947026,user
+6116,Other Schools and Instruction,0.6729133,substitution
+6117,Educational Support Services,1.605398,user
+6211,Offices of Physicians,1.009907,user
+6212,Offices of Dentists,0.4154884,user
+6213,Offices of Other Health Practitioners,0.7008373,user
+6214,Outpatient Care Centers,0.9686477,user
+6215,Medical and Diagnostic Laboratories,0.6741955,user
+6216,Home Health Care Services,0.6927072,user
+6219,Other Ambulatory Health Care Services,0.7869348,user
+6221,General Medical and Surgical Hospitals,0.5274962,user
+6222,Psychiatric and Substance Abuse Hospitals,0.5211326,user
+6223,Specialty (except Psychiatric and Substance Abuse) Hospitals,0.5900623,user
+6231,Nursing Care Facilities (Skilled Nursing Facilities),-0.2430007,user
+6232,"Residential Intellectual and Developmental Disability, Mental Health, and Substance Abuse Facilities",0.8572415,user
+6233,Continuing Care Retirement Communities and Assisted Living Facilities for the Elderly,-0.4843864,user
+6239,Other Residential Care Facilities,0.7190148,user
+6241,Individual and Family Services,1.163092,user
+6242,"Community Food and Housing, and Emergency and Other Relief Services",0.8514432,user
+6243,Vocational Rehabilitation Services,0.2863293,user
+6244,Child Day Care Services,0.0572718,user
+7111,Performing Arts Companies,0.1677087,user
+7112,Spectator Sports,-0.2576417,user
+7113,"Promoters of Performing Arts, Sports, and Similar Events",-0.1931654,user
+7114,"Agents and Managers for Artists, Athletes, Entertainers, and Other Public Figures",1.910984,user
+7115,"Independent Artists, Writers, and Performers",0.6088023,user
+7121,"Museums, Historical Sites, and Similar Institutions",0.380777,user
+7131,Amusement Parks and Arcades,-0.533819,user
+7132,Gambling Industries,-0.1355364,user
+7139,Other Amusement and Recreation Industries,-1.085068,user
+7211,Traveler Accommodation,-0.902616,user
+7212,RV (Recreational Vehicle) Parks and Recreational Camps,-0.404939,user
+7213,Rooming and Boarding Houses,-1.051392,user
+7223,Special Food Services,-1.060899,user
+7224,Drinking Places (Alcoholic Beverages),-0.99913,user
+7225,Restaurants and Other Eating Places,-1.171986,user
+8111,Automotive Repair and Maintenance,-1.094294,user
+8112,Electronic and Precision Equipment Repair and Maintenance,0.1066877,user
+8113,Commercial and Industrial Machinery and Equipment (except Automotive and Electronic) Repair and Maintenance,-0.7797639,user
+8114,Personal and Household Goods Repair and Maintenance,-0.7464604,user
+8121,Personal Care Services,-0.4751154,user
+8122,Death Care Services,-0.3155441,user
+8123,Drycleaning and Laundry Services,-1.148211,user
+8129,Other Personal Services,-0.7702041,user
+8131,Religious Organizations,0.9662193,user
+8132,Grantmaking and Giving Services,1.721215,user
+8133,Social Advocacy Organizations,1.194087,user
+8134,Civic and Social Organizations,-0.3505448,user
+8139,"Business, Professional, Labor, Political, and Similar Organizations",1.360341,user
+9991,Federal Executive Branch (OES Designation),1.076782,user
+9992,"State Government, excluding schools and hospitals (OES Designation)",0.7475519,user
+9993,"Local Government, excluding schools and hospitals (OES Designation)",-0.0143179,user
