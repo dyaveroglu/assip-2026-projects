@@ -1,0 +1,18 @@
+company,ticker,exchange,announce_date,award_usd_m,award_type,program,us_listed,adr,source
+Microchip Technology,MCHP,NASDAQ,2024-01-04,162,grant,CHIPS,1,0,commerce.gov/nist PMT press release 2024-01-04
+GlobalFoundries,GFS,NASDAQ,2024-02-19,1500,grant,CHIPS,1,0,commerce.gov/nist PMT press release 2024-02-19
+Intel,INTC,NASDAQ,2024-03-20,8500,grant+loan,CHIPS,1,0,nist.gov PMT press release 2024-03-20
+Taiwan Semiconductor (TSMC),TSM,NYSE,2024-04-08,6600,grant+loan,CHIPS,1,1,commerce.gov/nist PMT press release 2024-04-08 (US ADR)
+Micron Technology,MU,NASDAQ,2024-04-25,6140,grant+loan,CHIPS,1,0,commerce.gov/nist PMT press release 2024-04-25
+Rocket Lab (SolAero),RKLB,NASDAQ,2024-06-11,23.9,grant,CHIPS,1,0,commerce.gov PMT press release 2024-06-11 (SolAero subsidiary)
+Entegris,ENTG,NASDAQ,2024-06-26,77,grant,CHIPS,1,0,commerce.gov PMT press release 2024-06-26
+Amkor Technology,AMKR,NASDAQ,2024-07-26,407,grant,CHIPS,1,0,commerce.gov PMT press release 2024-07-26
+Texas Instruments,TXN,NASDAQ,2024-08-16,1600,grant+loan,CHIPS,1,0,commerce.gov/nist PMT press release 2024-08-16
+HP Inc,HPQ,NYSE,2024-08-27,53,grant,CHIPS,1,0,commerce.gov PMT press release 2024-08-27
+Wolfspeed,WOLF,NYSE,2024-10-15,750,grant+loan,CHIPS,1,0,commerce.gov PMT press release 2024-10-15
+Infinera,INFN,NASDAQ,2024-10-17,93,grant,CHIPS,1,0,commerce.gov PMT press release 2024-10-17 (Nokia deal pending)
+Corning,GLW,NYSE,2024-11-08,32,grant,CHIPS,1,0,commerce.gov PMT press release 2024-11-08
+SkyWater Technology,SKYT,NASDAQ,2024-12-06,16,grant,CHIPS,1,0,commerce.gov PMT press release 2024-12-06
+Coherent,COHR,NYSE,2024-12-06,112,grant,CHIPS,1,0,commerce.gov PMT press release 2024-12-06
+Analog Devices,ADI,NASDAQ,2025-01-16,105,grant,CHIPS,1,0,commerce.gov PMT press release 2025-01-16
+MACOM Technology,MTSI,NASDAQ,2025-01-14,70,grant,CHIPS,1,0,commerce.gov PMT press release 2025-01-14

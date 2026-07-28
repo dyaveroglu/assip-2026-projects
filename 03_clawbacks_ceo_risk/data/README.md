@@ -1,3 +1,8 @@
+> **Why this folder has no data files:** every input for this project is licensed from WRDS
+> (Compustat / CRSP / Execucomp / CCM), which may not be redistributed — so nothing is committed
+> here. As a registered GMU student you can pull it yourself: see `WRDS_ACCESS.md` at the repo
+> root and run this project's `code/00_*.py`. Sources are documented below.
+
 # Data for Project 03 — Clawbacks & CEO Risk-Taking
 
 **The `data/` folder is intentionally not published.** The analysis uses data licensed from
