@@ -47,11 +47,11 @@ Build `data/interim/event_calendar_verified.csv` (columns: `event`, `announce_da
 
 ## Task 2 — Hand-code true AI task exposure for 40--50 firms (Weeks 3--5) — PIVOTAL
 The paper's sign channel uses a crude NAICS rule (`supplier` / `substitution` / `user`).
-Replace it with hand judgment for the 40--50 largest firms in the high-exposure buckets.
+Replace it with hand judgment for the 40--50 largest firms in the high-exposure buckets. The firm list is `data/interim/firm_ai_intensity.csv` (ticker, naics4, and the `aiie` exposure score); the bucket for each industry is in `data/interim/naics_buckets.csv` (`bucket` column). Pick the highest-`aiie` firms to hand-code.
 - Open each firm's 10-K "Business" and "Risk Factors" sections. Decide, on a 0--2 scale,
   **(a) substitution**: can generative AI directly produce what this firm *sells*?
   **(b) complementarity**: does the firm deploy AI to cut its own costs or sell AI tools?
-- Record `data/interim/firm_exposure_handcoded.csv` (columns: `permno`, `ticker`,
+- Record `data/interim/firm_exposure_handcoded.csv` (columns: `ticker`,
   `sub_score`, `comp_score`, `one_line_rationale`, `evidence_quote`). Flag every case
   where your judgment disagrees with the NAICS bucket (e.g., is an IT-services firm like
   EPAM a supplier or a substitution victim?). **The AI will re-run the sign regression
@@ -62,7 +62,7 @@ The automated EDGAR crawl (650 firms; 34.8% mention AI; correlation with AIIE on
 counts AI terms with a regex. Spot-check 30 filings by hand:
 - Confirm the parsed document is the real 10-K body (not an exhibit index), and that AI
   mentions are substantive (a strategy discussion) vs boilerplate risk-factor language.
-- Record `data/interim/edgar_spotcheck.csv` (permno, accession, human_ai_mentions,
+- Record `data/interim/edgar_spotcheck.csv` (ticker, accession, human_ai_mentions,
   regex_ai_mentions, agree?). The modest 0.25 correlation may be measurement error you can
   reduce — any systematic gap is a finding.
 

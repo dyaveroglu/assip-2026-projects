@@ -22,12 +22,12 @@ deposits. That automation is *good enough for a first pass but known to be wrong
 specific, correctable ways*. Fixing them is your contribution.
 
 ## Task 1 — Hand-verify the ticker → holding-company crosswalk (Weeks 1–2)
-`data/interim/bank_reg_panel.csv` has one row per bank with `ticker`, `name` (regulatory),
-and `holder` (RSSD id). For the **40 largest banks**:
+`data/interim/crosswalk.csv` has one row per bank with `ticker`, `name` (regulatory),
+and `holder`. (The full WRDS panel `bank_reg_panel.csv` is not in this repo — it is WRDS-derived; pull it with your own GMU WRDS access if you need the balance-sheet columns.) For the **40 largest banks**:
 - Confirm the regulatory `name` actually matches the ticker's company (use the FFIEC
   National Information Center, https://www.ffiec.gov/npw, and the bank's investor page).
 - Flag any mismatch (wrong holding company, merged/renamed entity, wrong RSSD).
-- Record corrections in `data/interim/crosswalk_verified.csv` (columns: permno, ticker,
+- Record corrections in `data/interim/crosswalk_verified.csv` (columns: ticker, name,
   correct_rssd, note). **Log every check in `logs/student_log.md`.**
 
 ## Task 2 — Correctly aggregate multi-bank holding companies (Weeks 3–4)
