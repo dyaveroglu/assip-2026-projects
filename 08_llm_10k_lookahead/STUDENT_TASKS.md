@@ -55,9 +55,12 @@ depends on.
   machine missed. Start `logs/student_log.md` with dated entries.
 
 ## Task 2 — Hand-build the anonymization gold standard for ~100 excerpts (Weeks 2–5)
-This is the core deliverable. For **100 filings** (the AI will hand you a balanced list —
-50 pre-cutoff, 50 post-cutoff):
-- Start from the machine-anonymized text and **redact every remaining identity leak**:
+This is the core deliverable. Your **100 filings are listed in `data/interim/gold_sample_100.csv`**
+— a balanced draw of 50 pre-cutoff + 50 post-cutoff, selected from the full 220-filing pool in
+`data/interim/anon/` (that folder holds the *entire* sample, 110 + 110 — not your 100; work only
+from the `id`s in `gold_sample_100.csv`). Each row gives the `id`, `window`, company, and the paths
+to the machine-anonymized text (`anon_path`) and the original (`raw_path`). For each of the 100:
+- Start from the machine-anonymized text (`data/interim/anon/{id}.txt`) and **redact every remaining identity leak**:
   brand/product names, subsidiaries, named people, headquarters cities, unique
   self-descriptions. Replace with the same bracketed tokens the machine uses
   (`[COMPANY]`, `[PRODUCT]`, `[LOCATION]`, `[PERSON]`).
